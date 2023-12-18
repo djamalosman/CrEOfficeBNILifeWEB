@@ -1,0 +1,401 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = EofficeBNILWEB
+build_property.RootNamespace = EofficeBNILWEB
+build_property.ProjectDir = D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB
+build_property._RazorSourceGeneratorDebug = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Account/ForgetPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxGb3JnZXRQYXNzd29yZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/BackDate/DetailMemoBackDate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFja0RhdGVcRGV0YWlsTWVtb0JhY2tEYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/BackDate/MemoBackDate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFja0RhdGVcTWVtb0JhY2tEYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/BulkTemplate/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnVsa1RlbXBsYXRlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Document/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdW1lbnRcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Document/Detail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdW1lbnRcRGV0YWlsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Document/DocIn.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdW1lbnRcRG9jSW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Document/DocInDistribution.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdW1lbnRcRG9jSW5EaXN0cmlidXRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Document/DocumentReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdW1lbnRcRG9jdW1lbnRSZXBvcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Document/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdW1lbnRcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Document/LacakSuratKeluar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdW1lbnRcTGFjYWtTdXJhdEtlbHVhci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Document/NewArchive.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdW1lbnRcTmV3QXJjaGl2ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Document/OutgoingmailreportEksnKurir.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdW1lbnRcT3V0Z29pbmdtYWlscmVwb3J0RWtzbkt1cmlyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Document/ReceiveDocIn.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdW1lbnRcUmVjZWl2ZURvY0luLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Document/SearchOutgoingMail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdW1lbnRcU2VhcmNoT3V0Z29pbmdNYWlsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/GenerateNoDoc/DetailNotifikasiNonEoffice.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2VuZXJhdGVOb0RvY1xEZXRhaWxOb3RpZmlrYXNpTm9uRW9mZmljZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/GenerateNoDoc/DetailQrcode.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2VuZXJhdGVOb0RvY1xEZXRhaWxRcmNvZGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/GenerateNoDoc/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2VuZXJhdGVOb0RvY1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/GenerateNoDoc/RegisterExpeditionNonEoffcie.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2VuZXJhdGVOb0RvY1xSZWdpc3RlckV4cGVkaXRpb25Ob25Fb2ZmY2llLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/GenerateNoDoc/RegisterKurirNonEoffcie.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2VuZXJhdGVOb0RvY1xSZWdpc3Rlckt1cmlyTm9uRW9mZmNpZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/GenerateNoDoc/Viewbarcode.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2VuZXJhdGVOb0RvY1xWaWV3YmFyY29kZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/GenerateNoDoc/ViewQrcodeNonEoffice.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2VuZXJhdGVOb0RvY1xWaWV3UXJjb2RlTm9uRW9mZmljZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Home/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Home/LoginNew.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxMb2dpbk5ldy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Home/Menu.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxNZW51LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Home/UpdatePasswordLogin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxVcGRhdGVQYXNzd29yZExvZ2luLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Home/UserSetting.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxVc2VyU2V0dGluZy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Inbox/Arsip.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5ib3hcQXJzaXAuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Inbox/DetailArsip.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5ib3hcRGV0YWlsQXJzaXAuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Inbox/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5ib3hcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Inbox/Suratmasuk.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5ib3hcU3VyYXRtYXN1ay5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Inbox/SuratMasukSeketaris.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5ib3hcU3VyYXRNYXN1a1Nla2V0YXJpcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Inbox/Suratperintah.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5ib3hcU3VyYXRwZXJpbnRhaC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Inbox/Suratsppd.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5ib3hcU3VyYXRzcHBkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Inbox/Suratundangan.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5ib3hcU3VyYXR1bmRhbmdhbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Letter/DetailLetterSK.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGV0dGVyXERldGFpbExldHRlclNLLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Letter/DetailLetterSKBackdate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGV0dGVyXERldGFpbExldHRlclNLQmFja2RhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Letter/DetailLetterSM.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGV0dGVyXERldGFpbExldHRlclNNLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Letter/DetailSKDelivery.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGV0dGVyXERldGFpbFNLRGVsaXZlcnkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Letter/EofficeDeliveryReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGV0dGVyXEVvZmZpY2VEZWxpdmVyeVJlcG9ydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Letter/EofficeUserDeliveryReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGV0dGVyXEVvZmZpY2VVc2VyRGVsaXZlcnlSZXBvcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Letter/NewOutboxCommissioner.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGV0dGVyXE5ld091dGJveENvbW1pc3Npb25lci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Letter/ReadFtpServer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGV0dGVyXFJlYWRGdHBTZXJ2ZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Letter/SKDelivery.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGV0dGVyXFNLRGVsaXZlcnkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Letter/SuratKeluarBackdate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGV0dGVyXFN1cmF0S2VsdWFyQmFja2RhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Letter/ViewQrcodeEoffice.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGV0dGVyXFZpZXdRcmNvZGVFb2ZmaWNlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Memo/DetailMemo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtb1xEZXRhaWxNZW1vLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Memo/DetailMemoPengadaan.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtb1xEZXRhaWxNZW1vUGVuZ2FkYWFuLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Memo/DistributionMemo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtb1xEaXN0cmlidXRpb25NZW1vLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Memo/DraftMemo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtb1xEcmFmdE1lbW8uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Memo/MemoBackDateOld.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtb1xNZW1vQmFja0RhdGVPbGQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Memo/MemoPengadaan.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtb1xNZW1vUGVuZ2FkYWFuLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Memo/NewMemo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtb1xOZXdNZW1vLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/NonEofficeLetters/DetailLacakSuratKeluarNonEoffice.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTm9uRW9mZmljZUxldHRlcnNcRGV0YWlsTGFjYWtTdXJhdEtlbHVhck5vbkVvZmZpY2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/NonEofficeLetters/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTm9uRW9mZmljZUxldHRlcnNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/NonEofficeLetters/KurirReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTm9uRW9mZmljZUxldHRlcnNcS3VyaXJSZXBvcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/NonEofficeLetters/LacakSuratKeluarNonEoffice.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTm9uRW9mZmljZUxldHRlcnNcTGFjYWtTdXJhdEtlbHVhck5vbkVvZmZpY2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/NonEofficeLetters/ReportNonEoffice.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTm9uRW9mZmljZUxldHRlcnNcUmVwb3J0Tm9uRW9mZmljZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/NonEofficeLetters/ViewDetailsEKspedisi.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTm9uRW9mZmljZUxldHRlcnNcVmlld0RldGFpbHNFS3NwZWRpc2kuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/NonEofficeLetters/ViewDetailsKurir.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTm9uRW9mZmljZUxldHRlcnNcVmlld0RldGFpbHNLdXJpci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Outbox/Batal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3V0Ym94XEJhdGFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Outbox/Draft.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3V0Ym94XERyYWZ0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Outbox/EditDraft.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3V0Ym94XEVkaXREcmFmdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Outbox/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3V0Ym94XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Outbox/Send.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3V0Ym94XFNlbmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Outbox/Suratsppd.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3V0Ym94XFN1cmF0c3BwZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/SettingUser/AdminDivisi.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2V0dGluZ1VzZXJcQWRtaW5EaXZpc2kuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/SettingUser/AdminHct.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2V0dGluZ1VzZXJcQWRtaW5IY3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/SettingUser/AdminPengadaan.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2V0dGluZ1VzZXJcQWRtaW5QZW5nYWRhYW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/SettingUser/ApprovalDelegasi.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2V0dGluZ1VzZXJcQXBwcm92YWxEZWxlZ2FzaS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/SettingUser/ApprovalPengadaan.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2V0dGluZ1VzZXJcQXBwcm92YWxQZW5nYWRhYW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/SettingUser/ApprovalSignatureUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2V0dGluZ1VzZXJcQXBwcm92YWxTaWduYXR1cmVVc2VyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/SettingUser/DetailApprovalProfileUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2V0dGluZ1VzZXJcRGV0YWlsQXBwcm92YWxQcm9maWxlVXNlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/SettingUser/Emplsetposition.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2V0dGluZ1VzZXJcRW1wbHNldHBvc2l0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/SettingUser/FirtsTimeLogin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2V0dGluZ1VzZXJcRmlydHNUaW1lTG9naW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/SettingUser/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2V0dGluZ1VzZXJcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/SettingUser/ProfileUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2V0dGluZ1VzZXJcUHJvZmlsZVVzZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/SettingUser/Resetpassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2V0dGluZ1VzZXJcUmVzZXRwYXNzd29yZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/SettingUser/SecretarySetting.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2V0dGluZ1VzZXJcU2VjcmV0YXJ5U2V0dGluZy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/SettingUser/SetApprovalBod.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2V0dGluZ1VzZXJcU2V0QXBwcm92YWxCb2QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/SettingUser/SetDelegasi.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2V0dGluZ1VzZXJcU2V0RGVsZWdhc2kuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/SettingUser/SetPengadaan.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2V0dGluZ1VzZXJcU2V0UGVuZ2FkYWFuLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/SettingUser/SuperUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2V0dGluZ1VzZXJcU3VwZXJVc2VyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/SettingUser/Update.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2V0dGluZ1VzZXJcVXBkYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/SettingUser/UserSetting.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2V0dGluZ1VzZXJcVXNlclNldHRpbmcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Shared/Components/Menu/Menu.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcTWVudVxNZW51LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Shared/Components/Notification/Notification.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcTm90aWZpY2F0aW9uXE5vdGlmaWNhdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Shared/_lenguage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9sZW5ndWFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Template/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVtcGxhdGVcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/newbni/EOfficeBNILifeWEB/EofficeBNILWEB/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-r779fdi45h

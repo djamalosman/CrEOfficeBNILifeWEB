@@ -1,0 +1,382 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localiza
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@{
+    var sessidUser = Accessor.HttpContext.Session.GetString("idUser");
+    var sessidUnit = Accessor.HttpContext.Session.GetString("idUnit");
+    var en = Accessor.HttpContext.Session.GetString("en");
+    var ina = Accessor.HttpContext.Session.GetString("ina");
+
+}
+<!-- begin::Body -->
+<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
+    <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver    m-container m-container--responsive m-container--xxl m-page__container">
+        <div class="m-grid__item m-grid__item--fluid m-wrapper">
+            <!-- BEGIN: Subheader -->
+            <div class="m-subheader ">
+                <div class="d-flex align-items-center">
+                    <div class="mr-auto" style="color: white;">
+                        <h3 class="m-subheader__title m-subheader__title--separator" style="color: white;">
+                            @(en != null ? "Setting Procurement" : "Pengaturan Pengadaan")
+                        </h3>
+                        <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                            <li class="m-nav__item m-nav__item--home">
+                                <a href="#" class="m-nav__link m-nav__link--icon">
+                                    <i class="m-nav__link-icon la la-home" style="color: white;"></i>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        @(en != null ? "Other" : "Lainnya")
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        @(en != null ? "Settings" : "Pengaturan")
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        @(en != null ? "Setting Procurement" : "Pengaturan Pengadaan")
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Subheader -->
+            <div class="m-content" style="padding: 30px 30px !important;">
+                <!--Begin::Main Portlet-->
+                <div class="m-portlet m-portlet--full-height ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <h5> @(en != null ? "Setting Procurement" : "Pengaturan Pengadaan")</h5>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        <form method="post" onsubmit="return validatePass()">
+                             <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">Nama Pengadaan</label>
+                                <div class="col-sm-4">
+                                     <input type="text" hidden id="id" name="id" class="form-control" >       
+                                    <input type="text" id="name" name="name" class="form-control">                                 
+                                </div>
+                               
+
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">Min Nominal </label>
+                                <div class="col-sm-4">
+                                    <input type="Number" value=0 id="min_nominal" name="min_nominal" class="form-control">                                 
+                                </div>
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">Max Nominal </label>
+                                <div class="col-sm-4">
+                                    <input type="Number" value=0 id="max_nominal" name="max_nominal" class="form-control">                                 
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+   
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">&nbsp; Persetujuan 1</label>
+                                <div class="col-sm-4">
+                                   <select class="select2-search select2-search--dropdown form-control" id="approver1" name="approver1">
+                                        <option id="id_approver1" value="">--@(en != null ? "Select Approver 1 " : "Pilih User")--</option>
+                                        @foreach (var item in ViewBag.SelectSuperUser)
+                                        {
+                                            <option value="@item.Iduser">@item.Nip - @item.Fullname - @item.unitName</option>
+                                        }
+                                    </select>
+                                </div>
+
+                                  <label for="inputEmail3" class="col-sm-1 col-form-label">&nbsp; Persetujuan 2</label>
+                                <div class="col-sm-4">
+                                    <select class="select2-search select2-search--dropdown form-control" id="approver2" name="approver2">
+                                        <option id="id_approver2" value="">--@(en != null ? "Select Approver 2" : "Pilih User")--</option>
+                                        @foreach (var item in ViewBag.SelectSuperUser)
+                                        {
+                                            <option value="@item.Iduser">@item.Nip - @item.Fullname - @item.unitName</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-form-label">&nbsp;</label>
+                                <div class="col-sm-2">
+                                    <button class="btn btn-primary" id="btncari" onclick="SubmitData()">Submit</button>
+                                    <button class="btn btn-danger" id="btnreset" onclick="ClearData()">Clear</button>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+               <div class="m-portlet m-portlet--full-height ">
+                    <div class="m-portlet__body">
+
+                        <div class="table-responsive">
+                            <table id="myTablee" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>NO</th>
+                                        <th hidden >@(en != null ? "Id" : "Id")</th>
+                                        <th>@(en != null ? "Name" : "Nama")</th>                                        
+                                        <th>@(en != null ? "Min Nominal" : "Min Nominal")</th>
+                                        <th>@(en != null ? "Max Nominal" : "Max Nominal")</th>
+                                        <th>@(en != null ? "Persetujuan 1 " : "Persetujuan 1")</th>
+                                        <th>@(en != null ? "Persetujuan 2 " : "Persetujuan 2")</th>
+                                        <th>@(en != null ? "Status" : "Status")</th>                                        
+                                        <th>@(en != null ? "Action" : "Aksi")</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!--End::Main Portlet-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">              
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                 <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">Name Pengadaan</label>
+                                <div class="col-sm">
+                                     <input hidden type="text" id="modal_id" name="modal_id" class="form-control" >       
+                                    <input type="text" id="modal_name" name="modal_name" class="form-control">                                 
+                                </div>
+                               
+
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">Min Nominal </label>
+                                <div class="col-sm-4">
+                                    <input type="Number" value=0 id="modal_min_nominal" name="modal_min_nominal" class="form-control">                                 
+                                </div>
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">Max Nominal </label>
+                                <div class="col-sm-4">
+                                    <input type="Number" value=0 id="modal_max_nominal" name="max_nominal" class="form-control">                                 
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+   
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">&nbsp; Persetujuan 1</label>
+                                <div class="col-sm-4">
+                                    <input type="text" id="modal_persetujuan1" name="modal_persetujuan1" class="form-control">   
+                                 
+                                </div>
+
+                                  <label for="inputEmail3" class="col-sm-1 col-form-label">&nbsp; Persetujuan 2</label>
+                                <div class="col-sm-4">
+                                       <input type="text" id="modal_persetujuan2" name="modal_persetujuan2" class="form-control">   
+                                </div>
+                            </div>                          
+            </div>
+            <div class="modal-footer test">
+                <div style='float: right;'>
+                    <button type="button" class="btn btn-danger flaticon-close" data-dismiss="modal">&nbsp;Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="~/assets/datatablenew/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+<script src="~/assets/demo/demo2/new_theme/js/jquery-3.1.1.min.js" type="text/javascript"></script>
+<script src="~/assets/datatablenew/jquery.dataTables.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var unit = "@sessidUnit";
+        var actionLink = '@Url.ActionLink("DeleteAdminPengadaan","SettingUser")';
+        $('#myTablee').DataTable(
+            {
+             scrollY: true,
+             scrollX: true,
+                ajax: {
+                    url: "GetSetPengadaanList",
+                    type: "POST",
+                },
+                processing: true,
+                serverSide: true,
+                filter: true,
+                columns: [
+                    {
+                        data: null,
+                        sortable: false,
+                        name: "Id",
+                        render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    { data: "Id", name: "Id" , visible : false},
+                    { data: "NAME_PENGADAAN", name: "NAME_PENGADAAN" },                    
+                    { data: "MIN_NOMINAL", name: "MIN_NOMINAL" },
+                    { data: "MAX_NOMINAL", name: "MAX_NOMINAL" },
+                    { data: "APPROVER_NAME", name: "APPROVER_NAME" },
+                    { data: "APPROVER2_NAME", name: "APPROVER2_NAME" },
+                    { data: "STATUS", name: "STATUS" },
+
+
+                    
+        
+
+
+       
+                    {
+                        data: null,
+                        sortable: false,
+                        name: "Id",
+                        render: function (data, type, row, meta) {
+                            //var html = '<a class="btn btn-danger" id="btn-delete" data-id="' + row.Id + '" href="' + actionLink + '/' + row.Id + '" style="line-height: 5px; color:white;">Delete</a>  <button class="btn btn-primary" id="btn-edit" data-id="' + row.Id + '" style="line-height: 5px; color:white;">Edit</button>  <button class="btn btn-success" data-toggle="modal" data-target="#modalview" id="btn-view" data-id="' + row.Id + '" style="line-height: 5px; color:white;">View</button>'
+                            var html = '<button class="btn btn-primary" id="btn-edit" data-id="' + row.Id + '" style="line-height: 5px; color:white;">Edit</button> '
+                            return html;
+                        }
+                    },
+
+                ]
+            });
+    });
+
+
+   $(document).on("click", "#btn-edit", function(e) {  
+         var table = document.getElementById("myTablee");
+          let post_id = $(this).data('id');
+
+      for (var i = 1; i < table.rows.length; i++) {
+        table.rows[i].onclick = function () {
+
+          document.getElementById("id").value  =post_id;
+          document.getElementById("name").value  = this.cells[1].innerHTML;
+          document.getElementById("min_nominal").value = this.cells[2].innerHTML;
+          document.getElementById("max_nominal").value = this.cells[3].innerHTML;
+          document.getElementById("id_approver1").text = this.cells[4].innerHTML;
+          document.getElementById("id_approver2").text = this.cells[5].innerHTML;
+
+
+        };
+      }
+      
+    });
+
+
+
+    
+     $(document).on("click", "#btn-view", function(e) {  
+         var table = document.getElementById("myTablee");
+          let id = $(this).data('id');
+
+         $.ajax({
+                url: "@Url.Action("GetDataPengadaanView","SettingUser")",
+                method: "POST",
+                data: { id: id },
+                success: function (msg) {
+                         var data = JSON.parse(msg);
+                 
+
+
+          document.getElementById("modal_name").value  = data.Result[0].namE_PENGADAAN;
+          document.getElementById("modal_min_nominal").value = data.Result[0].miN_NOMINAL;
+          document.getElementById("modal_max_nominal").value = data.Result[0].maX_NOMINAL;
+          document.getElementById("modal_persetujuan1").value = data.Result[0].approveR_NAME;
+          document.getElementById("modal_persetujuan2").value = data.Result[0].approveR2_NAME;
+
+
+                }
+            });
+      
+    });
+
+    function ClearData(){
+          document.getElementById("id").value  ="";
+          document.getElementById("name").value  ="";
+          document.getElementById("min_nominal").value = "";
+          document.getElementById("max_nominal").value = "";
+          document.getElementById("id_approver1").text = "";
+          document.getElementById("id_approver2").text = "";
+    }
+
+    function SubmitData() {
+        var id = document.getElementById("id").value;
+        var name = document.getElementById("name").value;
+        var min_nominal = document.getElementById("min_nominal").value;
+        var max_nominal = document.getElementById("max_nominal").value;
+        var approver1 = document.getElementById("approver1").value;
+        var approver2 = document.getElementById("approver2").value;
+
+           var param = {
+            id:id,
+            name: name,
+            min_nominal: min_nominal,
+            max_nominal: max_nominal,
+            approver1: approver1,
+            approver2: approver2,
+        };
+        if ( name == "" || name == null || max_nominal == '' || min_nominal == '') {
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Validasi',
+                text: 'Terdapat data yang harus diisi!',
+                showConfirmButton: false,
+                timer: 1500,
+                onBeforeOpen: () => {
+                    timerInterval = setInterval(() => {
+                        const content = Swal.getContent()
+                        if (content) {
+                            const b = content.querySelector('b')
+                            if (b) {
+                                b.textContent = Swal.getTimerLeft()
+                            }
+                        }
+                    }, 100)
+                },
+                onClose: () => {
+                    clearInterval(timerInterval)
+                }
+            }).then((result) => {
+                /* Read more about handling dismissals below */
+            })
+        }else {
+
+                   $.post('@Url.Action("InsertPengadaan", "SettingUser")', param, function (result) {
+                    var data = JSON.parse(result);
+                    //console.log(data);
+                    id = '';
+                    $.unblockUI();
+                    window.location.reload();
+
+                    });
+            }
+     
+
+        
+
+     
+
+    }
+</script>

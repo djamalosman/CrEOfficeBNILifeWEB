@@ -1,0 +1,591 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localiza
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@{
+    var sessidUser = Accessor.HttpContext.Session.GetString("idUser");
+    var sessidUnit = Accessor.HttpContext.Session.GetString("idUnit");
+    var en = Accessor.HttpContext.Session.GetString("en");
+    var ina = Accessor.HttpContext.Session.GetString("ina");
+    string strSpacer = "&nbsp;&nbsp;";
+    int no = 1;
+}
+<style>
+    .hide {
+  display: none;
+}
+</style>
+<!-- begin::Body -->
+<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
+    <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver    m-container m-container--responsive m-container--xxl m-page__container">
+        <div class="m-grid__item m-grid__item--fluid m-wrapper">
+            <!-- BEGIN: Subheader -->
+            <div class="m-subheader ">
+                <div class="d-flex align-items-center">
+                    <div class="mr-auto" style="color: white;">
+                        <h3 class="m-subheader__title m-subheader__title--separator" style="color: white;">
+                            @(en != null ? "COURIER" : "KURIR")
+                        </h3>
+                        <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                            <li class="m-nav__item m-nav__item--home">
+                                <a href="#" class="m-nav__link m-nav__link--icon">
+                                    <i class="m-nav__link-icon la la-home" style="color: white;"></i>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        MAILING ROOM
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        @(en != null ? "NON E-OFFICE DOCUMENTS" : "DOKUMEN NON E-OFFICE")
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        @(en != null ? "COURIER" : "KURIR")
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Subheader -->
+            <div class="m-content" style="padding: 30px 30px !important;">
+                <!--Begin::Main Portlet-->
+                <div class="m-portlet m-portlet--full-height ">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home">
+                                <span class="nav-icon">
+                                    <i class="flaticon2-file-1"></i>
+                                </span>
+                                <span class="nav-text">Manual</span>
+                            </a>
+                        </li>
+                       
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade active show" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="m-portlet__body">
+                                @* <form asp-action="ExportExcel" target="_blank">*@
+                                    @*<div>
+                                        <button class="btn btn-primary float-left" data-toggle="modal" data-target="#my-modal3" id="btncari">Export</button>
+                                    </div>*@
+                                @* </form>*@
+                                <br />
+                                <br />
+                                <br />
+                                <div class="table-responsive">
+                                    <table id="myTablee" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "No" : "No")</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Receipt Number" : "Nomor Resi")</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Letter Number" : "Nomor Surat")</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Receipt Date" : "Tanggal Pengirim")</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Delivery Type" : "Tipe Jenis Antaran")</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Courier Name" : "Nama Kurir")</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Sender Name" : " Nama Pengirim")</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "NPP" : "NPP")</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Phone Number" : "Nomor Telepon")</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Division" : "Divisi")</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Destination Name" : "Penerima")</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Destination Address" : "Alamat Tujuan")</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Receiver Name" : "Nama Penerima")</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Receiver Date" : "Tanggal Penerima")</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Delivery status" : "Status pengiriman")</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Create By" : "Dibuat oleh")</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Updated By" : "Diubah oleh")</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Action" : "Aksi")</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in ViewBag.AllNonLetter)
+                                            {
+                                                        <tr>
+                                                            <td>@no</td>
+                                                            <td>@item.qrcodenumber</td>
+                                                            <td>@item.letter_number</td>
+                                                            <td>@item.ReceiptDate.ToString("dd-MM-yyyy")</td>
+                                                            <td>@(item.type_report == 1 ? "DELIVERY ORDER" : "PICKUP")</td>
+                                                            <td>@item.expedition_name</td>
+                                                            <td>@item.sender_name</td>
+                                                            <td>@item.nip</td>
+                                                            <td>@item.phonenumber</td>
+                                                            <td>@item.unitname</td>
+                                                            <td>@item.docReceiver</td>
+                                                            <td>@item.address</td>
+                                                            <td>@item.purposename</td>
+
+                                                            @if (@item.statuskirim == 3)
+                                                            {
+                                                                <td>@item.tgluntil</td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td></td>
+                                                            }
+                                                            <td>
+                                                                    @if (@item.statuskirim == 1)
+                                                                    {
+                                                                        @(en != null ? "Process" : "Proses")
+                                                            
+                                                                    }else if(@item.statuskirim == 2)
+                                                                    {
+                                                                        @(en != null ? "Return" : "Dikembalikan")
+                                                                    }else{
+                                                                        @(en != null ? "Done" : "Selesai Antar")
+                                                                    }
+                                                           
+                                                            </td>
+                                                        <td>@item.cretaeby</td>
+                                                        <td>@item.updateby</td>
+                                                        <td>
+                                                            <div class="btn-group">
+                                                                @if (@item.statuskirim == 3)
+                                                                {
+                                                                    @if (@item.qrcodenumber != null || @item.qrcodenumber =="")
+                                                                    {
+                                                                        <a class="passingqrcode btn btn-danger" href="@Url.Action("DetailQrcode", "GenerateNoDoc",new{ id = @item.letter_number})" target="_blank" style="line-height: 5px; color:white; background-color:#225999 !important">View</a>
+                                                                    }else
+                                                                    {
+                                                                    <a class="passingqrcode btn btn-danger" data-id="@item.idmailingnoneoffice" data-toggle="modal" data-target="#my-modal2" href="#" style="line-height: 5px; color:white; background-color:#225999 !important">Resi</a>
+                                                                    }
+                                                                    
+                                                                }else{
+                                                                
+                                                                    @if (@item.qrcodenumber != null || @item.qrcodenumber =="")
+                                                                    {
+                                                                    <a class="btn btn-danger passingID2"
+                                                                       data-id="@item.letter_number"
+                                                                       data-title="@item.idmailingnoneoffice"
+                                                                       data-toggle="modal"
+                                                                       data-target="#my-modal4"
+                                                                       href="#"
+                                                                       style="line-height: 5px; color:white; background-color:#225999 !important">
+                                                                        Edit
+                                                                    </a>
+                                                                        @Html.Raw(strSpacer)
+                                                                    <a class="passingqrcode btn btn-danger" href="@Url.Action("DetailQrcode", "GenerateNoDoc",new{ id = @item.idmailingnoneoffice})" target="_blank" style="line-height: 5px; color:white; background-color:#225999 !important">View Resi</a>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                            <a class="btn btn-danger passingID2" data-id="@item.letter_number" data-title="@item.idmailingnoneoffice" data-toggle="modal" data-target="#my-modal4" href="#" style="line-height: 5px; color:white; background-color:#225999 !important">Edit</a>
+                                                                                @Html.Raw(strSpacer)
+                                                                    <a class="passingqrcode btn btn-danger" data-id="@item.idmailingnoneoffice" data-toggle="modal" data-target="#my-modal2" href="#" style="line-height: 5px; color:white; background-color:#225999 !important">Resi</a>
+                                                                    }
+                                                                }
+                                                                   
+                                                            </div> 
+                                                        </td>
+                                                            
+                                                        </tr>
+                                                no++;
+                                            }
+                                        </tbody>
+                                    </table>
+                                   
+                                    <div class="modal fade" id="my-modal4" tabindex="-1" role="dialog" aria-labelledby="my-modal4" aria-hidden="true">
+                                      <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">@(en != null ? "Courier Delivery Status Update" : "Update Status Pengiriman Kurir")</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                          </div>
+                                          <div class="modal-body">
+                                              <form method="post" asp-action="UpdateKurirLetterNonEoffice" asp-controller="GenerateNoDoc" >
+                                                        <div class="form-group">
+                                                            <label for="edit-letter-number">Letter Number:</label>
+                                                            <input type="text" class="form-control" name="letter_number" id="edit-letter-number" />
+                                                        </div>
+
+                                                        <!-- Gunakan elemen <input> untuk mengedit nilai ID Mailing None Office -->
+                                                        <div class="form-group" hidden>
+                                                            <label for="edit-id-mailing">ID Mailing None Office:</label>
+                                                            <input  type="text" name="idmailingnoneoffice" class="form-control" id="edit-id-mailing" />
+                                                        </div>
+                                                    <div class="form-group">
+                                                        <label for="password1">&nbsp; @(en != null ? "Recipient's Name" : "Nama Penerima")</label>
+                                                            <input type="text" class="form-control" id="docReceiver" name="docReceiver" required autocomplete="off">
+                                                    </div>
+                                                    <div class="from-group">
+                                                            <label for="password1">&nbsp;@(en != null ? "Receipt Date" : "Tanggal Penerima")</label>
+                                                            <input type="text" autocomplete="off" class="form-control" required id="m_datepicker_1" name="startDate" onchange="myChangeFunction2(this)">
+                                                    </div>
+                                                    <br />
+                                                    <div class="form-group">
+                                                        <label for="password1">@(en != null ? "Letter Send Status" : "Status Pengiriman Surat")</label>
+                                                            <select class="form-control select2-selection__rendered" id="statuskirim" name="statuskirim" required>
+                                                               <option value="">--@(en != null ? "Letter Send Status" : "Pilih Status Pengiriman Surat")--</option>
+                                                                @*@foreach (var item in ViewBag.StatusSend)
+                                                                {
+                                                                   <option value="@item.attributeValue">@item.value</option>
+                                                                }*@
+                                                                <option value="1">@(en != null ? "Process" : "Proses")</option>
+                                                                <option value="2">@(en != null ? "Return" : "Dikembalikan")</option>
+                                                                <option value="3">@(en != null ? "Done" : "Selesai Antar")</option>
+                                                            </select>
+                                                    </div>
+                                                    <div class="modal-footer border-top-0 d-flex justify-content-center">
+                                                        <div class="btn-group">
+                                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                        </div>
+                                                    </div>
+                                             </form>
+                                          </div>
+
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    <div class="modal fade" id="my-modal2" tabindex="-1" role="dialog" aria-labelledby="my-modal2" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <div class="modal-header">
+                                                        <h3 class="modal-title" id="exampleModalLabel">@(en != null ? "Do you want to generate qrcode?" : "Apakah Anda Ingin Generate Qrcode?")</h3>
+                                                    </div>
+                                                    <form  asp-action="ViewQrcodeNonEoffice" asp-controller="GenerateNoDoc">
+                                                        <input type="text" hidden class="form-control" name="letter_number" id="qrcode" readonly>
+                                                        <input type="text" hidden class="form-control" name="idmailingnoneoffice" id="qrcode" readonly>
+                                                         <div class="modal-footer border-top-0 d-flex justify-content-center">
+                                                            <button type="submit" class="btn btn-primary">Yes</button>
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal fade" id="my-modal3" tabindex="-1" role="dialog" aria-labelledby="my-modal3" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Report</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post" asp-action="ExportExcelKurirNonEoffice" asp-controller="GenerateNoDoc" target="_blank">
+                                                        <div class="form-group">
+                                                            <input type="text" hidden value="1" class="form-control" name="trackingNumber" id="trackingNumber">
+                                                            <label for="inputEmail3" class="col-sm-3 col-form-label">&nbsp;@(en != null ? "Start Date" : "Tanggal Awal")</label>
+                                                            <input type="text" autocomplete="off" class="form-control" id="m_datepicker_1" name="startDate" onchange="myChangeFunction2(this)">
+                                                            <label for="inputEmail3" class="col-sm-3 col-form-label">&nbsp;@(en != null ? "End Date" : "Tanggal Akhir")</label>
+                                                            <input type="text" autocomplete="off" class="form-control" id="m_datepicker_1" name="endDate" onchange="myChangeFunction3(this)">
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <input type="text" hidden value="2" class="form-control" name="delivery_type" id="delivery_type">
+                                                            <label for="password1">@(en != null ? "Delivery Type" : "Tipe Jenis Antaran")</label>
+                                                            <select class="form-control select2-selection__rendered" id="type_report" name="type_report" required>
+                                                                <option value="">--@(en != null ? "Delivery Type" : "Pilih Tipe Jenis Antaran")--</option>
+
+                                                                @foreach (var item in ViewBag.DeliveryType)
+                                                                {
+                                                                        <option value="@item.attributeValue">@item.value</option>
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                        <div class="modal-footer border-top-0 d-flex justify-content-center">
+                                                            <div class="btn-group">
+                                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <br />
+                                <br />
+                                <br />
+                                <form method="post">
+                                    @*<div class="form-group row">
+                                            <label for="inputEmail3" class="col-sm-2 col-form-label">&nbsp; Jenis Dokumen</label>
+                                            <div class="col-sm-4">
+                                                <select class="form-control select2-selection__rendered" id="documentType" name="documentType" required>
+                                                    <option value="">--Pilih Tipe Dokumen--</option>
+                                                    @foreach (var item in ViewBag.DocumentType)
+                                                    {
+                                                        <option value="@item.attributeValue">@item.value</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>*@
+                                        <div class="form-group row">
+                                            <label for="inputtext3" class="col-sm-2 col-form-label">&nbsp; @(en != null ? "letter number" : "Nomor Surat")</label>
+                                            <div class="col-sm-4">
+                                            @*<select class="form-control select2-selection__rendered" id="letter_number" name="letter_number">
+                                                <option value="">-- @(en != null ? "Select letter number" : " Pilih Nomor Surat")Pilih No Surat--</option>
+                                                    <option value="12345">12345</option>
+                                                    <option value="45678">45678</option>
+                                                </select>*@
+                                                <input type="text" id="letter_number" autocomplete="off" name="letter_number" class="form-control ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                        <label for="inputtext3" class="col-sm-2 col-form-label">&nbsp; @(en != null ? "Receipt Date" : "Tanggal Diterima")</label>
+                                            <div class="col-sm-4">
+                                                <input type="text" class="form-control" autocomplete="off" id="ReceiptDate" name="ReceiptDate" value="@Convert.ToDateTime(DateTime.Now).ToString("dd-MM-yyyy")" readonly="readonly" style="background-color: #e6e9ec;">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                        <label for="inputtext3" class="col-sm-2 col-form-label">&nbsp; @(en != null ? "Delivery Type" : "Tipe Jenis Antaran")</label>
+                                            <div class="col-sm-4">
+                                            <input type="text" class="form-control" hidden id="delivery_type" name="delivery_type" required class="form-control ui-autocomplete-input" value="2" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+                                                <select class="form-control select2-selection__rendered" id="type_report" name="type_report">
+                                                <option value="">-- @(en != null ? " Select Delivery Type" : "Pilih Tipe Jenis Antaran")--</option>
+                                                @foreach (var item in ViewBag.DeliveryType)
+                                                {
+                                                            <option value="@item.attributeValue">@item.value</option>
+                                                }
+                                                @*<option value="001">Ekspedisi</option>
+                                                    <option value="002">Kurir</option>*@
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                        <label for="inputpassword3" class="col-sm-2 col-form-label">&nbsp; @(en != null ? "Courier Name" : "Nama Kurir")</label>
+                                            <div class="col-sm-4">
+                                            <input type="text" class="form-control" id="expedition_Name" name="expedition_name" required class="form-control ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+                                            </div>
+                                        </div>
+
+                                    @*<div class="form-group row">
+                                            <label for="inputpassword3" class="col-sm-2 col-form-label">&nbsp; Nomor Referal</label>
+                                            <div class="col-sm-4">
+                                                <input type="text" class="form-control" id="nmrreferal" name="nmrreferal" required>
+                                            </div>
+                                        </div>*@
+
+                                        <div class="form-group row">
+                                        <label for="inputpassword3" class="col-sm-2 col-form-label">&nbsp; @(en != null ? "Sender Name" : "Nama Pengirim")</label>
+                                            <div class="col-sm-4">
+                                            <input type="text" class="form-control" id="sender_name" name="sender_name" required autocomplete="off">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-2 col-form-label">&nbsp; @(en != null ? "Division" : "Divisi")</label>
+                                            <div class="col-sm-4">
+                                                <select class="form-control select2-selection__rendered" id="idUnitSelect" name="idUnitSelect" required disabled onchange="changeReceiver(this.value)">
+                                                <option value="">--@(en != null ? "Division" : "Divisi")--</option>
+                                                @foreach (var item in ViewBag.Divison)
+                                                {
+                                                            <option value="@item.idUnit">@item.unitName</option>
+
+                                                }
+                                                </select>
+                                            <input type="hidden" class="form-control" id="idUnit" name="idUnit">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                        <label for="inputpassword3" class="col-sm-2 col-form-label">&nbsp; @(en != null ? "Destination 's Name" : "Penerima")</label>
+                                            <div class="col-sm-4">
+                                            <input type="text" class="form-control" id="docReceiver" name="docReceiver" autocomplete="off">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="inputpassword3" class="col-sm-2 col-form-label">&nbsp; @(en != null ? "Phone Number" : "Nomor Telepon")</label>
+                                            <div class="col-sm-4">
+                                            <input type="text" class="form-control" id="phonenumber" name="phonenumber" autocomplete="off">
+                                            </div>
+                                        </div>
+                                        @*<div class="form-group row">
+                                        <label for="inputpassword3" class="col-sm-2 col-form-label">&nbsp; @(en != null ? "Reference Number" : "Nomor Referensi")</label>
+                                            <div class="col-sm-4">
+                                                <input type="text" class="form-control" id="nmrreferen" name="nmrreferen">
+                                            </div>
+                                        </div>*@
+                                        <div class="form-group row">
+                                        <label for="inputpassword3" class="col-sm-2 col-form-label">&nbsp; @(en != null ? "Address" : "Alamat")</label>
+                                            <div class="col-sm-4">
+                                                <textarea id="w3review" name="address" rows="4" cols="50"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                        <label for="inputtext3" class="col-sm-2 col-form-label">&nbsp; @(en != null ? "Letter Send Status" : "Status Pengiriman Surat")</label>
+                                            <div class="col-sm-4">
+                                                <select class="form-control select2-selection__rendered" id="statuskirim" name="statuskirim" required>
+                                                <option value="">--@(en != null ? "Letter Send Status" : "Pilih Status Pengiriman Surat")--</option>
+                                                @*@foreach (var item in ViewBag.StatusSend)
+                                                {
+                                                                <option value="@item.attributeValue">@item.value</option>
+                                                }*@
+                                                <option value="1">@(en != null ? "Process" : "Proses")</option>
+                                                <option value="2">@(en != null ? "Return" : "Dikembalikan")</option>
+                                                <option value="3">@(en != null ? "Done" : "Selesai Antar")</option>
+                                                </select>
+                                          
+                                            </div>
+                                        </div>
+                                    <div class="tab-content">
+                                        <button class="btn btn-success" type="submit">Submit</button>
+                                        <br>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <!--End::Main Portlet-->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: Body -->
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#myTablee').DataTable(
+        {
+            scrollY: true,
+             scrollX: true,
+        });
+         
+
+    });
+    $(document).on("click", ".passingID2", function () {
+        var letterNumber = $(this).data('id');
+        var idMailingNoneOffice = $(this).data('title');
+
+        // Isi nilai ke dalam elemen input modal
+        $("#edit-letter-number").val(letterNumber);
+        $("#edit-id-mailing").val(idMailingNoneOffice);
+    });
+    $(document).on("click", ".passingID", function () {
+        var ids = $(this).attr('data-id');
+        $(".modal-body #letter_number").val(ids);
+    });
+
+    //$(document).on("click", ".passingID2", function () {
+    //    var ids = $(this).attr('data-id');
+    //    $(".modal-body #letter_number").val(ids);
+    //});
+
+      $(document).on("click", ".passingqrcode", function () {
+        var ids = $(this).attr('data-id');
+        $(".modal-body #qrcode").val(ids);
+    });
+
+    window.addEventListener("load", () => { // when the page loads
+        document.getElementById("delivery_type").addEventListener("change", function () {
+            document.getElementById("profile-tab").classList.toggle("hide", this.value === "2")
+        })
+    })
+
+    function changeReceiver(val) {
+        var value = val.split(" _ ");
+        if (val != "") {
+            document.getElementById("idUnit").value = value[0];
+            document.getElementById("receiverName").value = value[2];
+        }
+        else {
+            document.getElementById("receiverName").value = "";
+            document.getElementById("idUserTu").value = "";
+        }
+
+    }
+
+    $("#sender_name").autocomplete({
+        minLength: 3,
+        source: function (req, res) {
+            $.ajax({
+                url: "@Url.Action("GetUserCopy","GenerateNoDoc")",
+                method: "POST",
+                data: { keyword: req.term },
+                success: function (msg) {
+                    var data = JSON.parse(msg);
+                    var d = $.map(data, function (row) {
+                        return {
+                            label: row.userName + " - " + row.nip,
+                            value: row.idUnit + " _ " + row.idUser + " _ " + row.userName
+                        }
+                    });
+                    res(d);
+                }
+            });
+        },
+        focus: function (event, ui) {
+            $("#sender_name").val(ui.item.label);
+
+            return false;
+        },
+        select: function (event, ui) {
+            $("#sender_name").val(ui.item.label);
+            var select = document.querySelector('#idUnitSelect');
+            var splitValue = ui.item.value.split(" _ ");
+            console.log(splitValue[0])
+            $('#idUnitSelect option').filter(function () {
+                return $.trim($(this).val()).includes(splitValue[0]);
+            }).prop('selected', true);
+            select.dispatchEvent(new Event('change'));
+
+            return false;
+        }
+    });
+
+    $("#expedition_Name").autocomplete({
+        minLength: 3,
+        source: function (req, res) {
+            $.ajax({
+                url: "@Url.Action("GetKurirCopy","GenerateNoDoc")",
+                method: "POST",
+                data: { keyword: req.term },
+                success: function (msg) {
+                    var data = JSON.parse(msg);
+
+                    var d = $.map(data, function (row) {
+                        return {
+                            label: row.expedition_name,
+                            value: row.expedition_name
+                        }
+                    });
+                    res(d);
+                }
+            });
+        },
+        focus: function (event, ui) {
+            $("#expedition_Name").val(ui.item.label);
+
+            return false;
+        }
+
+
+    });
+    function myChangeFunction2(input2) {
+        var input2 = document.getElementById('m_datepicker_1');
+        datestart.value = input2.value;
+    }
+    function myChangeFunction3(input3) {
+        var input22 = document.getElementById('m_datepicker_1');
+        dateend.value = input3.value;
+    }
+
+</script>

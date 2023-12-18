@@ -1,0 +1,194 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localiza
+@using Microsoft.AspNetCore.Http
+@model EofficeBNILWEB.Models.OutputDetailApprovalSignature
+@inject IHttpContextAccessor Accessor
+@{
+
+    var en = Accessor.HttpContext.Session.GetString("en");
+    var ina = Accessor.HttpContext.Session.GetString("ina");
+    var urlApproval = @Url.ActionLink("ApprovalSignatureOneData", "SettingUser");
+    var urlReject = @Url.ActionLink("RejectSignatureOneData", "SettingUser");
+
+}
+<!-- begin::Body -->
+<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
+    <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver    m-container m-container--responsive m-container--xxl m-page__container">
+        <div class="m-grid__item m-grid__item--fluid m-wrapper">
+            <!-- BEGIN: Subheader -->
+            <div class="m-subheader ">
+                <div class="d-flex align-items-center">
+                    <div class="mr-auto" style="color: white;">
+                        <h3 class="m-subheader__title m-subheader__title--separator" style="color: white;">
+                            @(en != null ? "Signature Approval" : "Persetujuan Tanda Tangan")
+                        </h3>
+                        <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                            <li class="m-nav__item m-nav__item--home">
+                                <a href="#" class="m-nav__link m-nav__link--icon">
+                                    <i class="m-nav__link-icon la la-home" style="color: white;"></i>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        @(en != null ? "NOTIFICATIONS" : "NOTIFIKASI")
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        @(en != null ? "Signature Approval" : "Persetujuan Tanda Tangan")
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Subheader -->
+            <div class="m-content" style="padding: 30px 30px !important;">
+                <!--Begin::Main Portlet-->
+
+                <div class="m-portlet m-portlet--full-height ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            @(en != null ? "Signature Approval" : "Persetujuan Tanda Tangan")
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+
+                        <div class="table-responsive">
+                            <style>
+                                .popup {
+                                    text-align: center
+                                }
+
+                                    .popup img {
+                                        width: 50px;
+                                        height: 25px;
+                                        cursor: pointer
+                                    }
+
+                                .show {
+                                    z-index: 999;
+                                    display: none;
+                                }
+
+                                    .show .overlay {
+                                        width: 100%;
+                                        height: 100%;
+                                        background: rgba(0,0,0,.66);
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;
+                                    }
+
+                                    .show .img-show {
+                                        width: 600px;
+                                        height: 400px;
+                                        background: #FFF;
+                                        position: absolute;
+                                        top: 50%;
+                                        left: 50%;
+                                        transform: translate(-50%,-50%);
+                                        overflow: hidden
+                                    }
+
+                                .img-show span {
+                                    position: absolute;
+                                    top: 10px;
+                                    right: 10px;
+                                    z-index: 99;
+                                    cursor: pointer;
+                                }
+
+                                .img-show img {
+                                    width: 100%;
+                                    height: 100%;
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                }
+                                /*End style*/
+                            </style>
+                            <table id="myTable" class="table table-bordered table-striped" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">No</th>
+                                        <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Nip" : "Nip")</th>
+                                        <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Full Name" : "Nama Lengkap")</th>
+                                        <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Position" : "Jabatan")</th>
+                                        <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Division" : "Divisi")</th>
+                                        <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Image" : "Gambar")</th>
+                                        <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Status" : "Status")</th>
+                                        <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Action" : "Aksi")</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                   
+                                        <tr>
+                                            <td>1</td>
+                                            <td>@Model.Signature.nip</td>
+                                            <td>@Model.Signature.fullname</td>
+                                            <td>@Model.Signature.PositionName</td>
+                                            <td>@Model.Signature.UnitName</td>
+                                            <td class="popup">
+                                                <img alt="@Model.Signature.NameImage" id="image" src="~/uploads/imgsignature/@Model.Signature.NameImage" width="50" height="25" class="kt-header__brand-logo-sticky" />
+                                            </td>
+                                            <td>
+                                                <b>Menunggu persetujuan</b>
+                                            </td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <a class="btn btn-primary" type="button" href="@urlApproval/@Model.Signature.idMg" style="line-height: 5px; color:white;">Approval</a>
+                                                    &nbsp;&nbsp;
+                                                    <a class="btn btn-primary" type="button" href="@urlReject/@Model.Signature.idMg" style="line-height: 5px; color:white;">Reject</a>
+
+                                                </div>
+
+                                            </td>
+
+                                        </tr>
+                                </tbody>
+                            </table>
+                            <div class="show">
+                                <div class="overlay"></div>
+                                <div class="img-show">
+                                    <span></span>
+                                    <img src="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End::Main Portlet-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    })
+    $(function () {
+        "use strict";
+
+        $("#image").click(function () {
+            var $src = $(this).attr("src");
+            $(".show").fadeIn();
+            $(".img-show img").attr("src", $src);
+        });
+
+        $("span, .overlay").click(function () {
+            $(".show").fadeOut();
+        });
+
+    });
+</script>

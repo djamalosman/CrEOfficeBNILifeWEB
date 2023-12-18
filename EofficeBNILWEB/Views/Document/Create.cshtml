@@ -1,0 +1,351 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localiza
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@{
+    var sessidUser = Accessor.HttpContext.Session.GetString("idUser");
+    var sessidUnit = Accessor.HttpContext.Session.GetString("idUnit");
+    var en = Accessor.HttpContext.Session.GetString("en");
+    var ina = Accessor.HttpContext.Session.GetString("ina");
+}
+<!-- begin::Body -->
+<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
+    <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver    m-container m-container--responsive m-container--xxl m-page__container">
+        <div class="m-grid__item m-grid__item--fluid m-wrapper">
+            <!-- BEGIN: Subheader -->
+            <div class="m-subheader ">
+                <div class="d-flex align-items-center">
+                    <div class="mr-auto" style="color: white;">
+                        <h3 class="m-subheader__title m-subheader__title--separator" style="color: white;">
+                            @(en != null ? "Register Incoming Document" : "Dokumen Masuk")
+                        </h3>
+                        <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                            <li class="m-nav__item m-nav__item--home">
+                                <a href="#" class="m-nav__link m-nav__link--icon">
+                                    <i class="m-nav__link-icon la la-home" style="color: white;"></i>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        Mailing Room
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        @(en != null ? "Document" : "Dokumen")
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        @(en != null ? "Register Incoming Document" : "Dokumen Masuk")
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        @(en != null ? "Create Document" : "Buat Dokumen")
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Subheader -->
+            <div class="m-content" style="padding: 30px 30px !important;">
+                <!--Begin::Main Portlet-->
+                <div class="m-portlet m-portlet--full-height ">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link @ViewBag.UlTabActiveHome" id="home-tab" data-toggle="tab" href="#home">
+                                <span class="nav-icon">
+                                    <i class="flaticon2-file-1"></i>
+                                </span>
+                                <span class="nav-text">Manual</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @ViewBag.UlTabActiveUpload" id="profile-tab" data-toggle="tab" href="#profile" aria-controls="profile">
+                                <span class="nav-icon">
+                                    <i class="flaticon-upload"></i>
+                                </span>
+                                <span class="nav-text">Otomatis</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade @ViewBag.DivTabActiveHome" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="m-portlet__body">
+                                <form method="post">
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-2 col-form-label">&nbsp;  @(en != null ? "Document type" : "Jenis Dokumen")</label>
+                                        <div class="col-sm-4">
+                                            <select class="form-control select2-selection__rendered" id="documentType"  name="documentType" required>
+                                                <option value="">--@(en != null ? "Select Document type" : "Pilih Tipe Dokumen")--</option>
+                                                @foreach (var item in ViewBag.DocumentType)
+                                                {
+                                                    <option value="@item.attributeValue">@item.value</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputtext3" class="col-sm-2 col-form-label">&nbsp; @(en != null ? "Receipt Number / AWB" : "Nomor Resi / AWB")</label>
+                                        <div class="col-sm-4">
+                                            @*<div class="radio-inline">
+                                            <label class="radio">
+                                            <input type="radio" checked="checked" name="resiType" value="1" onclick="checkRadioButtonResi(this.value)">
+                                            <span></span>Manual
+                                            </label>
+                                            <label class="radio">
+                                            <input type="radio" name="resiType" value="2" onclick="checkRadioButtonResi(this.value)">
+                                            <span></span>Otomatis
+                                            </label>
+                                            </div>*@
+                                            <input type="text" class="form-control" autocomplete="off" id="trackingNumber" required name="trackingNumber" placeholder="Nomor Resi / AWB" onkeyup="checkNumber(this.value)">
+                                            <div class="fv-plugins-message-container">
+                                                <div id="messageTrackingNumber">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputtext3" class="col-sm-2 col-form-label">&nbsp; @(en != null ? "Date Received" : "Tanggal Diterima")</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" autocomplete="off" id="receivedDate" name="receivedDate" value="@Convert.ToDateTime(DateTime.Now).ToString("dd-MM-yyyy")" readonly="readonly" style="background-color: #e6e9ec;">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputpassword3" class="col-sm-2 col-form-label">&nbsp; @(en != null ? "Sender" : "Pengirim")</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" autocomplete="off" id="senderName" autocomplete="off" name="senderName" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputpassword3" class="col-sm-2 col-form-label">&nbsp;  @(en != null ? "Letter receiver" : "Penerima Surat")</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" id="docReceiver" autocomplete="off" name="docReceiver" required class="form-control ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-2 col-form-label">&nbsp; @(en != null ? "Receiving Division" : "Divisi Penerima")</label>
+                                        <div class="col-sm-4">
+                                            <select class="form-control select2-selection__rendered" id="idUnitSelect" name="idUnitSelect" required onchange="changeReceiver(this.value)">
+                                                <option value="">--@(en != null ? "Select Division" : "Pilih Divisi")--</option>
+                                                @foreach (var item in ViewBag.Divison)
+                                                {
+                                                    <option value="@item.idUnit _ @item.idUser _ @item.userName">@item.unitName</option>
+                                                }
+                                            </select>
+                                            <input type="hidden" class="form-control" id="idUnit" name="idUnit">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputpassword3" class="col-sm-2 col-form-label"> &nbsp; @(en != null ? "Recipient Division Admin User" : "User Admin Divisi Penerima")</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" autocomplete="off" id="receiverName" name="receiverName" readonly="readonly" style="background-color: #e6e9ec;">
+                                            <input type="hidden" class="form-control" id="idUserTu" name="idUserTu">
+                                        </div>
+                                    </div>
+                                    <div class="tab-content">
+                                        <button class="btn btn-success" type="submit">Submit</button>
+                                        <br>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="tab-pane @ViewBag.DivTabActiveUpload" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <div class="m-portlet__body">
+                                <form method="post" asp-action="UploadDocument" asp-controller="Document" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <div class="btn-group col-sm-2">
+                                            <a asp-action="DownloadTemplate" asp-controller="Document" class="btn btn-primary btn-bold">
+                                                <i class="flaticon2-download"></i> Download Template
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Upload File:</label>
+                                        <div class="col-sm-6">
+                                            <div class="kt-uppy" id="kt_uppy_5">
+                                                <div class="kt-uppy__wrapper">
+                                                    <div class="uppy-Root uppy-FileInput-container">
+                                                        <input type="hidden" name="DOC_NAME1" value="" placeholder="File Name...">
+                                                        <input class="uppy-FileInput-input btn btn-label-brand btn-bold btn-font-sm" style="" type="file" name="inputfile" id="kt_uppy_5_input_control" accept="xlsx">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <span class="form-text text-muted">File type: XLSX </span>
+                                        </div>
+                                    </div>
+                                    <div class="tab-content">
+                                        <button class="btn btn-success" type="submit">Upload</button>
+                                        <br>
+                                    </div>
+                                </form>
+                                <div class="table-responsive" style="padding-top: 3%;">
+                                    @if (ViewBag.Output != null)
+                                    {
+                                        <table id="myTable" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "TYPE" : "JENIS")</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "RESI / AWB NUMBER" : "NOMOR RESI/AWB")</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "DOCUMENT RECEIVER" : "PENERIMA DOKUMEN")</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "RECIPIENT DIVISION" : "DIVISI PENERIMA")</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "NAME OF THE SENDER" : "NAMA PENGIRIM")</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "DATE OF ENTRY" : "TANGGAL MASUK")</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "UPLOAD STATUS" : "STATUS UPLOAD")</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach(var item in ViewBag.Output)
+                                                {
+                                                    <tr style="@(item.statusUpload.Contains("Gagal") ? "background-color: #ec592d" : "")">
+                                                        <td style="@(item.statusUpload.Contains("Gagal") ? "color: white" : "")">@item.documentType</td>
+                                                        <td style="@(item.statusUpload.Contains("Gagal") ? "color: white" : "")">@item.trackingNumber</td>
+                                                        <td style="@(item.statusUpload.Contains("Gagal") ? "color: white" : "")">@item.docReceiver</td>
+                                                        <td style="@(item.statusUpload.Contains("Gagal") ? "color: white" : "")">@item.receiverUnit</td>
+                                                        <td style="@(item.statusUpload.Contains("Gagal") ? "color: white" : "")">@item.senderName</td>
+                                                        <td style="@(item.statusUpload.Contains("Gagal") ? "color: white" : "")">@item.receivedDate</td>
+                                                        <td style="@(item.statusUpload.Contains("Gagal") ? "color: white" : "")">@item.statusUpload</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End::Main Portlet-->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: Body -->
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    });
+    //$(".select2-selection__rendered").select2({
+    //    allowClear: true,
+    //    width: 'resolve'
+    //});
+    function checkRadioButtonResi(val){
+        var inputVal = document.getElementById("trackingNumber");
+        if(val == 2)
+        {
+            $("#trackingNumber").prop('disabled', true);
+            $("#trackingNumber").prop('required', false);
+            inputVal.style.backgroundColor = "#e6e9ec";
+        }else{
+            $("#trackingNumber").prop('disabled', false);
+            $("#trackingNumber").prop('required', true);
+            inputVal.style.backgroundColor = "white";
+            document.getElementById("trackingNumber").value="";
+        }
+        //console.log("check radio",val);
+    }
+    function changeReceiver(val)
+    {
+        var value = val.split(" _ ");
+        if(val != "")
+        {
+            document.getElementById("idUnit").value = value[0];
+            document.getElementById("receiverName").value = value[2];
+            document.getElementById("idUserTu").value = value[1];
+        }
+        else{
+            document.getElementById("receiverName").value = "";
+            document.getElementById("idUserTu").value = "";
+            document.getElementById("idUnit").value = "";
+        }
+        
+    }
+    function checkNumber(trackingNumber){        
+        $("#trackingNumber").removeClass("is-valid");
+        $("#trackingNumber").removeClass("is-invalid");
+        $('#messageTrackingNumber').html('');
+        $.ajax({
+            url: "@Url.Action("GetDocumentByTrackingNumber","Document")",
+            method: "POST",
+            data: { trackingNumber: trackingNumber },
+            success: function (msg) {
+                var data = JSON.parse(msg);
+                //console.log(data);
+                if(data.Status == "OK")
+                {
+                    $("#trackingNumber").removeClass("is-invalid");
+                    $("#trackingNumber").addClass("is-valid");
+                    $('<label style="color:#1BC5BD">' + data.Message + '</label>').appendTo('#messageTrackingNumber');
+                }
+                else if(data.Status == "NG"){
+                    $("#trackingNumber").removeClass("is-valid");
+                    $("#trackingNumber").addClass("is-invalid");
+                    $('<label style="color:#F64E60">' + data.Message + '</label>').appendTo('#messageTrackingNumber');
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("ERROR!!!");
+            }
+        });
+    }
+    $("#docReceiver").autocomplete({
+        minLength: 3,
+        source: function (req, res) {
+            $.ajax({
+                url: "@Url.Action("GetUserCopy","Document")",
+                method: "POST",
+                data: { keyword: req.term },
+                success: function (msg) {
+                    var data = JSON.parse(msg);
+                    var d = $.map(data, function (row) {
+                        return {
+                            label: row.userName + " - " + row.positionName,
+                            value: row.idUnit+" _ "+row.idUser+" _ "+ row.userName
+                        }
+                    });
+                    res(d);
+                }
+            });
+        },
+        focus: function (event, ui) {
+            $("#docReceiver").val(ui.item.label);
+
+            return false;
+        },
+        select: function (event, ui) {
+            $("#docReceiver").val(ui.item.label);
+            var select = document.querySelector('#idUnitSelect');
+            var splitValue = ui.item.value.split(" _ ");
+            console.log(splitValue[0])
+            $('#idUnitSelect option').filter(function () {
+                return $.trim($(this).val()).includes(splitValue[0]);
+            }).prop('selected', true);
+            select.dispatchEvent(new Event('change'));
+
+            return false;
+        }
+
+    });
+</script>

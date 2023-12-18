@@ -1,0 +1,242 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localiza
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@{
+	var sessidUser = Accessor.HttpContext.Session.GetString("idUser");
+	var sessidUnit = Accessor.HttpContext.Session.GetString("idUnit");
+}
+@{
+	ViewData["Title"] = "Index";
+}
+
+<!-- begin::Body -->
+<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
+	<div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver    m-container m-container--responsive m-container--xxl m-page__container">
+		<div class="m-grid__item m-grid__item--fluid m-wrapper">
+			<!-- BEGIN: Subheader -->
+			<div class="m-subheader ">
+				<div class="d-flex align-items-center">
+					<div class="mr-auto" style="color: white;">
+						
+					</div>
+				</div>
+			</div>
+			<!-- END: Subheader -->
+			<div class="m-content">
+				<!--Begin::Main Portlet-->
+				<div class="kt-container  kt-grid__item kt-grid__item--fluid">
+					<!--Begin::Inbox-->
+					<div class="" id="kt_inbox"style="width:25%">
+						<!--Begin::Aside Mobile Toggle-->
+						<button class="kt-inbox__aside-close" id="kt_inbox_aside_close">
+							<i class="la la-close"></i>
+						</button>
+						<!--Begin:: Inbox View-->
+						<div class="kt-grid__item kt-grid__item--fluid    kt-portlet    kt-inbox__view kt-inbox__view--shown-" id="kt_inbox_view" style="display: flex;">
+
+							<fieldset style="width:99%;">
+							@if (ViewBag.tipe == 1)
+								{
+								<div style="float:left;padding-left:30px">
+									<br>
+									<fieldset>
+										<style>
+											table, th, td {
+												border: 0px solid black;
+											}
+
+											.received {
+												text-align: left;
+											}
+
+											img {
+												adding-left: 15px;
+												margin-right: 20px;
+											}
+
+											.bni {
+												text-align: right;
+											}
+
+											.tgl {
+												adding-left: 15px;
+												text-align: right;
+												margin-right: 20px;
+											}
+
+											.tipe {
+												text-align: left;
+											}
+										</style>
+										<table style="width:10%;">
+											<tr>
+
+												<th style="font-size: 0.775em;" class="received" style="" colspan="1">RECEIVED</th>
+												<th class="bni"><img src="~/assets/iconmenu/bank-bni-life.png" alt="alternatetext" style="width:30px;"></th>
+
+											</tr>
+											<tr>
+												<td style="font-size: 0.575em;width:30%;">Mailing Room</td>
+													@if (ViewBag.tipe == 1)
+													{
+														<td class="tipe" rowspan="2" style="font-size: 0.775em;color: black; font-weight: bold;">NON-EKSPEDISI</td>
+													}
+													else
+													{
+														<td class="tipe" rowspan="2" style="font-size: 0.775em;color: black; font-weight: bold;">RETURN</td>
+													}
+											</tr>
+											<tr>
+												<td style="font-size: 0.575em;">NO.AWB/Resi:</td>
+
+											</tr>
+											<tr>
+												<td colspan="2">
+													<svg id="barcode"></svg>
+												</td>
+											</tr>
+											<tr>
+												<td style="font-size: 0.375em;">PT.BNI LIFE INSURANCE<p>Centenial Tower,9th floor Jakarta</td>
+													<td class="tgl" style="font-size: 0.575em;"><input readonly type="text" style="border:0px" value="@ViewBag.tanggal"></td>
+											</tr>
+										</table>
+									
+									
+										<br>
+										<br>
+											<table style="width:10%;">
+												<tr>
+
+													<th style="font-size: 0.775em;" class="received" style="" colspan="1">RECEIVED</th>
+													<th class="bni"><img src="~/assets/iconmenu/bank-bni-life.png" alt="alternatetext" style="width:30px;"></th>
+
+												</tr>
+												<tr>
+													<td style="font-size: 0.575em;width:30%;">Mailing Room</td>
+													@if (ViewBag.tipe == 1)
+													{
+														<td class="tipe" rowspan="2" style="font-size: 0.775em;color: black; font-weight: bold;">NON-EKSPEDISI</td>
+													}
+													else
+													{
+														<td class="tipe" rowspan="2" style="font-size: 0.775em; font-weight: bold;">RETURN</td>
+													}
+												</tr>
+												<tr>
+													<td style="font-size: 0.575em;">NO.AWB/Resi:</td>
+
+												</tr>
+												<tr>
+													<td colspan="2">
+														<svg id="barcode"></svg>
+													</td>
+												</tr>
+												<tr>
+													<td style="font-size: 0.375em;">PT.BNI LIFE INSURANCE<p>Centenial Tower,9th floor Jakarta</td>
+													<td class="tgl" style="font-size: 0.575em;"><input readonly type="text" style="border:0px" value="@ViewBag.tanggal"></td>
+												</tr>
+											</table>
+											<br>
+											<br>
+									</fieldset>
+								</div>
+								<br>
+							}
+							else
+							{
+									<div style="float:left;padding-left:30px">
+										<br>
+										<fieldset>
+											<style>
+												table, th, td {
+													border: 0px solid black;
+												}
+
+												.received {
+													text-align: left;
+												}
+
+												img {
+													adding-left: 15px;
+													margin-right: 20px;
+												}
+
+												.bni {
+													text-align: right;
+												}
+
+												.tgl {
+													adding-left: 15px;
+													text-align: right;
+													margin-right: 20px;
+												}
+
+												.tipe {
+													text-align: left;
+												}
+											</style>
+											<table style="width:10%;">
+												<tr>
+
+													<th style="font-size: 0.775em;" class="received" style="" colspan="1">RECEIVED</th>
+													<th class="bni"><img src="~/assets/iconmenu/bank-bni-life.png" alt="alternatetext" style="width:30px;"></th>
+
+												</tr>
+												<tr>
+													<td style="font-size: 0.575em;width:40%;">Mailing Room</td>
+													@if (ViewBag.tipe == 1)
+													{
+														<td class="tipe" rowspan="2" style="font-size: 0.775em;color: black; font-weight: bold;">NON-EKSPEDISI</td>
+													}
+													else
+													{
+														<td class="tipe" rowspan="2" style="font-size: 0.775em;color: black; font-weight: bold;">RETURN</td>
+													}
+												</tr>
+												<tr>
+													<td style="font-size: 0.575em;">NO.AWB/Resi:</td>
+
+												</tr>
+												<tr>
+													<td colspan="2">
+														<svg id="barcode"></svg>
+													</td>
+												</tr>
+												<tr>
+													<td style="font-size: 0.475em;">PT.BNI LIFE INSURANCE<p>Centenial Tower,9th floor Jakarta</td>
+													<td class="tgl" style="font-size: 0.575em;"><input readonly type="text" style="border:0px" value="@ViewBag.tanggal"></td>
+												</tr>
+											</table>
+										</fieldset>
+
+										<fieldset id="pengirim_field">
+											<legend style="font-size: 10pt"><b></b></legend>
+
+										</fieldset>
+									</div>
+							}
+							</fieldset>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="~/js/JsBarcode.all.min.js"></script>
+<script>
+
+	JsBarcode("#barcode", "@ViewBag.barcode", {
+		//format: "CODE39",
+		width: 1,
+		height: 20,
+		textPosition: "top",
+		fontSize: 10,
+		displayValue: true
+	});
+
+	window.print();
+	window.open('', '_parent', '');
+	//window.close();
+</script>
+<!-- END: Body -->

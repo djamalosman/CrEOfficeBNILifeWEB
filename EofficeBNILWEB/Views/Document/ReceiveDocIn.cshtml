@@ -1,0 +1,576 @@
+﻿@model EofficeBNILWEB.Models.DocumentOutput
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@{
+    var sessidUser = Accessor.HttpContext.Session.GetString("idUser");
+    var sessidUnit = Accessor.HttpContext.Session.GetString("idUnit");
+    var sessidGroup = Accessor.HttpContext.Session.GetString("idGroup");
+    var order = 0;
+    var numButton = 0;
+    var buttonSubmit = 0;
+    //DateTime dtReceive = DateTime.ParseExact(Model.receivedDate, "yyyy-MM-ddTHH:mm:ss", null);
+    string dateReceiver = Convert.ToDateTime(Model.receivedDate).ToString("yyyy-MM-dd");
+}
+<!-- begin::Body -->
+<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
+    <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver    m-container m-container--responsive m-container--xxl m-page__container">
+        <div class="m-grid__item m-grid__item--fluid m-wrapper">
+            <!-- BEGIN: Subheader -->
+            <div class="m-subheader ">
+                <div class="d-flex align-items-center">
+                    <div class="mr-auto" style="color: white;">
+                        <h3 class="m-subheader__title m-subheader__title--separator" style="color: white;">
+                            Document
+                        </h3>
+                        <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                            <li class="m-nav__item m-nav__item--home">
+                                <a href="#" class="m-nav__link m-nav__link--icon">
+                                    <i class="m-nav__link-icon la la-home" style="color: white;"></i>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        E-Office
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        Document Masuk
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        Detail Document Masuk
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Subheader -->
+            <div class="m-content" style="padding: 30px 30px !important;">
+                <!--Begin::Main Portlet-->
+                <div class="m-portlet m-portlet--full-height ">
+                    <div class="m-portlet__body">
+                        <form method="post" id="formReceive">
+                            <input type="hidden" class="form-control" id="idDocument" name="idDocument" value="@Model.idDocument">
+                            <input type="hidden" class="form-control" id="flagReceive" name="flagReceive">
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">&nbsp; Jenis Dokumen</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="documentType" name="documentType" placeholder="Jenis Dokumen" value="@Model.documentTypeValue" required readonly="1" style="background-color:#e6e9ec">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputtext3" class="col-sm-2 col-form-label">&nbsp; Nomor Resi / AWB</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="trackingNumber" name="trackingNumber" placeholder="Nomor Resi / AWB" onkeyup="checkNumber(this.value)" value="@Model.trackingNumber" required readonly="1" style="background-color:#e6e9ec">
+                                    <div class="fv-plugins-message-container">
+                                        <div id="messageTrackingNumber">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputtext3" class="col-sm-2 col-form-label">&nbsp; Tanggal Diterima</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="@ViewBag.IdDate" name="receivedDate" placeholder="" value="@dateReceiver" required @ViewBag.EditableText>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputpassword3" class="col-sm-2 col-form-label">&nbsp; Pengirim</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="senderName" name="senderName" value="@Model.senderName" @ViewBag.EditableText>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputpassword3" class="col-sm-2 col-form-label">&nbsp; Penerima Dokumen</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="docReceiver" name="docReceiver" value="@Model.docReceiver" @ViewBag.EditableText>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputpassword3" class="col-sm-2 col-form-label">&nbsp; Total Dokumen <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="qtyTotal" name="qtyTotal" onkeyup="calculateDocSum(100)" value="@Model.qtyTotal" @ViewBag.EditableTextTotal>
+                                </div>
+                            </div>
+                            @foreach (var dtReceiver in Model.documentReceiver)
+                            {
+                                var idDiv = "divbaru" + order;
+
+                                if ((dtReceiver.idUnit.ToString().ToUpper() == sessidUnit || (dtReceiver.idUserTu.ToString().ToUpper() == sessidUser && sessidGroup == "S")) && (dtReceiver.statusCode == 1 || dtReceiver.statusCode == 5))
+                                {
+                                    buttonSubmit = 1;
+                                    <div class="form-group row" id="@idDiv">
+                                        <div class="col-md-3">
+                                            <label>Divisi Penerima</label>
+                                            <input type="text" class="form-control" id="idUnitText_@order" name="idUnitText_@order" placeholder="Unit Penerima" value="@dtReceiver.unitName" required readonly="1" style="background-color:#e6e9ec">
+                                            <input type="hidden" class="form-control" id="idUnit_@order" value="@dtReceiver.idUnit" name="idUnit">
+                                            <input type="hidden" class="form-control" id="idDocReceiver_@order" value="@dtReceiver.idDocumentReceiver" name="idDocumentReceiver">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>User Penerima</label>
+                                            <input type="text" class="form-control" id="receiverName_@order" name="receiverName" value="@dtReceiver.tuName" readonly="readonly" style="background-color: #e6e9ec;">
+                                            <input type="hidden" class="form-control" id="idUserTu_@order" name="idUserTu" value="@dtReceiver.idUserTu">
+                                        </div>
+                                        <div class="col-md-3" style="@(dtReceiver.returnNumber != null && dtReceiver.returnNumber != "" ? "" : "display:none")">
+                                            <label>Nomor Return </label>
+                                            <input type="text" class="form-control" id="returnNumber_@order" name="returnNumber" value="@dtReceiver.returnNumber" readonly="readonly" style="background-color: #e6e9ec;">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-2">
+                                            <label>Received Document <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                            <input type="text" class="form-control" id="receivedDocument_@order" name="receivedDocument" onkeyup="calculateDocSum(@order)" value="@dtReceiver.receivedDocument">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label>Returned Document</label>
+                                            <input type="text" class="form-control" id="returnedDocument_@order" name="returnedDocument" value="@dtReceiver.returnedDocument" readonly="readonly" style="background-color: #e6e9ec;">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row" id="divisiLain" style="display:none">
+                                        <div class="col-md-3">
+                                            <label>Divisi Penerima Lain</label>
+                                            <select class="form-control" id="idUnitSelectNew" name="idUnitSelect" onchange="changeReceiver(this.value,@order)">
+                                                <option value="">--Pilih Divisi--</option>
+                                                @foreach (var item in ViewBag.Divison)
+                                                {
+                                                    <option value="@item.idUnit _ @item.idUser _ @item.unitName">@item.unitName</option>
+                                                }
+                                            </select>
+                                            <input type="hidden" class="form-control" id="idUnitNew_@order" name="idUnitNew">
+                                            <input type="hidden" class="form-control" id="UnitName_@order" name="UnitNameNew" readonly="readonly" style="background-color: #e6e9ec;">
+                                            <input type="hidden" class="form-control" id="idUserTuNew_@order" name="idUserTuNew">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label>&nbsp;</label>
+                                            <input type="button" value="+" id="btnAddDivisi" onclick="AddTextBoxDivisi()" class="btn btn-success" style="display:block">
+                                        </div>
+                                    </div>
+                                    <div id="TextBoxContainer">
+                                        <!--Textboxes will be added here -->
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="form-group row" id="@idDiv">
+                                        <div class="col-md-3">
+                                            <label>Divisi Penerima</label>
+                                            <input type="text" class="form-control" id="idUnitText_@order" name="idUnitTextElse_@order" placeholder="Unit Penerima" value="@dtReceiver.unitName" required readonly="1" style="background-color:#e6e9ec">
+                                            <input type="hidden" class="form-control" id="idUnit_@order" value="@dtReceiver.idUnit" name="idUnitElse">
+                                            <input type="hidden" class="form-control" id="idDocReceiver_@order" value="@dtReceiver.idDocumentReceiver" name="idDocumentReceiverElse">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>User Penerima</label>
+                                            <input type="text" class="form-control" id="receiverNameElse_@order" name="receiverNameElse" value="@dtReceiver.tuName" readonly="readonly" style="background-color: #e6e9ec;">
+                                            <input type="hidden" class="form-control" id="idUserTuElse_@order" name="idUserTuElse" value="@dtReceiver.idUserTu">
+                                        </div>
+                                        <div class="col-md-3" style="@(dtReceiver.returnNumber != null && dtReceiver.returnNumber != "" ? "" : "display:none")">
+                                            <label>Nomor Return </label>
+                                            <input type="text" class="form-control" id="returnNumber_@order" name="returnNumber" value="@dtReceiver.returnNumber" readonly="readonly" style="background-color: #e6e9ec;">
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-2">
+                                            <label>Received Document</label>
+                                            <input type="text" class="form-control" id="receivedDocumentElse_@order" name="receivedDocumentElse" value="@dtReceiver.receivedDocument" readonly="1" style="background-color:#e6e9ec">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label>Returned Document</label>
+                                            <input type="text" class="form-control" id="returnedDocumentElse_@order" name="returnedDocumentElse" value="@dtReceiver.returnedDocument" readonly="1" style="background-color:#e6e9ec">
+                                        </div>
+                                    </div>
+                                }
+
+                                order++;
+                            }
+                            <div id="TextBoxContainer">
+                                <!--Textboxes will be added here -->
+                            </div>
+                            @if (Model.statusCode == 1 || Model.statusCode == 5)
+                            {
+                                <div class="form-group row">
+                                    <div class="col-md-4">
+                                        <label>Comment <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                        <textarea class="form-control" id="comment" name="comment" cols="45" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            }
+                            <div class="kt-inbox__primary" style="padding-bottom: 5%;">
+                                <div class="col-6">
+                                    <h3>Log History</h3>
+                                    <div style="border:solid 1px lightgray;border-radius:10px;width:100%;max-height:142px;min-height:142px;overflow-y:scroll">
+                                        <ul>
+                                            @foreach (var dtLog in Model.documentLog)
+                                            {
+                                                var word = Convert.ToDateTime(dtLog.createdOn).ToString("dd-MM-yyyy HH:mm:ss") + " - " + dtLog.description;
+                                                <li>@word</li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </form>
+                        @if (buttonSubmit == 1)
+                        {
+                            <div class="kt-inbox__foot">
+                                <div class="kt-inbox__primary">
+                                    <div class="btn-group col-sm-2" style="display:none;" id="receivebutton">
+                                        <button type="button" class="btn btn-success btn-bold" onclick="submitReceive(6)">
+                                            <i class="flaticon-paper-plane-1">&nbsp;Receive</i>
+                                        </button>
+                                    </div>
+                                    <div class="btn-group col-sm-2" style="display:none;" id="receivepartialbutton">
+                                        <button type="button" class="btn btn-warning btn-bold" onclick="submitReceive(3)">
+                                            <i class="flaticon-paper-plane-1">&nbsp;Return</i>
+                                        </button>
+                                    </div>
+                                    <div class="btn-group col-sm-2" style="display:none;" id="rejectbutton">
+                                        <button type="button" class="btn btn-danger btn-bold" onclick="submitReceive(4)">
+                                            <i class="flaticon-paper-plane-1">&nbsp;Return</i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        @if (Model.statusCode != 1 && Model.statusCode != 4 && Model.statusCode != 5)
+                        {
+                            <div class="kt-inbox__foot">
+                                <div class="kt-inbox__primary">
+                                    <div class="btn-group col-sm-2">
+                                        <a class="btn btn-success btn-bold" href="@Url.ActionLink("DocInDistribution","Document")/@Model.currentDocumentReceiver.idDocumentReceiver">
+                                            <i class="flaticon-paper-plane-1">&nbsp; Archive</i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <!--End::Main Portlet-->
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var order = 0;
+    $(document).ready(function () {
+        var orders = @order;
+        order = orders;
+    });
+    function AddTextBoxDivisi() {
+        //var div = GetDynamicTextBoxPenerima(orderKepada);
+        var html = "<div class='form-group row' id='divbaru" + order + "'> <div class='col-md-3'> <label>Divisi Penerima Lain</label> <select class='form-control' id='idUnitSelectNew' name='idUnitSelect' onchange='changeReceiver(this.value, " + order + ")'> <option value=''>--Pilih Divisi--</option> @foreach (var item in ViewBag.Divison){<option value='@item.idUnit _ @item.idUser _ @item.unitName'>@item.unitName</option>} </select> <input type='hidden' class='form-control' id='idUnitNew_" + order + "' name='idUnitNew'> <input type='hidden' class='form-control' id='UnitName_" + order + "' name='UnitNameNew' readonly='readonly' style='background-color: #e6e9ec; '> <input type='hidden' class='form-control' id='idUserTuNew_" + order + "' name='idUserTuNew'> </div> <div class='col-md-2'> <label>&nbsp;</label> <input type='button' value='-' id='btnRemoveDivisi' onclick='RemoveTextBox(" + order + ")' class='btn btn-warning' style='display:block'> </div> </div>";
+        $('#TextBoxContainer').append($(html));
+
+        order++;
+    }
+    function AddTextBox() {
+        var div = GetDynamicTextBox(order);
+        $("#TextBoxContainer").append(div);
+        $(".select2stylecss").select2({});
+        order++;
+    }
+    function GetDynamicTextBox(value) {
+        var html = "<div class='form-group row' id='divbaru" + value + "'> <div class='col-md-4'> <label>Divisi Penerima</label> <select class='form-control @ViewBag.EditableDropdown' id='idUnitSelect_" + value + "' name='idUnitSelect' required onchange='changeReceiver(this.value," + value + ")' @ViewBag.EditableText> <option value=''>--Pilih Divisi--</option> @foreach (var item in ViewBag.Divison){<option value='@item.idUnit _ @item.idUser _ @item.userName'>@item.unitName</option>} </select> <input type='hidden' class='form-control' id='idUnit_" + value + "' name='idUnitNew'> </div> <div class='col-md-4'> <label>User Penerima </label> <input type='text' class='form-control' id='receiverName_" + value + "' name='receiverName' readonly='readonly' style='background-color: #e6e9ec;'> <input type='hidden' class='form-control' id='idUserTu_" + value + "' name='idUserTuNew'> </div> <div class='col-md-4'> <label>&nbsp; </label> <input type='button' value='-' id='btnRemovePenerima' onclick='RemoveTextBox(" + value + ")' class='btn btn-danger' style='display:block'> </div> </div> ";
+        var textBox = $(html);
+        textBox.val(value);
+
+        return textBox;
+    }
+    function RemoveTextBox(id) {
+        //alert(id);
+        //console.log("divbaru"+id);
+        $("#divbaru" + id).remove();
+    }
+    function checkNumber(trackingNumber) {
+        $("#trackingNumber").removeClass("is-valid");
+        $("#trackingNumber").removeClass("is-invalid");
+        $('#messageTrackingNumber').html('');
+        $.ajax({
+            url: "@Url.Action("GetDocumentByTrackingNumber","Document")",
+            method: "POST",
+            data: { trackingNumber: trackingNumber },
+            success: function (msg) {
+                var data = JSON.parse(msg);
+                //console.log(data);
+                if (data.Status == "OK") {
+                    $("#trackingNumber").removeClass("is-invalid");
+                    $("#trackingNumber").addClass("is-valid");
+                    $('<label style="color:#1BC5BD">' + data.Message + '</label>').appendTo('#messageTrackingNumber');
+                }
+                else if (data.Status == "NG") {
+                    $("#trackingNumber").removeClass("is-valid");
+                    $("#trackingNumber").addClass("is-invalid");
+                    $('<label style="color:#F64E60">' + data.Message + '</label>').appendTo('#messageTrackingNumber');
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("ERROR!!!");
+            }
+        });
+    }
+    function changeReceiver(val, orders) {
+        var value = val.split(" _ ");
+        if (val != "") {
+            document.getElementById("idUnitNew_" + orders).value = value[0];
+            document.getElementById("UnitName_" + orders).value = value[2];
+            document.getElementById("idUserTuNew_" + orders).value = value[1];
+        }
+        else {
+            document.getElementById("UnitName_" + orders).value = "";
+            document.getElementById("idUserTuNew_" + orders).value = "";
+            document.getElementById("idUnitNew_" + orders).value = "";
+        }
+
+    }
+    function submitReceive(flag) {
+        var comment = document.getElementById("comment").value;
+        var valqtyTotal = document.getElementById('qtyTotal').value;
+        var valreceive = $("input[name='receivedDocument']").val();//document.getElementById('receivedDocument_'+id).value;
+        var valunitLain = document.getElementById("idUnitSelectNew").value;
+        if (comment == '' || comment == null) {
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Validasi',
+                text: 'Komentar wajib diisi',
+                showConfirmButton: true,
+                //timer: 1500,
+                onBeforeOpen: () => {
+                    timerInterval = setInterval(() => {
+                        const content = Swal.getContent()
+                        if (content) {
+                            const b = content.querySelector('b')
+                            if (b) {
+                                b.textContent = Swal.getTimerLeft()
+                            }
+                        }
+                    }, 100)
+                },
+                onClose: () => {
+                    clearInterval(timerInterval)
+                }
+            }).then((result) => {
+                /* Read more about handling dismissals below */
+            })
+            return false;
+        } else if (parseInt(valreceive) > parseInt(valqtyTotal)) {
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Validasi',
+                text: 'Dokumen diterima tidak boleh lebih dari total dokumen',
+                showConfirmButton: true,
+                //timer: 1500,
+                onBeforeOpen: () => {
+                    timerInterval = setInterval(() => {
+                        const content = Swal.getContent()
+                        if (content) {
+                            const b = content.querySelector('b')
+                            if (b) {
+                                b.textContent = Swal.getTimerLeft()
+                            }
+                        }
+                    }, 100)
+                },
+                onClose: () => {
+                    clearInterval(timerInterval)
+                }
+            }).then((result) => {
+                /* Read more about handling dismissals below */
+            })
+            return false;
+        } else if (valunitLain == "" && (flag == 3 || flag == 4)) {
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Validasi',
+                text: 'Penerima divisi lain wajib diisi',
+                showConfirmButton: true,
+                //timer: 1500,
+                onBeforeOpen: () => {
+                    timerInterval = setInterval(() => {
+                        const content = Swal.getContent()
+                        if (content) {
+                            const b = content.querySelector('b')
+                            if (b) {
+                                b.textContent = Swal.getTimerLeft()
+                            }
+                        }
+                    }, 100)
+                },
+                onClose: () => {
+                    clearInterval(timerInterval)
+                }
+            }).then((result) => {
+                /* Read more about handling dismissals below */
+            })
+            return false;
+        }
+        document.getElementById("flagReceive").value = flag;
+        var message = "Apakah anda yakin akan menerima dokumen ini?";
+        if (flag == "3") {
+            message = "Apakah anda yakin akan menerima sebagian dokumen ini?";
+        }
+        else if (flag == "4") {
+            message = "Apakah anda yakin akan menolak dokumen ini?";
+        }
+        if (confirm(message)) {
+            document.getElementById("formReceive").submit();
+        }
+    }
+    function calculateDocSum(id) {
+        var receivebutton = document.getElementById("receivebutton");
+        var receivepartialbutton = document.getElementById("receivepartialbutton");
+        var rejectbutton = document.getElementById("rejectbutton");
+        var divDivisiLain = document.getElementById("divisiLain");
+        document.getElementById("idUnitSelectNew").value = "";
+        if (id == 100) {
+            $("input[name='receivedDocument']").val(0);
+            receivebutton.style.display = "none";
+            receivepartialbutton.style.display = "none";
+            rejectbutton.style.display = "none";
+            $('#TextBoxContainer').html("");
+        } else {
+            var valqtyTotal = document.getElementById('qtyTotal').value;
+            var valreceive = document.getElementById('receivedDocument_' + id).value;
+            var result = 0;
+            if (id != 0) {
+                var lastid = id - 1;
+                var vallastreceive = document.getElementById('returnedDocumentElse_' + lastid).value;
+                result = parseInt(vallastreceive) - parseInt(valreceive);
+                document.getElementById('returnedDocument_' + id).value = result;
+                receivebutton.style.display = "block";
+                receivepartialbutton.style.display = "none";
+                rejectbutton.style.display = "none";
+                divDivisiLain.style.display = "none";
+                $('#TextBoxContainer').html("");
+                if (valreceive == 0) {
+                    document.getElementById('returnedDocument_' + id).value = parseInt(vallastreceive);
+                    receivebutton.style.display = "none";
+                    receivepartialbutton.style.display = "none";
+                    rejectbutton.style.display = "block";
+                    divDivisiLain.style.display = "flex";
+                }
+                else if (parseInt(valreceive) > parseInt(vallastreceive)) {
+                    document.getElementById('returnedDocument_' + id).value = 0;
+                    document.getElementById('receivedDocument_' + id).value = 0;
+                    receivebutton.style.display = "none";
+                    receivepartialbutton.style.display = "none";
+                    rejectbutton.style.display = "none";
+                    divDivisiLain.style.display = "none";
+                    $('#TextBoxContainer').html("");
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: 'Validasi',
+                        text: 'Dokumen yang diterima tidak boleh lebih dari total dokumen',
+                        showConfirmButton: true,
+                        //timer: 1500,
+                        onBeforeOpen: () => {
+                            timerInterval = setInterval(() => {
+                                const content = Swal.getContent()
+                                if (content) {
+                                    const b = content.querySelector('b')
+                                    if (b) {
+                                        b.textContent = Swal.getTimerLeft()
+                                    }
+                                }
+                            }, 100)
+                        },
+                        onClose: () => {
+                            clearInterval(timerInterval)
+                        }
+                    }).then((result) => {
+                        /* Read more about handling dismissals below */
+                    })
+                } else if (parseInt(valreceive) < parseInt(vallastreceive)) {
+                    result = parseInt(vallastreceive) - parseInt(valreceive);
+                    document.getElementById('returnedDocument_' + id).value = result;
+                    receivebutton.style.display = "none";
+                    receivepartialbutton.style.display = "block";
+                    rejectbutton.style.display = "none";
+                    divDivisiLain.style.display = "flex";
+                }
+            }
+            else if (valreceive == 0) {
+                document.getElementById('returnedDocument_' + id).value = parseInt(valqtyTotal);
+                receivebutton.style.display = "none";
+                receivepartialbutton.style.display = "none";
+                rejectbutton.style.display = "block";
+                divDivisiLain.style.display = "flex";
+            }
+            else if (parseInt(valreceive) > parseInt(valqtyTotal)) {
+                document.getElementById('returnedDocument_' + id).value = 0;
+                document.getElementById('receivedDocument_' + id).value = 0;
+                receivebutton.style.display = "none";
+                receivepartialbutton.style.display = "none";
+                rejectbutton.style.display = "none";
+                divDivisiLain.style.display = "none";
+                $('#TextBoxContainer').html("");
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: 'Validasi',
+                    text: 'Dokumen yang diterima tidak boleh lebih dari total dokumen',
+                    showConfirmButton: true,
+                    //timer: 1500,
+                    onBeforeOpen: () => {
+                        timerInterval = setInterval(() => {
+                            const content = Swal.getContent()
+                            if (content) {
+                                const b = content.querySelector('b')
+                                if (b) {
+                                    b.textContent = Swal.getTimerLeft()
+                                }
+                            }
+                        }, 100)
+                    },
+                    onClose: () => {
+                        clearInterval(timerInterval)
+                    }
+                }).then((result) => {
+                    /* Read more about handling dismissals below */
+                })
+            }
+            else if (parseInt(valreceive) < parseInt(valqtyTotal)) {
+                result = parseInt(valqtyTotal) - parseInt(valreceive);
+                document.getElementById('returnedDocument_' + id).value = result;
+                receivebutton.style.display = "none";
+                receivepartialbutton.style.display = "block";
+                rejectbutton.style.display = "none";
+                divDivisiLain.style.display = "flex";
+            }
+            else {
+                result = parseInt(valqtyTotal) - parseInt(valreceive);
+                document.getElementById('returnedDocument_' + id).value = result;
+                receivebutton.style.display = "block";
+                receivepartialbutton.style.display = "none";
+                rejectbutton.style.display = "none";
+                divDivisiLain.style.display = "none";
+                $('#TextBoxContainer').html("");
+            }
+        }
+    }
+</script>

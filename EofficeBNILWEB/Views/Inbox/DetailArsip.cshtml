@@ -1,0 +1,690 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localiza
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@{
+    var sessidUser = Accessor.HttpContext.Session.GetString("idUser");
+    var sessidUnit = Accessor.HttpContext.Session.GetString("idUnit");
+}  
+
+@{
+    var data = 1;
+    
+}
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+	<!-- BEGIN: Subheader -->
+	<div class="m-subheader ">
+		<div class="d-flex align-items-center">
+			<div class="mr-auto">
+				<h3 class="m-subheader__title m-subheader__title--separator" style="padding-right: 14px;font-size: 1rem;margin-right: 8px;color: white;">
+					Lihat Surat
+				</h3>
+				<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+					<li class="m-nav__item m-nav__item--home">
+						<a href="#" class="m-nav__link m-nav__link--icon">
+							<i class="m-nav__link-icon la la-home" style="color: white;"></i>
+						</a>
+					</li>
+					<li class="m-nav__separator" style="color: white;">
+						-
+					</li>
+					<li class="m-nav__item">
+						<a href="" class="m-nav__link">
+							<span class="m-nav__link-text" style="color: white;">
+								E-OFFICE
+							</span>
+						</a>
+					</li>
+					<li class="m-nav__separator" style="color: white;">
+						-
+					</li>
+
+				</ul>
+
+			</div>
+			<div></div>
+		</div>
+	</div>
+	<!-- END: Subheader -->
+	<div class="m-content" style="padding-top: 10px;margin-top: -8px;">
+
+		<!--Begin::Main Portlet-->
+		<div class="kt-container  kt-grid__item kt-grid__item--fluid">
+			<!--Begin::Inbox-->
+			<div class="kt-grid kt-grid--desktop kt-grid--ver-desktop  kt-inbox" id="kt_inbox">
+				<!--Begin::Aside Mobile Toggle-->
+				<button class="kt-inbox__aside-close" id="kt_inbox_aside_close">
+					<i class="la la-close"></i>
+				</button>
+				<!--Begin:: Inbox View-->
+				<div class="kt-grid__item kt-grid__item--fluid    kt-portlet    kt-inbox__view kt-inbox__view--shown-" id="kt_inbox_view" style="display: flex;">
+					<!--  -->
+					<a class="btn btn-success backtomasuk" style="color: white;"><i class="flaticon2-left-arrow-1"> Back</i></a>
+					<!-- <p>outbox/newmail/upload_ulang</p> -->
+					<form id="eval-form" enctype="multipart/form-data" action="http://10.1.5.102/outbox/newmail/upload_ulang" method="post">
+						<fieldset style="width:99%;">
+							<input type="hidden" id="daripreview" name="daripreview" value="0">
+							<input type="hidden" id="tipe" name="tipe">
+							<input type="hidden" id="idsurat" name="idsurat" value="NDg4OTY2">
+							<div style="margin-left: 10px;">
+								<br>
+								<fieldset style="width:99%;background-color:#B7B7FF;">
+									<div style="padding-left:10px">
+										<fieldset>
+											<legend><b>&nbsp;Disposisi</b></legend>
+											<table>
+												<tbody>
+													<tr>
+														<td width="91">Tgl Disposisi</td>
+														<td>:</td>
+														<td>17-JUL-19</td>
+													</tr>
+													<tr>
+														<td width="91">Dari</td>
+														<td>:</td>
+														<td>YANUAR EVYANTO/273017045/Direktur Keuangan &amp; SDM</td>
+													</tr>
+													<tr>
+														<td width="91">Kepada</td>
+														<td>:</td>
+														<td>HUGO TONI SEPUTRO/288057696/Senior Manager Sistem Informasi</td>
+													</tr>
+													<tr>
+														<td width="91">Tindakan</td>
+														<td>:</td>
+														<td>evaluasi</td>
+													</tr>
+													<tr>
+														<td width="91">Catatan</td>
+														<td>:</td>
+														<td>DI KANTOR SAJA</td>
+													</tr>
+												</tbody>
+											</table>
+										</fieldset>
+									</div>
+								</fieldset>
+								<br>
+							</div>
+							<div style="float:left;padding-left:30px">
+								<br>
+								<fieldset>
+									<legend style="font-size: 8pt"><b>Kepala Surat</b></legend>
+									<table class="head_table" width="620" border="0" style="font-size: 8pt">
+										<tbody>
+											<tr style="font-size:8pt">
+												<td style="width: 120px">Jenis / No / Tgl </td>
+												<td> : </td>
+												<td width="500">
+													<div class="form-row" style="margin-left: 5px;">
+														<div class="col-3">
+															<!-- iki -->
+															<input type="hidden" name="jenis" id="jenis" value="nd_sppd">
+															<b>Permohonan SPPD</b>
+														</div>
+														<div class="col-5">
+															<b>UM.340/17/7/1/OPT-19&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/</b>
+														</div>
+														<div class="col-3">
+															<b>17-JUL-19</b>
+														</div>
+														<!-- Penomoran -->
+													</div>
+												</td>
+											</tr>
+											<tr id="agenda_f" style="display:marker"></tr>
+											<tr style=" font-size:8pt; display: none;" id="agenda_f1">
+												<td width="91">Mulai </td>
+												<td colspan="4">
+													:
+													<input type="text" id="tgl_mulai" style="width:122px" name="tgl_mulai" autocomplete="off" value="" onchange="gantiisi()" class="hasDatepicker">
+													&nbsp; s/d &nbsp;
+													<input type="text" id="tgl_selesai" style="width:122px" name="tgl_selesai" autocomplete="off" value="" onchange="gantiisi()" class="hasDatepicker">
+													&nbsp;
+												</td>
+											</tr>
+											<tr style="display:none" id="agenda_f3">
+												<td width="91">Lokasi </td>
+												<td width="457" colspan="4">
+													:
+													&nbsp; &nbsp; <input type="button" class="btn btn-warning" value="?" onclick="show_room()" style="color:red; font-weight:bold;padding: 0.2em 1em;">
+												</td>
+											</tr>
+											<tr style="display:marker" id="agenda_f5">
+												<td width="91">Lokasi </td>
+												<td width="457" colspan="4">
+													:
+													<b style="margin-left: 10px;"><label></label></b>
+												</td>
+											</tr>
+											<tr style="display:marker" id="agenda_f6">
+												<td width="91">Anggaran </td>
+												<td width="457" colspan="4">
+													:
+													<input type="text" id="anggaran" style="width:380" name="anggaran" value="" onchange="gantiisi()">
+												</td>
+											</tr>
+											<tr style="display:none" id="agenda_f4">
+												<td width="91">Pimpinan </td>
+												<td width="457" colspan="4">
+													:
+													<input type="text" id="pimpinan_rapat" name="pimpinan_rapat" style="width:98%" value="" onchange="gantiisi()" class="ui-autocomplete-input" autocomplete="off">
+													<input type="hidden" id="pimpinan_rapat_id" name="pimpinan_rapat_id">
+												</td>
+											</tr>
+											<tr style="display:none" id="agenda_f2">
+												<td width="91">Jamuan </td>
+												<td width="10"> :</td>
+												<td width="447" colspan="3">
+													<textarea id="jamuan" name="jamuan" onchange="gantiisi()"></textarea>
+												</td>
+											</tr>
+											<tr style=" font-size:8pt">
+												<td>Perihal </td>
+												<td> : </td>
+												<td width="457">
+													<b style="margin-left: 10px;">Evaluasi RKM 2019 dan Perencanaan RKM 2020 Direktorat Operasi dan Teknik</b>
+												</td>
+											</tr>
+											<tr style=" font-size:8pt">
+												<td>Klasifikasi Masalah</td>
+												<td> : </td>
+												<td>
+													<div id="klasifikasidiv" style="position: relative; width: 500px; z-index: 1;">
+														<b style="margin-left:10px;">UM.340-Surat perintah jalan/ Pindah</b>
+													</div>
+													<label id="klasifikasiilang" style="display:none;"><b style="font-size: 25px; margin-left: 30%;"> - </b></label>
+												</td>
+											</tr>
+											<!-- Perihal dan Klasifikasi --><!-- Lampiran dan Prioritas -->
+											<tr style=" font-size:8pt">
+												<td>Lampiran </td>
+												<td> : </td>
+												<td>
+													<div class="form-row">
+														<label for="lampiran">&nbsp;</label>
+														<b style="margin-left: 10px; width: 100px;"></b>
+														<div class="col-4" width="145px">
+															<label for="prior">Prioritas :</label>
+															<input type="hidden" name="prior" value="0">
+															<b style="margin-left: 10px;">Normal</b>
+														</div>
+														<div class="col-4" width="145px">
+															<label for="klasifi">Klasifikasi :</label>
+															<input type="hidden" name="klasifi" value="0">
+															<b style="margin-left: 10px;">Biasa</b>
+														</div>
+													</div>
+												</td>
+											</tr>
+
+										</tbody>
+									</table>
+								</fieldset>
+								<fieldset id="pengirim_field">
+									<legend style="font-size: 8pt"><b>Pengirim</b></legend>
+									<table id="sm_peng"></table>
+									<table id="elses_peng" width="620" border="0">
+										<tbody>
+											<tr style=" font-size:8pt;">
+												<!-- Pengirim -->
+												<td style="width: 120px">Jabatan</td>
+												<td> : </td>
+												<td>
+													<input class="form-control" value="Senior Manager Sistem Informasi" name="jabatan" type="hidden" id="jabatan" style="height: 30px;">
+													<input value="300047" name="jabatanid" type="hidden" id="jabatanid">
+													<b style="margin-left: 10px;">Senior Manager Sistem Informasi</b>
+												</td><!-- Pengirim -->
+											</tr>
+											<tr style=" font-size:8pt">
+												<td>NIPP / Nama </td>
+												<td> : </td>
+												<td>
+													<b style="margin-left: 10px;">288057696 / HUGO TONI SEPUTRO</b>
+												</td>
+											</tr>
+											<tr style=" font-size:8pt">
+												<td>Divisi </td>
+												<td> : </td>
+												<td> <b style="margin-left: 10px;">Direktorat Operasi &amp; Teknik ITPK</b></td>
+											</tr>
+											<tr style=" font-size:8pt">
+												<td>Cab / Dir </td>
+												<td> : </td>
+												<td> <b style="margin-left: 10px;">Direktorat Utama ITPK</b></td>
+											</tr>
+										</tbody>
+									</table>
+								</fieldset>
+							</div>
+							<br>
+							<div style="float:right;padding-right:10px;">
+								<fieldset id="penerima_field">
+									<legend style="font-size: 8pt"><b>Penerima</b></legend>
+									<style>
+										table.penerima, table.penerima td {
+											border: 1px solid grey;
+											border-collapse: collapse;
+										}</style>
+									<table id="elses_table" style="font-size: 8pt" width="480">
+										<tbody>
+											<tr>
+												<td style="vertical-align: top;">
+													<div class="form-row" id="btnRemove0" style="display:none">
+														<input type="checkbox" id="cekpen0" name="pen[]" style="display:none">
+														<input id="pen0" type="hidden">
+														&nbsp;
+														<div class="col-10">
+															<input type="text" id="pentampil0" style="background-color:#FFFFB3;height: 30px;" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+														</div>
+														<div class="col">
+															<input type="button" class="btn btn-success" value="+" id="btnAdd" style="padding: 0.2em 1em;" disabled="disabled">
+														</div>
+													</div>]
+													<div id="addkepada" style="padding-bottom: 5px;"></div>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<div style="display:none" id="btnRemoveTem0" class="form-row">
+														<input type="checkbox" id="cektem0" name="tem[]" style="display:none">
+														&nbsp;
+														<div class="col-10">
+															<input readonly="" type="text" id="temtampil0" style="height: :30px;background-color:#C6FFC6" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+														</div>
+														<input id="tem0" type="hidden">
+														<div class="col">
+															<input type="button" value="+" id="btnAdd2" disabled="disabled" class="btn btn-success" style="padding: 0.2em 1em;">
+														</div>
+													</div>
+													<div id="addtembusan" style="padding-bottom: 5px;"></div>
+												</td>
+											</tr>
+											<tr>
+												<td style="vertical-align: top;">
+													<div style="display:none;" id="btnRemovePeg0" class="form-row">
+														<input type="checkbox" id="cekpenpeg0" name="penpeg[]" style="display:none">
+														&nbsp;
+														<div class="col-10">
+															<input type="text" id="penpegtampil0" style="height:30px;background-color:#FFFFB3" readonly="" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+														</div>
+														<input type="hidden" id="penpeg0">
+														<div class="col">
+															<input type="button" value="+" id="btnAddpeg" disabled="disabled" class="btn btn-success" style="padding: 0.2em 1em;">
+														</div>
+													</div>
+													<div id="addkepadapeg" style="padding-bottom: 5px;"></div>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<div style="display:none;" id="btnRemoveTemPeg0" class="form-row">
+														<input type="checkbox" id="cektempeg0" name="tempeg[]" style="display:none">
+														&nbsp;
+														<div class="col-10">
+															<input readonly="" type="text" id="tempegtampil0" style="height:30px;background-color:#C6FFC6" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+														</div>
+														<input type="hidden" id="tempeg0">
+														<div class="col">
+															<input type="button" value="+" id="btnAdd2peg" disabled="disabled" class="btn btn-success" style="padding: 0.2em 1em;">
+														</div>
+													</div>
+													<div id="addtembusanpeg" style="padding-bottom: 5px;"></div>
+												</td>
+											</tr>
+											<tr>
+												<td style="vertical-align: top;">
+													<div style="display:none" id="btnRemovePenNon0" class="form-row">
+														<input type="checkbox" id="cekpenn0" name="penn[]" disabled="disabled" style="display:none">
+														&nbsp;
+														<div class="col-10">
+															<input type="text" id="penn0" style="height:30px;background-color:#FFFFB3" readonly="" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+														</div>
+														<div class="col">
+															<input disabled="disabled" type="button" value="+" id="btnAdd3" class="btn btn-success" style="padding: 0.2em 1em;">
+														</div>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<div style="display:none" id="btnRemoveTemNon0" class="form-row">
+														<input type="checkbox" id="cektemn0" name="temn[]" style="display:none">
+														&nbsp;
+														<div class="col-10">
+															<input readonly="" type="text" id="temn0" style="height:30px;background-color:#C6FFC6" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+														</div>
+														<div class="col">
+															<input type="button" value="+" id="btnAdd4" disabled="disabled" class="btn btn-success" style="padding: 0.2em 1em;">
+														</div>
+													</div>
+													<div id="addtembusan2" style="padding-bottom: 5px;"></div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<table id="elses_table_khusus" style="display:none">
+										<tbody>
+											<tr>
+												<td style="vertical-align: top;">
+													<div class="form-row" id="btnRemove0" style="display:none">
+														<input type="checkbox" style="display:none" id="cekpenkhusus0" name="penkhusus[]"> &nbsp;
+														<input id="penkhusus0" type="hidden">
+														&nbsp;
+														<div class="col-10">
+															<input type="text" id="pentampilkhusus0" style="background-color:#e6e9ec; height: 30px;" class="ui-autocomplete-input form-control" readonly="readonly" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+														</div>
+														<div class="col"></div>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</fieldset>
+								<fieldset id="pemeriksa_field">
+									<legend style="font-size: 8pt"><b>Pemeriksa</b></legend>
+									<table width="480" border="0" style="font-size: 8pt">
+										<tbody>
+											<tr>
+												<td width="150px" style="vertical-align: top;">Pemeriksa </td>
+												<td style="vertical-align: top;"> : </td>
+												<td style="vertical-align: top;">
+													<ol style="float:left;padding-left:18px;">
+														<li>ARIF BUDIANTO | ASM Pengoperasian &amp; Pemeliharaan SI|ITPK | <b style="color:#00F"></b></li>
+														<input type="checkbox" id="cekpem0" style="display:none" value="2096" name="pem[]" checked="checked">
+														<div class="col-10">
+															<!--  <input type="text" id="pemtampil0" style="height:30px;" readonly style="display:none"/>
+															  </div>
+															  <div class="col">
+															   <input type="button" value="+" id="btnAdd5" disabled="disabled" style="display:none"class="btn btn-success" style="padding: 0.2em 1em;"> -->
+														</div>
+													</ol>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</fieldset>
+								<h6 style="font-size: 8pt !important">
+									Buka surat asli : <a href="http://10.1.5.102/outbox/newmail/download/NDg4OTY2flVNLjM0MC8xNy83LzEvT1BULTE5" target="new"><img src="http://10.1.5.102/assets/images/logo_pdf.png"></a>
+									<a href="http://10.1.5.102/outbox/cetak_surat_dup/prev_dir_dup/NDg4OTY2" style="font-size: 8pt !important" target="new">Create Ulang PDF</a>
+								</h6>
+								<h6>
+									<div id="listfile">
+										<div id="list">
+											<table width="300px" style="font-size: 8pt;">
+												<tbody>
+													<tr>
+														<td style="font-size: 8pt !important">Lampiran Surat</td>
+														<td> : </td>
+														<td style="font-size: 8pt !important"><i>----no attachment----</i></td>
+
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+
+								</h6>
+							</div>
+						</fieldset>
+						<div class="kt-inbox__foot">
+							<div id="disposisidirektur" class="col-sm-12"></div>
+						</div>
+
+						<div class="kt-inbox__reply kt-inbox__reply--on" style="padding-top: 8px;">
+							<div class="kt-inbox__form" id="kt_inbox_reply_form">
+								 <div class="kt-inbox__body">
+                                              <br>
+                                              <textarea id="elm1" name="elm1" rows="15" cols="80" style="width: 90% !important; margin-left: 5% !important; margin-right: 5% !important;">
+                                                <p>&nbsp;</p>
+                                                <table border="0" cellspacing="0" cellpadding="0" class="mceItemTable">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td valign="top" width="26" height="20">
+                                                                <p>1.</p>
+                                                            </td>
+                                                            <td colspan="2" valign="top" width="590">
+                                                                <p>Menunjuk...</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td valign="top" width="26" height="20">
+                                                                <p>2.</p></td>
+                                                            <td colspan="2" valign="top" width="590">
+                                                                <p>Tersebut butir satu diatas, dengan ini dapat kami sampaikan hal-hal berikut :</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td valign="top" width="26" height="20">&nbsp;</td>
+                                                            <td valign="top" width="28"><p>a.</p></td>
+                                                            <td valign="top" width="562"><p>Maksud dan tujuan perjalanan dinas adalah</p></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td valign="top" width="26" height="20"><p>&nbsp;</p></td>
+                                                            <td valign="top" width="28"><p>b.</p></td>
+                                                            <td valign="top" width="562"><p>Tempat pelaksanaan PONTIANAK</p></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td valign="top" width="26" height="20"><p>&nbsp;</p></td>
+                                                            <td valign="top" width="28"><p>c.</p></td>
+                                                            <td valign="top" width="562"><p>Waktu pelaksanaan Kamis , 02 Juni 2022 s/d Jumat , 03 Juni 2022</p></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td valign="top" width="26" height="20"><p>&nbsp;</p></td>
+                                                            <td valign="top" width="28"><p>d.</p></td>
+                                                            <td valign="top" width="562">
+                                                                <p>Adapun pihak-pihak yang ditunjuk untuk mengikuti acara dimaksud adalah sebagaimana terlampir.</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td valign="top" width="26" height="20"><p>&nbsp;</p></td>
+                                                            <td valign="top" width="28"><p>e.</p></td>
+                                                            <td valign="top" width="562">
+                                                                <p>Laporan hasil pelaksanaan akan disampaikan selambat-lambatnya 7 hari setelah tanggal pelaksanaan acara dimaksud.</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td valign="top" width="26" height="20"><p>&nbsp;</p></td>
+                                                            <td valign="top" width="28"><p>f.</p></td>
+                                                            <td valign="top" width="562">
+                                                                <p>Biaya yang timbul menjadi beban pusat pelayanan / mata anggaran Direktorat Operasi &amp; Teknik ITPK</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td valign="top" width="26" height="20"><p>3.</p></td>
+                                                            <td colspan="2" valign="top" width="590">
+                                                                <p>Demikian kami sampaikan, atas perhatian dan kerja samanya kami ucapkan terima kasih.</p>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                              </textarea>
+                                              <div style="padding-left: 2%;">
+                                                <fieldset id="isi_sp" style="display:none;width:99%">
+                                                  <legend> ISI SURAT PERINTAH </legend>
+                                                  <table border="0">
+                                                    <tbody>
+                                                      <tr>
+
+                                                        <td width="50" valign="top">DASAR</td>
+                                                        <td valign="top">:</td>
+                                                        <td width="965" valign="top">
+                                                            <input type="hidden" name="dasarfix" id="dasarfix">
+                                                            <input type="hidden" name="perintahfix" id="perintahfix">
+                                                            <div id="dasar_atas">
+                                                              <div id="divdasar0">
+                                                                <div style="float:left">
+                                                                  <textarea id="dasar0" name="dasar[]" class="dassar" style="width:900px;height:100px;"></textarea>
+                                                                </div>
+                                                                <div style="float:left">
+                                                                  <input type="button" value="+" id="tmbhdsr" class="btn btn-success" style="padding: 0.2em 1em;margin-left: 20%;">
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                        </td>
+
+                                                      </tr>
+                                                      <tr>
+
+                                                        <td width="50" valign="top">ISI PERINTAH</td>
+                                                        <td valign="top">:</td>
+                                                        <td width="965" valign="top">
+                                                          <div id="perintah_atas">
+                                                            <div id="divperin0">
+                                                              <div style="float:left">
+                                                                <textarea id="perin0" name="perintah[]" class="perrintah" style="width:900px;height:100px;"></textarea>
+                                                              </div>
+                                                              <div style="float:left">
+                                                                <input type="button" value="+" id="tmbhper" class="btn btn-success" style="padding: 0.2em 1em;margin-left: 20%;">
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                        </td>
+
+                                                      </tr>
+                                                    </tbody>
+                                                  </table>
+                                                </fieldset>
+                                              </div>
+                                            </div>
+								<div class="kt-inbox__foot" style="padding-bottom: 8px;">
+									<div class="kt-inbox__primary" style="padding-top: 0px;margin-top: -15px;width: 100%;">
+										<div class="col-sm-12" style="padding-right: 15px;">
+											<h6 style="font-size: 8pt">Log History</h6>
+											<textarea readonly="" style="width: 100% !important;font-size: 8pt;" id="log_histori" name="log" cols="70" rows="6"></textarea>
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+							<div id="disposisi"></div>
+						</div>
+						<div class="kt-inbox__foot"></div>
+						<div class="kt-inbox__foot">
+							<br>
+							<div class="kt-inbox__primary" style="margin-top: -17px;padding-bottom: 17px">
+								<div class="btn-group col-sm-2" style="width: 140px;padding-right: 0px;margin-right: 0px;">
+									<button type="button" class="btn btn-success btn-bold" id="disposisi_bt" onclick="disposisi(1)" style="margin-left: 15px; width: 100px; height: 40px;">
+										<i class="flaticon-paper-plane-1" style="font-size: 8pt">&nbsp;DISPOSISI</i>
+									</button>
+								</div>
+								&nbsp;
+								<a id="arsip_bt2" onclick="arsipx()" class="btn btn-warning btn-bold" style="color: #fff9f5;">KEMBALIKAN KE KOTAK MASUK</a> &nbsp; <span style="font-size: 8pt;color:#06F"> &lt;- Klik KEMBALIKAN KE KOTAK MASUK untuk memindahkan surat ke KOTAK MASUK </span>
+							</div>
+						</div>
+					</form>
+					<!-- </div> -->
+				</div>
+				<!--End:: Inbox View-->
+			</div>
+			<!--End::Inbox-->
+			<!--Begin:: Inbox Compose-->
+		</div>
+		<!--End::Main Portlet-->
+	</div>
+</div>
+
+<script src="~/assets/vendors/base/vendors.bundle.js" type="text/javascript"></script>
+<script src="~/assets/demo/demo2/custom/components/forms/widgets/select2.js" type="text/javascript"></script>
+<script src="~/assets/demo/demo2/custom/tinymce/jscripts/tiny_mce/tiny_mce.js" type="text/javascript"></script>
+<script src="~/assets/demo/demo2/new_theme/js/multifile/jquery.MultiFile.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $('.backtomasuk').click(function() {
+        location.href = '@Url.Content("~/Inbox/SuratMasuk")';
+    });
+    $( "#tgl_mulai" ).datepicker({
+        changeMonth: true,
+        numberOfMonths: 1,
+        dateFormat:"dd-mm-yy",
+        onClose: function( selectedDate ) {
+          $( "#tgl_selesai" ).datepicker( "option", "minDate", selectedDate );
+          $("#tgl_mulai").datepicker( "option", "dateFormat", "dd-mm-yy" );
+        }
+    });
+
+    $( "#tgl_selesai").datepicker({
+        changeMonth: true,
+        numberOfMonths: 1,
+        dateFormat:"dd-mm-yy",
+        onClose: function( selectedDate ) {
+          $( "#tgl_mulai").datepicker( "option", "maxDate", selectedDate );
+          $("#tgl_selesai").datepicker( "option", "dateFormat", "dd-mm-yy" );
+        }
+    });
+
+      tinymce.activeEditor.execCommand("selectAll");
+      tinymce.activeEditor.execCommand('Delete', false, null);  
+      $("#elm1").attr("style", "display:none");
+      $("#elm1_parent").attr("style", "display:none"); 
+      
+
+
+</script>
+
+<script type="text/javascript">
+    tinyMCE.init({
+        // General options      
+        mode : "exact",
+        elements : "elm1",
+        width: "90%",
+        theme : "advanced",
+        plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist,autosave,visualblocks",
+
+        // Theme options
+        theme_advanced_buttons1 : "preview,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
+        theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,|,forecolor,backcolor",
+        theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap",
+        theme_advanced_toolbar_location : "top",
+        theme_advanced_toolbar_align : "left",
+        theme_advanced_statusbar_location : "bottom",
+        theme_advanced_resizing : true,
+        theme_advanced_fonts : "Times New Roman=times new roman,times;"+
+                /*"Andale Mono=andale mono,times;"+
+                "Arial=arial,helvetica,sans-serif;"+
+                "Arial Black=arial black,avant garde;"+
+                "Book Antiqua=book antiqua,palatino;"+*/
+                "Comic Sans MS=comic sans ms,sans-serif;"+
+                /*"Courier New=courier new,courier;"+
+                "Georgia=georgia,palatino;"+
+                "Helvetica=helvetica;"+
+                "Impact=impact,chicago;"+
+                "Symbol=symbol;"+
+                "Tahoma=tahoma,arial,helvetica,sans-serif;"+
+                "Terminal=terminal,monaco;"+*/            
+                "Gotham=gotham;"+
+                "Verdana=verdana,geneva;",
+                /*"Webdings=webdings;"+
+                "Wingdings=wingdings,zapf dingbats",*/
+                theme_advanced_font_sizes : "8pt,12pt,14pt",
+
+        // Example content CSS (should be your site CSS)
+        content_css : "~/assets/demo/demo2/custom/tinymceold/examples/css/content.css",
+
+        // Drop lists for link/image/media/template dialogs
+        template_external_list_url : "lists/template_list.js",
+        external_link_list_url : "lists/link_list.js",
+        external_image_list_url : "lists/image_list.js",
+        media_external_list_url : "lists/media_list.js",
+        
+
+        // Style formats
+        style_formats : [
+        {title : 'Bold text', inline : 'b'},
+        {title : 'Red text', inline : 'span', styles : {color : '#ff0000'}},
+        {title : 'Red header', block : 'h1', styles : {color : '#ff0000'}},
+        {title : 'Example 1', inline : 'span', classes : 'example1'},
+        {title : 'Example 2', inline : 'span', classes : 'example2'},
+        {title : 'Table styles'},
+        {title : 'Table row 1', selector : 'tr', classes : 'tablerow1'}
+        ],  
+
+        
+        // Replace values for the template plugin
+        template_replace_values : {
+          username : "Some User",
+          staffid : "991234"
+        }
+        
+    });
+</script>

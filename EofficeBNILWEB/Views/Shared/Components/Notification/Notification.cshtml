@@ -1,0 +1,862 @@
+﻿@model EofficeBNILWEB.Models.DashboardOutput
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@{
+    
+    var totalNotif = Model.documentInCount + Model.inboxCount + Model.signatureInCount + Model.NonEofficeInCount + Model.outboxCount + Model.deliveryCount + Model.MemoCount + Model.LainnyaCount;
+    var sessidGroup = Accessor.HttpContext.Session.GetString("idGroup");
+    var sessidNama = Accessor.HttpContext.Session.GetString("fullname");
+    var sessNip = Accessor.HttpContext.Session.GetString("nip");
+    var dtDocReturn = Model.listDocument.Where(p => p.statusCodeDocument != 5).ToList();
+    var dtDocReceive = Model.listDocument.Where(p => p.statusCodeDocument == 5).ToList();
+   
+}
+
+<div class="kt-header__topbar-item dropdown">
+    <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
+        <span class="kt-header__topbar-icon kt-pulse kt-pulse--light">
+            <i class="flaticon2-bell-alarm-symbol" style="color: #6a5844 !important;"></i>
+            @if(totalNotif > 0)
+            {
+                <span style="position: absolute;background-color: #fd397a;border-radius: 100%;width: 20px;height: 20px;text-align: center;color: white;right: 0;top: 0;">
+                    @totalNotif
+                </span>
+            }
+            <!--<i class="flaticon2-bell-alarm-symbol"></i>-->
+            @*<span class="kt-pulse__ring"></span>*@
+        </span>
+        <!--<span class="kt-badge kt-badge--light"></span>-->
+    </div>
+    <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-xl" style="position: absolute; transform: translate3d(-350px, 79px, 0px); top: 0px; left: 0px; will-change: transform;width: 450px !important;">
+        <form>
+            <!--begin: Head -->
+            <div class="kt-head kt-head--skin-dark kt-head--fit-x kt-head--fit-b" style="background-image: url(/EOFFICEBNILWEB/assets/metronic/themes/metronic/theme/default/demo4/dist/assets/media/demos/demo4/header-bni.jpg)">
+                <h3 class="kt-head__title">
+                    Notifikasi
+                    &nbsp;
+                    <span class="btn btn-success btn-sm btn-bold btn-font-md">@totalNotif</span>
+                </h3>
+
+                <ul class="nav nav-tabs nav-tabs-line nav-tabs-bold nav-tabs-line-4x nav-tabs-line-success kt-notification-item-padding-x" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active show" data-toggle="tab" href="#topbar_notifications_permohonan" role="tab" aria-selected="true">Surat Masuk</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#suratkeluar" role="tab" aria-selected="true">Surat Keluar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#memo" role="tab" aria-selected="true">Memo</a>
+                    </li>
+                    @if (sessidGroup == "B" || sessidGroup == "S")
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#topbar_notifications_masukAdmin" role="tab" aria-selected="false">Dokumen Masuk</a>
+                        </li>
+                    }
+                    @if (sessidGroup == "M")
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#topbar_notifications_absen" role="tab" aria-selected="false">Dokumen Pengembalian</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#topbar_notifications_docReceive" role="tab" aria-selected="false">Dokumen Diterima</a>
+                        </li>
+                    }
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#other" role="tab" aria-selected="true">Lainnya</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#noneoffice" role="tab" aria-selected="true">Dokumen Non E-office</a>
+                    </li>
+                </ul>
+            </div>
+            <!--end: Head -->
+
+            <div class="tab-content">
+                <div class="tab-pane active show" id="topbar_notifications_permohonan" role="tabpanel">
+                    <div class="kt-notification kt-margin-t-10 kt-margin-b-10 kt-scroll" data-scroll="true" data-height="300" data-mobile-height="200" style="height: 300px;">
+                        @if (Model.inboxCount == 0)
+                        {
+                            <div class="kt-grid kt-grid--ver" style="min-height: 200px;">
+                                <div class="kt-grid kt-grid--hor kt-grid__item kt-grid__item--fluid kt-grid__item--middle">
+                                    <div class="kt-grid__item kt-grid__item--middle kt-align-center">
+                                        Tidak ada notifikasi surat masuk
+                                    </div>
+                                </div>
+                            </div>
+                        }else{
+                            foreach (var item in Model.listLetter)
+                            {
+                                <a href="#" onclick="view_detail_letter('@item.idLetter')" class="kt-notification__item">
+                                    <div class="kt-notification__item-icon">
+                                        <i class="flaticon2-mail-1 kt-font-primary"></i>
+                                    </div>
+                                    <div class="kt-notification__item-details">
+                                        <div class="kt-notification__item-title">
+                                            @if (item.letterTypeCode == 1)
+                                            {
+                                                @item.senderName
+                                            }
+                                            else
+                                            {
+                                                @item.positionName
+                                            }
+                                        </div>
+                                        <div class="kt-notification__item-time">
+                                            Terdapat surat masuk baru perihal @item.about dengan nomor surat @item.letterNumber
+                                        </div>
+                                    </div>
+                                </a>
+                            }
+                        }
+                        
+                    </div>
+                </div>
+                <div class="tab-pane" id="suratkeluar" role="tabpanel">
+                    <div class="kt-notification kt-margin-t-10 kt-margin-b-10 kt-scroll" data-scroll="true" data-height="300" data-mobile-height="200" style="height: 300px;">
+                        @if (Model.outboxCount == 0 && Model.deliveryCount == 0)
+                        {
+                            <div class="kt-grid kt-grid--ver" style="min-height: 200px;">
+                                <div class="kt-grid kt-grid--hor kt-grid__item kt-grid__item--fluid kt-grid__item--middle">
+                                    <div class="kt-grid__item kt-grid__item--middle kt-align-center">
+                                        Tidak ada notifikasi surat keluar
+                                    </div>
+                                </div>
+                            </div>
+                        }else{
+                            foreach (var item in Model.listLetterOutbox)
+                            {
+                                @if (item.letterTypeCode == 2 )
+                                {
+                                    <a asp-controller="Letter" asp-action="DetailLetterSK" asp-route-id="@item.idLetter" class="kt-notification__item">
+                                        <div class="kt-notification__item-icon">
+                                            <i class="flaticon2-mail-1 kt-font-primary"></i>
+                                        </div>
+                                        <div class="kt-notification__item-details">
+                                            <div class="kt-notification__item-title">
+                                                @if (item.letterTypeCode == 1)
+                                                {
+                                                    @item.senderName
+                                                }
+                                                else
+                                                {
+                                                    @item.positionName
+                                                }
+                                            </div>
+                                            <div class="kt-notification__item-time">
+                                                Terdapat surat keluar baru perihal @item.about yang membutuhkan aksi anda
+                                            </div>
+                                        </div>
+                                    </a>
+                                }
+                                else if (item.letterTypeCode == 6 )
+                                {
+                                    <a asp-controller="Letter" asp-action="DetailLetterSKBackdate" asp-route-id="@item.idLetter" class="kt-notification__item">
+                                        <div class="kt-notification__item-icon">
+                                            <i class="flaticon2-mail-1 kt-font-primary"></i>
+                                        </div>
+                                        <div class="kt-notification__item-details">
+                                            <div class="kt-notification__item-title">
+                                                @if (item.letterTypeCode == 1)
+                                                {
+                                                    @item.senderName
+                                                }
+                                                else
+                                                {
+                                                    @item.positionName
+                                                }
+                                            </div>
+                                            <div class="kt-notification__item-time">
+                                                Terdapat surat masuk baru perihal @item.about yang membutuhkan aksi anda
+                                            </div>
+                                        </div>
+                                    </a>
+                                }
+
+                             
+                            }
+                            foreach(var item in Model.listDelivery)
+                            {
+                                <a asp-controller="Letter" asp-action="EofficeUserDeliveryReport" asp-route-id="@item.idDelivery" asp class="kt-notification__item">
+                                    <div class="kt-notification__item-icon">
+                                        <i class="flaticon2-mail-1 kt-font-primary"></i>
+                                    </div>
+                                    <div class="kt-notification__item-details">
+                                        <div class="kt-notification__item-title">
+                                            Pengiriman Surat
+                                        </div>
+                                        <div class="kt-notification__item-time">
+                                            Status pengiriman surat dengan nomor @item.letterNumber adalah @item.statusCodeValue
+                                        </div>
+                                    </div>
+                                </a>
+                            }
+                        }
+                        
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="memo" role="tabpanel">
+                    <div class="kt-notification kt-margin-t-10 kt-margin-b-10 kt-scroll" data-scroll="true" data-height="300" data-mobile-height="200" style="height: 300px;">
+                        @if (Model.MemoCount == 0)
+                        {
+                            <div class="kt-grid kt-grid--ver" style="min-height: 200px;">
+                                <div class="kt-grid kt-grid--hor kt-grid__item kt-grid__item--fluid kt-grid__item--middle">
+                                    <div class="kt-grid__item kt-grid__item--middle kt-align-center">
+                                        Tidak ada notifikasi memo
+                                    </div>
+                                </div>
+                            </div>
+                        }else{
+                            foreach (var item in Model.listLetterMemo)
+
+                                @if (@item.letterTypeCode == 3)
+                                {
+                                      {
+                                            <a asp-controller="Memo" asp-action="DetailMemo" asp-route-id="@item.idLetter"  class="kt-notification__item">
+                                                <div class="kt-notification__item-icon">
+                                                    <i class="flaticon2-mail-1 kt-font-primary"></i>
+                                                </div>
+                                                <div class="kt-notification__item-details">
+                                                    <div class="kt-notification__item-title">
+                                                        @if (item.letterTypeCode == 1)
+                                                        {
+                                                            @item.senderName
+                                                        }
+                                                        else
+                                                        {
+                                                            @item.positionName
+                                                        }
+                                                    </div>
+                                                    <div class="kt-notification__item-time">
+                                                    Terdapat Surat Masuk Memo perihal @item.about yang membutuhkan aksi anda
+                                                    </div>
+                                                </div>
+                                            </a>
+                                     }
+                                }
+                                else if(@item.letterTypeCode == 4)
+                                {   
+                                     {
+                                            <a asp-controller="BackDate" asp-action="DetailMemoBackDate" asp-route-id="@item.idLetter"  class="kt-notification__item">
+                                                <div class="kt-notification__item-icon">
+                                                    <i class="flaticon2-mail-1 kt-font-primary"></i>
+                                                </div>
+                                                <div class="kt-notification__item-details">
+                                                    <div class="kt-notification__item-title">
+                                                        @if (item.letterTypeCode == 1)
+                                                        {
+                                                            @item.senderName
+                                                        }
+                                                        else
+                                                        {
+                                                            @item.positionName
+                                                        }
+                                                    </div>
+                                                    <div class="kt-notification__item-time">
+                                                    Terdapat Surat Masuk Memo Lainnya perihal @item.about yang membutuhkan aksi anda
+                                                    </div>
+                                                </div>
+                                            </a>
+                                    }
+                                }
+                                else if(@item.letterTypeCode == 5)
+                                {   
+                                     {
+                                            <a asp-controller="Memo" asp-action="DetailMemoPengadaan" asp-route-id="@item.idLetter"  class="kt-notification__item">
+                                                <div class="kt-notification__item-icon">
+                                                    <i class="flaticon2-mail-1 kt-font-primary"></i>
+                                                </div>
+                                                <div class="kt-notification__item-details">
+                                                    <div class="kt-notification__item-title">
+                                                        @if (item.letterTypeCode == 1)
+                                                        {
+                                                            @item.senderName
+                                                        }
+                                                        else
+                                                        {
+                                                            @item.positionName
+                                                        }
+                                                    </div>
+                                                    <div class="kt-notification__item-time">
+                                                    Terdapat Surat Masuk Memo Pengadaan perihal @item.about yang membutuhkan aksi anda
+                                                    </div>
+                                                </div>
+                                            </a>
+                                    }
+                                }
+                                else{
+
+                                }
+                           
+                            
+                        }
+                        
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="topbar_notifications_absen" role="tabpanel">
+                    <div class="kt-notification kt-margin-t-10 kt-margin-b-10 kt-scroll" data-scroll="true" data-height="300" data-mobile-height="200" style="height: 300px;">
+                        @if(dtDocReturn.Count() == 0)
+                        {
+                            <div class="kt-grid kt-grid--ver" style="min-height: 200px;">
+                                <div class="kt-grid kt-grid--hor kt-grid__item kt-grid__item--fluid kt-grid__item--middle">
+                                    <div class="kt-grid__item kt-grid__item--middle kt-align-center">
+                                        Tidak ada notifikasi dokumen pengembalian.
+                                    </div>
+                                </div>
+                            </div>
+                        }else{
+                            foreach (var item in dtDocReturn)
+                            {
+                                var controller = "Document";
+                                var action = "Detail";
+                                if (sessidGroup == "B" || sessidGroup == "S")
+                                {
+                                    action = "ReceiveDocIn";
+                                }
+                                <a asp-controller="@controller" asp-action="@action" asp-route-id="@item.idDocument" class="kt-notification__item">
+                                    <div class="kt-notification__item-icon">
+                                        <i class="flaticon2-document kt-font-primary"></i>
+                                    </div>
+                                    <div class="kt-notification__item-details">
+                                        <div class="kt-notification__item-title">
+                                            @if (item.returnNumber != null)
+                                            {
+                                                @item.returnNumber
+                                            }
+                                            else
+                                            {
+                                                @item.trackingNumber
+                                            }
+                                        </div>
+                                        @if (sessidGroup == "B" || sessidGroup == "S")
+                                        {
+                                            <div class="kt-notification__item-time">
+                                                Terdapat dokumen masuk baru dari @item.senderName yang membutuhkan aksi anda
+                                            </div>
+                                        }
+                                        @if(sessidGroup == "M")
+                                        {
+                                            if (item.statusCodeDocument == 3)
+                                            {
+                                                @if (item.returnNumber != null)
+                                                {
+                                                    <div class="kt-notification__item-time">
+                                                        Dokumen masuk dengan nomor @item.returnNumber diterima sebagian
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="kt-notification__item-time">
+                                                        Dokumen masuk dengan nomor @item.trackingNumber diterima sebagian
+                                                    </div>
+                                                }
+                                            }
+                                            else if(item.statusCodeDocument == 4)
+                                            {
+                                                @if (item.returnNumber != null)
+                                                {
+                                                    <div class="kt-notification__item-time">
+                                                        Dokumen masuk dengan nomor @item.returnNumber ditolak
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="kt-notification__item-time">
+                                                        Dokumen masuk dengan nomor @item.trackingNumber ditolak
+                                                    </div>
+                                                }
+                                            }else{
+                                                @if (item.returnNumber != null)
+                                                {
+                                                    <div class="kt-notification__item-time">
+                                                        Dokumen masuk dengan nomor @item.returnNumber telah diterima
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="kt-notification__item-time">
+                                                        Dokumen masuk dengan nomor @item.trackingNumber telah diterima
+                                                    </div>
+                                                }
+                                            }
+                                        }
+                                        
+                                    </div>
+                                </a>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="tab-pane" id="topbar_notifications_docReceive" role="tabpanel">
+                    <div class="kt-notification kt-margin-t-10 kt-margin-b-10 kt-scroll" data-scroll="true" data-height="300" data-mobile-height="200" style="height: 300px;">
+                        @if (dtDocReceive.Count() == 0)
+                        {
+                            <div class="kt-grid kt-grid--ver" style="min-height: 200px;">
+                                <div class="kt-grid kt-grid--hor kt-grid__item kt-grid__item--fluid kt-grid__item--middle">
+                                    <div class="kt-grid__item kt-grid__item--middle kt-align-center">
+                                        Tidak ada notifikasi dokumen diterima.
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            foreach (var item in dtDocReceive)
+                            {
+                                var controller = "Document";
+                                var action = "Detail";
+                                if (sessidGroup == "B" || sessidGroup == "S")
+                                {
+                                    action = "ReceiveDocIn";
+                                }
+                                <a asp-controller="@controller" asp-action="@action" asp-route-id="@item.idDocument" class="kt-notification__item">
+                                    <div class="kt-notification__item-icon">
+                                        <i class="flaticon2-document kt-font-primary"></i>
+                                    </div>
+                                    <div class="kt-notification__item-details">
+                                        <div class="kt-notification__item-title">
+                                            @if (item.returnNumber != null)
+                                            {
+                                                @item.returnNumber
+                                            }
+                                            else
+                                            {
+                                                @item.trackingNumber
+                                            }
+                                        </div>
+                                        @if (sessidGroup == "B" || sessidGroup == "S")
+                                        {
+                                            <div class="kt-notification__item-time">
+                                                Terdapat dokumen masuk baru dari @item.senderName yang membutuhkan aksi anda
+                                            </div>
+                                        }
+                                        @if (sessidGroup == "M")
+                                        {
+                                            if (item.statusCodeDocument == 3)
+                                            {
+                                                @if (item.returnNumber != null)
+                                                {
+                                                    <div class="kt-notification__item-time">
+                                                        Dokumen masuk dengan nomor @item.returnNumber diterima sebagian
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="kt-notification__item-time">
+                                                        Dokumen masuk dengan nomor @item.trackingNumber diterima sebagian
+                                                    </div>
+                                                }
+                                            }
+                                            else if (item.statusCodeDocument == 4)
+                                            {
+                                                @if (item.returnNumber != null)
+                                                {
+                                                    <div class="kt-notification__item-time">
+                                                        Dokumen masuk dengan nomor @item.returnNumber ditolak
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="kt-notification__item-time">
+                                                        Dokumen masuk dengan nomor @item.trackingNumber ditolak
+                                                    </div>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                @if (item.returnNumber != null)
+                                                {
+                                                    <div class="kt-notification__item-time">
+                                                        Dokumen masuk dengan nomor @item.returnNumber telah diterima
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="kt-notification__item-time">
+                                                        Dokumen masuk dengan nomor @item.trackingNumber telah diterima
+                                                    </div>
+                                                }
+                                            }
+                                        }
+
+                                    </div>
+                                </a>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="tab-pane" id="topbar_notifications_masukAdmin" role="tabpanel">
+                    <div class="kt-notification kt-margin-t-10 kt-margin-b-10 kt-scroll" data-scroll="true" data-height="300" data-mobile-height="200" style="height: 300px;">
+                        @if (Model.documentInCount == 0)
+                        {
+                            <div class="kt-grid kt-grid--ver" style="min-height: 200px;">
+                                <div class="kt-grid kt-grid--hor kt-grid__item kt-grid__item--fluid kt-grid__item--middle">
+                                    <div class="kt-grid__item kt-grid__item--middle kt-align-center">
+                                        Tidak ada notifikasi dokumen masuk.
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            foreach (var item in Model.listDocument)
+                            {
+                                var controller = "Document";
+                                var action = "Detail";
+                                if (sessidGroup == "B" || sessidGroup == "S")
+                                {
+                                    action = "ReceiveDocIn";
+                                }
+                                <a asp-controller="@controller" asp-action="@action" asp-route-id="@item.idDocument" class="kt-notification__item">
+                                    <div class="kt-notification__item-icon">
+                                        <i class="flaticon2-document kt-font-primary"></i>
+                                    </div>
+                                    <div class="kt-notification__item-details">
+                                        <div class="kt-notification__item-title">
+                                            @if (item.returnNumber != null)
+                                            {
+                                                @item.returnNumber
+                                            }
+                                            else
+                                            {
+                                                @item.trackingNumber
+                                            }
+                                        </div>
+                                        @if (sessidGroup == "B" || sessidGroup == "S")
+                                        {
+                                            <div class="kt-notification__item-time">
+                                                Terdapat dokumen masuk baru dari @item.senderName yang membutuhkan aksi anda
+                                            </div>
+                                        }
+                                        @if (sessidGroup == "M")
+                                        {
+                                            if (item.statusCodeDocument == 3)
+                                            {
+                                                @if (item.returnNumber != null)
+                                                {
+                                                    <div class="kt-notification__item-time">
+                                                        Dokumen masuk dengan nomor @item.returnNumber diterima sebagian
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="kt-notification__item-time">
+                                                        Dokumen masuk dengan nomor @item.trackingNumber diterima sebagian
+                                                    </div>
+                                                }
+                                            }
+                                            else if (item.statusCodeDocument == 4)
+                                            {
+                                                @if (item.returnNumber != null)
+                                                {
+                                                    <div class="kt-notification__item-time">
+                                                        Dokumen masuk dengan nomor @item.returnNumber ditolak
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="kt-notification__item-time">
+                                                        Dokumen masuk dengan nomor @item.trackingNumber ditolak
+                                                    </div>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                @if (item.returnNumber != null)
+                                                {
+                                                    <div class="kt-notification__item-time">
+                                                        Dokumen masuk dengan nomor @item.returnNumber telah diterima
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="kt-notification__item-time">
+                                                        Dokumen masuk dengan nomor @item.trackingNumber telah diterima
+                                                    </div>
+                                                }
+                                            }
+                                        }
+
+                                    </div>
+                                </a>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="tab-pane" id="other" role="tabpanel">
+                    <div class="kt-notification kt-margin-t-10 kt-margin-b-10 kt-scroll" data-scroll="true" data-height="300" data-mobile-height="200" style="height: 300px;">
+                        @if (Model.LainnyaCount == 0)
+                        {
+                            <div class="kt-grid kt-grid--ver" style="min-height: 200px;">
+                                <div class="kt-grid kt-grid--hor kt-grid__item kt-grid__item--fluid kt-grid__item--middle">
+                                    <div class="kt-grid__item kt-grid__item--middle kt-align-center">
+                                        Tidak ada notifikasi
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            foreach (var item in Model.listlainnya)
+                            {
+                                <a href="#" class="kt-notification__item" onclick="ChangeStatusLainnya()">
+                                    @*<a href="@Url.Action("ReadNotifikasiLainnya","GenerateNoDoc", new { id = @item.ID_NOTIFIKASI })" class="kt-notification__item">*@
+                                    <div class="kt-notification__item-icon">
+                                        <i class="flaticon2-mail-1 kt-font-primary"></i>
+                                    </div>
+                                    <div class="kt-notification__item-details">
+                                        <div class="kt-notification__item-title">
+                                            @item.STATUS_DOC
+                                            <input type="text" hidden  value="@item.ID_NOTIFIKASI" class="form-control" id="ID_NOTIFIKASI" name="ID_NOTIFIKASI">
+                                        </div>
+                                        <div class="kt-notification__item-time">
+                                           @item.NOTIFIKASI
+                                        </div>
+                                    </div>
+                                </a>
+                                
+                                
+                            }
+                        }
+                    </div>
+                </div>
+                
+                <div class="tab-pane" id="noneoffice" role="tabpanel">
+                    <div class="kt-notification kt-margin-t-10 kt-margin-b-10 kt-scroll" data-scroll="true" data-height="300" data-mobile-height="200" style="height: 300px;">
+                        @if (Model.NonEofficeInCount == 0)
+                        {
+                            <div class="kt-grid kt-grid--ver" style="min-height: 200px;">
+                                <div class="kt-grid kt-grid--hor kt-grid__item kt-grid__item--fluid kt-grid__item--middle">
+                                    <div class="kt-grid__item kt-grid__item--middle kt-align-center">
+                                        Tidak ada notifikasi
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            foreach (var item in Model.listNonEoffice)
+                            {
+                                @if (sessNip == @item.nip)
+                                {
+                                    if (@item.delivery_type ==1)
+                                    {
+                                        //@Url.Action("DetailNotifikasiNonEoffice","GenerateNoDoc", new { id = item.idmailingnoneoffice })
+                                       @* <a href="#" onclick="view_detail_non_eoffice('@item.idmailingnoneoffice')" class="kt-notification__item">
+                                        @*<a href="@Url.Action("DetailNotifikasiNonEoffice","GenerateNoDoc", new { id = item.idmailingnoneoffice })" class="kt-notification__item">
+                                            <div class="kt-notification__item-icon">
+                                                <i class="flaticon2-mail-1 kt-font-primary"></i>
+                                            </div>
+                                            <div class="kt-notification__item-details">
+                                                <div class="kt-notification__item-title">
+                                                    No surat: @item.letter_number
+                                                </div>
+                                                <div class="kt-notification__item-time">
+                                                    No surat: @item.letter_number  sudah dikirim dengan metode expedisi dengan no kirim @item.nmrawb
+                                                </div>
+                                            </div>
+                                        </a>*@
+                                        if (@item.statuskirim == 1)
+                                        {
+                                            @*<a href="#" onclick="view_detail_non_eoffice('@item.idmailingnoneoffice')" class="kt-notification__item">*@
+                                            <a href="@Url.Action("DetailNotifikasiNonEoffice","GenerateNoDoc", new { id = @item.idmailingnoneoffice })" class="kt-notification__item">
+                                                <div class="kt-notification__item-icon">
+                                                    <i class="flaticon2-mail-1 kt-font-primary"></i>
+                                                </div>
+                                                <div class="kt-notification__item-details">
+                                                    <div class="kt-notification__item-title">
+                                                        No surat: @item.letter_number
+                                                    </div>
+                                                    <div class="kt-notification__item-time">
+                                                        status pengiriman surat anda sedang : <b>diproses</b>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        }
+                                        else if (@item.statuskirim == 2)
+                                        {
+                                            <a href="@Url.Action("DetailNotifikasiNonEoffice","GenerateNoDoc", new { id = @item.idmailingnoneoffice })" class="kt-notification__item">
+                                                @*<a href="#" onclick="view_detail_non_eoffice('@item.idmailingnoneoffice')" class="kt-notification__item">*@
+                                                <div class="kt-notification__item-icon">
+                                                    <i class="flaticon2-mail-1 kt-font-primary"></i>
+                                                </div>
+                                                <div class="kt-notification__item-details">
+                                                    <div class="kt-notification__item-title">
+                                                        No surat: @item.letter_number
+                                                    </div>
+                                                    <div class="kt-notification__item-time">
+                                                        status pengiriman surat anda : <b>dikembalikan</b>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        }
+                                        else if (@item.statuskirim == 3)
+                                        {
+                                            <a href="@Url.Action("DetailNotifikasiNonEoffice","GenerateNoDoc", new { id = @item.idmailingnoneoffice })" class="kt-notification__item">
+                                                @*<a href="#" onclick="view_detail_non_eoffice('@item.idmailingnoneoffice')" class="kt-notification__item">*@
+                                                <div class="kt-notification__item-icon">
+                                                    <i class="flaticon2-mail-1 kt-font-primary"></i>
+                                                </div>
+                                                <div class="kt-notification__item-details">
+                                                    <div class="kt-notification__item-title">
+                                                        No surat: @item.letter_number
+                                                    </div>
+                                                    <div class="kt-notification__item-time">
+                                                        status pengiriman anda telah : <b>Selesai Antar</b>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        }
+                                        else { }
+                                    }
+
+                                   if (@item.delivery_type ==2)
+                                    {
+                                        if (@item.statuskirim == 1)
+                                        {
+                                            @*<a href="#" onclick="view_detail_non_eoffice('@item.idmailingnoneoffice')" class="kt-notification__item">*@
+                                            <a href="@Url.Action("DetailNotifikasiNonEoffice","GenerateNoDoc", new { id = @item.idmailingnoneoffice })" class="kt-notification__item">
+                                                <div class="kt-notification__item-icon">
+                                                    <i class="flaticon2-mail-1 kt-font-primary"></i>
+                                                </div>
+                                                <div class="kt-notification__item-details">
+                                                    <div class="kt-notification__item-title">
+                                                       No surat: @item.letter_number
+                                                    </div>
+                                                    <div class="kt-notification__item-time">
+                                                       status pengiriman surat anda sedang : <b>diproses</b>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        }
+                                        else if (@item.statuskirim == 2)
+                                        {
+                                            <a href="@Url.Action("DetailNotifikasiNonEoffice","GenerateNoDoc", new { id = @item.idmailingnoneoffice })" class="kt-notification__item">
+                                            @*<a href="#" onclick="view_detail_non_eoffice('@item.idmailingnoneoffice')" class="kt-notification__item">*@
+                                                <div class="kt-notification__item-icon">
+                                                    <i class="flaticon2-mail-1 kt-font-primary"></i>
+                                                </div>
+                                                <div class="kt-notification__item-details">
+                                                    <div class="kt-notification__item-title">
+                                                        No surat: @item.letter_number
+                                                    </div>
+                                                    <div class="kt-notification__item-time">
+                                                        status pengiriman surat anda : <b>dikembalikan</b>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        }
+                                        else if (@item.statuskirim == 3)
+                                        {
+                                            <a href="@Url.Action("DetailNotifikasiNonEoffice","GenerateNoDoc", new { id = @item.idmailingnoneoffice })" class="kt-notification__item">
+                                            @*<a href="#" onclick="view_detail_non_eoffice('@item.idmailingnoneoffice')" class="kt-notification__item">*@
+                                                <div class="kt-notification__item-icon">
+                                                    <i class="flaticon2-mail-1 kt-font-primary"></i>
+                                                </div>
+                                                <div class="kt-notification__item-details">
+                                                    <div class="kt-notification__item-title">
+                                                        No surat: @item.letter_number
+                                                    </div>
+                                                    <div class="kt-notification__item-time">
+                                                        status pengiriman anda telah : <b>Selesai Antar</b>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        }
+                                        else{}
+                                    }
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    function view_detail_letter(param) {
+        window.location.href = "@Url.Action("DetailLetterSM","Letter")/" + param;
+        if (!e) var e = window.event;
+        e.cancelBubble = true;
+        if (e.stopPropagation) e.stopPropagation();
+    }
+    function view_detail_letter_outbox(param) {
+        window.location.href = "@Url.Action("DetailLetterSK","Letter")/" + param;
+        if (!e) var e = window.event;
+        e.cancelBubble = true;
+        if (e.stopPropagation) e.stopPropagation();
+    }
+
+    function view_detail_profileuser(param) {
+        window.location.href = "@Url.Action("DetailProfileUser","SettingUser")/" + param;
+        if (!e) var e = window.event;
+        e.cancelBubble = true;
+        if (e.stopPropagation) e.stopPropagation();
+    }
+    function view_detail_approval_profileuser(param) {
+        window.location.href = "@Url.Action("DetailApprovalProfileUser","SettingUser")/" + param;
+        if (!e) var e = window.event;
+        e.cancelBubble = true;
+        if (e.stopPropagation) e.stopPropagation();
+    }
+    //function view_detail_non_eoffice(param) {
+    //    window.location.href = "@Url.Action("DetailNotifikasiNonEoffice","GenerateNoDoc")/" + param;
+    //    if (!e) var e = window.event;
+    //    e.cancelBubble = true;
+    //    if (e.stopPropagation) e.stopPropagation();
+    //}
+    //
+    function view_detail_document(param){
+        var sessidGroup = "@sessidGroup";
+        if (sessidGroup == "B" || sessidGroup == "S") {
+            window.location.href = "~/Document/ReceiveDocIn/" + param;
+        }
+        if (sessidGroup == "M") {
+            window.location.href = "~/Document/Detail/" + param;
+        }
+        
+        if (!e) var e = window.event;
+        e.cancelBubble = true;
+        if (e.stopPropagation) e.stopPropagation();
+    }
+
+    function ChangeStatusLainnya() {
+        
+        $.blockUI({
+            css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                baseZ: 2000,
+                color: '#fff'
+            }
+        });
+        var idStatusNotif = document.getElementById("ID_NOTIFIKASI").value;
+        console.log(idStatusNotif);
+        var param = {
+            idStatusNotif: idStatusNotif
+        };
+
+        $.post('@Url.Action("UpdateStatusNotifikasi", "Memo")', param, function (result) {
+            var data = JSON.parse(result);
+
+            
+            $.unblockUI();
+
+            
+            if (data != null) {
+                document.getElementById('ID_NOTIFIKASI').style.display = "block";
+                location.reload();
+            }
+
+        });
+
+    }
+</script>

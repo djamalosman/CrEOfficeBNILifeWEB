@@ -1,0 +1,211 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localiza
+@using Microsoft.AspNetCore.Http
+@model EofficeBNILWEB.Models.OutputDetailDataNotifNon
+@inject IHttpContextAccessor Accessor
+@{
+
+    var en = Accessor.HttpContext.Session.GetString("en");
+    var ina = Accessor.HttpContext.Session.GetString("ina");
+    int no = 1;
+}
+<!-- begin::Body -->
+<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
+    <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver    m-container m-container--responsive m-container--xxl m-page__container">
+        <div class="m-grid__item m-grid__item--fluid m-wrapper">
+            <!-- BEGIN: Subheader -->
+            <div class="m-subheader ">
+                <div class="d-flex align-items-center">
+                    <div class="mr-auto" style="color: white;">
+                        <h3 class="m-subheader__title m-subheader__title--separator" style="color: white;">
+                            @if (Model.NotifNonEoffice.delivery_type == 1)
+                            {
+                                @(en != null ? "NON E-OFFICE EXPEDITION DELIVERY" : "PENGiRIMAN EKSPEDISI NON E-OFFICE")
+                            }
+                            else
+                            {
+                                @(en != null ? "NON E-OFFICE COURIER DELIVERY" : "PENGIRIMAN KURIR NON E-OFFICE")
+                            }
+
+                        </h3>
+                        <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                            <li class="m-nav__item m-nav__item--home">
+                                <a href="#" class="m-nav__link m-nav__link--icon">
+                                    <i class="m-nav__link-icon la la-home" style="color: white;"></i>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        @(en != null ? "NOTIFICATIONS" : "NOTIFIKASI")
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        @if (Model.NotifNonEoffice.delivery_type == 1)
+                                        {
+                                            @(en != null ? "NON E-OFFICE EXPEDITION DELIVERY" : "PENGiRIMAN EKSPEDISI NON E-OFFICE")
+                                        }
+                                        else
+                                        {
+                                            @(en != null ? "NON E-OFFICE COURIER DELIVERY" : "PENGIRIMAN KURIR NON E-OFFICE")
+                                        }
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Subheader -->
+            <div class="m-content" style="padding: 30px 30px !important;">
+                <!--Begin::Main Portlet-->
+                <!--End::Main Portlet-->
+                <div class="m-portlet m-portlet--full-height ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <h5>
+                                @if (Model.NotifNonEoffice.delivery_type == 1)
+                                {
+                                    @(en != null ? "NON E-OFFICE EXPEDITION DELIVERY" : "PENGiRIMAN EKSPEDISI NON E-OFFICE")
+                                }
+                                else
+                                {
+                                    @(en != null ? "NON E-OFFICE COURIER DELIVERY" : "PENGIRIMAN KURIR NON E-OFFICE")
+                                }
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        <div id="listDocHist" style="margin-top:20px">
+                        </div>
+                        <div class="table-responsive">
+                            @if (Model.NotifNonEoffice.delivery_type == 1)
+                            {
+                                <table id="myTablee" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "No" : "No")</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "No AWB / No Delivery" : "No AWB / No Pengiriman")</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Reference number" : "Nomor Refrensi")</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Delivery date" : "Tanggal Pengiriman")</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Expedition Name" : "Nama Ekspedisi")</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Sender Name" : "Nama Pengirim")</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Division" : "Divisi")</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Division Code" : "Kode Divsi")</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Letter Number" : "Nomor Surat")</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Purpose Name" : "Nama Tujuan")</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Phone Number" : "Nomor Telepon")</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Addres" : "Alamat")</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Receiver Name" : "Nama Penerima")</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Receiver Date" : "Tanggal Penerima")</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Delivery Status" : "Status Pengiriman")</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Create By" : "Dibuat oleh")</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Updated By" : "Diubah oleh")</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="word-wrap: break-word;">@no</td>
+                                            <td style="word-wrap: break-word;">@Model.NotifNonEoffice.nmrawb</td>
+                                            <td style="word-wrap: break-word;">@Model.NotifNonEoffice.nmrreferen</td>
+                                            <td style="word-wrap: break-word;">@Model.NotifNonEoffice.ReceiptDate.ToString("dd-MM-yyyy")</td>
+                                            <td style="word-wrap: break-word;">@Model.NotifNonEoffice.expedition_name</td>
+                                            <td style="word-wrap: break-word;">@Model.NotifNonEoffice.sender_name - @Model.NotifNonEoffice.nip</td>
+                                            <td style="word-wrap: break-word;">@Model.NotifNonEoffice.unitname</td>
+                                            <td style="word-wrap: break-word;">@Model.NotifNonEoffice.kodeunit</td>
+                                            <td style="word-wrap: break-word;">@Model.NotifNonEoffice.letter_number</td>
+                                            <td style="word-wrap: break-word;">@Model.NotifNonEoffice.docReceiver</td>
+                                            <td style="word-wrap: break-word;">@Model.NotifNonEoffice.phonenumber</td>
+                                            <td style="word-wrap: break-word;">@Model.NotifNonEoffice.address</td>
+                                            <td style="word-wrap: break-word;">@Model.NotifNonEoffice.purposename</td>
+                                            <td style="word-wrap: break-word;">@Convert.ToDateTime(Model.NotifNonEoffice.DateUntil).ToString("dd-MM-yyyy")</td>
+                                            <td style="word-wrap: break-word;">@(@Model.NotifNonEoffice.statuskirim == 1 ? "Proses" : @Model.NotifNonEoffice.statuskirim == 2 ? "Dikembalikan" : @Model.NotifNonEoffice.statuskirim == 3 ? "Selesai Antar" : "")</td>
+                                            <td style="word-wrap: break-word;">@Model.NotifNonEoffice.cretaeby</td>
+                                            <td style="word-wrap: break-word;">@Model.NotifNonEoffice.updateby</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            }
+                            else
+                            {
+                                <table id="myTablee" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            @if (@en == "en")
+                                            {
+                                                <th>No</th>
+                                                <th>@(en != null ? "Receipt Number" : "Nomor Resi")</th>
+                                                <th>Letter Number</th>
+                                                <td>ReceiptDate</td>
+                                                <th>Send Type</th>
+                                                <th>Courier Name</th>
+                                                <th>Sender Name</th>
+                                                <th>Division</th>
+                                                <th>Receiver</th>
+                                                <th>Adress</th>
+                                                <th>Status</th>
+                                                <th>Create By</th>
+                                                <th>Update By</th>
+
+                                            }
+                                            else
+                                            {
+                                                <th>No</th>
+                                                <th>@(en != null ? "Receipt Number" : "Nomor Resi")</th>
+                                                <th>Nomor Surat</th>
+                                                <th>Tanggal Penerimaan</th>
+                                                <th>Tipe Jenis Antaran</th>
+                                                <th>Nama Kurir</th>
+                                                <th>Nama Pengirim</th>
+                                                <th>Divisi</th>
+                                                <th>Penerima</th>
+                                                <th>Alamat</th>
+                                                <th>Status</th>
+                                                <th>Dibuat oleh</th>
+                                                <th>Diubah oleh</th>
+                                            }
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr>
+                                            <td>@no</td>
+                                            <td>@Model.NotifNonEoffice.qrcodenumber</td>
+                                            <td>@Model.NotifNonEoffice.letter_number</td>
+                                            <td>@Model.NotifNonEoffice.ReceiptDate.ToString("dd-MM-yyyy")</td>
+                                            <td>@Model.NotifNonEoffice.deliveryname</td>
+                                            <td>@Model.NotifNonEoffice.expedition_name</td>
+                                            <td>@Model.NotifNonEoffice.sender_name</td>
+                                            <td>@Model.NotifNonEoffice.unitname</td>
+                                            <td>@Model.NotifNonEoffice.address</td>
+                                            <td>@Model.NotifNonEoffice.docReceiver</td>
+                                            <td>@(@Model.NotifNonEoffice.statuskirim == 1 ? "Proses" : @Model.NotifNonEoffice.statuskirim == 2 ? "Dikembalikan" : @Model.NotifNonEoffice.statuskirim == 3 ? "Selesai/Sampai" : "")</td>
+                                            <td>@Model.NotifNonEoffice.cretaeby</td>
+                                            <td>@Model.NotifNonEoffice.updateby</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#myTablee').DataTable({
+            scrollY: true,
+            scrollX: true,
+        });
+    });
+</script>

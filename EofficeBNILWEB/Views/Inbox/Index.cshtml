@@ -1,0 +1,1234 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localiza
+@model EofficeBNILWEB.Models.LetterOutputWeb
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@{
+    var sessidUser = Accessor.HttpContext.Session.GetString("idUser");
+    var sessidUnit = Accessor.HttpContext.Session.GetString("idUnit");
+    var data = 1;
+    var totalRecordNoRead = Model.data.Where(p => p.readStatus == 99).Count();
+    var en = Accessor.HttpContext.Session.GetString("en");
+    var ina = Accessor.HttpContext.Session.GetString("ina");
+}
+<style type="text/css">
+    .kt-inbox__search {
+        width: 35% !important;
+        left: 18% !important;
+    }
+
+    .column-contents {
+        padding: 2rem;
+    }
+</style>
+<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
+    <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver    m-container m-container--responsive m-container--xxl m-page__container">
+        <div class="m-grid__item m-grid__item--fluid m-wrapper">
+            <!-- BEGIN: Subheader -->
+            <div class="m-subheader ">
+                <div class="d-flex align-items-center">
+                    <div class="mr-auto" style="color: white;">
+                        <h3 class="m-subheader__title m-subheader__title--separator" style="color: white;">
+
+                            @(en != null ? "Incoming Document" : "Surat Masuk")
+                        </h3>
+                        <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                            <li class="m-nav__item m-nav__item--home">
+                                <a href="#" class="m-nav__link m-nav__link--icon">
+                                    <i class="m-nav__link-icon la la-home" style="color: white;"></i>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        @(en != null ? "Office" : "Office")
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        @(en != null ? "Inbox" : "Surat Masuk")
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        @(en != null ? "Incoming Document" : "Surat Masuk")
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Subheader -->
+            <div class="m-content" style="padding: 30px 30px !important;">
+                <div class="kt-grid kt-grid--desktop kt-grid--ver-desktop  kt-inbox" id="kt_inbox">
+                    <button class="kt-inbox__aside-close" id="kt_inbox_aside_close">
+                        <i class="la la-close"></i>
+                    </button>
+                    <!--Begin:: Inbox Aside-->
+                    <div class="kt-grid__item   kt-portlet  kt-inbox__aside" id="kt_inbox_aside">
+                        <!-- <a class="btn btn-danger" href="buat_surat.html" style="background-color: #EF144A; border: none;" role="button">Buat Surat</a> -->
+                        <div class="kt-inbox__nav">
+                            <ul class="kt-nav">
+                                <li class="kt-nav__item kt-nav__item--active">
+                                    <a href="@Url.Action("Index","Inbox")" class="kt-nav__link" data-action="list" data-type="inbox">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-nav__link-icon">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24"></rect>
+                                                <path d="M6,2 L18,2 C18.5522847,2 19,2.44771525 19,3 L19,13 C19,13.5522847 18.5522847,14 18,14 L6,14 C5.44771525,14 5,13.5522847 5,13 L5,3 C5,2.44771525 5.44771525,2 6,2 Z M13.8,4 C13.1562,4 12.4033,4.72985286 12,5.2 C11.5967,4.72985286 10.8438,4 10.2,4 C9.0604,4 8.4,4.88887193 8.4,6.02016349 C8.4,7.27338783 9.6,8.6 12,10 C14.4,8.6 15.6,7.3 15.6,6.1 C15.6,4.96870845 14.9396,4 13.8,4 Z" fill="#000000" opacity="0.3"></path>
+                                                <path d="M3.79274528,6.57253826 L12,12.5 L20.2072547,6.57253826 C20.4311176,6.4108595 20.7436609,6.46126971 20.9053396,6.68513259 C20.9668779,6.77033951 21,6.87277228 21,6.97787787 L21,17 C21,18.1045695 20.1045695,19 19,19 L5,19 C3.8954305,19 3,18.1045695 3,17 L3,6.97787787 C3,6.70173549 3.22385763,6.47787787 3.5,6.47787787 C3.60510559,6.47787787 3.70753836,6.51099993 3.79274528,6.57253826 Z" fill="#000000"></path>
+                                            </g>
+                                        </svg> <span class="kt-nav__link-text">@(en != null ? "Incoming Document" : "Surat Masuk")</span> <span class="kt-nav__link-badge">
+                                            <span class="kt-badge kt-badge--unified-success kt-badge--md kt-badge--rounded kt-badge--boldest">@totalRecordNoRead</span>
+                                        </span>
+                                    </a>
+                                </li>
+                               
+                            </ul>
+                        </div>
+                    </div>
+                    <!--End::Aside-->
+                    <!--Begin:: Inbox List-->
+                    <div class="kt-grid__item kt-grid__item--fluid    kt-portlet    kt-inbox__list kt-inbox__list--shown" id="kt_inbox_list">
+                        <div class="kt-portlet__head">
+                            <div class="kt-inbox__toolbar kt-inbox__toolbar--extended">
+                                <div class="d-flex align-items-center mr-1 my-2">
+                                    <span class="btn btn-default btn-icon btn-sm mr-2" onclick="backtoAll()" title="All" data-original-title="All" style="display:none">
+                                        <i class="flaticon2-files-and-folders"></i>
+                                    </span>
+                                    <span class="btn btn-default btn-icon btn-sm mr-2" onclick="shortcut('disposisi'); sendparam('disposisi');" title="Disposisi" data-original-title="Disposisi" style="display:none">
+                                        <i class="flaticon2-mail-1"></i>
+                                    </span>
+                                    <span class="btn btn-default btn-icon btn-sm mr-2" onclick="shortcut('approval'); sendparam('approval');" title="Approval" data-original-title="Approval" style="display:none">
+                                        <i class="flaticon2-correct"></i>
+                                    </span>
+                                    <span class="btn btn-default btn-icon btn-sm mr-2" onclick="shortcut('eksternal'); sendparam('eksternal');" title="Eksternal" data-original-title="Eksternal" style="display:none">
+                                        <i class="flaticon-envelope"></i>
+                                    </span>
+                                    <span class="btn btn-default btn-icon btn-sm mr-2" onclick="shortcut('internal'); sendparam('internal');" title="Internal" data-original-title="Internal" style="display:none">
+                                        <i class="flaticon-multimedia"></i>
+                                    </span>
+                                </div>
+                                <div class="kt-inbox__actions kt-inbox__actions--expanded"> </div>
+                                <div class="kt-inbox__search" style="margin-left: 50px">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Search" readonly="1" data-toggle="modal" data-target="#exampleModal" style="z-index: 0;">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <!--<i class="la la-group"></i>-->
+                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                        <rect x="0" y="0" width="24" height="24"></rect>
+                                                        <path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"></path>
+                                                        <path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z" fill="#000000" fill-rule="nonzero"></path>
+                                                    </g>
+                                                </svg>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="kt-inbox__controls">
+                                    <div class="kt-inbox__pages paginggall" id="pagination" data-toggle="kt-tooltip" title="Records per page">
+                                        <span class="kt-inbox__perpage" data-toggle="dropdown">@Model.draw - @Model.limit dari @Model.recordsTotal</span>
+                                    </div>
+                                    <button class="kt-inbox__icon prevv" id="prev" data-toggle="kt-tooltip" title="Previose page">
+                                        <i class="flaticon2-left-arrow"></i>
+                                    </button>
+                                    <button class="kt-inbox__icon nextt" id="next" data-toggle="kt-tooltip" title="Next page">
+                                        <i class="flaticon2-right-arrow"></i>
+                                    </button>
+                                    <div class="jumpjump">
+                                        <span>
+                                            <select name="jump" id="jump" class="kt-inbox__icon form-control jumpto" onchange="jump()" style="width: 70px;">
+                                                @for (int i = 1; i <= Model.pagelength;i++)
+                                                {
+                                                    <option value="@i">@i</option>
+                                                }
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__head">
+                            <div class="kt-inbox__toolbar kt-inbox__toolbar--extended">
+
+                                <div class="kt-inbox__actions kt-inbox__actions--expanded"> </div>
+                                <div class="kt-inbox__search">
+                                    <button id="readStatus" name="readStatus" value="0" onclick="search_all()" type="button" class="btn btn-primary">All</button>
+                                    <button id="onprogress" onclick="onprogress_inbox()" name="onprogress" value="2" type="button" class="btn btn-info">On Progress</button>
+                                    @*<div class="input-group">
+                                    <div class="input-group-append">
+                                    <button id="all" name="all" value="1" onclick="search_inbox()">All</button>
+                                    <button id="onprogress" name="onprogress" value="2" onclick="onprogress_inbox()">On Progress</button>
+                                    </div>
+                                    </div>*@
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="kt-portlet__body kt-portlet__body--fit-x" style="margin-bottom: 0px;padding-bottom: 0px; padding-top: 10px">
+                            <div class="kt-inbox__items" id="inbox-list" data-type="inbox" style="margin-top: -0.8rem;">
+                                @foreach (var item in Model.data)
+                                {
+                                    <div class="kt-inbox__item kt-inbox__item--unread" data-id="1" data-type="inbox" onclick="view_detail('@item.idLetter','@item.letterTypeCode')">
+                                        <div class="kt-inbox__info">
+                                            <div class="kt-inbox__actions" onclick="view_detail_new_tab('@item.idLetter','@item.letterTypeCode')">
+                                                <span data-toggle="kt-tooltip" data-placement="right" title="Open New Tab" class="kt-inbox__label kt-badge kt-badge--unified-success kt-badge--bold kt-badge--inline">
+                                                    <i class="flaticon2-fast-next"></i>
+                                                </span>
+                                            </div>
+                                            <div class="kt-inbox__sender" style="margin: 0px 20px 0px 0px; width: 200px;" data-toggle="view">
+                                                <a href="#" class="kt-inbox__author" style="@(item.readStatus == 99 ? "font-weight: bold !important;color:black;" : "")">
+                                                    @if (item.letterTypeCode == 1)
+                                                    {
+                                                        @item.senderName
+                                                        ;
+                                                    }
+                                                    else
+                                                    {
+                                                        @item.positionName
+                                                        ;
+                                                    }
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="kt-inbox__details" style="margin: 0px 0px 0px 0px; padding-right: 0px;" data-toggle="view">
+                                            <div class="kt-inbox__message" style="width: 620px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                <span class="kt-inbox__summary" style="@(item.readStatus == 99 ? "font-weight: bold !important;color:black;" : "color:black;")">@item.about</span>
+                                            </div>
+                                            <div class="kt-inbox__labels">
+                                                <span class="kt-inbox__label kt-badge kt-badge--unified-brand kt-badge--bold kt-badge--inline">
+                                                    <b>@item.letterTypeValue</b>
+                                                </span>
+                                                <span class="kt-inbox__label kt-badge kt-badge--unified-dark kt-badge--bold kt-badge--inline">
+                                                    <b>@item.letterNumber</b>
+                                                </span>
+                                                @if (item.statusCode == 2)
+                                                {
+                                                    <span class="kt-inbox__label kt-badge kt-badge--unified-danger kt-badge--bold kt-badge--inline"><b>@item.statusCodeValue @item.approvalcounter</b></span>
+                                                }
+                                                else if (item.statusCode == 5)
+                                                {
+                                                    <span class="kt-inbox__label kt-badge kt-badge--unified-warning kt-badge--bold kt-badge--inline"><b>@item.statusCodeValue</b></span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="kt-inbox__label kt-badge kt-badge--unified-success kt-badge--bold kt-badge--inline"><b>@item.statusCodeValue</b></span>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="kt-inbox__datetime" style="margin: 10px 0px 0px 0px; width: 50px; text-align: center;">
+                                            <span style="@(item.readStatus == 99 ? "font-weight: bold !important;color:black;" : "")">
+                                                @if (item.letterDate <= DateTime.Now.AddDays(-7))
+                                                {
+                                                    @Convert.ToDateTime(item.letterDate).ToString("ddd dd/MMM")
+                                                    ;
+                                                }
+                                                else if (item.letterDate <= DateTime.Now.AddDays(-1))
+                                                {
+                                                    @Convert.ToDateTime(item.letterDate).ToString("ddd HH:mm")
+                                                    ;
+                                                }
+                                                else
+                                                {
+                                                    @Convert.ToDateTime(item.letterDate).ToString("HH:mm")
+                                                    ;
+                                                }
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <hr style="margin-top:1px; margin-bottom: 1px">
+                                }
+
+                            </div>
+                        </div>
+                        <div class="kt-portlet__head" style="padding-top: 0px;margin-top: 0px;">
+                            <div class="kt-inbox__toolbar kt-inbox__toolbar--extended">
+                                <div class="kt-inbox__actions kt-inbox__actions--expanded"> </div>
+                                <div class="kt-inbox__controls">
+                                    <div class="kt-inbox__pages paginggall" id="pagination" data-toggle="kt-tooltip" title="Records per page"> <span class="kt-inbox__perpage" data-toggle="dropdown">@Model.draw - @Model.limit dari @Model.recordsTotal</span> </div>
+                                    <button class="kt-inbox__icon prevv" id="prev" data-toggle="kt-tooltip" title="Previose page"> <i class="flaticon2-left-arrow"></i> </button>
+                                    <button class="kt-inbox__icon nextt" id="next" data-toggle="kt-tooltip" title="Next page"> <i class="flaticon2-right-arrow"></i> </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!--End:: Inbox List-->
+                        <!--Begin:: Inbox View-->
+                        <div class="kt-grid__item kt-grid__item--fluid    kt-portlet    kt-inbox__view kt-inbox__view--shown-" id="kt_inbox_view">
+                            <div class="kt-portlet__head">
+                                <div class="kt-inbox__toolbar">
+                                    <div class="kt-inbox__actions">
+                                        <a href="#" class="kt-inbox__icon kt-inbox__icon--back"> <i class="flaticon2-left-arrow-1"></i> </a>
+                                    </div>
+                                    <div class="kt-inbox__controls">
+                                        <span class="kt-inbox__pages" data-toggle="kt-tooltip" title="Records per page">
+                                            <span class="kt-inbox__perpage" data-toggle="dropdown">3 of 230 pages</span>
+                                        </span>
+                                        <button class="kt-inbox__icon" data-toggle="kt-tooltip" title="Previose message"> <i class="flaticon2-left-arrow"></i> </button>
+                                        <button class="kt-inbox__icon" data-toggle="kt-tooltip" title="Next message"> <i class="flaticon2-right-arrow"></i> </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="kt-portlet__body kt-portlet__body--fit-x">
+                                <div class="kt-inbox__subject">
+                                    <div class="kt-inbox__title">
+                                        <h3 class="kt-inbox__text">Perihal Surat</h3> <span class="kt-inbox__label kt-badge kt-badge--unified-brand kt-badge--bold kt-badge--inline">
+                                            nota dinas
+                                        </span>
+                                        <!-- <span class="kt-inbox__label kt-badge kt-badge--unified-danger kt-badge--bold kt-badge--inline">
+                                            important
+                                        </span> -->
+                                    </div>
+                                    <div class="kt-inbox__actions">
+                                        <a href="#" class="kt-inbox__icon" data-toggle="kt-tooltip" title="Disposisi">
+                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <rect x="0" y="0" width="24" height="24"></rect>
+                                                    <path d="M6,2 L18,2 C18.5522847,2 19,2.44771525 19,3 L19,12 C19,12.5522847 18.5522847,13 18,13 L6,13 C5.44771525,13 5,12.5522847 5,12 L5,3 C5,2.44771525 5.44771525,2 6,2 Z M7.5,5 C7.22385763,5 7,5.22385763 7,5.5 C7,5.77614237 7.22385763,6 7.5,6 L13.5,6 C13.7761424,6 14,5.77614237 14,5.5 C14,5.22385763 13.7761424,5 13.5,5 L7.5,5 Z M7.5,7 C7.22385763,7 7,7.22385763 7,7.5 C7,7.77614237 7.22385763,8 7.5,8 L10.5,8 C10.7761424,8 11,7.77614237 11,7.5 C11,7.22385763 10.7761424,7 10.5,7 L7.5,7 Z" fill="#000000" opacity="0.3"></path>
+                                                    <path d="M3.79274528,6.57253826 L12,12.5 L20.2072547,6.57253826 C20.4311176,6.4108595 20.7436609,6.46126971 20.9053396,6.68513259 C20.9668779,6.77033951 21,6.87277228 21,6.97787787 L21,17 C21,18.1045695 20.1045695,19 19,19 L5,19 C3.8954305,19 3,18.1045695 3,17 L3,6.97787787 C3,6.70173549 3.22385763,6.47787787 3.5,6.47787787 C3.60510559,6.47787787 3.70753836,6.51099993 3.79274528,6.57253826 Z" fill="#000000"></path>
+                                                </g>
+                                            </svg>
+                                        </a>
+                                        <a href="#" class="kt-inbox__icon" data-toggle="kt-tooltip" title="Create Ulang PDF"> <i class="flaticon2-fax"></i> </a>
+                                    </div>
+                                </div>
+                                <div class="kt-inbox__messages">
+                                    <div class="kt-inbox__message kt-inbox__message--expanded">
+                                        <div class="kt-inbox__head">
+                                            <span class="kt-media" data-toggle="expand" style="background-image: url('')">
+                                                <span>POTO</span>
+                                            </span>
+                                            <div class="kt-inbox__info">
+                                                <div class="kt-inbox__author" data-toggle="expand"> <a href="#" class="kt-inbox__name">Pengirim</a> </div>
+                                                <div class="kt-inbox__details">
+                                                    <div class="kt-inbox__tome">
+                                                        <span class="kt-inbox__label" data-toggle="dropdown">
+                                                            penerima
+                                                            <i class="flaticon2-down"></i>
+                                                        </span>
+                                                        <div class="dropdown-menu dropdown-menu-fit dropdown-menu-md dropdown-menu-left">
+                                                            <table class="kt-inbox__details">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>detail</td>
+                                                                        <td>detail</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>detail</td>
+                                                                        <td>detail</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>detail</td>
+                                                                        <td>detail</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>detail</td>
+                                                                        <td>detail</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>detail</td>
+                                                                        <td>detail</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <div class="kt-inbox__desc" data-toggle="expand"> Sehubungan dengan akan dilaksanakan rapat dalam rangka Sosialisasi Gerakan Indonesia Bersih, yang akan dilaksanakan pada... </div>
+                                                </div>
+                                            </div>
+                                            <div class="kt-inbox__actions">
+                                                <div class="kt-inbox__datetime" data-toggle="expand"> 29/12/2019 </div>
+                                                <div class="kt-inbox__group">
+                                                    <span class="kt-inbox__icon kt-inbox__icon--label kt-inbox__icon--light" data-toggle="kt-tooltip" data-placement="top" title="">
+                                                        <i class="flaticon-add-label-button"></i>
+                                                    </span> <span class="kt-inbox__icon kt-inbox__icon--light" data-toggle="kt-tooltip" data-placement="top" title="Settings">
+                                                        <i class="flaticon-more"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="kt-inbox__body">
+                                            <div class="kt-inbox__text">
+                                                <p>1. Sehubungan dengan akan dilaksanakan rapat dalam rangka Sosialisasi Gerakan Indonesia Bersih, yang akan dilaksanakan pada :</p>
+                                                <p class="kt-margin-t-25"> Hari/Tanggal : Selasa, 09 April 2019 </p>
+                                                <p class="kt-margin-t-25"> 2. Demikian atas bantuan dan kerjasamanya diucapkan terima kasih. </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h2>log surat</h2>
+                            </div>
+                        </div>
+                        <!--End:: Inbox View-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Search</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="searchForm">
+                    <table border="0" cellpadding="2" cellspacing="2" width="100%">
+                        <tr>
+                            <td width="15%" align="left" class="form-field-caption">Nomor Surat</td>
+                            <td width="35%" class="form-field-input">
+                                <input type="text" id="letterNumber" name="letterNumber" class="form-control" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="form-field-caption" align="left">Perihal</td>
+                            <td class="form-field-input">
+                                <input type="text" id="about" name="about" autocomplete="off" class="form-control" />
+                            </td>
+                        </tr>
+                        @*<tr>
+                            <td>Jenis Surat</td>
+                            <td>
+                                <select class="form-control" id="letterType" name="letterType">
+                                    <option value="0" selected>---</option>
+                                    @foreach (var item in ViewBag.LetterTypeList)
+                                    {
+                                        <option value="@item.attributeValue">@item.value</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>*@
+                        <tr>
+                            <td class="form-field-caption" align="left">Tanggal</td>
+                            <td class="form-field-input">
+                                <div class="form-row">
+                                    <div class="col" style="width: 40%">
+                                        @*<input type="date" name="TANGGAL1" class="form-control" id="tanggal1" />*@
+                                        <input type="text" class="form-control" id="startDate" name="startDate" autocomplete="off">
+                                    </div>S/D
+                                    <div class="col" style="width: 40%">
+                                        @*<input type="date" name="TANGGAL2" class="form-control" id="tanggal2" />*@
+                                        <input type="text" class="form-control" id="endDate" name="endDate" autocomplete="off">
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                       @* <tr>
+                            <td class="form-field-caption" align="left">Status Baca</td>
+                            <td class="form-field-input">
+                                <select id="readStatus" name="readStatus" class="form-control">
+                                    <option value="1">All</option>
+                                    <option value="99">Read</option>
+                                    <option value="0">Unread</option>
+                                </select>
+                            </td>
+                        </tr>*@
+                    </table>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="search_inbox()">Cari</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var searchType = 1;
+    function view_detail(param, letterType) {
+        if (letterType == 1) {
+            window.location = "@Url.Action("DetailLetterSM","Letter")/" + param;
+        } else if (letterType == 2) {
+            window.location = "@Url.Action("DetailLetterSK","Letter")/" + param;
+        }
+        else if (letterType == 3) {
+            window.location = "@Url.Action("DetailMemo","Memo")/" + param;
+        }
+        else if (letterType == 4) {
+            window.location = "@Url.Action("DetailMemoBackdate","BackDate")/" + param;
+        }
+        else if (letterType == 5) {
+            window.location = "@Url.Action("DetailMemoPengadaan","Memo")/" + param;
+        }
+    }
+
+    function view_detail_new_tab(param, letterType) {
+        if (letterType == 1) {
+            window.open("@Url.Action("DetailLetterSM","Letter")/" + param);
+        } else if (letterType == 2) {
+            window.open("@Url.Action("DetailLetterSK","Letter")/" + param);
+        }
+        else if (letterType == 3) {
+            window.location = "@Url.Action("DetailMemo","Letter")/" + param;
+        }
+        else if (letterType == 4) {
+            window.location = "@Url.Action("DetailMemoBackdate","BackDate")/" + param;
+        }
+        else if (letterType == 5) {
+            window.location = "@Url.Action("DetailMemoPengadaan","Memo")/" + param;
+        }
+        if (!e) var e = window.event;
+        e.cancelBubble = true;
+        if (e.stopPropagation) e.stopPropagation();
+    }
+
+    function search_all() {
+        var url = '@Url.ActionLink("SearchLetter","Letter")';
+        var letterNumber = $("#letterNumber").val();
+        var about = $("#about").val();
+        var letterType = $("#letterType").val();
+        var startDate = $("#startDate").val();
+        var endDate = $("#endDate").val();
+        var readStatus = $("#readStatus").val();
+        //$('#exampleModal').modal('toggle');
+       
+        $.blockUI({
+            css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
+            }
+        });
+        $.ajax({
+            url: "@Url.Action("SearchLetter","Letter")",
+            method: "POST",
+            data: {
+                letterNumber: letterNumber,
+                about: about,
+                letterType: letterType,
+                startDate: startDate,
+                endDate: endDate,
+                readStatus: readStatus,
+                draw: 1,
+                searchType: searchType
+            },
+            success: function (msg) {
+                var data = JSON.parse(msg);
+                console.log(data);
+                $('.jumpjump span').remove();
+                var isioption = "";
+                for (var i = 1; i <= data.pagelength; i++) {
+                    isioption += "<option value='" + i + "' >" + i + "</option>";
+                }
+
+                $('.jumpjump').append('<span><select name="jump" id="jump" class="kt-inbox__icon form-control jumpto" onchange="jump()" style="width: 70px;">' + isioption + '</select></span>');
+
+                $('.paginggall span').remove();
+                $('.paginggall').append('<span class="kt-inbox__perpage" data-toggle="dropdown">' + data.draw + ' - ' + data.limit + ' dari ' + data.recordsTotal + '</span>');
+                $('#inbox-list div').remove();
+                $('#inbox-list hr').remove();
+                $.each(data.data, function (index, item) {
+                    var readStyle = item.readStatus == 99 ? "font-weight: bold !important;color:black;" : "color:black;";
+                    var paramDetailPage = "view_detail('"+item.idLetter+"','"+item.letterTypeCode+"')";
+                    var paramDetailNewPage = "view_detail_new_tab('" + item.idLetter + "','" + item.letterTypeCode + "')";
+                    var senderName = item.senderName;
+                    if(item.letterTypeCode != 1)
+                    {
+                        senderName = item.positionName;
+                    }
+                    var status = '<span class="kt-inbox__label kt-badge kt-badge--unified-success kt-badge--bold kt-badge--inline"><b>' + item.statusCodeValue + '</b></span>';
+                    if(item.statusCode == 2)
+                    {
+                        status = '<span class="kt-inbox__label kt-badge kt-badge--unified-danger kt-badge--bold kt-badge--inline"><b>'+item.statusCodeValue + " " + item.approvalcounter + '</b></span>';
+                    }else if(item.statusCode == 5)
+                    {
+                        status = '<span class="kt-inbox__label kt-badge kt-badge--unified-warning kt-badge--bold kt-badge--inline"><b>' + item.statusCodeValue + '</b></span>';
+                    }
+                    var letterDate = new Date(item.letterDate);
+                    var dateNow = new Date();
+                    var date7Days = new Date();
+                    var date1Days = new Date();
+                    date7Days.setDate(parseInt(dateNow.getDate()) - 7);
+                    date1Days.setDate(parseInt(dateNow.getDate()) - 1);
+                    var dateString = "";
+                    if(letterDate <= date7Days)
+                    {
+                        dateString = dateMapping(letterDate.getDay()) + " "+letterDate.getDate() + "/" + monthMapping(letterDate.getMonth());
+                    }else if(letterDate <= date1Days)
+                    {
+                        dateString = dateMapping(letterDate.getDay()) + " "+letterDate.getHours() + ":" + letterDate.getMinutes();
+                    }
+                    else{
+                        dateString = letterDate.getHours() + ":" + letterDate.getMinutes();
+                    }
+                    $('#inbox-list').append(
+                     '<div class="kt-inbox__item kt-inbox__item--unread" data-id="1" data-type="inbox" onclick="'+paramDetailPage+'">'+
+                    '<div class="kt-inbox__info">'+
+                    '<div class="kt-inbox__actions" onclick="'+paramDetailNewPage+'">'+
+                    '<span data-toggle="kt-tooltip" data-placement="right" title = "Open New Tab" class= "kt-inbox__label kt-badge kt-badge--unified-success kt-badge--bold kt-badge--inline" >'+
+                    '<i class="flaticon2-fast-next" > </i>'+
+                    '</span>'+
+                    '</div>'+
+                    '<div class="kt-inbox__sender" style="margin: 0px 20px 0px 0px; width: 200px;" data-toggle="view">'+
+                    '<a href="#" class="kt-inbox__author" style="'+readStyle+'">'+
+                    senderName+
+                    '</a>'+
+                    '</div>'+
+                    '</div>'+
+                    '<div class="kt-inbox__details" style="margin: 0px 0px 0px 0px; padding-right: 0px;" data-toggle="view">'+
+                    '<div class="kt-inbox__message" style="width: 620px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">'+
+                    '<span class="kt-inbox__summary" style="'+readStyle+'">'+item.about+'</span>'+
+                    '</div>'+
+                    '<div class="kt-inbox__labels">'+
+                    '<span class="kt-inbox__label kt-badge kt-badge--unified-brand kt-badge--bold kt-badge--inline">'+
+                    '<b>'+item.letterTypeValue+'</b>'+
+                    '</span>'+
+                    '<span class="kt-inbox__label kt-badge kt-badge--unified-dark kt-badge--bold kt-badge--inline">'+
+                    '<b>'+item.letterNumber+'</b>'+
+                    '</span>' + status+
+                    '</div>'+
+                    '</div>'+
+                    '<div class="kt-inbox__datetime" style="margin: 10px 0px 0px 0px; width: 50px; text-align: center;">'+
+                    '<span style="'+readStyle+'">'+dateString+
+                    '</span></div></div>'+
+                    '<hr style="margin-top:1px; margin-bottom: 1px">'
+                    );
+                });
+                $.unblockUI();
+            }
+        });
+    }
+
+    function search_inbox() {
+        var url = '@Url.ActionLink("SearchLetter","Letter")';
+        var letterNumber = $("#letterNumber").val();
+        var about = $("#about").val();
+        var letterType = $("#letterType").val();
+        var startDate = $("#startDate").val();
+        var endDate = $("#endDate").val();
+        var readStatus = $("#readStatus").val();
+        $('#exampleModal').modal('toggle');
+       
+        $.blockUI({
+            css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
+            }
+        });
+        $.ajax({
+            url: "@Url.Action("SearchLetter","Letter")",
+            method: "POST",
+            data: {
+                letterNumber: letterNumber,
+                about: about,
+                letterType: letterType,
+                startDate: startDate,
+                endDate: endDate,
+                readStatus: readStatus,
+                draw: 1,
+                searchType: searchType
+            },
+            success: function (msg) {
+                var data = JSON.parse(msg);
+                console.log(data);
+                $('.jumpjump span').remove();
+                var isioption = "";
+                for (var i = 1; i <= data.pagelength; i++) {
+                    isioption += "<option value='" + i + "' >" + i + "</option>";
+                }
+
+                $('.jumpjump').append('<span><select name="jump" id="jump" class="kt-inbox__icon form-control jumpto" onchange="jump()" style="width: 70px;">' + isioption + '</select></span>');
+
+                $('.paginggall span').remove();
+                $('.paginggall').append('<span class="kt-inbox__perpage" data-toggle="dropdown">' + data.draw + ' - ' + data.limit + ' dari ' + data.recordsTotal + '</span>');
+                $('#inbox-list div').remove();
+                $('#inbox-list hr').remove();
+                $.each(data.data, function (index, item) {
+                    var readStyle = item.readStatus == 99 ? "font-weight: bold !important;color:black;" : "color:black;";
+                    var paramDetailPage = "view_detail('"+item.idLetter+"','"+item.letterTypeCode+"')";
+                    var paramDetailNewPage = "view_detail_new_tab('" + item.idLetter + "','" + item.letterTypeCode + "')";
+                    var senderName = item.senderName;
+                    if(item.letterTypeCode != 1)
+                    {
+                        senderName = item.positionName;
+                    }
+                    var status = '<span class="kt-inbox__label kt-badge kt-badge--unified-success kt-badge--bold kt-badge--inline"><b>' + item.statusCodeValue + '</b></span>';
+                    if(item.statusCode == 2)
+                    {
+                        status = '<span class="kt-inbox__label kt-badge kt-badge--unified-danger kt-badge--bold kt-badge--inline"><b>'+item.statusCodeValue + " " + item.approvalcounter + '</b></span>';
+                    }else if(item.statusCode == 5)
+                    {
+                        status = '<span class="kt-inbox__label kt-badge kt-badge--unified-warning kt-badge--bold kt-badge--inline"><b>' + item.statusCodeValue + '</b></span>';
+                    }
+                    var letterDate = new Date(item.letterDate);
+                    var dateNow = new Date();
+                    var date7Days = new Date();
+                    var date1Days = new Date();
+                    date7Days.setDate(parseInt(dateNow.getDate()) - 7);
+                    date1Days.setDate(parseInt(dateNow.getDate()) - 1);
+                    var dateString = "";
+                    if(letterDate <= date7Days)
+                    {
+                        dateString = dateMapping(letterDate.getDay()) + " "+letterDate.getDate() + "/" + monthMapping(letterDate.getMonth());
+                    }else if(letterDate <= date1Days)
+                    {
+                        dateString = dateMapping(letterDate.getDay()) + " "+letterDate.getHours() + ":" + letterDate.getMinutes();
+                    }
+                    else{
+                        dateString = letterDate.getHours() + ":" + letterDate.getMinutes();
+                    }
+                    $('#inbox-list').append(
+                     '<div class="kt-inbox__item kt-inbox__item--unread" data-id="1" data-type="inbox" onclick="'+paramDetailPage+'">'+
+                    '<div class="kt-inbox__info">'+
+                    '<div class="kt-inbox__actions" onclick="'+paramDetailNewPage+'">'+
+                    '<span data-toggle="kt-tooltip" data-placement="right" title = "Open New Tab" class= "kt-inbox__label kt-badge kt-badge--unified-success kt-badge--bold kt-badge--inline" >'+
+                    '<i class="flaticon2-fast-next" > </i>'+
+                    '</span>'+
+                    '</div>'+
+                    '<div class="kt-inbox__sender" style="margin: 0px 20px 0px 0px; width: 200px;" data-toggle="view">'+
+                    '<a href="#" class="kt-inbox__author" style="'+readStyle+'">'+
+                    senderName+
+                    '</a>'+
+                    '</div>'+
+                    '</div>'+
+                    '<div class="kt-inbox__details" style="margin: 0px 0px 0px 0px; padding-right: 0px;" data-toggle="view">'+
+                    '<div class="kt-inbox__message" style="width: 620px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">'+
+                    '<span class="kt-inbox__summary" style="'+readStyle+'">'+item.about+'</span>'+
+                    '</div>'+
+                    '<div class="kt-inbox__labels">'+
+                    '<span class="kt-inbox__label kt-badge kt-badge--unified-brand kt-badge--bold kt-badge--inline">'+
+                    '<b>'+item.letterTypeValue+'</b>'+
+                    '</span>'+
+                    '<span class="kt-inbox__label kt-badge kt-badge--unified-dark kt-badge--bold kt-badge--inline">'+
+                    '<b>'+item.letterNumber+'</b>'+
+                    '</span>' + status+
+                    '</div>'+
+                    '</div>'+
+                    '<div class="kt-inbox__datetime" style="margin: 10px 0px 0px 0px; width: 50px; text-align: center;">'+
+                    '<span style="'+readStyle+'">'+dateString+
+                    '</span></div></div>'+
+                    '<hr style="margin-top:1px; margin-bottom: 1px">'
+                    );
+                });
+                $.unblockUI();
+            }
+        });
+    }
+
+
+    function onprogress_inbox() {
+        var url = '@Url.ActionLink("SearchLetter","Letter")';
+        var letterNumber = $("#letterNumber").val();
+        var onprogress = $("#onprogress").val();
+        var about = $("#about").val();
+        var letterType = $("#letterType").val();
+        var startDate = $("#startDate").val();
+        var endDate = $("#endDate").val();
+        var readStatus = $("#readStatus").val();
+        //$('#exampleModal').modal('toggle');
+        $.blockUI({
+            css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
+            }
+        });
+        $.ajax({
+            url: "@Url.Action("SearchLetter","Letter")",
+            method: "POST",
+            data: {
+                letterNumber: letterNumber,
+                onprogress: onprogress,
+                about: about,
+                letterType: letterType,
+                startDate: startDate,
+                endDate: endDate,
+                readStatus: readStatus,
+                draw: 1,
+                searchType: searchType
+            },
+            success: function (msg) {
+                var data = JSON.parse(msg);
+                console.log(data);
+                $('.jumpjump span').remove();
+                var isioption = "";
+                for (var i = 1; i <= data.pagelength; i++) {
+                    isioption += "<option value='" + i + "' >" + i + "</option>";
+                }
+
+                $('.jumpjump').append('<span><select name="jump" id="jump" class="kt-inbox__icon form-control jumpto" onchange="jump()" style="width: 70px;">' + isioption + '</select></span>');
+
+                $('.paginggall span').remove();
+                $('.paginggall').append('<span class="kt-inbox__perpage" data-toggle="dropdown">' + data.draw + ' - ' + data.limit + ' dari ' + data.recordsTotal + '</span>');
+                $('#inbox-list div').remove();
+                $('#inbox-list hr').remove();
+                $.each(data.data, function (index, item) {
+                    var readStyle = item.readStatus == 99 ? "font-weight: bold !important;color:black;" : "color:black;";
+                    var paramDetailPage = "view_detail('" + item.idLetter + "','" + item.letterTypeCode + "')";
+                    var paramDetailNewPage = "view_detail_new_tab('" + item.idLetter + "','" + item.letterTypeCode + "')";
+                    var senderName = item.senderName;
+                    if (item.letterTypeCode != 1) {
+                        senderName = item.positionName;
+                    }
+                    var status = '<span class="kt-inbox__label kt-badge kt-badge--unified-success kt-badge--bold kt-badge--inline"><b>' + item.statusCodeValue + '</b></span>';
+                    if (item.statusCode == 2) {
+                        status = '<span class="kt-inbox__label kt-badge kt-badge--unified-danger kt-badge--bold kt-badge--inline"><b>' + item.statusCodeValue + " " + item.approvalcounter + '</b></span>';
+                    } else if (item.statusCode == 5) {
+                        status = '<span class="kt-inbox__label kt-badge kt-badge--unified-warning kt-badge--bold kt-badge--inline"><b>' + item.statusCodeValue + '</b></span>';
+                    }
+                    var letterDate = new Date(item.letterDate);
+                    var dateNow = new Date();
+                    var date7Days = new Date();
+                    var date1Days = new Date();
+                    date7Days.setDate(parseInt(dateNow.getDate()) - 7);
+                    date1Days.setDate(parseInt(dateNow.getDate()) - 1);
+                    var dateString = "";
+                    if (letterDate <= date7Days) {
+                        dateString = dateMapping(letterDate.getDay()) + " " + letterDate.getDate() + "/" + monthMapping(letterDate.getMonth());
+                    } else if (letterDate <= date1Days) {
+                        dateString = dateMapping(letterDate.getDay()) + " " + letterDate.getHours() + ":" + letterDate.getMinutes();
+                    }
+                    else {
+                        dateString = letterDate.getHours() + ":" + letterDate.getMinutes();
+                    }
+                    $('#inbox-list').append(
+                        '<div class="kt-inbox__item kt-inbox__item--unread" data-id="1" data-type="inbox" onclick="' + paramDetailPage + '">' +
+                        '<div class="kt-inbox__info">' +
+                        '<div class="kt-inbox__actions" onclick="' + paramDetailNewPage + '">' +
+                        '<span data-toggle="kt-tooltip" data-placement="right" title = "Open New Tab" class= "kt-inbox__label kt-badge kt-badge--unified-success kt-badge--bold kt-badge--inline" >' +
+                        '<i class="flaticon2-fast-next" > </i>' +
+                        '</span>' +
+                        '</div>' +
+                        '<div class="kt-inbox__sender" style="margin: 0px 20px 0px 0px; width: 200px;" data-toggle="view">' +
+                        '<a href="#" class="kt-inbox__author" style="' + readStyle + '">' +
+                        senderName +
+                        '</a>' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="kt-inbox__details" style="margin: 0px 0px 0px 0px; padding-right: 0px;" data-toggle="view">' +
+                        '<div class="kt-inbox__message" style="width: 620px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">' +
+                        '<span class="kt-inbox__summary" style="' + readStyle + '">' + item.about + '</span>' +
+                        '</div>' +
+                        '<div class="kt-inbox__labels">' +
+                        '<span class="kt-inbox__label kt-badge kt-badge--unified-brand kt-badge--bold kt-badge--inline">' +
+                        '<b>' + item.letterTypeValue + '</b>' +
+                        '</span>' +
+                        '<span class="kt-inbox__label kt-badge kt-badge--unified-dark kt-badge--bold kt-badge--inline">' +
+                        '<b>' + item.letterNumber + '</b>' +
+                        '</span>' + status +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="kt-inbox__datetime" style="margin: 10px 0px 0px 0px; width: 50px; text-align: center;">' +
+                        '<span style="' + readStyle + '">' + dateString +
+                        '</span></div></div>' +
+                        '<hr style="margin-top:1px; margin-bottom: 1px">'
+                    );
+                });
+                $.unblockUI();
+            }
+        });
+    }
+
+    
+    $('.nextt').click(function () {
+        var url = '@Url.ActionLink("SearchLetter","Letter")';
+        var letterNumber = $("#letterNumber").val();
+        var about = $("#about").val();
+        var letterType = $("#letterType").val();
+        var startDate = $("#startDate").val();
+        var endDate = $("#endDate").val();
+        var readStatus = $("#readStatus").val();
+        var draw = parseInt($("#jump").val()) + 1;
+        $('#exampleModal').modal('toggle');
+        $.blockUI({
+            css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
+            }
+        });
+        $.ajax({
+            url: "@Url.Action("SearchLetter","Letter")",
+            method: "POST",
+            data: {
+                letterNumber: letterNumber,
+                about: about,
+                letterType: letterType,
+                startDate: startDate,
+                endDate: endDate,
+                readStatus: readStatus,
+                draw: draw,
+                searchType: searchType
+            },
+            success: function (msg) {
+                var data = JSON.parse(msg);
+                console.log(data);
+                $('.jumpjump span').remove();
+                var isioption = "";
+                for (var i = 1; i <= data.pagelength; i++) {
+                    if(i == draw)
+                    {
+                        isioption += "<option value='" + i + "' selected='selected'>" + i + "</option>";
+                    }
+                    else{
+                        isioption += "<option value='" + i + "' >" + i + "</option>";
+                    }
+                }
+
+                $('.jumpjump').append('<span><select name="jump" id="jump" class="kt-inbox__icon form-control jumpto" onchange="jump()" style="width: 70px;">' + isioption + '</select></span>');
+
+                $('.paginggall span').remove();
+                $('.paginggall').append('<span class="kt-inbox__perpage" data-toggle="dropdown">' + data.draw + ' - ' + data.limit + ' dari ' + data.recordsTotal + '</span>');
+                $('#inbox-list div').remove();
+                $('#inbox-list hr').remove();
+                $.each(data.data, function (index, item) {
+                    var readStyle = item.readStatus == 99 ? "font-weight: bold !important;color:black;" : "color:black;";
+                    var paramDetailPage = "view_detail('"+item.idLetter+"','"+item.letterTypeCode+"')";
+                    var paramDetailNewPage = "view_detail_new_tab('" + item.idLetter + "','" + item.letterTypeCode + "')";
+                    var senderName = item.senderName;
+                    if(item.letterTypeCode != 1)
+                    {
+                        senderName = item.positionName;
+                    }
+                    var status = '<span class="kt-inbox__label kt-badge kt-badge--unified-success kt-badge--bold kt-badge--inline"><b>' + item.statusCodeValue + '</b></span>';
+                    if(item.statusCode == 2)
+                    {
+                        status = '<span class="kt-inbox__label kt-badge kt-badge--unified-danger kt-badge--bold kt-badge--inline"><b>'+item.statusCodeValue + " " + item.approvalcounter + '</b></span>';
+                    }else if(item.statusCode == 5)
+                    {
+                        status = '<span class="kt-inbox__label kt-badge kt-badge--unified-warning kt-badge--bold kt-badge--inline"><b>' + item.statusCodeValue + '</b></span>';
+                    }
+                    var letterDate = new Date(item.letterDate);
+                    var dateNow = new Date();
+                    var date7Days = new Date();
+                    var date1Days = new Date();
+                    date7Days.setDate(parseInt(dateNow.getDate()) - 7);
+                    date1Days.setDate(parseInt(dateNow.getDate()) - 1);
+                    var dateString = "";
+                    if(letterDate <= date7Days)
+                    {
+                        dateString = dateMapping(letterDate.getDay()) + " "+letterDate.getDate() + "/" + monthMapping(letterDate.getMonth());
+                    }else if(letterDate <= date1Days)
+                    {
+                        dateString = dateMapping(letterDate.getDay()) + " "+letterDate.getHours() + ":" + letterDate.getMinutes();
+                    }
+                    else{
+                        dateString = letterDate.getHours() + ":" + letterDate.getMinutes();
+                    }
+                    $('#inbox-list').append(
+                        '<div class="kt-inbox__item kt-inbox__item--unread" data-id="1" data-type="inbox" onclick="'+paramDetailPage+'">'+
+                    '<div class="kt-inbox__info">'+
+                    '<div class="kt-inbox__actions" onclick="'+paramDetailNewPage+'">'+
+                    '<span data-toggle="kt-tooltip" data-placement="right" title = "Open New Tab" class= "kt-inbox__label kt-badge kt-badge--unified-success kt-badge--bold kt-badge--inline" >'+
+                    '<i class="flaticon2-fast-next" > </i>'+
+                    '</span>'+
+                    '</div>'+
+                    '<div class="kt-inbox__sender" style="margin: 0px 20px 0px 0px; width: 200px;" data-toggle="view">'+
+                    '<a href="#" class="kt-inbox__author" style="'+readStyle+'">'+
+                    senderName+
+                    '</a>'+
+                    '</div>'+
+                    '</div>'+
+                    '<div class="kt-inbox__details" style="margin: 0px 0px 0px 0px; padding-right: 0px;" data-toggle="view">'+
+                    '<div class="kt-inbox__message" style="width: 620px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">'+
+                    '<span class="kt-inbox__summary" style="'+readStyle+'">'+item.about+'</span>'+
+                    '</div>'+
+                    '<div class="kt-inbox__labels">'+
+                    '<span class="kt-inbox__label kt-badge kt-badge--unified-brand kt-badge--bold kt-badge--inline">'+
+                    '<b>'+item.letterTypeValue+'</b>'+
+                    '</span>'+
+                    '<span class="kt-inbox__label kt-badge kt-badge--unified-dark kt-badge--bold kt-badge--inline">'+
+                    '<b>'+item.letterNumber+'</b>'+
+                    '</span>' + status+
+                    '</div>'+
+                    '</div>'+
+                    '<div class="kt-inbox__datetime" style="margin: 10px 0px 0px 0px; width: 50px; text-align: center;">'+
+                    '<span style="'+readStyle+'">'+dateString+
+                    '</span></div></div>'+
+                    '<hr style="margin-top:1px; margin-bottom: 1px">'
+                    );
+                });
+                $.unblockUI();
+            }
+        });
+    });
+    
+    $('.prevv').click(function () {
+        var url = '@Url.ActionLink("SearchLetter","Letter")';
+        var letterNumber = $("#letterNumber").val();
+        var about = $("#about").val();
+        var letterType = $("#letterType").val();
+        var startDate = $("#startDate").val();
+        var endDate = $("#endDate").val();
+        var readStatus = $("#readStatus").val();
+        var draw = parseInt($("#jump").val()) - 1;
+        //$('#exampleModal').modal('toggle');
+        $.blockUI({
+            css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
+            }
+        });
+        $.ajax({
+            url: "@Url.Action("SearchLetter","Letter")",
+            method: "POST",
+            data: {
+                letterNumber: letterNumber,
+                about: about,
+                letterType: letterType,
+                startDate: startDate,
+                endDate: endDate,
+                readStatus: readStatus,
+                draw: draw,
+                searchType: searchType
+            },
+            success: function (msg) {
+                var data = JSON.parse(msg);
+                console.log(data);
+                $('.jumpjump span').remove();
+                var isioption = "";
+                for (var i = 1; i <= data.pagelength; i++) {
+                    if (i == draw) {
+                        isioption += "<option value='" + i + "' selected='selected'>" + i + "</option>";
+                    }
+                    else {
+                        isioption += "<option value='" + i + "' >" + i + "</option>";
+                    }
+                }
+
+                $('.jumpjump').append('<span><select name="jump" id="jump" class="kt-inbox__icon form-control jumpto" onchange="jump()" style="width: 70px;">' + isioption + '</select></span>');
+
+                $('.paginggall span').remove();
+                $('.paginggall').append('<span class="kt-inbox__perpage" data-toggle="dropdown">' + data.draw + ' - ' + data.limit + ' dari ' + data.recordsTotal + '</span>');
+                $('#inbox-list div').remove();
+                $('#inbox-list hr').remove();
+                $.each(data.data, function (index, item) {
+                    var readStyle = item.readStatus == 99 ? "font-weight: bold !important;color:black;" : "color:black;";
+                    var paramDetailPage = "view_detail('" + item.idLetter + "','" + item.letterTypeCode + "')";
+                    var paramDetailNewPage = "view_detail_new_tab('" + item.idLetter + "','" + item.letterTypeCode + "')";
+                    var senderName = item.senderName;
+                    if (item.letterTypeCode != 1) {
+                        senderName = item.positionName;
+                    }
+                    var status = '<span class="kt-inbox__label kt-badge kt-badge--unified-success kt-badge--bold kt-badge--inline"><b>' + item.statusCodeValue + '</b></span>';
+                    if (item.statusCode == 2) {
+                        status = '<span class="kt-inbox__label kt-badge kt-badge--unified-danger kt-badge--bold kt-badge--inline"><b>' + item.statusCodeValue + " " + item.approvalcounter + '</b></span>';
+                    } else if (item.statusCode == 5) {
+                        status = '<span class="kt-inbox__label kt-badge kt-badge--unified-warning kt-badge--bold kt-badge--inline"><b>' + item.statusCodeValue + '</b></span>';
+                    }
+                    var letterDate = new Date(item.letterDate);
+                    var dateNow = new Date();
+                    var date7Days = new Date();
+                    var date1Days = new Date();
+                    date7Days.setDate(parseInt(dateNow.getDate()) - 7);
+                    date1Days.setDate(parseInt(dateNow.getDate()) - 1);
+                    var dateString = "";
+                    if (letterDate <= date7Days) {
+                        dateString = dateMapping(letterDate.getDay()) + " " + letterDate.getDate() + "/" + monthMapping(letterDate.getMonth());
+                    } else if (letterDate <= date1Days) {
+                        dateString = dateMapping(letterDate.getDay()) + " " + letterDate.getHours() + ":" + letterDate.getMinutes();
+                    }
+                    else {
+                        dateString = letterDate.getHours() + ":" + letterDate.getMinutes();
+                    }
+                    $('#inbox-list').append(
+                        '<div class="kt-inbox__item kt-inbox__item--unread" data-id="1" data-type="inbox" onclick="' + paramDetailPage + '">' +
+                        '<div class="kt-inbox__info">' +
+                        '<div class="kt-inbox__actions" onclick="' + paramDetailNewPage + '">' +
+                        '<span data-toggle="kt-tooltip" data-placement="right" title = "Open New Tab" class= "kt-inbox__label kt-badge kt-badge--unified-success kt-badge--bold kt-badge--inline" >' +
+                        '<i class="flaticon2-fast-next" > </i>' +
+                        '</span>' +
+                        '</div>' +
+                        '<div class="kt-inbox__sender" style="margin: 0px 20px 0px 0px; width: 200px;" data-toggle="view">' +
+                        '<a href="#" class="kt-inbox__author" style="' + readStyle + '">' +
+                        senderName +
+                        '</a>' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="kt-inbox__details" style="margin: 0px 0px 0px 0px; padding-right: 0px;" data-toggle="view">' +
+                        '<div class="kt-inbox__message" style="width: 620px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">' +
+                        '<span class="kt-inbox__summary" style="' + readStyle + '">' + item.about + '</span>' +
+                        '</div>' +
+                        '<div class="kt-inbox__labels">' +
+                        '<span class="kt-inbox__label kt-badge kt-badge--unified-brand kt-badge--bold kt-badge--inline">' +
+                        '<b>' + item.letterTypeValue + '</b>' +
+                        '</span>' +
+                        '<span class="kt-inbox__label kt-badge kt-badge--unified-dark kt-badge--bold kt-badge--inline">' +
+                        '<b>' + item.letterNumber + '</b>' +
+                        '</span>' + status +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="kt-inbox__datetime" style="margin: 10px 0px 0px 0px; width: 50px; text-align: center;">' +
+                        '<span style="' + readStyle + '">' + dateString +
+                        '</span></div></div>' +
+                        '<hr style="margin-top:1px; margin-bottom: 1px">'
+                    );
+                });
+                $.unblockUI();
+            }
+        });
+    });
+    
+    function jump(){
+        var url = '@Url.ActionLink("SearchLetter","Letter")';
+        var letterNumber = $("#letterNumber").val();
+        var about = $("#about").val();
+        var letterType = $("#letterType").val();
+        var startDate = $("#startDate").val();
+        var endDate = $("#endDate").val();
+        var readStatus = $("#readStatus").val();
+        var draw = parseInt($("#jump").val());
+        $('#exampleModal').modal('toggle');
+        $.blockUI({
+            css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
+            }
+        });
+        $.ajax({
+            url: "@Url.Action("SearchLetter","Letter")",
+            method: "POST",
+            data: {
+                letterNumber: letterNumber,
+                about: about,
+                letterType: letterType,
+                startDate: startDate,
+                endDate: endDate,
+                readStatus: readStatus,
+                draw: draw,
+                searchType: searchType
+            },
+            success: function (msg) {
+                var data = JSON.parse(msg);
+                console.log(data);
+                $('.jumpjump span').remove();
+                var isioption = "";
+                for (var i = 1; i <= data.pagelength; i++) {
+                    if (i == draw) {
+                        isioption += "<option value='" + i + "' selected='selected'>" + i + "</option>";
+                    }
+                    else {
+                        isioption += "<option value='" + i + "' >" + i + "</option>";
+                    }
+                }
+
+                $('.jumpjump').append('<span><select name="jump" id="jump" class="kt-inbox__icon form-control jumpto" onchange="jump()" style="width: 70px;">' + isioption + '</select></span>');
+
+                $('.paginggall span').remove();
+                $('.paginggall').append('<span class="kt-inbox__perpage" data-toggle="dropdown">' + data.draw + ' - ' + data.limit + ' dari ' + data.recordsTotal + '</span>');
+                $('#inbox-list div').remove();
+                $('#inbox-list hr').remove();
+                $.each(data.data, function (index, item) {
+                    var readStyle = item.readStatus == 99 ? "font-weight: bold !important;color:black;" : "color:black;";
+                    var paramDetailPage = "view_detail('" + item.idLetter + "','" + item.letterTypeCode + "')";
+                    var paramDetailNewPage = "view_detail_new_tab('" + item.idLetter + "','" + item.letterTypeCode + "')";
+                    var senderName = item.senderName;
+                    if (item.letterTypeCode != 1) {
+                        senderName = item.positionName;
+                    }
+                    var status = '<span class="kt-inbox__label kt-badge kt-badge--unified-success kt-badge--bold kt-badge--inline"><b>' + item.statusCodeValue + '</b></span>';
+                    if (item.statusCode == 2) {
+                        status = '<span class="kt-inbox__label kt-badge kt-badge--unified-danger kt-badge--bold kt-badge--inline"><b>' + item.statusCodeValue + " " + item.approvalcounter + '</b></span>';
+                    } else if (item.statusCode == 5) {
+                        status = '<span class="kt-inbox__label kt-badge kt-badge--unified-warning kt-badge--bold kt-badge--inline"><b>' + item.statusCodeValue + '</b></span>';
+                    }
+                    var letterDate = new Date(item.letterDate);
+                    var dateNow = new Date();
+                    var date7Days = new Date();
+                    var date1Days = new Date();
+                    date7Days.setDate(parseInt(dateNow.getDate()) - 7);
+                    date1Days.setDate(parseInt(dateNow.getDate()) - 1);
+                    var dateString = "";
+                    if (letterDate <= date7Days) {
+                        dateString = dateMapping(letterDate.getDay()) + " " + letterDate.getDate() + "/" + monthMapping(letterDate.getMonth());
+                    } else if (letterDate <= date1Days) {
+                        dateString = dateMapping(letterDate.getDay()) + " " + letterDate.getHours() + ":" + letterDate.getMinutes();
+                    }
+                    else {
+                        dateString = letterDate.getHours() + ":" + letterDate.getMinutes();
+                    }
+                    $('#inbox-list').append(
+                        '<div class="kt-inbox__item kt-inbox__item--unread" data-id="1" data-type="inbox" onclick="' + paramDetailPage + '">' +
+                        '<div class="kt-inbox__info">' +
+                        '<div class="kt-inbox__actions" onclick="' + paramDetailNewPage + '">' +
+                        '<span data-toggle="kt-tooltip" data-placement="right" title = "Open New Tab" class= "kt-inbox__label kt-badge kt-badge--unified-success kt-badge--bold kt-badge--inline" >' +
+                        '<i class="flaticon2-fast-next" > </i>' +
+                        '</span>' +
+                        '</div>' +
+                        '<div class="kt-inbox__sender" style="margin: 0px 20px 0px 0px; width: 200px;" data-toggle="view">' +
+                        '<a href="#" class="kt-inbox__author" style="' + readStyle + '">' +
+                        senderName +
+                        '</a>' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="kt-inbox__details" style="margin: 0px 0px 0px 0px; padding-right: 0px;" data-toggle="view">' +
+                        '<div class="kt-inbox__message" style="width: 620px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">' +
+                        '<span class="kt-inbox__summary" style="' + readStyle + '">' + item.about + '</span>' +
+                        '</div>' +
+                        '<div class="kt-inbox__labels">' +
+                        '<span class="kt-inbox__label kt-badge kt-badge--unified-brand kt-badge--bold kt-badge--inline">' +
+                        '<b>' + item.letterTypeValue + '</b>' +
+                        '</span>' +
+                        '<span class="kt-inbox__label kt-badge kt-badge--unified-dark kt-badge--bold kt-badge--inline">' +
+                        '<b>' + item.letterNumber + '</b>' +
+                        '</span>' + status +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="kt-inbox__datetime" style="margin: 10px 0px 0px 0px; width: 50px; text-align: center;">' +
+                        '<span style="' + readStyle + '">' + dateString +
+                        '</span></div></div>' +
+                        '<hr style="margin-top:1px; margin-bottom: 1px">'
+                    );
+                });
+                $.unblockUI();
+            }
+        });
+    }
+    function dateMapping(date){
+        var days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+        var dayName = days[date];
+        return dayName;
+    }
+    function monthMapping(month){
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun",
+            "Jul", "Agu", "Sep", "Okt", "Nov", "Des"
+        ];
+        var monthName = monthNames[month];
+        return monthName;
+    }
+</script>

@@ -1,0 +1,28 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<form method="post" enctype="multipart/form-data">
+    <div class="col-md-12" style="padding-top: 2%;">
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Upload Surat Asli: <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+            <div class="col-sm-6">
+                <div class="kt-uppy" id="kt_uppy_5">
+                    <div class="kt-uppy__wrapper">
+                        <div class="uppy-Root uppy-FileInput-container">
+                            <input type="hidden" name="DOC_NAME1" value="" placeholder="File Name...">
+                            <input class="uppy-FileInput-input btn btn-label-brand btn-bold btn-font-sm" style="" type="file" name="inputfile" id="kt_uppy_5_input_control">
+                        </div>
+                    </div>
+                </div>
+                <span class="form-text text-muted">File type: JPG, PNG, DOC, DOCX, XLS, XLSX, PDF </span>
+            </div>
+        </div>
+    </div>
+    <div class="btn-group col-sm-2">
+        <button type="submit" class="btn btn-warning btn-bold" style="color: white;">
+            <i class="flaticon-paper-plane-1">&nbsp;Kirim</i>
+        </button>
+    </div>
+</form>

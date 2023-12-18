@@ -1,0 +1,853 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localiza
+@using Microsoft.AspNetCore.Http
+@using System.Web;
+@using Newtonsoft.Json
+@inject IHttpContextAccessor Accessor
+@{
+    var sessidUser = Accessor.HttpContext.Session.GetString("idUser");
+    var sessidUnit = Accessor.HttpContext.Session.GetString("idUnit");
+    var sessidGroup = Accessor.HttpContext.Session.GetString("idGroup");
+    var orderkepada = 0;
+    var orderpemeriksa = 0;
+    var orderApprover = 0;
+    var numButton = 0;
+    var noTemplate = 1;
+    var idDivKepada = "divbarukepada" + orderkepada;
+    var idDivTembusan = "divbarutembusan" + orderpemeriksa;
+    string dateNow = DateTime.Now.ToString("yyyy-MM-dd");
+    var jsonTemplateData = JsonConvert.SerializeObject(ViewBag.TemplateData);
+    var en = Accessor.HttpContext.Session.GetString("en");
+    var ina = Accessor.HttpContext.Session.GetString("ina");
+}
+<style>
+    .tox-promotion{
+        display:none !important;
+    }
+</style>
+<!-- begin::Body -->
+<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
+    <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver    m-container m-container--responsive m-container--xxl m-page__container">
+        <div class="m-grid__item m-grid__item--fluid m-wrapper">
+            <!-- BEGIN: Subheader -->
+            <div class="m-subheader ">
+                <div class="d-flex align-items-center">
+                    <div class="mr-auto" style="color: white;">
+                        <h3 class="m-subheader__title m-subheader__title--separator" style="color: white;">
+                            @(en != null ? "Create External Documents" : "Buat Surat Keluar Lainnya")
+                        </h3>
+                        <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                            <li class="m-nav__item m-nav__item--home">
+                                <a href="#" class="m-nav__link m-nav__link--icon">
+                                    <i class="m-nav__link-icon la la-home" style="color: white;"></i>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        Office
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        @(en != null ? "Create External Documents" : "Buat Surat Keluar Lainnya")
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Subheader -->
+            <div class="m-content">
+                <div class="kt-container  kt-grid__item kt-grid__item--fluid">
+                    <div class="kt-grid kt-grid--desktop kt-grid--ver-desktop  kt-inbox" id="kt_inbox">
+                        <div class="kt-grid__item kt-grid__item--fluid    kt-portlet    kt-inbox__view kt-inbox__view--shown-" id="kt_inbox_view" style="display:block">
+                            <form method="post" id="formSurat" asp-action="SaveOutboxLetterBackdate" asp-controller="Letter" enctype="multipart/form-data">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12" style="padding-top: 1%;padding-left: 2%;">
+                                        <fieldset>
+                                            <legend style="font-size: 10pt"><b>@(en != null ? "Header" : "Kepala Surat")</b></legend>
+                                            <div class="form-group row">
+                                                <div class="col-lg-4">
+                                                    <label>@(en != null ? "Document" : "Dokumen") <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                                    <select class="form-control" id="outboxType" name="outboxType" required>
+                                                        <option value="">--@(en != null ? "Select to Document" : "Pilih Dokumen Surat")--</option>
+                                                        <option value="1">Surat Keluar Direksi</option>
+                                                        @if (sessidGroup == "S" || sessidUnit == "D52B6D38-EA42-ED11-958D-0050568AADBF" || sessidUnit == "DA2B6D38-EA42-ED11-958D-0050568AADBF")
+                                                        {
+                                                            <option value="2">Surat Keluar Dewan Komisaris</option>
+                                                        }
+                                                        <option value="3">Surat Keluar Divisi</option>
+                                                    </select>
+                                                    <input type="hidden" class="form-control" id="saveType" name="saveType">
+                                                    <input type="hidden" class="form-control" id="letterTypeCode" name="letterTypeCode" value="6">
+                                                    <input type="hidden" class="form-control" id="idresponsesurat" name="idresponsesurat" value="@Guid.Empty">
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <label>@(en != null ? "Number of Outbox:" : "Nomor Surat Keluar:")</label>
+                                                    <input type="text" class="form-control" placeholder="" readonly="1" style="background-color:#e6e9ec !important">
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <label>@(en != null ? "Date:" : "Tanggal:")</label>
+                                                    <input type="date" class="form-control" placeholder="Tanggal" value="@dateNow" id="letterDate" name="letterDate" max="@dateNow">
+                                                
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-md-12">
+                                                    <label>@(en != null ? "Subject" : "Perihal") <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                                    <input type="text" class="form-control" id="about" name="about" autocomplete="off" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-lg-4">
+                                                    <label>@(en != null ? "Result" : "Hasil") <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                                    <select class="form-control" id="resultType" name="resultType" required>
+                                                        <option value="">--@(en != null ? "Select Results" : "Pilih Hasil")--</option>
+                                                        <option value="1">Softcopy</option>
+                                                        <option value="2">Hardcopy</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <label>@(en != null ? "Signature" : "Tanda tangan") <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                                    <select class="form-control" id="signatureType" name="signatureType" required>
+                                                        <option value="">--@(en != null ? "Select Signature Type" : "Pilih jenis tanda tangan")--</option>
+                                                        <option value="1">Tanda Tangan</option>
+                                                        <option value="2">QR Code</option>
+                                                        <option value="3">Tidak Ada</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-lg-4">
+                                                    <label>@(en != null ? "Attachment" : "Lampiran")</label>
+                                                    <input type="text" class="form-control" id="attachmentCount" name="attachmentCount" readonly="readonly" style="background-color:#e6e9ec !important">
+                                                </div>
+                                            </div>
+
+                                            <fieldset>
+                                                <legend style="font-size: 10pt"><b>@(en != null ? "Sender" : "Pengirim")</b></legend>
+                                                <div class="form-group row" style="margin-bottom: 0px !important;">
+                                                    <div class="col-md-12">
+                                                        <label>@(en != null ? "Name" : "Nama") <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                                        <input type="text" class="form-control" id="bossName" name="bossName" placeholder="" autocomplete="off" required="" onkeyup="load_data(this.value,1000)">
+                                                        <span id="search_result_sender"></span>
+                                                        <input type="hidden" class="form-control" id="bossPositionId" name="bossPositionId">
+                                                        <input type="hidden" class="form-control" id="bossUserId" name="bossUserId">
+                                                        <input type="hidden" class="form-control" id="bossUnitId" name="bossUnitId">
+                                                        <input type="hidden" class="form-control" id="bossLevelId" name="bossLevelId">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row" style="margin-bottom: 0px !important;">
+                                                    <div class="col-md-3">
+                                                        <label>NPP <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                                        <input type="text" class="form-control" id="nipBoss" name="nipBoss" required readonly="readonly" style="background-color:#e6e9ec !important">
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <label>@(en != null ? "Position" : "Jabatan") <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                                        <input type="text" class="form-control" id="bossPositionName" name="bossPositionName" required >
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12" style="padding-top: 1%;padding-left: 2%;">
+                                        <fieldset>
+                                            <legend style="font-size: 10pt"><b>@(en != null ? "Recipient" : "Penerima")</b></legend>
+                                            <div class="form-group row" style="margin-bottom: 0px !important;">
+                                                <div class="col-8 col-md-6 col-sm-10">
+                                                    <label>@(en != null ? "Name" : "Nama") <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                                    <input type="text" class="form-control" id="senderName" autocomplete="off" name="senderName" required>
+                                                </div>
+                                                <div class="col-4 col-md-6 col-sm-2">
+                                                    <label>&nbsp;</label>
+                                                    <input type="button" value="+" id="btnAddReceiver" onclick="AddTextBoxReceiver()" class="btn btn-success" style="display:block">
+                                                </div>
+                                            </div>
+                                            <div id="TextBoxContainerReceiver">
+                                                <!--Textboxes will be added here -->
+                                            </div>
+                                            <div class="form-group row" style="margin-bottom: 0px !important;">
+                                                <div class="col-md-6">
+                                                    <label>@(en != null ? "Phone Number" : "Nomor HP")<span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                                    <input type="text" class="form-control" id="senderPhoneNumber" autocomplete="off" name="senderPhoneNumber" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row" style="margin-bottom: 0px !important;">
+                                                <div class="col-md-6">
+                                                    <label>@(en != null ? "Company Name" : "Nama Perusahaan")<span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                                    <input type="text" class="form-control" id="senderCompanyName" autocomplete="off" name="senderCompanyName" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row" style="margin-bottom: 0px !important;">
+                                                <div class="col-md-11">
+                                                    <label>@(en != null ? "Address" : "Alamat") <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                                    <textarea class="form-control" id="senderAddress" name="senderAddress" required></textarea>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        <fieldset>
+                                            <legend style="font-size: 10pt"><b>@(en != null ? "Approver" : "Persetujuan")</b><span aria-hidden="true" class="required" style="color: red;">*</span></legend>
+
+                                            <div class="form-group row" style="margin-bottom: 0px;margin-top: 0px;">
+                                                <div class="col-8 col-md-6 col-sm-10">
+                                                    <br />
+                                                    <legend style="font-size: 10pt"><b></b></legend>
+                                                    <input type="text" autocomplete="off" class="form-control" placeholder="" id="checkerApprover_0" name="checkerApprover_0" required="" onkeyup="load_data_Approver(this.value,0)">
+                                                    <span id="search_resultApprover_0"></span>
+                                                    <input type="hidden" class="form-control" id="idUserApprover_0" name="idUserApprover">
+                                                    <input type="hidden" class="form-control" id="idPositionApprover_0" name="idPositionApprover">
+                                                    <input type="hidden" class="form-control" id="idLevelApprover_0" name="idLevelApprover">
+                                                    <input type="hidden" class="form-control" id="idUnitApprover_0" name="idUnitApprover">
+                                                </div>
+                                                <div class="col-4 col-md-6 col-sm-2">
+                                                    <label>&nbsp;</label>
+                                                    <input type="button" value="+" id="btnAddApprover" onclick="AddTextBoxCheckerApprover()" class="btn btn-success" style="display:block">
+                                                </div>
+                                            </div>
+                                            <div id="TextBoxContainerCheckerApprover">
+                                                <!--Textboxes will be added here -->
+                                            </div>
+                                        </fieldset>
+                                        <fieldset>
+                                            <legend style="font-size: 10pt"><b>@(en != null ? "Checker" : "Pemeriksa")</b></legend>
+                                            <div class="form-group row" style="margin-bottom: 0px;margin-top: 0px;">
+                                                <div class="col-8 col-md-6 col-sm-10">
+                                                    <label>&nbsp;</label>
+                                                    <input type="text" class="form-control" autocomplete="off" placeholder="@(en != null ? "Checker" : "Pemeriksa")" id="checker_0" name="checker_0" required="" onkeyup="load_data_pemeriksa(this.value,0)">
+                                                    <span id="search_result_0"></span>
+                                                    <input type="hidden" class="form-control" id="idUserChecker_0" name="idUserChecker">
+                                                    <input type="hidden" class="form-control" id="idPositionChecker_0" name="idPositionChecker">
+                                                    <input type="hidden" class="form-control" id="idLevelChecker_0" name="idLevelChecker">
+                                                    <input type="hidden" class="form-control" id="idUnitChecker_0" name="idUnitChecker">
+                                                </div>
+                                                <div class="col-4 col-md-6 col-sm-2">
+                                                    <label>&nbsp;</label>
+                                                    <input type="button" value="+" id="btnAddChecker" onclick="AddTextBoxChecker()" class="btn btn-success" style="display:block">
+                                                </div>
+                                            </div>
+                                            <div id="TextBoxContainerChecker">
+                                                <!--Textboxes will be added here -->
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <div class="kt-inbox__primary" id="alltemplate" align="Center" style="display: marker;overflow-x: auto;white-space: nowrap;max-width: 100%;margin-left: 1%;margin-right: 1%;">
+                                    <br>
+                                    @foreach (var item in ViewBag.TemplateData)
+                                    {
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-success btn-bold" data-toggle="modal" data-target="#template_@noTemplate">
+                                                <i class="flaticon2-checking">&nbsp;@item.templateName</i>
+                                            </button>
+                                        </div>
+                                        <div class="modal fade" id="template_@noTemplate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel2">@item.templateName</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body" style="text-align: center;">
+                                                        <textarea class="data_template">@HttpUtility.HtmlDecode(item.templateContent)</textarea>
+                                                    </div>
+                                                    <div class="modal-footer test">
+                                                        <div style='float: left;'>
+                                                            <button type="button" onclick="ganti_template('@item.idContentTemplate',@noTemplate)" class="btn btn-success flaticon-list">&nbsp;Pilih</button>
+                                                        </div>
+                                                        <div style='float: right;'>
+                                                            <button type="button" class="btn btn-danger flaticon-close" data-dismiss="modal">&nbsp;Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        noTemplate++;
+                                    }
+
+                                </div>
+                                <div class="col-md-12" style="padding-top: 2%;">
+                                    <div class="tinymce">
+                                        <textarea id="isiSurat" name="isiSurat">
+                                        <p>&nbsp;</p>
+                                        </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group row" style="width: 100%">
+                                        <label class="col-lg-3 col-form-label">Upload File Attachment:</label>
+                                        <div class="col-lg-12">
+                                            <div class="kt-uppy dropzone" id="dropss" width="100%" style="height: 100px;">
+                                            </div>
+                                            <span class="form-text text-muted">File type: JPG, PNG, DOC, DOCX, XLS, XLSX, PDF(Maksimal 15MB)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group row" style="width: 100%">
+                                        <div class="btn-group col-sm-2">
+                                            <button type="button" class="btn btn-warning btn-bold" id="btnPreview">
+                                                <i class="flaticon2-checking">&nbsp;Preview</i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                  <div class="col-md-6" hidden>
+                                    <div class="form-group row" style="width: 100%">
+                                        <label class="col-lg-3 col-form-label">@(en != null ? "Cc" : "Tembusan"): <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                        <div class="col-lg-12">
+                                            <textarea class="form-control" id="tembusan" name="tembusan" cols="45" rows="3" required></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row" style="width: 100%">
+                                        <label class="col-lg-3 col-form-label">@(en != null ? "Comment" : "Komentar"): <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                        <div class="col-lg-12">
+                                            <textarea class="form-control" id="comment" name="comment" cols="45" rows="3" required></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="kt-inbox__foot" style="padding-bottom: 2%;">
+                                    <div class="kt-inbox__primary">
+                                        <div class="btn-group col-sm-2">
+                                            <button type="button" class="btn btn-success btn-bold" onclick="saveSurat(1)">
+                                                <i class="flaticon-paper-plane-1">&nbsp;@(en != null ? "Save" : "Simpan")</i>
+                                            </button>
+                                        </div>
+                                        <div class="btn-group col-sm-2">
+                                            <button type="button" class="btn btn-warning btn-bold" style="color: white;" onclick="saveSurat(2)">
+                                                <i class="flaticon-paper-plane-1">&nbsp;@(en != null ? "Send" : "Kirim")</i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/assets/tinymcepack/tinymce.js?v=7.3.0" type="text/javascript"></script>
+<link href="~/assets/demo/demo2/new_theme/css/dropzone.css" rel="stylesheet" type="text/css" />
+<script src="~/assets/demo/demo2/new_theme/js/dropzone.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var orderKepada = 0;
+    var orderPemeriksa = 0;
+    var orderApprover = 0;
+    $(document).ready(function () {
+        var ordersKepada = @orderkepada+1;
+        var ordersPemeriksa = @orderpemeriksa+1;
+        var ordersApprover = @orderApprover+1;
+        orderKepada = ordersKepada;
+        orderPemeriksa = ordersPemeriksa;
+        orderApprover = ordersApprover;
+    });
+    $("#receiver_0").autocomplete({
+        minLength: 3,
+        source: function (req, res) {
+            console.log(req, res);
+            $.ajax({
+                url: "@Url.Action("GetUserReceiver","Document")",
+                method: "POST",
+                data: { keyword: req.term },
+                success: function (msg) {
+                    var data = JSON.parse(msg);
+                    var d = $.map(data, function (row) {
+                        return {
+                            label: row.userName + " - " + row.positionName,
+                            value: row.idUser
+                        }
+                    });
+                    res(d);
+                }
+            });
+        },
+        focus: function (event, ui) {
+            $("#receiver_0").val(ui.item.label);
+            $("#idUserReceiver_0").val(ui.item.value);
+
+            return false;
+        },
+        select: function (event, ui) {
+            // prevent autocomplete from updating the textbox
+            //console.log('select', ui);
+            //event.preventDefault();
+            $("#receiver_0").val(ui.item.label);
+            $("#idUserReceiver_0").val(ui.item.value);
+
+            return false;
+        }
+
+    });
+
+    function AddTextBoxChecker() {
+        var html = "<div id='divDispo" + orderPemeriksa + "' class='form-group row' style='margin-bottom: 0px;margin-top: 0px;'> <div class='col-8 col-md-6 col-sm-10'> <label>&nbsp;</label> <input type='text' class='form-control' id='checker_" + orderPemeriksa + "' name='checker_" + orderPemeriksa + "' placeholder='' autocomplete='off' required='' onkeyup='load_data_pemeriksa(this.value," + orderPemeriksa + ")'><span id='search_result_" + orderPemeriksa + "'></span> <input type='hidden' class='form-control idUserChecker' id='idUserChecker_" + orderPemeriksa + "' name='idUserChecker'> <input type='hidden' class='form-control idPositionChecker' id='idPositionChecker_" + orderPemeriksa + "' name='idPositionChecker'><input type='hidden' class='form-control idPositionChecker' id='idLevelChecker_" + orderPemeriksa + "' name='idLevelChecker'><input type='hidden' class='form-control' id='idUnitChecker_" + orderPemeriksa + "' name='idUnitChecker'> </div>  <div class='col-4 col-md-6 col-sm-2'> <label>&nbsp;</label> <input type='button' value='-' id='btnRemoveChecker' onclick='RemoveTextBoxChecker(" + orderPemeriksa + ")' class='btn btn-warning' style='display:block'> </div> </div>";
+        $('#TextBoxContainerChecker').append(html);
+
+        orderPemeriksa++;
+    }
+    function AddTextBoxReceiver() {
+        var html = "<div id='divReceiver" + orderKepada + "' class='form-group row' style='margin-bottom: 0px;margin-top: 0px;'> <div class='col-8 col-md-6 col-sm-10'> <label>&nbsp;</label> <input type='text' class='form-control' id='senderName' name='senderName' placeholder='' autocomplete='off' required=''> </div>  <div class='col-4 col-md-6 col-sm-2'> <label>&nbsp;</label> <input type='button' value='-' id='btnRemoveReceiver' onclick='RemoveTextBoxReceiver(" + orderKepada + ")' class='btn btn-warning' style='display:block'> </div> </div>";
+        $('#TextBoxContainerReceiver').append(html);
+        orderKepada++;
+    }
+    function RemoveTextBoxChecker(idDiv) {
+        $("#divDispo" + idDiv).remove();
+    }
+    function RemoveTextBoxReceiver(idDiv) {
+        $("#divReceiver" + idDiv).remove();
+    }
+    function load_data(keyword, number) {
+        if (keyword.length >= 3) {
+            $.ajax({
+                url: "@Url.Action("GetUserReceiver","Letter")",
+                method: "POST",
+                data: { keyword: keyword },
+                success: function (msg) {
+                    var data = JSON.parse(msg);
+                    var html = '<div class="list-group">';
+                    for (var i = 0; i < data.length; i++) {
+                        var value = data[i].idUser + " - " + data[i].idPosition + " - " + data[i].idUnit;
+                        var text = data[i].userName + " - " + data[i].positionName;
+                        if (number == 1000) {
+                            text = data[i].nip + " - " + data[i].positionName + " - " + data[i].userName;
+                        }
+                        html += '<div class="list-group-item list-group-item-action" onclick="get_text(\'' + text + '\',' + number + ',\'' + value + '\',' + data[i].idLevel + ')">' + text + '</div>';
+                    }
+                    html += '</div>';
+                    if (number != 1000) {
+                        document.getElementById('search_result_' + number).innerHTML = html;
+                    } else {
+                        document.getElementById('search_result_sender').innerHTML = html;
+                    }
+
+                }
+            });
+        }
+        else {
+            if (number != 1000) {
+                document.getElementById('search_result_' + number).innerHTML = '';
+            } else {
+                document.getElementById('search_result_sender').innerHTML = '';
+            }
+        }
+    }
+    function load_data_pemeriksa(keyword, number) {
+        if (keyword.length >= 3) {
+            $.ajax({
+                url: "@Url.Action("GetUserCopy","Letter")",
+                method: "POST",
+                data: { keyword: keyword },
+                success: function (msg) {
+                    var data = JSON.parse(msg);
+                    var html = '<div class="list-group">';
+                    for (var i = 0; i < data.length; i++) {
+                        var value = data[i].idUser + " - " + data[i].idPosition + " - " + data[i].idUnit;
+                        var text = data[i].userName + " - " + data[i].positionName;
+                        if (number == 1000) {
+                            text = data[i].nip + " - " + data[i].positionName + " - " + data[i].userName;
+                        }
+                        html += '<div class="list-group-item list-group-item-action" onclick="get_text(\'' + text + '\',' + number + ',\'' + value + '\',' + data[i].idLevel + ')">' + text + '</div>';
+                    }
+                    html += '</div>';
+                    if (number != 1000) {
+                        document.getElementById('search_result_' + number).innerHTML = html;
+                    } else {
+                        document.getElementById('search_result_sender').innerHTML = html;
+                    }
+
+                }
+            });
+        }
+        else {
+            if (number != 1000) {
+                document.getElementById('search_result_' + number).innerHTML = '';
+            } else {
+                document.getElementById('search_result_sender').innerHTML = '';
+            }
+        }
+    }
+    function get_text(text, number, value, level) {
+        console.log('value : ', text);
+        var splitValue = value.split(" - ");
+        var splitText = text.split(" - ");
+        if (number != 1000) {
+            document.getElementById('checker_' + number).value = text;
+            document.getElementById('idUserChecker_' + number).value = splitValue[0];
+            document.getElementById('idPositionChecker_' + number).value = splitValue[1];
+            document.getElementById('idUnitChecker_' + number).value = splitValue[2];
+            document.getElementById('idLevelChecker_' + number).value = level;
+            document.getElementById('search_result_' + number).innerHTML = '';
+        } else {
+            document.getElementById('nipBoss').value = splitText[0];
+            document.getElementById('bossPositionName').value = splitText[1];
+            document.getElementById('bossName').value = splitText[2];
+            document.getElementById('bossUserId').value = splitValue[0];
+            document.getElementById('bossPositionId').value = splitValue[1];
+            document.getElementById('bossUnitId').value = splitValue[2];
+            document.getElementById('bossLevelId').value = level;
+            document.getElementById('search_result_sender').innerHTML = '';
+        }
+
+    }
+    tinymce.init({
+        selector: 'textarea#isiSurat',
+        height: 500,
+        plugins: [
+            'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+            'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+            'insertdatetime', 'media', 'table', 'help', 'wordcount'
+        ],
+        toolbar: 'undo redo | blocks | ' +
+            'bold italic backcolor | alignleft aligncenter ' +
+            'alignright alignjustify | bullist numlist outdent indent | ' +
+            'removeformat | help',
+        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }'
+    });
+    tinymce.init({
+        selector: 'textarea.data_template',
+        height: 500,
+        readonly: true,
+        // menubar: false,
+        plugins: [
+            'advlist autolink lists link image charmap print preview anchor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table paste code help wordcount'
+        ],
+        toolbar: 'undo redo | formatselect | ' +
+            'bold italic backcolor | alignleft aligncenter ' +
+            'alignright alignjustify | bullist numlist outdent indent | help',
+        // content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+    });
+
+    function ganti_template(idTemplate, number) {
+        if (confirm('Isi surat akan hilang apabila template dirubah, apakah ingin melanjutkan ?')) {
+            var datatemplates = @Html.Raw(jsonTemplateData);
+            var filter = "idContentTemplate";
+            var filteredData = datatemplates.filter(function (obj) {
+                return obj[filter] === idTemplate;
+            });
+            tinymce.get("isiSurat").setContent(filteredData[0].templateContent);
+            $('#template_' + number).modal('hide');
+            //console.log(filteredData);
+        } else {
+            return false;
+        }
+    }
+
+</script>
+<script>
+    Dropzone.autoDiscover = false;
+    var idresponse = 0;
+    var files = 0;
+    var idsrtfile = 0;
+    var param = files + '~' + idsrtfile;
+
+    var myDropzone = new Dropzone("div#dropss", {
+        url: "@Url.Action("SaveAttachment","Letter")?param=" + param,
+        // acceptedMimeTypes:'image/JPEG,image/jpeg,image/jpg,image/JPG,application/pdf,/application/PDF,application/doc,application/docx,application/xls,application/xlsx,application/DOC,application/DOCX,application/XLS,application/XLSX',
+        autoProcessQueue: false,
+        parallelUploads: 1, // Number of files process at a time (default 2)
+        addRemoveLinks: true,
+        maxFiles: 10,
+        maxFilesize: 75,
+        timeout: 30000,
+        init: function () {
+            this.on("addedfile", function () {
+                // creates an array of the files that are in queue
+                var arr = myDropzone.files.length;
+                //alert(arr); // displays object and not the file name.
+                document.getElementById("attachmentCount").value = arr;
+
+            });
+            this.on("removedfile", function () {
+                // creates an array of the files that are in queue
+                var arr = myDropzone.files.length;
+                //alert(arr); // displays object and not the file name.
+                document.getElementById("attachmentCount").value = arr;
+
+            });
+            this.on("success", function (file, response) {
+                //alert(response);
+                console.log(response);
+                var res = JSON.parse(response);
+                console.log(res);
+                idresponse = res.idLetter;
+                idsrtfile = res.idLetter;
+                //alert('sukses');
+                $(".dz-success-mark svg").css("background", "green");
+                $(".dz-error-mark").css("display", "none");
+                files += 1;
+                param = files + '~' + idsrtfile;
+                this.options.url = "@Url.Action("SaveAttachment","Letter")?param=" + param;
+                myDropzone.processQueue();
+            });
+            this.on("complete", function (file) {
+                //alert(response);
+                if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
+                    $('#idresponsesurat').val(idresponse);
+                    //var tipes = document.getElementById('tipe').value
+                    console.log(idresponse)
+                    document.forms['formSurat'].submit();
+                }
+
+            });
+            this.on("error", function (file, error, xhr) {
+                alert(error);
+                var ficheiro = { name: file.name, status: xhr.status, statusText: xhr.statusText, erro: error.message };
+                console.log(ficheiro);
+            });
+        }
+
+    });
+</script>
+<script>
+    function saveSurat(flag) {
+        ;
+        document.getElementById("formSurat").action = "@Url.Action("SaveOutboxLetterBackdate","Letter")";
+        var outboxType = document.getElementById("outboxType").value;
+        var about = document.getElementById("about").value;
+        var resultType = document.getElementById("resultType").value;
+        var signatureType = document.getElementById("signatureType").value;
+        var bossPositionId = document.getElementById("bossPositionId").value;
+        var bossUserId = document.getElementById("bossUserId").value;
+        var nipBoss = document.getElementById("nipBoss").value;
+        var bossName = document.getElementById("bossName").value;
+        var senderName = document.getElementById("senderName").value;
+        var senderAddress = document.getElementById("senderAddress").value;
+        var comment = document.getElementById("comment").value;
+
+        if (senderName == "" || senderAddress == "") {
+            callAlert("Informasi penerima surat tidak boleh kosong!");
+            return false;
+        }
+        if (bossPositionName == "" || bossPositionId == "" || bossUserId == "" || nipBoss == "" || bossName == "") {
+            callAlert("Informasi pengirim surat tidak boleh kosong!");
+            return false;
+        }
+        if (about == "") {
+            callAlert("Perihal surat tidak boleh kosong!");
+            return false;
+        }
+        if (flag != 1) {
+            if (outboxType == "") {
+                callAlert("Jenis dokumen tidak boleh kosong!");
+                return false;
+            }
+            if (resultType == "") {
+                callAlert("Hasil surat tidak boleh kosong!");
+                return false;
+            }
+            if (signatureType == "") {
+                callAlert("Tanda tangan surat tidak boleh kosong!");
+                return false;
+            }
+            if (comment == "") {
+                callAlert("Komentar surat tidak boleh kosong!");
+                return false;
+            }
+        }
+
+        var message = "Anda yakin ingin mengirim surat ini?";
+        if (flag == 1) {
+            message = "Anda yakin ingin menyimpan surat ini?";
+        }
+        var conf = confirm(message);
+        tinyMCE.triggerSave();
+        if (conf == true) {
+            $('#saveType').val(flag);
+            if (myDropzone.files.length == 0) {
+                document.forms['formSurat'].submit();
+            }
+            else {
+                myDropzone.processQueue();
+            }
+            //document.forms['eval-form'].submit();
+        }
+    }
+    $('#btnPreview').click(function (e) {
+        //e.preventDefault();
+        var message = "Anda yakin ingin preview surat ini?";
+        var conf = confirm(message);
+        tinyMCE.triggerSave();
+        $('#formSurat').attr('asp-action', 'SavePrevOutboxLetter');
+        $('#formSurat').attr('action', '/EOFFICEBNILWEB/Letter/SavePrevOutboxLetter');
+        if (conf == true) {
+            const idLetter = document.getElementById('idresponsesurat').value;
+            printSurat(idLetter);
+            //$.blockUI({
+            //    css: {
+            //        border: 'none',
+            //        padding: '15px',
+            //        backgroundColor: '#000',
+            //        '-webkit-border-radius': '10px',
+            //        '-moz-border-radius': '10px',
+            //        opacity: .5,
+            //        color: '#fff'
+            //    }
+            //});
+            //$('#saveType').val(3);
+            //var form = $(this).closest('form');
+            //form.ajaxSubmit({
+            //    success: function (response, status, xhr, $form) {
+            //        console.log(response);
+            //        var data = JSON.parse(response);
+            //        $.unblockUI();
+            //        if (data.Status == "OK") {
+            //            Swal.fire({
+            //                position: 'center',
+            //                icon: 'success',
+            //                title: data.Message,
+            //                text: data.Message,
+            //                showConfirmButton: true,
+            //                //timer: 1500,
+            //                onBeforeOpen: () => {
+            //                    timerInterval = setInterval(() => {
+            //                        const content = Swal.getContent()
+            //                        if (content) {
+            //                            const b = content.querySelector('b')
+            //                            if (b) {
+            //                                b.textContent = Swal.getTimerLeft()
+            //                            }
+            //                        }
+            //                    }, 100)
+            //                },
+            //                onClose: () => {
+            //                    clearInterval(timerInterval)
+            //                }
+            //            }).then((result) => {
+            //                /* Read more about handling dismissals below */
+            //            })
+
+            //            //alert(data.Result);
+            //            //document.getElementById("btnPreview2").click = function () { window.open("Url.Action("PrintLetter","Letter")/" + data.Result) };
+            //            printSurat(data.Result);
+            //            setTimeout(function () {
+            //                //your code to be executed after 1 second
+            //                window.location = "@Url.Action("Draft","Outbox")";
+            //            }, 3000);
+
+            //        } else {
+            //            callAlert(data.Message);
+            //        }
+
+            //    }
+            //});
+        }
+    });
+    function printSurat(idLetter){
+        window.open("@Url.Action("PrintLetter","Letter")/" + idLetter);
+    }
+    function callAlert(message) {
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Validasi',
+            text: message,
+            showConfirmButton: true,
+            //timer: 1500,
+            onBeforeOpen: () => {
+                timerInterval = setInterval(() => {
+                    const content = Swal.getContent()
+                    if (content) {
+                        const b = content.querySelector('b')
+                        if (b) {
+                            b.textContent = Swal.getTimerLeft()
+                        }
+                    }
+                }, 100)
+            },
+            onClose: () => {
+                clearInterval(timerInterval)
+            }
+        }).then((result) => {
+            /* Read more about handling dismissals below */
+        })
+    }
+
+
+        // approval pengadaan
+
+    function AddTextBoxCheckerApprover() {
+        var html = "<div id='divDispoApprover" + orderApprover + "' class='form-group row' style='margin-bottom: 0px;margin-top: 0px;'> <div class='col-8 col-md-6 col-sm-10'> <label>&nbsp;</label> <input type='text' class='form-control' id='checkerApprover_" + orderApprover + "' name='checkerApprover_" + orderApprover + "' placeholder='' autocomplete='off' required='' onkeyup='load_data_Approver(this.value," + orderApprover + ")'><span id='search_resultApprover_" + orderApprover + "'></span> <input type='hidden' class='form-control idUserApprover' id='idUserApprover_" + orderApprover + "' name='idUserApprover'> <input type='hidden' class='form-control idPositionApprover' id='idPositionApprover_" + orderApprover + "' name='idPositionApprover'><input type='hidden' class='form-control idPositionChecker' id='idLevelApprover_" + orderApprover + "' name='idLevelApprover'><input type='hidden' class='form-control' id='idUnitApprover_" + orderApprover + "' name='idUnitApprover'> </div>  <div class='col-4 col-md-6 col-sm-2'> <label>&nbsp;</label> <input type='button' value='-' id='btnRemoveChecker' onclick='RemoveTextBoxCheckerApprover(" + orderApprover + ")' class='btn btn-warning' style='display:block'> </div> </div>";
+        $('#TextBoxContainerCheckerApprover').append(html);
+
+        orderApprover++;
+    }
+
+
+    function RemoveTextBoxCheckerApprover(idDiv) {
+        $("#divDispoApprover" + idDiv).remove();
+    }
+
+
+    function load_data_Approver(keyword, number) {
+        if (keyword.length >= 3) {
+            $.ajax({
+                url: "@Url.Action("GetUserCopy","Letter")",
+                method: "POST",
+                data: { keyword: keyword },
+                success: function (msg) {
+                    var data = JSON.parse(msg);
+                    var html = '<div class="list-group">';
+                    for (var i = 0; i < data.length; i++) {
+                        var value = data[i].idUser + " - " + data[i].idPosition + " - " + data[i].idUnit;
+                        var text = data[i].userName + " - " + data[i].positionName;
+                        if (number == 1000) {
+                            text = data[i].nip + " - " + data[i].positionName + " - " + data[i].userName;
+                        }
+                        html += '<div class="list-group-item list-group-item-action" onclick="get_text_Approver(\'' + text + '\',' + number + ',\'' + value + '\',' + data[i].idLevel + ')">' + text + '</div>';
+                    }
+                    html += '</div>';
+                    if (number != 1000) {
+                        document.getElementById('search_resultApprover_' + number).innerHTML = html;
+                    } 
+                    else {
+                        document.getElementById('search_result_sender').innerHTML = html;
+                    }
+
+                }
+            });
+        }
+        else {
+            if (number != 1000) {
+                document.getElementById('search_resultApprover_' + number).innerHTML = '';
+            } else {
+                document.getElementById('search_result_sender').innerHTML = '';
+            }
+        }
+    }
+
+
+     function get_text_Approver(text, number, value, level) {
+        console.log('value : ', text);
+        var splitValue = value.split(" - ");
+        var splitText = text.split(" - ");
+        if (number != 1000) {
+            document.getElementById('checkerApprover_' + number).value = text;
+            document.getElementById('idUserApprover_' + number).value = splitValue[0];
+            document.getElementById('idPositionApprover_' + number).value = splitValue[1];
+            document.getElementById('idUnitApprover_' + number).value = splitValue[2];
+            document.getElementById('idLevelApprover_' + number).value = level;
+            document.getElementById('search_resultApprover_' + number).innerHTML = '';
+        } 
+       
+
+    }
+
+
+    // end
+</script>

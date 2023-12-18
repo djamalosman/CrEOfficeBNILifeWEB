@@ -1,0 +1,209 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localiza
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@{
+    var sessidUser = Accessor.HttpContext.Session.GetString("idUser");
+    var sessidUnit = Accessor.HttpContext.Session.GetString("idUnit");
+    var unitMailingRoom = "D0D02AA8-7A27-ED11-89B0-3CF011A1A981";
+    var en = Accessor.HttpContext.Session.GetString("en");
+    var ina = Accessor.HttpContext.Session.GetString("ina");
+}
+<!-- begin::Body -->
+<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
+    <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver    m-container m-container--responsive m-container--xxl m-page__container">
+        <div class="m-grid__item m-grid__item--fluid m-wrapper">
+            <!-- BEGIN: Subheader -->
+            <div class="m-subheader ">
+                <div class="d-flex align-items-center">
+                    <div class="mr-auto" style="color: white;">
+                        <h3 class="m-subheader__title m-subheader__title--separator" style="color: white;">
+                            
+                             @(en !=null ? "Document Tracking" : "Pencarian Dokumen")
+                        </h3>
+                        <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                            <li class="m-nav__item m-nav__item--home">
+                                <a href="#" class="m-nav__link m-nav__link--icon">
+                                    <i class="m-nav__link-icon la la-home" style="color: white;"></i>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        @(en !=null ? "Other" : "Lainnya")
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        @(en !=null ? "Document Tracking" : "Pencarian Dokumen")
+                                    </span>
+                                </a>
+                            </li>
+                           
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Subheader -->
+            <div class="m-content" style="padding: 30px 30px !important;">
+                <!--Begin::Main Portlet-->
+                <div class="m-portlet m-portlet--full-height ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                           <h5>@(en !=null ? "Document Tracking" : "Pencarian Dokumen")</h5>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label">&nbsp;@(en !=null ? "Tracking Number" : "Tracking Number")</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" autocomplete="off" name="trackingNumber" id="trackingNumber" autocomplete="off" required>
+                                <input type="text" hidden value="0" class="form-control" name="statusElse" id="statusElse">
+                            </div>
+                             <div class="col-sm-4">
+                                <button class="btn btn-primary" id="btncari" onclick="filterData()">@(en !=null ? "Search" : "Cari")</button>
+                            </div
+                        </div>
+                        @*<div class="form-group row">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-1">
+                                <button class="btn btn-primary" id="btncari" onclick="filterData()">@(en != null ? "Search" : "Cari")</button>
+                            </div>
+                            
+                        </div>*@
+                    </div>
+                </div>
+                <!--End::Main Portlet-->
+                <div class="m-portlet m-portlet--full-height ">
+
+                    <div class="m-portlet__body">
+                        <div class="table-responsive">
+                        </div>
+                        <div class="table-responsive">
+                            <div id="listDocHist" style="margin-top:20px">
+                            </div>
+
+                            <script type="text/x-handlebars-template" id="dtDocHist">
+                                <table id="tblDocHist" class="table table-striped table-bordered dt-responsive nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "No" : "No")</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Letter Number" : "Nomor Surat")</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Sender" : "Pengirim")</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Division" : "Divisi")</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Expedition" : "Ekspedisi")</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Reference Number" : "Nomor Referensi")</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Receipt Number" : "Nomor AWB / Pengiriman")</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Destination Name" : "Nama Tujuan")</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Destination Phone" : "Nomor HP Tujuan")</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Destination Address" : "Alamat Tujuan")</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Receiver Name" : "Nama Penerima")</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Receive Date" : "Tanggal Penerimaan")</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Shipping Type" : "Jenis Pengiriman")</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Delivery Type" : "Tipe Pengiriman")</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Status" : "Status")</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each this}}
+                                        <tr>
+                                            <td>{{no}}</td>
+                                            <td>{{letterNumber}}</td>
+                                            <td>{{sender}}</td>
+                                            <td>{{senderDivision}}</td>
+                                            <td>{{expedition}}</td>
+                                            <td>{{referenceNumber}}</td>
+                                            <td>{{receiptNumber}}</td>
+                                            <td>{{destinationReceiver}}</td>
+                                            <td>{{receiverPhone}}</td>
+                                            <td>{{receiverAddress}}</td>
+                                            <td>{{receiver}}</td>
+                                            <td>{{receiveDate}}</td>
+                                            <td>{{shippingType}}</td>
+                                            <td>{{deliveryType}}</td>
+                                            <td>{{status}}</td>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function filterData() {
+       
+        var trackingNumberv = document.getElementById("trackingNumber").value;
+
+        var param = {
+            trackingNumber: trackingNumberv
+        };
+        if (document.getElementById("trackingNumber").value.trim() == "") {
+            alert(" Tracking Number Tidak Boleh Kosong!");
+            return false;
+        }
+        else{
+             $.blockUI({
+                css: {
+                    border: 'none',
+                    padding: '15px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .5,
+                    baseZ: 2000,
+                    color: '#fff'
+                }
+            });
+        
+            $.post('@Url.Action("SearchOutgoingLetter", "Document")', param, function (result) {
+                var data = JSON.parse(result);
+
+
+                var source = $('#dtDocHist').html();
+                var tmpl = Handlebars.compile(source);
+
+
+                $('#listDocHist').html(tmpl(data));
+                var table = $('#tblDocHist').DataTable({
+                    "ordering": false,
+                    scrollY: true,
+                    scrollX: true,
+                });
+
+                $.unblockUI();
+
+                //var selectedPackage = document.getElementById("btncari").value;
+                if (data != null) {
+                    document.getElementById('excel').style.display = "block";
+                }
+
+            });
+        }
+    }
+
+    function myChangeFunction2(input2) {
+        var input2 = document.getElementById('m_datepicker_1');
+        datestart.value = input2.value;
+    }
+    function myChangeFunction3(input3) {
+        var input22 = document.getElementById('m_datepicker_1');
+        dateend.value = input3.value;
+    }
+
+  
+
+</script>

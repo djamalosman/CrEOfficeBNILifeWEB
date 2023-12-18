@@ -1,0 +1,898 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localiza
+@model EofficeBNILWEB.Models.LetterOutputWeb
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@{
+    var sessidUser = Accessor.HttpContext.Session.GetString("idUser");
+    var sessidUnit = Accessor.HttpContext.Session.GetString("idUnit");
+    var en = Accessor.HttpContext.Session.GetString("en");
+    var ina = Accessor.HttpContext.Session.GetString("ina");
+}
+
+@{
+    var data = 1;
+
+}
+<style type="text/css">
+    .option-hover {
+        /*border: 1px solid #dcdcde;*/
+        width: 10em;
+        height: 40px;
+        margin: 0 0 0 -2%;
+        position: absolute;
+        background-color: #f2f3f7;
+        /*box-shadow: 2px 2px silver;*/
+        display: none;
+    }
+
+    .option-action:hover {
+        font-size: 14px;
+        color: #ffd700;
+    }
+
+    .option-action-delete:hover {
+        font-size: 14px;
+        color: #ec592d;
+    }
+
+    .kt-inbox__search {
+        width: 75% !important;
+        left: 18% !important;
+    }
+</style>
+<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
+    <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver    m-container m-container--responsive m-container--xxl m-page__container">
+        <div class="m-grid__item m-grid__item--fluid m-wrapper">
+            <!-- BEGIN: Subheader -->
+            <div class="m-subheader " style="padding: 10px 0 0 30px !important;">
+                <div class="d-flex align-items-center">
+                    <div class="mr-auto">
+                        <h3 class="m-subheader__title m-subheader__title--separator" style="color: white;">
+                            Draft
+                        </h3>
+                        <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                            <li class="m-nav__item m-nav__item--home">
+                                <a href="#" class="m-nav__link m-nav__link--icon">
+                                    <i class="m-nav__link-icon la la-home" style="color: white;"></i>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        Office
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        @(en != null ? "External Document" : "Surat Keluar")
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        Draft
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- END: Subheader -->
+            <div class="m-content" style="padding: 30px 30px !important;">
+                <!--Begin::Main Portlet-->
+                <div class="kt-grid kt-grid--desktop kt-grid--ver-desktop  kt-inbox" id="kt_inbox">
+                    <!--Begin::Aside Mobile Toggle-->
+                    <button class="kt-inbox__aside-close" id="kt_inbox_aside_close">
+                        <i class="la la-close"></i>
+                    </button>
+                    <!--End:: Aside Mobile Toggle-->
+                    <!--Begin:: Inbox Aside-->
+                    <div class="kt-grid__item   kt-portlet  kt-inbox__aside" id="kt_inbox_aside">
+                        <div class="kt-inbox__nav">
+                            <ul class="kt-nav">
+                                <li class="kt-nav__item">
+                                    <a href="@Url.Action("Index", "Outbox")" class="kt-nav__link" data-action="list" data-type="inbox">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-nav__link-icon">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24"></rect>
+                                                <path d="M6,2 L18,2 C18.5522847,2 19,2.44771525 19,3 L19,13 C19,13.5522847 18.5522847,14 18,14 L6,14 C5.44771525,14 5,13.5522847 5,13 L5,3 C5,2.44771525 5.44771525,2 6,2 Z M13.8,4 C13.1562,4 12.4033,4.72985286 12,5.2 C11.5967,4.72985286 10.8438,4 10.2,4 C9.0604,4 8.4,4.88887193 8.4,6.02016349 C8.4,7.27338783 9.6,8.6 12,10 C14.4,8.6 15.6,7.3 15.6,6.1 C15.6,4.96870845 14.9396,4 13.8,4 Z" fill="#000000" opacity="0.3"></path>
+                                                <path d="M3.79274528,6.57253826 L12,12.5 L20.2072547,6.57253826 C20.4311176,6.4108595 20.7436609,6.46126971 20.9053396,6.68513259 C20.9668779,6.77033951 21,6.87277228 21,6.97787787 L21,17 C21,18.1045695 20.1045695,19 19,19 L5,19 C3.8954305,19 3,18.1045695 3,17 L3,6.97787787 C3,6.70173549 3.22385763,6.47787787 3.5,6.47787787 C3.60510559,6.47787787 3.70753836,6.51099993 3.79274528,6.57253826 Z" fill="#000000"></path>
+                                            </g>
+                                        </svg>
+                                        <span class="kt-nav__link-text">@(en != null ? "Mail Distribution" : "Distribusi Surat")</span>
+                                        <span class="kt-nav__link-badge">
+                                            <span class="kt-badge kt-badge--unified-success kt-badge--md kt-badge--rounded kt-badge--boldest">@Model.outboxCount</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="kt-nav__item kt-nav__item--active">
+                                    <a href="@Url.Action("Draft", "Outbox")" class="kt-nav__link" data-action="list" data-type="marked">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-nav__link-icon">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <polygon points="0 0 24 0 24 24 0 24"></polygon>
+                                                <path d="M12,4.25932872 C12.1488635,4.25921584 12.3000368,4.29247316 12.4425657,4.36281539 C12.6397783,4.46014562 12.7994058,4.61977315 12.8967361,4.81698575 L14.9389263,8.95491503 L19.5054023,9.61846284 C20.0519472,9.69788046 20.4306287,10.2053233 20.351211,10.7518682 C20.3195865,10.9695052 20.2170993,11.1706476 20.0596157,11.3241562 L16.7552826,14.545085 L17.5353298,19.0931094 C17.6286908,19.6374458 17.263103,20.1544017 16.7187666,20.2477627 C16.5020089,20.2849396 16.2790408,20.2496249 16.0843804,20.1472858 L12,18 L12,4.25932872 Z" fill="#000000" opacity="0.3"></path>
+                                                <path d="M12,4.25932872 L12,18 L7.91561963,20.1472858 C7.42677504,20.4042866 6.82214789,20.2163401 6.56514708,19.7274955 C6.46280801,19.5328351 6.42749334,19.309867 6.46467018,19.0931094 L7.24471742,14.545085 L3.94038429,11.3241562 C3.54490071,10.938655 3.5368084,10.3055417 3.92230962,9.91005817 C4.07581822,9.75257453 4.27696063,9.65008735 4.49459766,9.61846284 L9.06107374,8.95491503 L11.1032639,4.81698575 C11.277344,4.464261 11.6315987,4.25960807 12,4.25932872 Z" fill="#000000"></path>
+                                            </g>
+                                        </svg>
+                                        <span class="kt-nav__link-text">Draft</span>
+                                        <span class="kt-nav__link-badge">
+                                            <span class="kt-badge kt-badge--unified-success kt-badge--md kt-badge--rounded kt-badge--boldest">@Model.recordsTotal</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                @*<li class="kt-nav__item">
+                                <a href="@Url.Action("Batal", "Outbox")" class="kt-nav__link" data-action="list" data-type="marked">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-nav__link-icon">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect x="0" y="0" width="24" height="24"></rect>
+                                <path d="M6,2 L18,2 C18.5522847,2 19,2.44771525 19,3 L19,13 C19,13.5522847 18.5522847,14 18,14 L6,14 C5.44771525,14 5,13.5522847 5,13 L5,3 C5,2.44771525 5.44771525,2 6,2 Z M13.8,4 C13.1562,4 12.4033,4.72985286 12,5.2 C11.5967,4.72985286 10.8438,4 10.2,4 C9.0604,4 8.4,4.88887193 8.4,6.02016349 C8.4,7.27338783 9.6,8.6 12,10 C14.4,8.6 15.6,7.3 15.6,6.1 C15.6,4.96870845 14.9396,4 13.8,4 Z" fill="#000000" opacity="0.3"></path>
+                                <path d="M3.79274528,6.57253826 L12,12.5 L20.2072547,6.57253826 C20.4311176,6.4108595 20.7436609,6.46126971 20.9053396,6.68513259 C20.9668779,6.77033951 21,6.87277228 21,6.97787787 L21,17 C21,18.1045695 20.1045695,19 19,19 L5,19 C3.8954305,19 3,18.1045695 3,17 L3,6.97787787 C3,6.70173549 3.22385763,6.47787787 3.5,6.47787787 C3.60510559,6.47787787 3.70753836,6.51099993 3.79274528,6.57253826 Z" fill="#000000"></path>
+                                </g>
+                                </svg>
+                                <span class="kt-nav__link-text">Batal</span>
+                                <span class="kt-nav__link-badge">
+                                <span class="kt-badge kt-badge--unified-success kt-badge--md kt-badge--rounded kt-badge--boldest">2</span>
+                                </span>
+                                </a>
+                                </li>*@
+                            </ul>
+                        </div>
+                    </div>
+                    <!--End::Aside-->
+                    <!--Begin:: Inbox List-->
+                    <div class="kt-grid__item kt-grid__item--fluid    kt-portlet    kt-inbox__list kt-inbox__list--shown" id="kt_inbox_list">
+                        <div class="kt-portlet__head">
+                            <div class="kt-inbox__toolbar kt-inbox__toolbar--extended">
+                                <div class="kt-inbox__actions kt-inbox__actions--expanded">
+                                </div>
+                                <div class="kt-inbox__search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Search" readonly="1" data-toggle="modal" data-target="#exampleModal" style="z-index: 0;">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <!--<i class="la la-group"></i>-->
+                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                        <rect x="0" y="0" width="24" height="24"></rect>
+                                                        <path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"></path>
+                                                        <path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z" fill="#000000" fill-rule="nonzero"></path>
+                                                    </g>
+                                                </svg>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="kt-inbox__controls">
+                                    <div class="kt-inbox__pages paginggall" id="pagination" data-toggle="kt-tooltip" title="Records per page">
+                                        <span class="kt-inbox__perpage" data-toggle="dropdown">1 - 20 dari @Model.recordsTotal</span>
+                                    </div>
+                                    <button class="kt-inbox__icon prevv" id="prev" data-toggle="kt-tooltip" title="Previose page">
+                                        <i class="flaticon2-left-arrow"></i>
+                                    </button>
+                                    <button class="kt-inbox__icon nextt" id="next" data-toggle="kt-tooltip" title="Next page">
+                                        <i class="flaticon2-right-arrow"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__body kt-portlet__body--fit-x" style="padding-bottom: 0px;margin-bottom: 0px;padding-top: 10px">
+                            <div class="kt-inbox__items" data-type="inbox">
+                                <div class="kt-inbox__items" id="inbox-list" data-type="inbox" style="margin-top: -0.8em;">
+                                    @foreach (var item in Model.data)
+                                    {
+                                       
+                                            <div class="kt-inbox__item kt-inbox__item--unread " data-id="1" data-type="inbox">
+                                                <div class="kt-inbox__info"onclick="edit_draft('@item.idLetter','@item.letterTypeCode')">
+                                                    <div class="kt-inbox__actions" onclick="edit_draft('@item.idLetter','@item.letterTypeCode')">
+                                                        <span data-toggle="kt-tooltip" data-placement="right" title="Open New Tab" class="kt-inbox__label kt-badge kt-badge--unified-success kt-badge--bold kt-badge--inline">
+                                                            <i class="flaticon2-fast-next"></i>
+                                                        </span>
+                                                    </div>
+                                                    <div class="kt-inbox__sender" data-toggle="view">
+                                                        <a href="#" class="kt-inbox__author">
+                                                            @if (item.letterTypeCode == 1)
+                                                            {
+                                                                @item.senderName
+                                                                ;
+                                                            }
+                                                       
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="kt-inbox__details" style="margin: 0px 0px 0px 0px; padding-right: 0px;" data-toggle="view" onclick="edit_draft('@item.idLetter','@item.letterTypeCode')">
+                                                    <div class="kt-inbox__message" style="width: 600px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                        <span class="kt-inbox__summary">@item.about</span>
+                                                    </div>
+                                                    <div class="kt-inbox__labels">
+                                                        <span class="kt-inbox__label kt-badge kt-badge--unified-brand kt-badge--bold kt-badge--inline">@item.letterTypeValue</span>
+                                                    </div>
+                                                </div>
+                                                <div class="kt-inbox__datetime" style="display: flex;margin-right: 3%;justify-content: space-between;width: 100%;" data-toggle="view">
+                                                    @*<div class="col-sm-6 option-action" style="padding: 5px;" onclick="edit_draft('@item.idLetter','@item.letterTypeCode')">
+                                                        <span style="float:left">edit</span>
+                                                    </div>*@
+                                                    <div class="col-sm-6 option-action-delete" style="padding: 5px;" onclick="delete_draft('@item.idLetter')">
+                                                            <span style="float:right"> <i class="fa-solid fa-trash-can"></i></span>
+                                                    </div>
+
+                                                    @if (item.letterDate <= DateTime.Now.AddDays(-7))
+                                                    {
+                                                        Convert.ToDateTime(item.letterDate).ToString("ddd dd/MMM");
+                                                    }
+                                                    else if (item.letterDate <= DateTime.Now.AddDays(-1))
+                                                    {
+                                                        Convert.ToDateTime(item.letterDate).ToString("ddd HH:mm");
+                                                    }
+                                                    else
+                                                    {
+                                                        Convert.ToDateTime(item.letterDate).ToString("HH:mm");
+                                                    }
+                                                </div>
+                                            </div>
+                                       
+                                        <hr style="margin-top:1px; margin-bottom: 1px">
+                                    }
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="kt-portlet__head" style="padding-top: 0px;margin-top: 0px;">
+                            <div class="kt-inbox__toolbar kt-inbox__toolbar--extended">
+                                <div class="kt-inbox__actions kt-inbox__actions--expanded"></div>
+                                <div class="kt-inbox__controls">
+                                    <div class="kt-inbox__pages paginggall" id="pagination" data-toggle="kt-tooltip" title="Records per page">
+                                        <span class="kt-inbox__perpage" data-toggle="dropdown">@Model.draw - @Model.limit dari @Model.recordsTotal</span>
+                                    </div>
+                                    <button class="kt-inbox__icon prevv" id="prev" data-toggle="kt-tooltip" title="Previose page">
+                                        <i class="flaticon2-left-arrow"></i>
+                                    </button>
+                                    <button class="kt-inbox__icon nextt" id="next" data-toggle="kt-tooltip" title="Next page">
+                                        <i class="flaticon2-right-arrow"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end::Body -->
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Search</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="searchForm">
+                                <table border="0" cellpadding="2" cellspacing="2" width="100%">
+                                    <tr>
+                                        <td width="15%" align="left" class="form-field-caption">Nomor Surat</td>
+                                        <td width="35%" class="form-field-input">
+                                            <input type="text" id="letterNumber" name="letterNumber" class="form-control" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="form-field-caption" align="left">Perihal</td>
+                                        <td class="form-field-input">
+                                            <input type="text" id="about" name="about" class="form-control" />
+                                        </td>
+                                    </tr>
+                                    @*<tr>
+                                        <td>Jenis Surat</td>
+                                        <td>
+                                            <select class="form-control" id="letterType" name="letterType">
+                                                <option value="0" selected>---</option>
+                                                @foreach (var item in ViewBag.LetterTypeList)
+                                                {
+                                                    <option value="@item.attributeValue">@item.value</option>
+                                                }
+                                            </select>
+                                        </td>
+                                    </tr>*@
+                                    <tr>
+                                        <td class="form-field-caption" align="left">Tanggal</td>
+                                        <td class="form-field-input">
+                                            <div class="form-row">
+                                                <div class="col" style="width: 40%">
+                                                    @*<input type="date" name="TANGGAL1" class="form-control" id="tanggal1" />*@
+                                                    <input type="text" class="form-control" id="startDate" name="startDate" autocomplete="off">
+                                                </div>S/D
+                                                <div class="col" style="width: 40%">
+                                                    @*<input type="date" name="TANGGAL2" class="form-control" id="tanggal2" />*@
+                                                    <input type="text" class="form-control" id="endDate" name="endDate" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr style="display:none;">
+                                        <td class="form-field-caption" align="left">Status Baca</td>
+                                        <td class="form-field-input">
+                                            <select id="readStatus" name="readStatus" class="form-control">
+                                                <option value="1">All</option>
+                                                <option value="99">Read</option>
+                                                <option value="0">Unread</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" onclick="search_inbox()">Cari</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="kt_scrolltop" class="kt-scrolltop">
+                <i class="kt-menu__ver-arrow la la-angle-up"></i>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function view_detail_sppd(param) {
+        if (param != "") {
+            location.href = '@Url.Content("~/Outbox/SuratSppd")';
+        }
+    }
+
+    //function edit_draft() {
+    //    window.location = "#";
+    //}
+</script>
+
+<script type="text/javascript">
+    
+    var searchType = 3;
+
+
+    function edit_draft(param, letterType) {
+        if (letterType == 1) {
+            window.location = location.href = '@Url.Content("~/Letter/DetailLetterSM")/' + param;
+        } else if (letterType == 2) {
+             var typeletter="22";
+            window.location = location.href = '@Url.Content("~/Letter/DetailLetterSK")/' + param +'/'+ typeletter;
+        } else if (letterType == 6) {
+             var typeletter="66";
+            window.location = location.href = '@Url.Content("~/Letter/DetailLetterSKBackdate")/' + param + '/' + typeletter;
+        }
+
+    }
+    function draft_detail(param, letterType) {
+        if (letterType == 1) {
+            window.location = location.href = '@Url.Content("~/Letter/DetailLetterSM")/' + param;
+        } else if (letterType == 2) {
+            var typeletter="22";
+            window.location = location.href = '@Url.Content("~/Letter/DetailLetterSK")/' + param + '/' + typeletter;
+        } else if (letterType == 6) {
+            var typeletter="66";
+            window.location = location.href = '@Url.Content("~/Letter/DetailLetterSKBackdate")/' + param + '/' + typeletter;
+        }
+
+    }
+    
+    function delete_draft(param) {
+        if (confirm('Hapus draft dari list?')) {
+            window.location = "@Url.Action("Delete","Outbox")?param=" + param;
+        } else {
+            return false;
+        }
+    }
+
+    
+
+    $(document).ready(function () {
+        $(".kt-inbox__item").hover(function () {
+            $(this).find(".option-hover").css("display", "block");
+        }, function () {
+            $('.option-hover').css("display", "none");
+        });
+
+    });
+    function search_inbox() {
+        var url = '@Url.ActionLink("SearchLetter","Letter")';
+        var letterNumber = $("#letterNumber").val();
+        var about = $("#about").val();
+        var letterType = $("#letterType").val();
+        var startDate = $("#startDate").val();
+        var endDate = $("#endDate").val();
+        var readStatus = $("#readStatus").val();
+        $('#exampleModal').modal('toggle');
+        $.blockUI({
+            css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
+            }
+        });
+        $.ajax({
+            url: "@Url.Action("SearchLetter","Letter")",
+            method: "POST",
+            data: {
+                letterNumber: letterNumber,
+                about: about,
+                letterType: letterType,
+                startDate: startDate,
+                endDate: endDate,
+                readStatus: readStatus,
+                draw: 1,
+                searchType: searchType
+            },
+            success: function (msg) {
+                var data = JSON.parse(msg);
+                console.log(data);
+                $('.jumpjump span').remove();
+                var isioption = "";
+                for (var i = 1; i <= data.pagelength; i++) {
+                    isioption += "<option value='" + i + "' >" + i + "</option>";
+                }
+
+                $('.jumpjump').append('<span><select name="jump" id="jump" class="kt-inbox__icon form-control jumpto" onchange="jump()" style="width: 70px;">' + isioption + '</select></span>');
+
+                $('.paginggall span').remove();
+                $('.paginggall').append('<span class="kt-inbox__perpage" data-toggle="dropdown">' + data.draw + ' - ' + data.limit + ' dari ' + data.recordsTotal + '</span>');
+                $('#inbox-list div').remove();
+                $('#inbox-list hr').remove();
+                $.each(data.data, function (index, item) {
+                    var readStyle = item.readStatus == 99 ? "font-weight: bold !important;color:black;" : "color:black;";
+                    //var editPage = "edit_draft('" + item.idLetter + "','" + item.letterTypeCode + "')";
+                    var paramDetailNewPage = "edit_draft('" + item.idLetter + "','" + item.letterTypeCode + "')";
+                    var deletePage = "delete_draft('" + item.idLetter + "')";
+                    var senderName = item.senderName;
+                    if (item.letterTypeCode != 1) {
+                        senderName = item.positionName;
+                    }
+                    var status = '<span class="kt-inbox__label kt-badge kt-badge--unified-success kt-badge--bold kt-badge--inline"><b>' + item.statusCodeValue + '</b></span>';
+                    if (item.statusCode == 2) {
+                        status = '<span class="kt-inbox__label kt-badge kt-badge--unified-danger kt-badge--bold kt-badge--inline"><b>' + item.statusCodeValue + " " + item.approvalcounter + '</b></span>';
+                    } else if (item.statusCode == 5) {
+                        status = '<span class="kt-inbox__label kt-badge kt-badge--unified-warning kt-badge--bold kt-badge--inline"><b>' + item.statusCodeValue + '</b></span>';
+                    }
+                    var letterDate = new Date(item.letterDate);
+                    var dateNow = new Date();
+                    var date7Days = new Date();
+                    var date1Days = new Date();
+                    date7Days.setDate(parseInt(dateNow.getDate()) - 7);
+                    date1Days.setDate(parseInt(dateNow.getDate()) - 1);
+                    var dateString = "";
+                    if (letterDate <= date7Days) {
+                        dateString = dateMapping(letterDate.getDay()) + " " + letterDate.getDate() + "/" + monthMapping(letterDate.getMonth());
+                    } else if (letterDate <= date1Days) {
+                        dateString = dateMapping(letterDate.getDay()) + " " + letterDate.getHours() + ":" + letterDate.getMinutes();
+                    }
+                    else {
+                        dateString = letterDate.getHours() + ":" + letterDate.getMinutes();
+                    }
+                    $('#inbox-list').append(
+                        '<div class="kt-inbox__item kt-inbox__item--unread" data-id="1" data-type="inbox">' +
+                            '<div class="kt-inbox__info">' +
+                            '<div class="kt-inbox__actions" onclick="' + paramDetailNewPage + '">' +
+                            '<span data-toggle="kt-tooltip" data-placement="right" title = "Open New Tab" class= "kt-inbox__label kt-badge kt-badge--unified-success kt-badge--bold kt-badge--inline" >' +
+                            '<i class="flaticon2-fast-next" > </i>' +
+                            '</span>' +
+                            '</div>' +
+                        '<div class="kt-inbox__sender" data-toggle="view">'+
+                        '<a href="#" class="kt-inbox__author">'+
+                        senderName+
+                        '</div>'+
+                        '<div class="kt-inbox__details" style="margin: 0px 0px 0px 0px; padding-right: 0px;" data-toggle="view"  onclick="' + paramDetailNewPage + '">' +
+                        '<div class="kt-inbox__message" style="width: 600px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">'+
+                        '<span class="kt-inbox__summary">'+item.about+'</span>'+
+                        '</div>'+
+                        '<div class="kt-inbox__labels">'+
+                        '<span class="kt-inbox__label kt-badge kt-badge--unified-brand kt-badge--bold kt-badge--inline">'+item.letterTypeValue+'</span>'+
+                        '</div></div>'+
+                        '<div class="kt-inbox__datetime" style="display: flex;margin-right: 3%;justify-content: space-between;width: 100%;" data-toggle="view">'+
+                        
+                        '<div class="col-sm-6 option-action-delete" style="padding: 5px;" onclick="'+deletePage+'">'+
+                        '<span style="float:right"> <i class="fa-solid fa-trash-can"></i></span>' +
+                        '</div>'+
+                        '</div></div>'+
+                        '<hr style="margin-top:1px; margin-bottom: 1px">'
+                    );
+                });
+                $.unblockUI();
+            }
+        });
+    }
+    
+    $('.nextt').click(function () {
+        var url = '@Url.ActionLink("SearchLetter","Letter")';
+        var letterNumber = $("#letterNumber").val();
+        var about = $("#about").val();
+        var letterType = $("#letterType").val();
+        var startDate = $("#startDate").val();
+        var endDate = $("#endDate").val();
+        var readStatus = $("#readStatus").val();
+        var draw = parseInt($("#jump").val()) + 1;
+        $('#exampleModal').modal('toggle');
+        $.blockUI({
+            css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
+            }
+        });
+        $.ajax({
+            url: "@Url.Action("SearchLetter","Letter")",
+            method: "POST",
+            data: {
+                letterNumber: letterNumber,
+                about: about,
+                letterType: letterType,
+                startDate: startDate,
+                endDate: endDate,
+                readStatus: readStatus,
+                draw: draw,
+                searchType: searchType
+            },
+            success: function (msg) {
+                var data = JSON.parse(msg);
+                console.log(data);
+                $('.jumpjump span').remove();
+                var isioption = "";
+                for (var i = 1; i <= data.pagelength; i++) {
+                    if (i == draw) {
+                        isioption += "<option value='" + i + "' selected='selected'>" + i + "</option>";
+                    }
+                    else {
+                        isioption += "<option value='" + i + "' >" + i + "</option>";
+                    }
+                }
+
+                $('.jumpjump').append('<span><select name="jump" id="jump" class="kt-inbox__icon form-control jumpto" onchange="jump()" style="width: 70px;">' + isioption + '</select></span>');
+
+                $('.paginggall span').remove();
+                $('.paginggall').append('<span class="kt-inbox__perpage" data-toggle="dropdown">' + data.draw + ' - ' + data.limit + ' dari ' + data.recordsTotal + '</span>');
+                $('#inbox-list div').remove();
+                $('#inbox-list hr').remove();
+                $.each(data.data, function (index, item) {
+                    var readStyle = item.readStatus == 99 ? "font-weight: bold !important;color:black;" : "color:black;";
+                    //var editPage = "edit_draft('" + item.idLetter + "','" + item.letterTypeCode + "')";
+                    var paramDetailNewPage = "edit_draft('" + item.idLetter + "','" + item.letterTypeCode + "')";
+                    var deletePage = "delete_draft('" + item.idLetter + "')";
+                    var senderName = item.senderName;
+                    if (item.letterTypeCode != 1) {
+                        senderName = item.positionName;
+                    }
+                    var status = '<span class="kt-inbox__label kt-badge kt-badge--unified-success kt-badge--bold kt-badge--inline"><b>' + item.statusCodeValue + '</b></span>';
+                    if (item.statusCode == 2) {
+                        status = '<span class="kt-inbox__label kt-badge kt-badge--unified-danger kt-badge--bold kt-badge--inline"><b>' + item.statusCodeValue + " " + item.approvalcounter + '</b></span>';
+                    } else if (item.statusCode == 5) {
+                        status = '<span class="kt-inbox__label kt-badge kt-badge--unified-warning kt-badge--bold kt-badge--inline"><b>' + item.statusCodeValue + '</b></span>';
+                    }
+                    var letterDate = new Date(item.letterDate);
+                    var dateNow = new Date();
+                    var date7Days = new Date();
+                    var date1Days = new Date();
+                    date7Days.setDate(parseInt(dateNow.getDate()) - 7);
+                    date1Days.setDate(parseInt(dateNow.getDate()) - 1);
+                    var dateString = "";
+                    if (letterDate <= date7Days) {
+                        dateString = dateMapping(letterDate.getDay()) + " " + letterDate.getDate() + "/" + monthMapping(letterDate.getMonth());
+                    } else if (letterDate <= date1Days) {
+                        dateString = dateMapping(letterDate.getDay()) + " " + letterDate.getHours() + ":" + letterDate.getMinutes();
+                    }
+                    else {
+                        dateString = letterDate.getHours() + ":" + letterDate.getMinutes();
+                    }
+                    $('#inbox-list').append(
+                        '<div class="kt-inbox__item kt-inbox__item--unread" data-id="1" data-type="inbox">' +
+                        '<div class="kt-inbox__info" onclick="' + paramDetailNewPage + '">' +
+                        '<div class="kt-inbox__actions" onclick="' + paramDetailNewPage + '">' +
+                        '<span data-toggle="kt-tooltip" data-placement="right" title = "Open New Tab" class= "kt-inbox__label kt-badge kt-badge--unified-success kt-badge--bold kt-badge--inline" >' +
+                        '<i class="flaticon2-fast-next" > </i>' +
+                        '</span>' +
+                        '</div>' +
+                        '<div class="kt-inbox__sender" data-toggle="view">'+
+                        '<a href="#" class="kt-inbox__author">'+
+                        senderName+
+                        '</div>'+
+                        '<div class="kt-inbox__details" style="margin: 0px 0px 0px 0px; padding-right: 0px;" data-toggle="view" onclick="' + paramDetailNewPage + '">' +
+                        '<div class="kt-inbox__message" style="width: 600px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">'+
+                        '<span class="kt-inbox__summary">'+item.about+'</span>'+
+                        '</div>'+
+                        '<div class="kt-inbox__labels">'+
+                        '<span class="kt-inbox__label kt-badge kt-badge--unified-brand kt-badge--bold kt-badge--inline">'+item.letterTypeValue+'</span>'+
+                        '</div></div>'+
+                        '<div class="kt-inbox__datetime" style="display: flex;margin-right: 3%;justify-content: space-between;width: 100%;" data-toggle="view">'+
+                        '<div class="col-sm-6 option-action" style="padding: 5px;" onclick="' + editPage + '">'+
+                        '<span style="float:left">edit</span>'+
+                        '</div>'+
+                        '<div class="col-sm-6 option-action-delete" style="padding: 5px;" onclick="'+deletePage+'">'+
+                        '<span style="float:right"> <i class="fa-solid fa-trash-can"></i></span>' +
+                        '</div>'+
+                        '</div></div>'+
+                        '<hr style="margin-top:1px; margin-bottom: 1px">'
+                    );
+                });
+                $.unblockUI();
+            }
+        });
+    });
+
+    $('.prevv').click(function () {
+        var url = '@Url.ActionLink("SearchLetter","Letter")';
+        var letterNumber = $("#letterNumber").val();
+        var about = $("#about").val();
+        var letterType = $("#letterType").val();
+        var startDate = $("#startDate").val();
+        var endDate = $("#endDate").val();
+        var readStatus = $("#readStatus").val();
+        var draw = parseInt($("#jump").val()) - 1;
+        $('#exampleModal').modal('toggle');
+        $.blockUI({
+            css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
+            }
+        });
+        $.ajax({
+            url: "@Url.Action("SearchLetter","Letter")",
+            method: "POST",
+            data: {
+                letterNumber: letterNumber,
+                about: about,
+                letterType: letterType,
+                startDate: startDate,
+                endDate: endDate,
+                readStatus: readStatus,
+                draw: draw,
+                searchType: searchType
+            },
+            success: function (msg) {
+                var data = JSON.parse(msg);
+                console.log(data);
+                $('.jumpjump span').remove();
+                var isioption = "";
+                for (var i = 1; i <= data.pagelength; i++) {
+                    if (i == draw) {
+                        isioption += "<option value='" + i + "' selected='selected'>" + i + "</option>";
+                    }
+                    else {
+                        isioption += "<option value='" + i + "' >" + i + "</option>";
+                    }
+                }
+
+                $('.jumpjump').append('<span><select name="jump" id="jump" class="kt-inbox__icon form-control jumpto" onchange="jump()" style="width: 70px;">' + isioption + '</select></span>');
+
+                $('.paginggall span').remove();
+                $('.paginggall').append('<span class="kt-inbox__perpage" data-toggle="dropdown">' + data.draw + ' - ' + data.limit + ' dari ' + data.recordsTotal + '</span>');
+                $('#inbox-list div').remove();
+                $('#inbox-list hr').remove();
+                $.each(data.data, function (index, item) {
+                    var readStyle = item.readStatus == 99 ? "font-weight: bold !important;color:black;" : "color:black;";
+                    //var editPage = "edit_draft('" + item.idLetter + "','" + item.letterTypeCode + "')";
+                    var paramDetailNewPage = "edit_draft('" + item.idLetter + "','" + item.letterTypeCode + "')";
+                    var deletePage = "delete_draft('" + item.idLetter + "')";
+                    var senderName = item.senderName;
+                    if (item.letterTypeCode != 1) {
+                        senderName = item.positionName;
+                    }
+                    var status = '<span class="kt-inbox__label kt-badge kt-badge--unified-success kt-badge--bold kt-badge--inline"><b>' + item.statusCodeValue + '</b></span>';
+                    if (item.statusCode == 2) {
+                        status = '<span class="kt-inbox__label kt-badge kt-badge--unified-danger kt-badge--bold kt-badge--inline"><b>' + item.statusCodeValue + " " + item.approvalcounter + '</b></span>';
+                    } else if (item.statusCode == 5) {
+                        status = '<span class="kt-inbox__label kt-badge kt-badge--unified-warning kt-badge--bold kt-badge--inline"><b>' + item.statusCodeValue + '</b></span>';
+                    }
+                    var letterDate = new Date(item.letterDate);
+                    var dateNow = new Date();
+                    var date7Days = new Date();
+                    var date1Days = new Date();
+                    date7Days.setDate(parseInt(dateNow.getDate()) - 7);
+                    date1Days.setDate(parseInt(dateNow.getDate()) - 1);
+                    var dateString = "";
+                    if (letterDate <= date7Days) {
+                        dateString = dateMapping(letterDate.getDay()) + " " + letterDate.getDate() + "/" + monthMapping(letterDate.getMonth());
+                    } else if (letterDate <= date1Days) {
+                        dateString = dateMapping(letterDate.getDay()) + " " + letterDate.getHours() + ":" + letterDate.getMinutes();
+                    }
+                    else {
+                        dateString = letterDate.getHours() + ":" + letterDate.getMinutes();
+                    }
+                    $('#inbox-list').append(
+                        '<div class="kt-inbox__item kt-inbox__item--unread" data-id="1" data-type="inbox">' +
+                        '<div class="kt-inbox__info" onclick="' + paramDetailNewPage + '">' +
+                        '<div class="kt-inbox__actions" onclick="' + paramDetailNewPage + '">' +
+                        '<span data-toggle="kt-tooltip" data-placement="right" title = "Open New Tab" class= "kt-inbox__label kt-badge kt-badge--unified-success kt-badge--bold kt-badge--inline" >' +
+                        '<i class="flaticon2-fast-next" > </i>' +
+                        '</span>' +
+                        '</div>' +
+                        '<div class="kt-inbox__sender" data-toggle="view">' +
+                        '<a href="#" class="kt-inbox__author">' +
+                        senderName +
+                        '</div>' +
+                        '<div class="kt-inbox__details" style="margin: 0px 0px 0px 0px; padding-right: 0px;" data-toggle="view" onclick="' + paramDetailNewPage + '">' +
+                        '<div class="kt-inbox__message" style="width: 600px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">' +
+                        '<span class="kt-inbox__summary">' + item.about + '</span>' +
+                        '</div>' +
+                        '<div class="kt-inbox__labels">' +
+                        '<span class="kt-inbox__label kt-badge kt-badge--unified-brand kt-badge--bold kt-badge--inline">' + item.letterTypeValue + '</span>' +
+                        '</div></div>' +
+                        '<div class="kt-inbox__datetime" style="display: flex;margin-right: 3%;justify-content: space-between;width: 100%;" data-toggle="view">' +
+                        '<div class="col-sm-6 option-action" style="padding: 5px;" onclick="' + editPage + '">' +
+                        '<span style="float:left">edit</span>' +
+                        '</div>' +
+                        '<div class="col-sm-6 option-action-delete" style="padding: 5px;" onclick="'+deletePage+'">' +
+                        '<span style="float:right"> <i class="fa-solid fa-trash-can"></i></span>' +
+                        '</div>' +                        
+                        '</div></div>' +
+                    '<hr style="margin-top:1px; margin-bottom: 1px">'
+                    );
+                });
+                $.unblockUI();
+            }
+        });
+    });
+
+    function jump() {
+        var url = '@Url.ActionLink("SearchLetter","Letter")';
+        var letterNumber = $("#letterNumber").val();
+        var about = $("#about").val();
+        var letterType = $("#letterType").val();
+        var startDate = $("#startDate").val();
+        var endDate = $("#endDate").val();
+        var readStatus = $("#readStatus").val();
+        var draw = parseInt($("#jump").val());
+        $('#exampleModal').modal('toggle');
+        $.blockUI({
+            css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
+            }
+        });
+        $.ajax({
+            url: "@Url.Action("SearchLetter","Letter")",
+            method: "POST",
+            data: {
+                letterNumber: letterNumber,
+                about: about,
+                letterType: letterType,
+                startDate: startDate,
+                endDate: endDate,
+                readStatus: readStatus,
+                draw: draw,
+                searchType: searchType
+            },
+            success: function (msg) {
+                var data = JSON.parse(msg);
+                console.log(data);
+                $('.jumpjump span').remove();
+                var isioption = "";
+                for (var i = 1; i <= data.pagelength; i++) {
+                    if (i == draw) {
+                        isioption += "<option value='" + i + "' selected='selected'>" + i + "</option>";
+                    }
+                    else {
+                        isioption += "<option value='" + i + "' >" + i + "</option>";
+                    }
+                }
+
+                $('.jumpjump').append('<span><select name="jump" id="jump" class="kt-inbox__icon form-control jumpto" onchange="jump()" style="width: 70px;">' + isioption + '</select></span>');
+
+                $('.paginggall span').remove();
+                $('.paginggall').append('<span class="kt-inbox__perpage" data-toggle="dropdown">' + data.draw + ' - ' + data.limit + ' dari ' + data.recordsTotal + '</span>');
+                $('#inbox-list div').remove();
+                $('#inbox-list hr').remove();
+                $.each(data.data, function (index, item) {
+                    var readStyle = item.readStatus == 99 ? "font-weight: bold !important;color:black;" : "color:black;";
+                    //var editPage = "edit_draft('" + item.idLetter + "','" + item.letterTypeCode + "')";
+                    var paramDetailNewPage = "edit_draft('" + item.idLetter + "','" + item.letterTypeCode + "')";
+                    var deletePage = "delete_draft('" + item.idLetter + "')";
+                    var senderName = item.senderName;
+                    if (item.letterTypeCode != 1) {
+                        senderName = item.positionName;
+                    }
+                    var status = '<span class="kt-inbox__label kt-badge kt-badge--unified-success kt-badge--bold kt-badge--inline"><b>' + item.statusCodeValue + '</b></span>';
+                    if (item.statusCode == 2) {
+                        status = '<span class="kt-inbox__label kt-badge kt-badge--unified-danger kt-badge--bold kt-badge--inline"><b>' + item.statusCodeValue + " " + item.approvalcounter + '</b></span>';
+                    } else if (item.statusCode == 5) {
+                        status = '<span class="kt-inbox__label kt-badge kt-badge--unified-warning kt-badge--bold kt-badge--inline"><b>' + item.statusCodeValue + '</b></span>';
+                    }
+                    var letterDate = new Date(item.letterDate);
+                    var dateNow = new Date();
+                    var date7Days = new Date();
+                    var date1Days = new Date();
+                    date7Days.setDate(parseInt(dateNow.getDate()) - 7);
+                    date1Days.setDate(parseInt(dateNow.getDate()) - 1);
+                    var dateString = "";
+                    if (letterDate <= date7Days) {
+                        dateString = dateMapping(letterDate.getDay()) + " " + letterDate.getDate() + "/" + monthMapping(letterDate.getMonth());
+                    } else if (letterDate <= date1Days) {
+                        dateString = dateMapping(letterDate.getDay()) + " " + letterDate.getHours() + ":" + letterDate.getMinutes();
+                    }
+                    else {
+                        dateString = letterDate.getHours() + ":" + letterDate.getMinutes();
+                    }
+                    $('#inbox-list').append(
+                        '<div class="kt-inbox__item kt-inbox__item--unread" data-id="1" data-type="inbox">' +
+                        '<div class="kt-inbox__info" onclick="' + paramDetailNewPage + '">' +
+                        '<div class="kt-inbox__actions" onclick="' + paramDetailNewPage + '">' +
+                        '<span data-toggle="kt-tooltip" data-placement="right" title = "Open New Tab" class= "kt-inbox__label kt-badge kt-badge--unified-success kt-badge--bold kt-badge--inline" >' +
+                        '<i class="flaticon2-fast-next" > </i>' +
+                        '</span>' +
+                        '</div>' +
+                        '<div class="kt-inbox__sender" data-toggle="view">' +
+                        '<a href="#" class="kt-inbox__author">' +
+                        senderName +
+                        '</div>' +
+                        '<div class="kt-inbox__details" style="margin: 0px 0px 0px 0px; padding-right: 0px;" data-toggle="view"  onclick="' + paramDetailNewPage + '">' +
+                        '<div class="kt-inbox__message" style="width: 600px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">' +
+                        '<span class="kt-inbox__summary">' + item.about + '</span>' +
+                        '</div>' +
+                        '<div class="kt-inbox__labels">' +
+                        '<span class="kt-inbox__label kt-badge kt-badge--unified-brand kt-badge--bold kt-badge--inline">' + item.letterTypeValue + '</span>' +
+                        '</div></div>' +
+                        '<div class="kt-inbox__datetime" style="display: flex;margin-right: 3%;justify-content: space-between;width: 100%;" data-toggle="view">' +
+                        '<div class="col-sm-6 option-action" style="padding: 5px;" onclick="' + editPage + '">' +
+                        '<span style="float:left">edit</span>' +
+                        '</div>' +
+                        '<div class="col-sm-6 option-action-delete" style="padding: 5px;" onclick="'+deletePage+'">' +
+                        '<span style="float:right"> <i class="fa-solid fa-trash-can"></i></span>' +
+                        '</div>' +
+                        '</div></div>' +
+                    '<hr style="margin-top:1px; margin-bottom: 1px">'
+                    );
+                });
+                $.unblockUI();
+            }
+        });
+    }
+    
+    function dateMapping(date) {
+        var days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+        var dayName = days[date];
+        return dayName;
+    }
+    function monthMapping(month) {
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun",
+            "Jul", "Agu", "Sep", "Okt", "Nov", "Des"
+        ];
+        var monthName = monthNames[month];
+        return monthName;
+    }
+
+</script>

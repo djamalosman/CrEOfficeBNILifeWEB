@@ -1,0 +1,219 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localiza
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@{
+    var sessidUser = Accessor.HttpContext.Session.GetString("idUser");
+    var sessidUnit = Accessor.HttpContext.Session.GetString("idUnit");
+    var unitMailingRoom = "D0D02AA8-7A27-ED11-89B0-3CF011A1A981";
+    var en = Accessor.HttpContext.Session.GetString("en");
+    var ina = Accessor.HttpContext.Session.GetString("ina");
+}
+<!-- begin::Body -->
+<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
+    <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver    m-container m-container--responsive m-container--xxl m-page__container">
+        <div class="m-grid__item m-grid__item--fluid m-wrapper">
+            <!-- BEGIN: Subheader -->
+            <div class="m-subheader ">
+                <div class="d-flex align-items-center">
+                    <div class="mr-auto" style="color: white;">
+                        <h3 class="m-subheader__title m-subheader__title--separator" style="color: white;">
+                            @(en !=null ? "Incoming Document Report" : "Laporan Surat Masuk")
+                        </h3>
+                        <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                            <li class="m-nav__item m-nav__item--home">
+                                <a href="#" class="m-nav__link m-nav__link--icon">
+                                    <i class="m-nav__link-icon la la-home" style="color: white;"></i>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                      @(en !=null ? "Other" : "Lainya")
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        @(en !=null ? "Incoming Document Report" : "Laporan Surat Masuk")
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Subheader -->
+            <div class="m-content" style="padding: 30px 30px !important;">
+                <!--Begin::Main Portlet-->
+                <div class="m-portlet m-portlet--full-height ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <h5>Document Report</h5>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        <div class="form-group row" style="display:none">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label">&nbsp;Tracking Number</label>
+                            <div class="col-sm-4">
+                                <input type="text" value="1" class="form-control" name="trackingNumber" id="trackingNumber">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-1 col-form-label">&nbsp;@(en !=null ? "Start Date" : "Tanggal Awal")</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="m_datepicker_1" autocomplete="off" name="startDate" onchange="myChangeFunction2(this)">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-1 col-form-label">&nbsp;@(en !=null ? "End Date" : "Tanggal Akhir")</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="m_datepicker_1" autocomplete="off" name="endDate" onchange="myChangeFunction3(this)">
+                            </div>
+                        </div>
+                        
+                            <div class="form-group row">
+                            <div class="col-sm-2"></div>
+                                    <div class="col-sm-1">
+                                        <button class="btn btn-primary" id="btncari" onclick="filterData()">@(en !=null ? "Search" : "Cari")</button>
+                                    </div>
+                            <div class="col-sm-1" style="display:none;" id="excel">
+                                        <form asp-action="ExportExcel" target="_blank">
+                                            <div class="col-sm-4">
+                                                <input type="text" hidden value="1" class="form-control" name="trackingNumber">
+                                                <input type="text" hidden class="form-control" id="datestart" name="startDate">
+                                                <input type="text" hidden class="form-control" id="dateend" name="endDate">
+                                                <button class="btn btn-primary" id="btncari">Export</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                            </div>
+                    </div>
+                </div>
+                <!--End::Main Portlet-->
+                <div class="m-portlet m-portlet--full-height ">
+                    
+                    <div class="m-portlet__body">
+                        <div id="listDocHist" style="margin-top:20px">
+                        </div>
+                        
+                        <script type="text/x-handlebars-template" id="dtDocHist">
+                            <table id="tblDocHist" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                         @if (@en == "en")
+                                        {
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">No</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">Tracking Number</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">Return Number</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">Received Date</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">Sender</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">Division</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">Receiver</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">Create by</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">Status</th>
+                                        }
+                                        else
+                                        {
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">No</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">Tracking Number</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">Nomor Return</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">Tanggal Terima</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">Pengirim</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">Divisi</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">Penerima</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">Dibuat Oleh</th>
+                                            <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">Status</th>
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each this}}
+                                    <tr>
+                                        <td>{{no}}</td>
+                                        <td>{{trackingNumber}}</td>
+                                        <td>{{returnNumber}}</td>
+                                        <td>{{receivedDate}}</td>
+                                        <td>{{senderName}}</td>
+                                        <td>{{unitName}}</td>
+                                        <td>{{tuName}}</td>
+                                        <td>{{mofied_by}}</td>
+                                        <td>{{status}}</td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+
+
+    function filterData() {
+        $.blockUI({
+            css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                baseZ: 2000,
+                color: '#fff'
+            }
+        });
+        var beginv = document.getElementById("m_datepicker_1").value;
+        var endv = document.getElementById("dateend").value;
+        var trackingNumberv = document.getElementById("trackingNumber").value;
+        
+        var param = {
+            startDate: beginv,
+            endDate: endv,
+            trackingNumber: trackingNumberv
+        };
+
+        $.post('@Url.Action("SearchDocOutgoingMail", "Document")', param, function (result) {
+            var data = JSON.parse(result);
+
+
+            var source = $('#dtDocHist').html();
+            var tmpl = Handlebars.compile(source);
+
+
+            $('#listDocHist').html(tmpl(data));
+            var table = $('#tblDocHist').DataTable({ "ordering": false });
+
+            $.unblockUI();
+
+            //var selectedPackage = document.getElementById("btncari").value;
+            if(data !=null)
+            {
+                document.getElementById('excel').style.display = "block";
+            }
+            
+        });
+
+    }
+     
+    function myChangeFunction2(input2) {
+        var input2 = document.getElementById('m_datepicker_1');
+        datestart.value = input2.value;
+    }
+    function myChangeFunction3(input3) {
+        var input22 = document.getElementById('m_datepicker_1');
+        dateend.value = input3.value;
+    }
+    
+</script>

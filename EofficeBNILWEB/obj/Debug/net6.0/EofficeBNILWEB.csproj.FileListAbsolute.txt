@@ -1,0 +1,353 @@
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\appsettings.Development.json
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\appsettings.json
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\EofficeBNILWEB.staticwebassets.runtime.json
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\EofficeBNILWEB.exe
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\EofficeBNILWEB.deps.json
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\EofficeBNILWEB.runtimeconfig.json
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\EofficeBNILWEB.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\EofficeBNILWEB.pdb
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\en\EofficeBNILWEB.resources.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\id\EofficeBNILWEB.resources.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\BouncyCastle.Crypto.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\ClosedXML.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\DocumentFormat.OpenXml.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\ExcelNumberFormat.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\itextsharp.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Web.Mvc.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Web.Razor.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Web.Helpers.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Web.WebPages.Deployment.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Web.WebPages.Razor.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Web.WebPages.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\Microsoft.VisualStudio.Web.BrowserLink.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\Microsoft.Web.Infrastructure.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\Newtonsoft.Json.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\QRCoder.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Data.OleDb.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Diagnostics.PerformanceCounter.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Drawing.Common.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.IO.Packaging.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Security.Permissions.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Windows.Extensions.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Data.OleDb.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Diagnostics.PerformanceCounter.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.csproj.AssemblyReference.cache
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.Recursos.Controllers.HomeController.en.resources
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.Recursos.Controllers.HomeController.id.resources
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.Recursos.Views.Home.index.en.resources
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.Recursos.Views.Home.index.id.resources
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.csproj.GenerateResource.cache
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.GeneratedMSBuildEditorConfig.editorconfig
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.AssemblyInfoInputs.cache
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.AssemblyInfo.cs
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.csproj.CoreCompileInputs.cache
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.MvcApplicationPartsAssemblyInfo.cache
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.RazorAssemblyInfo.cache
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.RazorAssemblyInfo.cs
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\en\EofficeBNILWEB.resources.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\id\EofficeBNILWEB.resources.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\staticwebassets.build.json
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\staticwebassets.development.json
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\scopedcss\bundle\EofficeBNILWEB.styles.css
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\scopedcss\projectbundle\EofficeBNILWEB.bundle.scp.css
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.csproj.CopyComplete
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\refint\EofficeBNILWEB.dll
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.pdb
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.genruntimeconfig.cache
+G:\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\ref\EofficeBNILWEB.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\appsettings.Development.json
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\appsettings.json
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\EofficeBNILWEB.staticwebassets.runtime.json
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\EofficeBNILWEB.exe
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\EofficeBNILWEB.deps.json
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\EofficeBNILWEB.runtimeconfig.json
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\EofficeBNILWEB.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\EofficeBNILWEB.pdb
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\en\EofficeBNILWEB.resources.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\id\EofficeBNILWEB.resources.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\BouncyCastle.Crypto.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\ClosedXML.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\DocumentFormat.OpenXml.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\ExcelNumberFormat.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\itextsharp.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Web.Mvc.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Web.Razor.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Web.Helpers.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Web.WebPages.Deployment.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Web.WebPages.Razor.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Web.WebPages.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\Microsoft.VisualStudio.Web.BrowserLink.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\Microsoft.Web.Infrastructure.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\Newtonsoft.Json.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\QRCoder.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Data.OleDb.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Diagnostics.PerformanceCounter.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Drawing.Common.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.IO.Packaging.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Security.Permissions.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Windows.Extensions.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Data.OleDb.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Diagnostics.PerformanceCounter.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.csproj.AssemblyReference.cache
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.Recursos.Controllers.HomeController.en.resources
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.Recursos.Controllers.HomeController.id.resources
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.Recursos.Views.Home.index.en.resources
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.Recursos.Views.Home.index.id.resources
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.csproj.GenerateResource.cache
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.GeneratedMSBuildEditorConfig.editorconfig
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.AssemblyInfoInputs.cache
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.AssemblyInfo.cs
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.csproj.CoreCompileInputs.cache
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.MvcApplicationPartsAssemblyInfo.cache
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.RazorAssemblyInfo.cache
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.RazorAssemblyInfo.cs
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\en\EofficeBNILWEB.resources.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\id\EofficeBNILWEB.resources.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\staticwebassets.build.json
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\staticwebassets.development.json
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\scopedcss\bundle\EofficeBNILWEB.styles.css
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\scopedcss\projectbundle\EofficeBNILWEB.bundle.scp.css
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.csproj.CopyComplete
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\refint\EofficeBNILWEB.dll
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.pdb
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.genruntimeconfig.cache
+D:\kantor\project\bni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\ref\EofficeBNILWEB.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\appsettings.Development.json
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\appsettings.json
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\EofficeBNILWEB.staticwebassets.runtime.json
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\EofficeBNILWEB.exe
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\EofficeBNILWEB.deps.json
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\EofficeBNILWEB.runtimeconfig.json
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\EofficeBNILWEB.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\EofficeBNILWEB.pdb
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\en\EofficeBNILWEB.resources.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\id\EofficeBNILWEB.resources.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\BouncyCastle.Crypto.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\ClosedXML.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\DocumentFormat.OpenXml.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\ExcelNumberFormat.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\itextsharp.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Web.Mvc.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Web.Razor.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Web.Helpers.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Web.WebPages.Deployment.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Web.WebPages.Razor.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Web.WebPages.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\Microsoft.VisualStudio.Web.BrowserLink.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\Microsoft.Web.Infrastructure.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\Newtonsoft.Json.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\QRCoder.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Data.OleDb.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Diagnostics.PerformanceCounter.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Drawing.Common.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.IO.Packaging.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Security.Permissions.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Windows.Extensions.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Data.OleDb.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Diagnostics.PerformanceCounter.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.csproj.AssemblyReference.cache
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.Recursos.Controllers.HomeController.en.resources
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.Recursos.Controllers.HomeController.id.resources
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.Recursos.Views.Home.index.en.resources
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.Recursos.Views.Home.index.id.resources
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.csproj.GenerateResource.cache
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.GeneratedMSBuildEditorConfig.editorconfig
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.AssemblyInfoInputs.cache
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.AssemblyInfo.cs
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.csproj.CoreCompileInputs.cache
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.MvcApplicationPartsAssemblyInfo.cache
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.RazorAssemblyInfo.cache
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.RazorAssemblyInfo.cs
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\en\EofficeBNILWEB.resources.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\id\EofficeBNILWEB.resources.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\staticwebassets\msbuild.EofficeBNILWEB.Microsoft.AspNetCore.StaticWebAssets.props
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\staticwebassets\msbuild.build.EofficeBNILWEB.props
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.EofficeBNILWEB.props
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.EofficeBNILWEB.props
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\staticwebassets.pack.json
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\staticwebassets.build.json
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\staticwebassets.development.json
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\scopedcss\bundle\EofficeBNILWEB.styles.css
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\scopedcss\projectbundle\EofficeBNILWEB.bundle.scp.css
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.csproj.CopyComplete
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\refint\EofficeBNILWEB.dll
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.pdb
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.genruntimeconfig.cache
+E:\Laptop Lenovo\My Project\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\ref\EofficeBNILWEB.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.csproj.AssemblyReference.cache
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.Recursos.Controllers.HomeController.en.resources
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.Recursos.Controllers.HomeController.id.resources
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.Recursos.Views.Home.index.en.resources
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.Recursos.Views.Home.index.id.resources
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.csproj.GenerateResource.cache
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.GeneratedMSBuildEditorConfig.editorconfig
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.AssemblyInfoInputs.cache
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.AssemblyInfo.cs
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.csproj.CoreCompileInputs.cache
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.MvcApplicationPartsAssemblyInfo.cache
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.RazorAssemblyInfo.cache
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.RazorAssemblyInfo.cs
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\appsettings.Development.json
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\appsettings.json
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\EofficeBNILWEB.staticwebassets.runtime.json
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\EofficeBNILWEB.exe
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\EofficeBNILWEB.deps.json
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\EofficeBNILWEB.runtimeconfig.json
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\EofficeBNILWEB.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\EofficeBNILWEB.pdb
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\en\EofficeBNILWEB.resources.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\id\EofficeBNILWEB.resources.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\BouncyCastle.Crypto.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\ClosedXML.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\DocumentFormat.OpenXml.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\ExcelNumberFormat.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\itextsharp.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Web.Mvc.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Web.Razor.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Web.Helpers.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Web.WebPages.Deployment.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Web.WebPages.Razor.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Web.WebPages.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\Microsoft.VisualStudio.Web.BrowserLink.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\Microsoft.Web.Infrastructure.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\Newtonsoft.Json.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\QRCoder.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Data.OleDb.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Diagnostics.PerformanceCounter.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Drawing.Common.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.IO.Packaging.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Security.Permissions.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Windows.Extensions.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Data.OleDb.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Diagnostics.PerformanceCounter.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\en\EofficeBNILWEB.resources.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\id\EofficeBNILWEB.resources.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\staticwebassets\msbuild.EofficeBNILWEB.Microsoft.AspNetCore.StaticWebAssets.props
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\staticwebassets\msbuild.build.EofficeBNILWEB.props
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.EofficeBNILWEB.props
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.EofficeBNILWEB.props
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\staticwebassets.pack.json
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\staticwebassets.build.json
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\staticwebassets.development.json
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\scopedcss\bundle\EofficeBNILWEB.styles.css
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\scopedcss\projectbundle\EofficeBNILWEB.bundle.scp.css
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.csproj.CopyComplete
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\refint\EofficeBNILWEB.dll
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.pdb
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.genruntimeconfig.cache
+E:\Work\Projects\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\ref\EofficeBNILWEB.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\appsettings.Development.json
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\appsettings.json
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\EofficeBNILWEB.staticwebassets.runtime.json
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\EofficeBNILWEB.exe
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\EofficeBNILWEB.deps.json
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\EofficeBNILWEB.runtimeconfig.json
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\EofficeBNILWEB.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\EofficeBNILWEB.pdb
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\en\EofficeBNILWEB.resources.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\id\EofficeBNILWEB.resources.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\BarcodeStandard.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\BouncyCastle.Crypto.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\ClosedXML.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\DocumentFormat.OpenXml.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\ExcelNumberFormat.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\itextsharp.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Web.Mvc.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Web.Razor.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Web.Helpers.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Web.WebPages.Deployment.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Web.WebPages.Razor.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Web.WebPages.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\Microsoft.VisualStudio.Web.BrowserLink.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\Microsoft.Web.Infrastructure.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\Newtonsoft.Json.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\QRCoder.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\RawPrint.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Data.OleDb.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Diagnostics.PerformanceCounter.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Drawing.Common.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.IO.Packaging.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Security.Permissions.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\System.Windows.Extensions.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\zxing.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Data.OleDb.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Diagnostics.PerformanceCounter.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.csproj.AssemblyReference.cache
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.Recursos.Controllers.HomeController.en.resources
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.Recursos.Controllers.HomeController.id.resources
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.Recursos.Views.Home.index.en.resources
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.Recursos.Views.Home.index.id.resources
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.csproj.GenerateResource.cache
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.GeneratedMSBuildEditorConfig.editorconfig
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.AssemblyInfoInputs.cache
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.AssemblyInfo.cs
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.csproj.CoreCompileInputs.cache
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.MvcApplicationPartsAssemblyInfo.cache
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.RazorAssemblyInfo.cache
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.RazorAssemblyInfo.cs
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\en\EofficeBNILWEB.resources.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\id\EofficeBNILWEB.resources.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\staticwebassets\msbuild.EofficeBNILWEB.Microsoft.AspNetCore.StaticWebAssets.props
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\staticwebassets\msbuild.build.EofficeBNILWEB.props
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.EofficeBNILWEB.props
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.EofficeBNILWEB.props
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\staticwebassets.pack.json
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\staticwebassets.build.json
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\staticwebassets.development.json
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\scopedcss\bundle\EofficeBNILWEB.styles.css
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\scopedcss\projectbundle\EofficeBNILWEB.bundle.scp.css
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.csproj.CopyComplete
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\refint\EofficeBNILWEB.dll
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.pdb
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\EofficeBNILWEB.genruntimeconfig.cache
+D:\Project\newbni\EOfficeBNILifeWEB\EofficeBNILWEB\obj\Debug\net6.0\ref\EofficeBNILWEB.dll

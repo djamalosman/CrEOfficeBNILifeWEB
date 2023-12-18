@@ -1,0 +1,311 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localiza
+@using Microsoft.AspNetCore.Http
+@using System.Web;
+@inject IHttpContextAccessor Accessor
+@{
+    var sessidUser = Accessor.HttpContext.Session.GetString("idUser");
+    var sessidUnit = Accessor.HttpContext.Session.GetString("idUnit");
+    var en = Accessor.HttpContext.Session.GetString("en");
+    var ina = Accessor.HttpContext.Session.GetString("ina");
+    var no = 1;
+
+}
+<!-- begin::Body -->
+<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
+    <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver    m-container m-container--responsive m-container--xxl m-page__container">
+        <div class="m-grid__item m-grid__item--fluid m-wrapper">
+            <!-- BEGIN: Subheader -->
+            <div class="m-subheader ">
+                <div class="d-flex align-items-center">
+                    <div class="mr-auto" style="color: white;">
+                        <h3 class="m-subheader__title m-subheader__title--separator" style="color: white;">
+                            @(en != null ? "Template Setting" : "Pengaturan Template")
+                        </h3>
+                        <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                            <li class="m-nav__item m-nav__item--home">
+                                <a href="#" class="m-nav__link m-nav__link--icon">
+                                    <i class="m-nav__link-icon la la-home" style="color: white;"></i>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        @(en != null ? "Other" : "Lainya")
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        @(en != null ? "Settings" : "Seting")
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        @(en != null ? "Template Setting" : "Pengaturan Template")
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Subheader -->
+            <div class="m-content" style="padding: 30px 30px !important;">
+                <!--Begin::Main Portlet-->
+                <div class="m-portlet m-portlet--full-height ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <h5>@(en != null ? "Template Setting" : "Pengaturan Template")</h5>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        <form method="post" asp-action="SaveTemplate" asp-controller="Template">
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-1 col-form-label">&nbsp; @(en != null ? "Template Name" : "Nama Template")</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" autocomplete="off" id="templateName" name="templateName" placeholder="Template untuk jenis..." autocomplete="off">
+                                </div>
+                            </div>
+                            <textarea id="templateContent" class="editor_template" name="templateContent"></textarea>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-form-label">&nbsp;</label>
+                                <div class="col-sm-2">
+                                    <button class="btn btn-primary" id="btncari" onclick="SubmitData()">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!--End::Main Portlet-->
+                <div class="m-portlet m-portlet--full-height ">
+                    <div class="m-portlet__body">
+                        @*<input type="text" id="ItemID" class="form-control"/>*@
+                        <table id="tblUserAdmin" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>@(en != null ? "Number" : "Nomor")</th>
+                                    <th>@(en != null ? "Template Name" : "Nama Template")</th>
+                                    @*<th>@(en != null ? "Template Content" : "Isi Template")</th>*@
+                                    <th>@(en != null ? "Action" : "Aksi")</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewBag.data)
+                                {
+                                    <tr>
+                                        <td>
+                                            @no
+                                        </td>
+                                        <td>
+                                            @item.templateName
+                                            @*@item.templateName <hr />*@
+                                            @* <div class="btn-actions">
+                                        <a class="btn btn-warning" data-toggle="modal" data-target="#edit-template-popup_@no">Edit</a>
+                                        <a class="btn btn-danger" href="javascript:void(0)" onclick="delete_template('@item.idContentTemplate')">Delete</a>
+                                        </div>*@
+                                        </td>
+                                        <td>
+                                            <div class="btn-actions">
+                                                <a class="btn btn-warning float-right" data-toggle="modal" data-target="#edit-template-popup_@no">Edit</a>
+                                                <a href="#" class=" float-right"></a>
+                                                <a class="btn btn-danger float-right" href="javascript:void(0)" onclick="delete_template('@item.idContentTemplate')">Delete</a>
+                                            </div>
+                                            @*<textarea class="data_template">@HttpUtility.HtmlDecode(item.templateContent)</textarea>*@
+                                        </td>
+
+                                    </tr>
+                                    <div class="modal fade" id="edit-template-popup_@no" role="dialog">
+                                        <div class="modal-dialog modal-lg">
+
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Edit Template</h4>
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                </div>
+
+                                                <form method="post" asp-action="UpdateTemplate" asp-controller="Template">
+                                                    <div class="modal-body">
+                                                        <div class="input-template">
+                                                            <div class="tab-content-custom">
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-4 col-form-label">&nbsp;Nama Template</label>
+                                                                    <div class="col-sm-8">
+                                                                        <input type="text" class="form-control" id="templateNameEdit" name="templateName" placeholder="Template untuk jenis..." autocomplete="off" value="@item.templateName">
+                                                                        <input type="hidden" id="idContentTemplate" name="idContentTemplate" value="@item.idContentTemplate">
+                                                                        <input type="hidden" id="isDeleted" name="isDeleted" value="@item.isDeleted">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="textarea-edit">
+                                                                    <div>
+                                                                        <textarea id="editor_template_edit" class="editor_template" name="templateContent">@HttpUtility.HtmlDecode(item.templateContent)</textarea>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <div class="option-hover" style="text-align: center;width: 30%;">
+                                                            <button type="submit" class="btn btn-primary" style="width: 63%;">Simpan</button>
+                                                            <button type="button" class="btn btn-danger" data-dismiss="modal" style="width: 35%;">Close</button>
+
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    no++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/assets/tinymcepack/tinymce.js?v=7.3.0" type="text/javascript"></script>
+<script>
+    $(document).ready(function () {
+        var oTable = $('#tblUserAdmin').DataTable({
+            searching: false,
+            info: false,
+            ordering: false,
+            pageLength: 10,
+            responsive: true
+        });
+        $('#ItemID').on('keyup change', function () {
+            oTable.column(1).search($(this).val()).draw();
+        });
+    });
+
+
+    @*function SubmitData() {
+        if (document.getElementById("templateContent").value.trim() == '') {
+            alert("data template tidak bolh kosong");
+            return false;
+        } 
+    }*@
+
+    tinymce.init({
+        selector: 'textarea.editor_template',
+        height: 500,
+        plugins: [
+            'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+            'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+            'insertdatetime', 'media', 'table', 'help', 'wordcount'
+        ],
+        toolbar: 'undo redo | blocks | ' +
+            'bold italic backcolor | alignleft aligncenter ' +
+            'alignright alignjustify | bullist numlist outdent indent | ' +
+            'removeformat | help',
+        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }'
+    });
+
+    tinymce.init({
+        selector: 'textarea.data_template',
+        height: 500,
+        readonly: true,
+        // menubar: false,
+        plugins: [
+            'advlist autolink lists link image charmap print preview anchor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table paste code help wordcount'
+        ],
+        toolbar: 'undo redo | formatselect | ' +
+            'bold italic backcolor | alignleft aligncenter ' +
+            'alignright alignjustify | bullist numlist outdent indent | help',
+        // content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+    });
+
+    function delete_template(idTemplate) {
+        if (confirm("Hapus template? Operasi ini tidak dapat dibatalkan!")) {
+            $.ajax({
+                url: "@Url.Action("DeleteTemplate","Template")",
+                method: "POST",
+                data: {
+                    idContentTemplate: idTemplate,
+                    templateName: 'deleted',
+                    templateContent: '<p></p>',
+                    isDeleted: 1
+                },
+                success: function (data) {
+                    var data = JSON.parse(data);
+                    console.log(data);
+                    if (data.Status == "OK") {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Sukses',
+                            text: 'Berhasil menghapus template',
+                            showConfirmButton: true,
+                            //timer: 1500,
+                            onBeforeOpen: () => {
+                                timerInterval = setInterval(() => {
+                                    const content = Swal.getContent()
+                                    if (content) {
+                                        const b = content.querySelector('b')
+                                        if (b) {
+                                            b.textContent = Swal.getTimerLeft()
+                                        }
+                                    }
+                                }, 100)
+                            },
+                            onClose: () => {
+                                clearInterval(timerInterval)
+                            }
+                        }).then((result) => {
+                            /* Read more about handling dismissals below */
+                            window.location.reload();
+                        })
+                    }
+                    else {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: 'Error',
+                            text: data.Message,
+                            showConfirmButton: true,
+                            //timer: 1500,
+                            onBeforeOpen: () => {
+                                timerInterval = setInterval(() => {
+                                    const content = Swal.getContent()
+                                    if (content) {
+                                        const b = content.querySelector('b')
+                                        if (b) {
+                                            b.textContent = Swal.getTimerLeft()
+                                        }
+                                    }
+                                }, 100)
+                            },
+                            onClose: () => {
+                                clearInterval(timerInterval)
+                            }
+                        }).then((result) => {
+                            /* Read more about handling dismissals below */
+                            window.location.reload();
+                        })
+                    }
+                }
+            });
+        }
+    }
+</script>

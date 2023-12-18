@@ -1,0 +1,543 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localiza
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@{
+    var sessidUser = Accessor.HttpContext.Session.GetString("idUser");
+    var sessidUnit = Accessor.HttpContext.Session.GetString("idUnit");
+}
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+	<!-- BEGIN: Subheader -->
+	<div class="m-subheader ">
+		<div class="d-flex align-items-center">
+			<div class="mr-auto">
+				<h3 class="m-subheader__title m-subheader__title--separator" style="padding-right: 14px;font-size: 1rem;margin-right: 8px;color: white;">
+					Lihat Surat
+				</h3>
+				<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+					<li class="m-nav__item m-nav__item--home">
+						<a href="#" class="m-nav__link m-nav__link--icon">
+							<i class="m-nav__link-icon la la-home" style="color: white;"></i>
+						</a>
+					</li>
+					<li class="m-nav__separator" style="color: white;">
+						-
+					</li>
+					<li class="m-nav__item">
+						<a href="" class="m-nav__link">
+							<span class="m-nav__link-text" style="color: white;">
+								E-OFFICE
+							</span>
+						</a>
+					</li>
+					<li class="m-nav__separator" style="color: white;">
+						-
+					</li>
+				</ul>
+
+			</div>
+			<div></div>
+		</div>
+	</div>
+	<div class="m-content" style="padding-top: 10px;margin-top: -8px;">
+		<div class="kt-container  kt-grid__item kt-grid__item--fluid">
+			<!--Begin::Inbox-->
+			<div class="kt-grid kt-grid--desktop kt-grid--ver-desktop  kt-inbox" id="kt_inbox">
+				<!--Begin::Aside Mobile Toggle-->
+				<button class="kt-inbox__aside-close" id="kt_inbox_aside_close">
+					<i class="la la-close"></i>
+				</button>
+				<!--Begin:: Inbox View-->
+				<div class="kt-grid__item kt-grid__item--fluid    kt-portlet    kt-inbox__view kt-inbox__view--shown-" id="kt_inbox_view" style="display: flex;">
+
+					<form name="backtomasuk" action="~/inbox/masuk" method="post">
+						<input type="hidden" name="status_kiriman" value="adafilter">
+						<input type="hidden" name="kiriman_from" value="">
+						<input type="hidden" name="kiriman_no_surat" value="">
+						<input type="hidden" name="kiriman_perihal" value="">
+						<input type="hidden" name="kiriman_jn_surat" value="surat_perintah">
+						<input type="hidden" name="kiriman_tanggal1" value="">
+						<input type="hidden" name="kiriman_tanggal2" value="">
+						<input type="hidden" name="kiriman_bulan" value="">
+						<input type="hidden" name="kiriman_tahun" value="">
+						<input type="hidden" name="kiriman_st_baca" value="All">
+						<input type="hidden" name="from_dashboard_flag" value="">
+						<a href="javascript:void(0)">
+							<button type="submit" class="btn btn-success col-sm-12 col-md-12 col-lg-12" style="color: white;"><i class="flaticon2-left-arrow-1"> Back</i></button>
+						</a>
+					</form>
+					<!-- <p>outbox/newmail/upload_ulang</p> -->
+					<form id="eval-form" enctype="multipart/form-data" action="http://10.1.5.102/outbox/newmail/upload_ulang" method="post">
+						<fieldset style="width:99%;">
+							<input type="hidden" id="daripreview" name="daripreview" value="0">
+							<input type="hidden" id="tipe" name="tipe">
+							<input type="hidden" id="idsurat" name="idsurat" value="NDI5Mjcy">
+							<div style="margin-left: 10px;">
+								<br>
+								<a style="cursor:pointer;width: 130px;height: 30px;padding-bottom: 25px;display:none" id="show_id" onclick="document.getElementById('spoiler_id').style.display=''; document.getElementById('show_id').style.display='none';" class="link btn btn-primary">
+									<b style="font-size:9pt;color: white;">[Show Disposisi]</b>
+								</a>
+								<span id="spoiler_id">
+									<a style="cursor:pointer;width: 68px;height: 30px; padding-bottom: 25px" onclick="document.getElementById('spoiler_id').style.display='none'; document.getElementById('show_id').style.display='';" class="link btn btn-danger">
+										<b style="font-size:9pt;color: white;">[Hide]</b>
+									</a>
+									<br>
+									<fieldset style="width:99%;background-color:#B7B7FF;">
+										<div style="padding-left:10px">
+											<div id="div_dispo" style="font-size: 8pt"></div>
+										</div>
+									</fieldset>
+								</span>
+							</div>
+							<div style="float:left;padding-left:30px">
+								<br>
+								<fieldset>
+									<legend style="font-size: 8pt"><b>Kepala Surat</b></legend>
+									<table class="head_table" width="620" border="0" style="font-size: 8pt">
+										<tbody>
+											<tr style="font-size:8pt">
+												<td style="width: 120px">Jenis / No / Tgl </td>
+												<td> : </td>
+												<td width="500">
+													<div class="form-row" style="margin-left: 5px;">
+														<div class="col-3">
+															<!-- iki -->
+															<input type="hidden" name="jenis" id="jenis" value="surat_perintah">
+															<b>Surat Perintah</b><b style="text-align: center;margin-left: 30px;">/</b>
+														</div>
+														<div class="col-5">
+															<b>KP.412/9/11/1/IPCTPK-17&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/</b>
+														</div>
+														<div class="col-3">
+															<b>09-NOV-17</b>
+														</div>
+													</div>
+												</td>
+											</tr>
+											<tr id="agenda_f" style="display:marker"></tr>
+											<tr style=" font-size:8pt;" id="agenda_f1">
+												<td width="91">Mulai </td>
+												<td colspan="4">
+													:
+													<b style="padding-left: 10px;"> </b>
+													&nbsp; s/d &nbsp;
+													<b>- </b>
+													&nbsp;
+												</td>
+											</tr>
+											<tr style="display:marker" id="agenda_f5">
+												<td width="91">Lokasi </td>
+												<td width="457" colspan="4">
+													:
+													<b style="padding-left: 10px;">- </b>
+												</td>
+											</tr>
+
+											<tr id="agenda_f" style=" font-size:8pt; display: none;"></tr>
+											<tr style=" font-size:8pt; display: none;" id="agenda_f1">
+												<td width="91">Mulai </td>
+												<td colspan="4">
+													:
+													<input type="text" id="tgl_mulai" style="width:122px" name="tgl_mulai" autocomplete="off" value="" onchange="gantiisi()" class="hasDatepicker">
+
+													&nbsp; s/d &nbsp;
+													<input type="text" id="tgl_selesai" style="width:122px" name="tgl_selesai" autocomplete="off" value="" onchange="gantiisi()" class="hasDatepicker">
+													&nbsp;
+
+												</td>
+											</tr>
+											<tr style="display:none" id="agenda_f3">
+												<td width="91">Lokasi </td>
+												<td width="457" colspan="4">
+													:
+													&nbsp; &nbsp; <input type="button" class="btn btn-warning" value="?" onclick="show_room()" style="color:red; font-weight:bold;padding: 0.2em 1em;">
+												</td>
+											</tr>
+											<tr style=" font-size:8pt;display:none;" id="agenda_f5">
+												<td width="91">Lokasi </td>
+												<td width="457" colspan="4">
+													:
+													<b style="margin-left: 10px;"><label></label></b>
+												</td>
+											</tr>
+											<tr style=" font-size:8pt;display:none;" id="agenda_f6">
+												<td width="91">Anggaran </td>
+												<td width="457" colspan="4">
+													:
+													<input type="text" id="anggaran" style="width:380" name="anggaran" value="" onchange="gantiisi()">
+												</td>
+											</tr>
+											<tr style="display:none" id="agenda_f4">
+												<td width="91">Pimpinan </td>
+												<td width="457" colspan="4">
+													:
+													<input type="text" id="pimpinan_rapat" name="pimpinan_rapat" style="width:98%" value="" onchange="gantiisi()" class="ui-autocomplete-input" autocomplete="off">
+													<input type="hidden" id="pimpinan_rapat_id" name="pimpinan_rapat_id">
+												</td>
+											</tr>
+											<tr style="display:none" id="agenda_f2">
+												<td width="91">Jamuan </td>
+												<td width="10"> :</td>
+												<td width="447" colspan="3">
+													<textarea id="jamuan" name="jamuan" onchange="gantiisi()"></textarea>
+												</td>
+											</tr>
+
+											<tr style=" font-size:8pt">
+												<td>Perihal </td>
+												<td> : </td>
+												<td width="457">
+													<b style="margin-left: 10px;">Upacara Hari Pahlawan Tahun 2017</b>
+												</td>
+											</tr>
+											<tr style=" font-size:8pt">
+												<td>Klasifikasi Masalah</td>
+												<td> : </td>
+												<td>
+													<div id="klasifikasidiv" style="position: relative; width: 500px; z-index: 1;">
+														<b style="margin-left:10px;">KP.412-Pengangkatan dalam jabatan/SPPT</b>
+													</div>
+													<label id="klasifikasiilang" style="display:none;"><b style="font-size: 25px; margin-left: 30%;"> - </b></label>
+												</td>
+											</tr>
+											<tr style=" font-size:8pt">
+												<td>Lampiran </td>
+												<td> : </td>
+												<td>
+													<div class="form-row">
+														<label for="lampiran">&nbsp;</label>
+														<b style="margin-left: 10px; width: 100px;">1 berkas</b>
+														<div class="col-4" width="145px">
+															<label for="prior">Prioritas :</label>
+															<input type="hidden" name="prior" value="0">
+															<b style="margin-left: 10px;">Normal</b>
+
+														</div>
+														<div class="col-4" width="145px">
+															<label for="klasifi">Klasifikasi :</label>
+															<input type="hidden" name="klasifi" value="0">
+															<b style="margin-left: 10px;">Biasa</b>
+														</div>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</fieldset>
+								<fieldset id="pengirim_field">
+									<legend style="font-size: 8pt"><b>Pengirim</b></legend>
+									<table id="sm_peng"></table>
+									<table id="elses_peng" width="620" border="0">
+										<tbody>
+											<tr style=" font-size:8pt;">
+												<!-- Pengirim -->
+												<td style="width: 120px">Jabatan</td>
+												<td> : </td>
+												<td>
+													<input class="form-control" value="Direktur Keuangan &amp; SDM" name="jabatan" type="hidden" id="jabatan" style="height: 30px;">
+													<input value="300010" name="jabatanid" type="hidden" id="jabatanid">
+													<b style="margin-left: 10px;">Direktur Keuangan &amp; SDM</b>
+												</td>
+											</tr>
+											<tr style=" font-size:8pt">
+												<td>NIPP / Nama </td>
+												<td> : </td>
+												<td>
+													<b style="margin-left: 10px;">273017045 / YANUAR EVYANTO</b>
+												</td>
+											</tr>
+											<tr style=" font-size:8pt">
+												<td>Divisi </td>
+												<td> : </td>
+												<td> <b style="margin-left: 10px;">Direktorat Keuangan &amp; SDM ITPK</b></td>
+											</tr>
+											<tr style=" font-size:8pt">
+												<td>Cab / Dir </td>
+												<td> : </td>
+												<td> <b style="margin-left: 10px;">Direktorat Keuangan &amp; SDM ITPK</b></td>
+											</tr>
+										</tbody>
+									</table>
+								</fieldset>
+							</div>
+							<br>
+							<div style="float:right;padding-right:10px;">
+								<fieldset id="penerima_field">
+									<legend style="font-size: 8pt"><b>Penerima</b></legend>
+									<style>
+										table.penerima, table.penerima td {
+											border: 1px solid grey;
+											border-collapse: collapse;
+										}</style>
+									<table id="elses_table" style="font-size: 8pt" width="480">
+										<tbody>
+											<tr>
+												<td style="vertical-align: top;">
+													<div class="form-row" id="btnRemove0" style="display:none">
+														<input type="checkbox" id="cekpen0" name="pen[]" style="display:none">
+														<input id="pen0" type="hidden">
+														&nbsp;
+														<div class="col-10">
+															<input type="text" id="pentampil0" style="background-color:#FFFFB3;height: 30px;" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+														</div>
+														<div class="col">
+															<input type="button" class="btn btn-success" value="+" id="btnAdd" style="padding: 0.2em 1em;" disabled="disabled">
+														</div>
+													</div>
+													<div id="addkepada" style="padding-bottom: 5px;"></div>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<div style="display:none" id="btnRemoveTem0" class="form-row">
+														<input type="checkbox" id="cektem0" name="tem[]" style="display:none">
+														&nbsp;
+														<div class="col-10">
+															<input readonly="" type="text" id="temtampil0" style="height: :30px;background-color:#C6FFC6" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+														</div>
+														<input id="tem0" type="hidden">
+														<div class="col">
+															<input type="button" value="+" id="btnAdd2" disabled="disabled" class="btn btn-success" style="padding: 0.2em 1em;">
+														</div>
+													</div>
+													<div id="addtembusan" style="padding-bottom: 5px;"></div>
+												</td>
+											</tr>
+											<tr>
+												<td style="vertical-align: top;">
+													<div style="display:none;" id="btnRemovePeg0" class="form-row">
+														<input type="checkbox" id="cekpenpeg0" name="penpeg[]" style="display:none">
+														&nbsp;
+														<div class="col-10">
+															<input type="text" id="penpegtampil0" style="height:30px;background-color:#FFFFB3" readonly="" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+														</div>
+														<input type="hidden" id="penpeg0">
+														<div class="col">
+															<input type="button" value="+" id="btnAddpeg" disabled="disabled" class="btn btn-success" style="padding: 0.2em 1em;">
+														</div>
+													</div>
+													<div id="addkepadapeg" style="padding-bottom: 5px;"></div>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<div style="display:none;" id="btnRemoveTemPeg0" class="form-row">
+														<input type="checkbox" id="cektempeg0" name="tempeg[]" style="display:none">
+														&nbsp;
+														<div class="col-10">
+															<input readonly="" type="text" id="tempegtampil0" style="height:30px;background-color:#C6FFC6" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+														</div>
+														<input type="hidden" id="tempeg0">
+														<div class="col">
+															<input type="button" value="+" id="btnAdd2peg" disabled="disabled" class="btn btn-success" style="padding: 0.2em 1em;">
+														</div>
+													</div>
+													<div id="addtembusanpeg" style="padding-bottom: 5px;"></div>
+												</td>
+											</tr>
+											<tr>
+												<td style="vertical-align: top;">
+													<div style="display:none" id="btnRemovePenNon0" class="form-row">
+														<input type="checkbox" id="cekpenn0" name="penn[]" disabled="disabled" style="display:none">
+														&nbsp;
+														<div class="col-10">
+															<input type="text" id="penn0" style="height:30px;background-color:#FFFFB3" readonly="" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+														</div>
+														<div class="col">
+															<input disabled="disabled" type="button" value="+" id="btnAdd3" class="btn btn-success" style="padding: 0.2em 1em;">
+														</div>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<div style="display:none" id="btnRemoveTemNon0" class="form-row">
+														<input type="checkbox" id="cektemn0" name="temn[]" style="display:none">
+														&nbsp;
+														<div class="col-10">
+															<input readonly="" type="text" id="temn0" style="height:30px;background-color:#C6FFC6" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+														</div>
+														<div class="col">
+															<input type="button" value="+" id="btnAdd4" disabled="disabled" class="btn btn-success" style="padding: 0.2em 1em;">
+														</div>
+													</div>
+													<div id="addtembusan2" style="padding-bottom: 5px;"></div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<table id="elses_table_khusus" style="display:none">
+										<tbody>
+											<tr>
+												<td style="vertical-align: top;">
+													<div class="form-row" id="btnRemove0" style="display:none">
+														<input type="checkbox" style="display:none" id="cekpenkhusus0" name="penkhusus[]"> &nbsp;
+														<input id="penkhusus0" type="hidden">
+														&nbsp;
+														<div class="col-10">
+															<input type="text" id="pentampilkhusus0" style="background-color:#e6e9ec; height: 30px;" class="ui-autocomplete-input form-control" readonly="readonly" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+														</div>
+														<div class="col">
+														</div>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</fieldset>
+								<fieldset id="pemeriksa_field" style="display:none">
+									<legend style="font-size: 8pt"><b>Pemeriksa</b></legend>
+									<table width="480" border="0" style="font-size: 8pt">
+										<tbody>
+											<tr>
+												<td width="150px" style="vertical-align: top;">Pemeriksa </td>
+												<td style="vertical-align: top;"> : </td>
+												<td style="vertical-align: top;">
+													<input type="checkbox" id="cekpem0" name="pem[]" style="display:none">
+													&nbsp;
+													<div class="col-10">
+														<input type="text" class="form-control" id="pemtampil0" style="height:30px;">
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</fieldset>
+								<h6 style="font-size: 8pt !important">
+									Buka surat asli : <a href="http://10.1.5.102/outbox/newmail/download/NDI5MjcyfktQLjQxMi85LzExLzEvSVBDVFBLLTE3" target="new"><img src="http://10.1.5.102/assets/images/logo_pdf.png"></a>
+									<a href="http://10.1.5.102/outbox/cetak_surat_dup/prev_dir_dup/NDI5Mjcy" style="font-size: 8pt !important" target="new">Create Ulang PDF</a>
+
+								</h6>
+								<h6>
+									<div id="listfile">
+										<div id="list">
+											<table width="300px" style="font-size: 8pt;">
+												<tbody>
+													<tr>
+														<td style="font-size: 8pt !important">Lampiran Surat</td>
+														<td> : </td>
+														<td style="font-size: 8pt !important"><i>----no attachment----</i></td>
+
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</h6>
+							</div>
+						</fieldset>
+						<div class="kt-inbox__foot">
+							<div id="disposisidirektur" class="col-sm-12"></div>
+						</div>
+
+						<div class="kt-inbox__reply kt-inbox__reply--on" style="padding-top: 8px;">
+							<div class="kt-inbox__form" id="kt_inbox_reply_form">
+								<div class="kt-inbox__body">
+									<br>
+									<fieldset id="isi_sp" style="display:block;width:99%">
+										<b><legend style="font-size: 8pt;margin-top: -12px;margin-left: 68px;"> ISI SURAT PERINTAH </legend></b>
+										<table border="0" style="margin-left: 68px;">
+											<tbody>
+												<tr>
+													<td width="50" valign="top" style="font-size: 8pt;">DASAR</td>
+													<td valign="top">:</td>
+													<td width="965" valign="top">
+														<div id="dasar_atas">
+															<div id="divdasar0">
+																<div style="float:left"><textarea id="dasar0" name="dasar[]" style="width:900px;height:100px;" disabled=""></textarea></div><div style="float:left"></div>
+															</div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td width="50" valign="top" style="font-size: 8pt;">ISI PERINTAH</td>
+													<td valign="top">:</td>
+													<td width="965" valign="top">
+														<div id="perintah_atas"></div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</fieldset>
+
+									<div style="padding-left: 2%;">
+										<fieldset id="penundangan_field" style="display:none">
+											<h6 id="jdul_penerima"><b>Penerima Undangan</b></h6>
+											<br>
+											<table width="100%" style="padding-top: 10px;margin-top: -23px;">
+												<tbody>
+													<tr></tr>
+													<tr>
+														<td style="vertical-align:top">
+															<input type="hidden" name="penunds2" id="penunds2">
+															<div class="col-10">
+																<input type="text" id="penundtampil0" style="width:300px;height:30px;background-color:#FFFFB3" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+															</div>
+														</td>
+														<td style="vertical-align:top">
+															<input type="hidden" name="penpegunds2" id="penpegunds2">
+															<div class="col-10">
+																<input type="text" id="penpegundtampil0" style="width:300px;height:30px;background-color:#FFFFB3" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+															</div>
+														</td>
+														<td style="vertical-align:top">
+															<input type="hidden" name="pennonunds2" id="pennonunds2">
+															<div class="col-10">
+																<input type="text" id="pennonundtampil0" style="width:300px;height:30px;background-color:#FFFFB3" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+															</div>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</fieldset>
+									</div>
+								</div>
+
+								<!-- SEMENTARA -->
+								<div class="kt-inbox__foot" style="padding-bottom: 8px;">
+									<div class="kt-inbox__primary" style="padding-top: 0px;margin-top: -15px;width: 100%;">
+										<div class="col-sm-12" style="padding-right: 15px;">
+											<h6 style="font-size: 8pt">Log History</h6>
+											<textarea readonly="" style="width: 100% !important;font-size: 8pt;" id="log_histori" name="log" cols="70" rows="6"></textarea>
+										</div>
+									</div>
+								</div>
+
+							</div>
+							<div id="disposisi"></div>
+
+						</div>
+						<div class="kt-inbox__foot"></div>
+						<div class="kt-inbox__foot">
+							<div class="kt-inbox__primary" style="margin-top: -17px;padding-bottom: 17px">
+								<div class="btn-group col-sm-2" style="width: 140px;padding-right: 0px;margin-right: 0px;">
+									<button type="button" class="btn btn-success btn-bold" id="disposisi_bt" onclick="disposisi(1)" style="margin-left: 15px; width: 100px; height: 40px;">
+										<i class="flaticon-paper-plane-1" style="font-size: 8pt">&nbsp;DISPOSISI</i>
+									</button>
+								</div>
+								<div class="btn-group col-sm-2" style="width: 140px;padding-right: 0px;margin-right: 0px;">
+									<button type="button" class="btn btn-success btn-bold" id="arsip_bt" onclick="disposisi(2)" style="margin-left: 30px;">
+										<i class="flaticon-paper-plane-1" style="font-size: 8pt">&nbsp;DISPOSISI &amp; ARSIPKAN</i>
+									</button>
+								</div>
+								<div class="btn-group col-sm-1">
+									&nbsp;
+								</div>
+								<div class="btn-group col-sm-2" style="width: 140px;padding-right: 0px;margin-right: 0px;">
+									<button type="button" class="btn btn-warning btn-bold" id="arsip_bt" onclick="arsip()">
+										<i class="flaticon-paper-plane-1" style="font-size: 8pt">&nbsp;ARSIPKAN</i>
+									</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<!-- </div> -->
+			</div>
+			<!--End:: Inbox View-->
+		</div>
+		<!--End::Inbox-->
+		<!--Begin:: Inbox Compose-->
+	</div>
+	<!--End::Main Portlet-->
+</div>

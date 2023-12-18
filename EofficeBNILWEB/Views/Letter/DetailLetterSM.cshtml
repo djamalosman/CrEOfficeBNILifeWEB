@@ -1,0 +1,1070 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localiza
+@model EofficeBNILWEB.Models.OutputDetailLetter
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@{
+    var sessidUser = Accessor.HttpContext.Session.GetString("idUser");
+    var sessidUnit = Accessor.HttpContext.Session.GetString("idUnit");
+    var orderkepada = 0;
+    var ordertembusan = 0;
+    var orderdisposisi = 0;
+    var numButton = 0;
+    var idDivKepada = "divbarukepada" + orderkepada;
+    var idDivTembusan = "divbarutembusan" + ordertembusan;
+    string dateNow =  DateTime.Now.ToString("yyyy-MM-dd");
+    string dateLetter = Convert.ToDateTime(Model.letter.letterDate).ToString("dd MMM yyyy");
+    string dateLetterIn = Convert.ToDateTime(Model.letter.letterDateIn).ToString("dd MMM yyyy");
+    string dateLetterDefault = Convert.ToDateTime(Model.letter.letterDateIn).ToString("yyyy-MM-dd");
+    var suratAsli = 0;
+    if(Model.docLetter != null)
+    {
+        suratAsli = 1;
+    }
+    var en = Accessor.HttpContext.Session.GetString("en");
+    var ina = Accessor.HttpContext.Session.GetString("ina");
+}
+<style>
+    .tox-promotion {
+        display: none !important;
+    }
+</style>
+<!-- begin::Body -->
+<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
+    <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver    m-container m-container--responsive m-container--xxl m-page__container">
+        <div class="m-grid__item m-grid__item--fluid m-wrapper">
+            <!-- BEGIN: Subheader -->
+            <div class="m-subheader ">
+                <div class="d-flex align-items-center">
+                    <div class="mr-auto" style="color: white;">
+                        <h3 class="m-subheader__title m-subheader__title--separator" style="color: white;">
+                            
+                             @(en !=null ? "User Letter details" : "Detail Letter")
+                        </h3>
+                        <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                            <li class="m-nav__item m-nav__item--home">
+                                <a href="#" class="m-nav__link m-nav__link--icon">
+                                    <i class="m-nav__link-icon la la-home" style="color: white;"></i>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        @(en !=null ? "Office" : "Office")
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        @(en !=null ? "Inbox" : "Kotak Masuk")
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        @(en !=null ? "Incoming Document" : "Surat Masuk")
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                         @(en !=null ? "User Letter details" : "Detail Letter")
+                                    </span>
+                                </a>
+                            </li>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Subheader -->
+            <div class="m-content">
+                <div class="kt-container  kt-grid__item kt-grid__item--fluid">
+                    <div class="kt-grid kt-grid--desktop kt-grid--ver-desktop  kt-inbox" id="kt_inbox">
+                        <div class="kt-grid__item kt-grid__item--fluid    kt-portlet    kt-inbox__view kt-inbox__view--shown-" id="kt_inbox_view" style="display:block">
+                            <form method="post" id="formSurat" asp-action="SaveLetter" asp-controller="Letter" enctype="multipart/form-data">
+                                <div style="margin-left: 10px;">
+                                  <br>
+                                  <fieldset style="width:99%;background-color:#B7B7FF;">
+                                    <div style="padding-left:10px">
+                                        @foreach(var item in Model.disposition)
+                                        {
+                                            <fieldset>
+                                                <legend>
+                                                  <b>&nbsp; @(en !=null ? "Disposition" : "Disposisi")</b>
+                                                </legend>
+                                                <table>
+                                                  <tbody>
+                                                    <tr>
+                                                      <td width="91">@(en !=null ? "Disposition Date" : "Tgl Disposisi")</td>
+                                                      <td>:</td>
+                                                      <td>@Convert.ToDateTime(item.dispositionDate).ToString("dd MMM yyyy")</td>
+                                                    </tr>
+                                                    <tr>
+                                                      <td width="91">@(en !=null ? "From" : "Dari")</td>
+                                                      <td>:</td>
+                                                      <td>@item.fullnameDispositionMaker / @item.positionDispositionMaker</td>
+                                                    </tr>
+                                                    <tr>
+                                                      <td width="91">@(en !=null ? "To" : "Kepada")</td>
+                                                      <td>:</td>
+                                                      <td>@item.fullnameDispositionReceiver / @item.positionDispositionReceiver</td>
+                                                    </tr>
+                                                    <tr>
+                                                      <td width="91">@(en !=null ? "Note" : "Catatan")</td>
+                                                      <td>:</td>
+                                                      <td>@item.notes</td>
+                                                    </tr>
+                                                  </tbody>
+                                                </table>
+                                            </fieldset>
+                                        }
+                                    </div>
+                                  </fieldset>
+                                  <br>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12" style="padding-top: 1%;padding-left: 2%;">
+                                        <fieldset>
+                                            <legend style="font-size: 10pt"><b>@(en !=null ? "Header" : "Kepala Surat")</b></legend>
+                                            @if(Model.letter.statusCode == 1)
+                                            {
+                                                <div class="form-group row">
+                                                    <div class="col-lg-4">
+                                                        <label>Jenis <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                                        <select class="form-control" id="documentType" name="documentType" required>
+                                                            <option value="">--@(en !=null ? "Select Letter Document Type" : "Pilih Jenis Dokumen Surat")--</option>
+                                                            @if (Model.letter.documentTypeCode == 1)
+                                                            {
+                                                                <option value="1" selected="selected">Softcopy</option>
+                                                                <option value="2">Hardcopy</option>
+                                                            }else{
+                                                                <option value="1">Softcopy</option>
+                                                                <option value="2" selected="selected">Hardcopy</option>
+                                                            }
+                                                        </select>
+                                                        <input type="hidden" class="form-control" id="saveType" name="saveType">
+                                                        <input type="hidden" class="form-control" id="letterTypeCode" name="letterTypeCode" value="@Model.letter.letterTypeCode">
+                                                        <input type="hidden" class="form-control" id="idDocument" name="idDocument" value="@Model.letter.idDocument">
+                                                        <input type="hidden" class="form-control" id="idresponsesurat" name="idresponsesurat" value="@Model.letter.idLetter">
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <label>No Resi / AWB</label>
+                                                        <input type="text" autocomplete="off" class="form-control" placeholder="No Resi / AWB" id="trackingNumber" name="trackingNumber" value="@Model.letter.trackingNumber" readonly="1" style="background-color:#e6e9ec !important">
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <label>@(en !=null ? "Date:" : "Tanggal:")</label>
+                                                        <input type="text" autocomplete="off" class="form-control" placeholder="Tanggal" value="@dateLetter" id="letterDate" name="letterDate" readonly="1" style="background-color:#e6e9ec !important">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-md-12">
+                                                        <label>@(en !=null ? "Regarding:" : "Perihal:") <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                                        <input type="text" autocomplete="off" class="form-control" id="about" name="about" value="@Model.letter.about" required>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-lg-4">
+                                                        <label>@(en !=null ? "Attachment:" : "Lampiran:")</label>
+                                                        <input type="text" autocomplete="off" class="form-control" id="attachmentCount" value="@Model.letter.attachmentDesc" name="attachmentCount" readonly="readonly" style="background-color:#e6e9ec !important">
+                                                    </div>
+                                                    <div class="col-lg-4" style="display:none">
+                                                        <label>@(en !=null ? "Priority" : "Prioritas")</label>
+                                                        <input type="text" autocomplete="off" class="form-control" placeholder="Prioritas" name="priority" id="priority" value="@Model.letter.priority">
+                                                    </div>
+                                                </div>
+                                            }else{
+                                                <div class="form-group row" style="font-size:8pt;margin-bottom: 0%;">
+                                                    <label for="inputEmail3" style="font-size:8pt !important;" class="col-sm-3">&nbsp;@(en !=null ? "Type/Number/Date of Mail:" : "Jenis/Nomor/Tgl Surat:") </label>
+                                                    <div class="col-6">
+                                                        <b>@Model.letter.documentTypeCodeValue / @Model.letter.letterNumber / @dateLetter</b>
+                                                        <input type="hidden" class="form-control" id="idresponsesurat" name="idresponsesurat" value="@Model.letter.idLetter">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row" style="font-size:8pt;margin-bottom: 0%;">
+                                                    <label for="inputEmail3" style="font-size:8pt !important;" class="col-sm-3">&nbsp;@(en !=null ? "Regarding:" : "Perihal:") </label>
+                                                    <div class="col-6">
+                                                        <b>@Model.letter.about</b>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row" style="font-size:8pt;margin-bottom: 0%;">
+                                                    <div class="col-3 row">
+                                                        <label for="inputEmail3" style="font-size:8pt !important;" class="col-sm-8">&nbsp;@(en !=null ? "Attachment:" : "Lampiran:") </label>
+                                                        <b>@Model.letter.attachmentDesc</b>
+                                                    </div>
+                                                    <div class="col-3 row" style="display:none">
+                                                        <label for="inputEmail3" style="font-size:8pt !important;" class="col-sm-8">&nbsp;@(en !=null ? "Priority:" : "Prioritas:") </label>
+                                                        <b>@Model.letter.priority</b>
+                                                    </div>
+                                                </div>
+                                            }
+                                            <fieldset>
+                                                <legend style="font-size: 10pt"><b>@(en !=null ? "Sender" : "Pengirim")</b></legend>
+                                                @if (Model.letter.statusCode == 1) 
+                                                {
+                                                    <div class="form-group row" style="margin-bottom: 0px !important;">
+                                                        <div class="col-md-6">
+                                                            <label>@(en !=null ? "Name :" : "Nama :") <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                                            <input type="text" autocomplete="off" class="form-control" id="senderName" name="senderName" value="@Model.letter.senderName" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row" style="margin-bottom: 0px !important;">
+                                                        <div class="col-md-12">
+                                                            <label>@(en !=null ? "Address:" : "Alamat:") <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                                            <input type="text" autocomplete="off" class="form-control" id="senderAddress" name="senderAddress" value="@Model.letter.senderAddress" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row" style="margin-bottom: 0px !important;">
+                                                        <div class="col-md-6">
+                                                            <label>@(en !=null ? "Lettaer Date:" : "Tanggal Surat:") <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                                            <input type="text" autocomplete="off" class="form-control" id="m_datepicker_1" name="senderLetterDate" value="@dateLetterDefault" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row" style="margin-bottom: 0px !important;">
+                                                        <div class="col-md-6">
+                                                            <label>@(en !=null ? "Number Letter:" : "Nomor Surat:") <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                                            <input type="text" autocomplete="off" class="form-control" id="senderLetterNumber" name="senderLetterNumber" value="@Model.letter.letterNumberIn" required>
+                                                        </div>
+                                                    </div>
+                                                }else{
+                                                    <div class="form-group row" style="font-size:8pt;margin-bottom: 0%;">
+                                                        <label for="inputEmail3" style="font-size:8pt !important;" class="col-sm-3">&nbsp;@(en !=null ? "Name:" : "Nama:") </label>
+                                                        <div class="col-6">
+                                                            <b>@Model.letter.senderName</b>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row" style="font-size:8pt;margin-bottom: 0%;">
+                                                        <label for="inputEmail3" style="font-size:8pt !important;" class="col-sm-3">&nbsp;@(en !=null ? "Address:" : "Alamat:") </label>
+                                                        <div class="col-6">
+                                                            <b>@Model.letter.senderAddress</b>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row" style="font-size:8pt;margin-bottom: 0%;">
+                                                        <label for="inputEmail3" style="font-size:8pt !important;" class="col-sm-5">&nbsp;@(en !=null ? "Lettaer Date:" : "Tanggal Surat:") </label>
+                                                        <div class="col-6">
+                                                            <b>@Convert.ToDateTime(Model.letter.letterDateIn).ToString("dd MMM yyyy")</b>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row" style="font-size:8pt;margin-bottom: 0%;">
+                                                        <label for="inputEmail3" style="font-size:8pt !important;" class="col-sm-3">&nbsp;@(en !=null ? "Number Letter:" : "Nomor Surat:") </label>
+                                                        <div class="col-6">
+                                                            <b>@Model.letter.letterNumberIn</b>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </fieldset>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12" style="padding-top: 1%;padding-left: 2%;">
+                                        <fieldset>
+                                            <legend style="font-size: 10pt"><b>@(en !=null ? "Receiver" : "Penerima")</b></legend>
+                                            @if(Model.letter.statusCode == 1)
+                                            {
+                                                @if (Model.receiver.Count == 0)
+                                                {   
+                                                    <div class="form-group row">
+                                                        <div class="col-8 col-md-6 col-sm-10">
+                                                            <label>@(en !=null ? "To:" : "Kepada:") <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                                            <input type="text" placeholder="Kepada" autocomplete="off" id="receiver_@orderkepada" name="receiver" class="form-control ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+                                                            <input type="hidden" class="form-control" id="idUserReceiver_@orderkepada" name="idUserReceiver">
+                                                        </div>
+                                                        <div class="col-4 col-md-6 col-sm-2">
+                                                            <label>&nbsp;</label>
+                                                            <input type="button" value="+" id="btnAddPenerima" onclick="AddTextBoxPenerima()" class="btn btn-success" style="display:block">
+                                                        </div>
+                                                    </div>
+                                                }else{
+                                                    foreach(var item in Model.receiver)
+                                                    {
+                                                        var idDivReceiver = "divpenerimabaru"+ orderkepada;
+                                                        <div class="form-group row" id="@idDivReceiver">
+                                                            <div class="col-8 col-md-6 col-sm-10">
+                                                                <label>@(en !=null ? "To:" : "Kepada:")</label>
+                                                                <input type="text" placeholder="Kepada" autocomplete="off" id="receiver_@orderkepada" value="@item.fullname - @item.positionName" name="receiver" class="form-control ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+                                                                <input type="hidden" class="form-control" id="idUserReceiver_@orderkepada" value="@item.idUser" name="idUserReceiver">
+                                                            </div>
+                                                            <div class="col-4 col-md-6 col-sm-2">
+                                                                <label>&nbsp;</label>
+                                                                @if(orderkepada == 0)
+                                                                {
+                                                                    <input type="button" value="+" id="btnAddPenerima" onclick="AddTextBoxPenerima()" class="btn btn-success" style="display:block">
+                                                                }else{
+                                                                    <input type="button" value="-" id="btnRemovePenerima" onclick="RemoveTextBoxPenerima('@orderkepada')" class="btn btn-danger" style="display:block">
+                                                                }
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        orderkepada++;
+                                                    }
+                                                }
+                                                <div id="TextBoxContainerKepada">
+                                                    <!--Textboxes will be added here -->
+                                                </div>
+                                                @if (Model.copy.Count == 0)
+                                                {
+                                                    <div class="form-group row">
+                                                        <div class="col-8 col-md-6 col-sm-10">
+                                                            <label>@(en !=null ? "Cc:" : "Tembusan:")</label>
+                                                            <input type="text" class="form-control" placeholder="Tembusan" id="copy_@ordertembusan" name="copy">
+                                                            <input type="hidden" class="form-control" autocomplete="off" id="idUserCopy_@ordertembusan" name="idUserCopy">
+                                                        </div>
+                                                        <div class="col-4 col-md-6 col-sm-2">
+                                                            <label>&nbsp;</label>
+                                                            <input type="button" value="+" id="btnAddTembusan" onclick="AddTextBoxTembusan()" class="btn btn-success" style="display:block">
+                                                        </div>
+                                                    </div>
+                                                }else{
+                                                    foreach(var item in Model.copy)
+                                                    {
+                                                        var idDivCopy = "divtembusanbaru" + ordertembusan;
+                                                        <div class="form-group row" id="@idDivCopy">
+                                                            <div class="col-8 col-md-6 col-sm-10">
+                                                                <label>Tembusan</label>
+                                                                <input type="text" class="form-control" placeholder="Tembusan" id="copy_@ordertembusan" name="copy" value="@item.fullname - @item.positionName">
+                                                                <input type="hidden" class="form-control" autocomplete="off" id="idUserCopy_@ordertembusan" name="idUserCopy" value="@item.idUser">
+                                                            </div>
+                                                            <div class="col-4 col-md-6 col-sm-2">
+                                                                <label>&nbsp;</label>
+                                                                @if(ordertembusan == 0)
+                                                                {
+                                                                    <input type="button" value="+" id="btnAddTembusan" onclick="AddTextBoxTembusan()" class="btn btn-success" style="display:block">
+                                                                }else{
+                                                                    <input type="button" value="-" id="btnRemoveTembusan" onclick="RemoveTextBoxTembusan('@ordertembusan')" class="btn btn-danger" style="display:block">
+                                                                }
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        ordertembusan++;
+                                                    }
+                                                }
+                                                
+                                                <div id="TextBoxContainerTembusan">
+                                                    <!--Textboxes will be added here -->
+                                                </div>
+                                            }else{
+                                                <div class="form-group row" style="font-size:8pt;margin-bottom: 0%;">
+                                                    <label for="inputEmail3" style="font-size:8pt !important;" class="col-sm-3">&nbsp;@(en !=null ? "To:" : " Kepada:") </label>
+                                                    <div class="col-8">
+                                                        <ol>
+                                                            @foreach (var receiver in Model.receiver)
+                                                            {
+                                                                <li>@receiver.fullname - @receiver.positionName</li>
+                                                            }
+                                                        </ol>                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row" style="font-size:8pt;margin-bottom: 0%;">
+                                                    <label for="inputEmail3" style="font-size:8pt !important;" class="col-sm-3">&nbsp;@(en !=null ? "Tembusan:" : "  Tembusan:") </label>
+                                                    <div class="col-8">
+                                                        <ol>
+                                                            @foreach (var receiver in Model.copy)
+                                                            {
+                                                                <li>@receiver.fullname - @receiver.positionName</li>
+                                                            }
+                                                        </ol>                                                        
+                                                    </div>
+                                                </div>
+                                            }
+                                        </fieldset>
+                                        <fieldset>
+                                            <legend style="font-size: 10pt"><b>@(en !=null ? "Original Letter" : "Surat Asli")</b></legend>
+                                            @if(Model.letter.statusCode == 1)
+                                            {
+                                                if(Model.docLetter != null)
+                                                {
+                                                    <ol>
+                                                        <li>
+                                                            <a href="@Url.Action("DownloadAttachment","Letter")?filename=@Model.docLetter.filename" target="_blank">@Model.docLetter.filename</a>
+                                                            <a style="cursor:pointer;color: white;padding:1px;" class="btn btn-danger" onclick="deletefile('@Model.docLetter.idAttachment')"> Delete </a>
+                                                        </li>
+                                                    </ol>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if(Model.docLetter != null)
+                                                {
+                                                    <ol>
+                                                        <li><a href="@Url.Action("DownloadAttachment","Letter")?filename=@Model.docLetter.filename" target="_blank">@Model.docLetter.filename</a></li>
+                                                    </ol>
+                                                }
+                                            }
+                                        </fieldset>
+                                        <fieldset>
+                                            <legend style="font-size: 10pt"><b>@(en !=null ? "Attachment" : "Lampiran")</b></legend>
+                                            @if(Model.letter.statusCode == 1)
+                                            {
+                                                <ol>
+                                                    @foreach (var item in Model.attachment)
+                                                    {
+                                                        <li>
+                                                            <a href="@Url.Action("DownloadAttachment","Letter")?filename=@item.filename" target="_blank">@item.filename</a>
+                                                            <a style="cursor:pointer;color: white;padding:1px;" class="btn btn-danger" onclick="deletefile('@item.idAttachment')"> Delete </a>
+                                                        </li>
+                                                    }
+                                                    
+                                                </ol>
+                                            }
+                                            else
+                                            {
+                                                <ol>
+                                                    @foreach (var item in Model.attachment)
+                                                    {
+                                                        <li><a href="@Url.Action("DownloadAttachment","Letter")?filename=@item.filename" target="_blank">@item.filename</a></li>
+                                                    }
+                                                </ol>
+                                            }
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" style="padding-top: 2%;display:none;">
+                                    <div class="tinymce">
+                                        <textarea id="isiSurat" name="isiSurat">
+                                        <p>&nbsp;</p>
+                                        </textarea>
+                                    </div>
+                                </div>
+                                @if(Model.letter.statusCode == 1)
+                                {
+                                    <div class="col-md-12" style="padding-top: 2%;">
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Upload Surat Asli: <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                            <div class="col-sm-6">
+                                                <div class="kt-uppy" id="kt_uppy_5">
+                                                    <div class="kt-uppy__wrapper">
+                                                        <div class="uppy-Root uppy-FileInput-container">
+                                                            <input type="hidden" name="DOC_NAME1" value="" placeholder="File Name...">
+                                                            <input class="uppy-FileInput-input btn btn-label-brand btn-bold btn-font-sm" style="" type="file" name="inputfile" id="kt_uppy_5_input_control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <span class="form-text text-muted">File type: JPG, PNG, DOC, DOCX, XLS, XLSX, PDF </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group row" style="width: 100%">
+                                            <label class="col-lg-3 col-form-label">@(en !=null ? "Upload Attachment Files:" : "Upload File Lampiran:")</label>
+                                            <div class="col-lg-12">
+                                                <div class="kt-uppy dropzone" id="dropss" width="100%" style="height: 100px;">
+                                                </div>
+                                                <span class="form-text text-muted">File type: JPG, PNG, DOC, DOCX, XLS, XLSX, PDF(Maksimal 15MB)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                
+                                @if(Model.letter.statusCode == 1)
+                                {
+                                    <div class="col-md-6">
+                                        <div class="form-group row" style="width: 100%">
+                                            <label class="col-lg-3 col-form-label">@(en != null ? "Komentar:" : "Comment:")  <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                            <div class="col-lg-12">
+                                                <textarea class="form-control" id="comment" name="comment" cols="45" rows="3" required></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="kt-inbox__primary" style="padding-bottom: 5%;">
+                                        <div class="col-6">
+                                            <h3>@(en !=null ? "Log History" : "Log History")</h3>
+                                            <div style="border:solid 1px lightgray;border-radius:10px;width:100%;max-height:142px;min-height:142px;overflow-y:scroll">
+                                                <ul>
+                                                    @foreach (var dtLog in Model.log)
+                                                    {
+                                                        var word = Convert.ToDateTime(dtLog.createdOn).ToString("dd-MM-yyyy HH:mm:ss")+ " - " +dtLog.description;
+                                                        <li>@word</li>
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }else{
+                                    <div class="kt-inbox__primary" style="padding-bottom: 5%;">
+                                        <div class="col-6">
+                                            <h3>Log History</h3>
+                                            <div style="border:solid 1px lightgray;border-radius:10px;width:100%;max-height:142px;min-height:142px;overflow-y:scroll">
+                                                <ul>
+                                                    @foreach (var dtLog in Model.log)
+                                                    {
+                                                        var word = Convert.ToDateTime(dtLog.createdOn).ToString("dd-MM-yyyy HH:mm:ss")+ " - " +dtLog.description;
+                                                        <li>@word</li>
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                @if (Model.letter.statusCode == 1) 
+                                {
+                                    <div class="kt-inbox__foot" style="padding-bottom: 2%;">
+                                        <div class="kt-inbox__primary">
+                                            <div class="btn-group col-sm-2">
+                                                <button type="button" class="btn btn-success btn-bold" onclick="saveSurat(1)">
+                                                    <i class="flaticon-paper-plane-1">&nbsp;@(en !=null ? "Save" : "Simpan")</i>
+                                                </button>
+                                            </div>
+                                            <div class="btn-group col-sm-2">
+                                                <button type="button" class="btn btn-warning btn-bold" style="color: white;" onclick="saveSurat(4)">
+                                                    <i class="flaticon-paper-plane-1">&nbsp;@(en !=null ? "Send" : "Kirim")</i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            </form>
+                            @if(Model.letter.statusCode != 1)
+                            {
+                                <div class="kt-inbox__foot" style="padding-bottom: 2%;">
+                                    <div class="kt-inbox__primary">
+                                        <div class="btn-group col-sm-2" style="">
+                                            <button type="button" class="btn btn-success btn-bold" onclick="disposisi()" style="padding-bottom: 3%;padding-top: 3%;">
+                                                <i class="flaticon2-mail-1" style="font-size: 14pt;padding-top: 3%;"></i><label style="margin-bottom: 0;font-size: 1.2rem;">&nbsp;Disposisi</label>
+                                            </button>
+                                        </div>
+
+                                        <div id="disposisi" class="form-group" style="display:none;background-color:#afd1ea;margin-left: 0.8%;margin-right: 0.8%;margin-top: 1%;padding-bottom: 1%;padding-top: 1%;">
+                                            <form method="post" asp-action="PostLetterDisposition" asp-controller="Letter">
+                                                <div id="divDispo" class="form-group row" style="margin-left:0.8%;margin-right:0.8%;">
+                                                    <input type="hidden" class="form-control" id="idLetter" name="idLetter" value="@Model.letter.idLetter">
+                                                    <div class="col-md-3">
+                                                        <label>@(en !=null ? "Forwarded To" : "Diteruskan Kepada")</label>
+                                                        <input type="text" class="form-control" autocomplete="off" id="idUserText_0" name="idUserText_0" placeholder="autocomplete" required="" onkeyup="load_data(this.value,0)">
+                                                        <span id="search_result_0"></span>
+                                                        <input type="hidden" class="form-control" id="idUser_0" name="idUser">
+                                                        <input type="hidden" class="form-control" id="idPosition_0" name="idPosition">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>@(en !=null ? "Notes" : "Catatan")</label>
+                                                        <textarea name="notes" id="notes_0" cols="40" class="form-control" style="resize: none;"></textarea>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>&nbsp;</label>
+                                                        <input type="button" value="+" id="btnAddDisposisi" onclick="AddTextBoxDisposisi()" class="btn btn-success" style="display:block">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" id="divDisposisi">
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="btn-group col-sm-2" style="">
+                                                        <button type="button" class="btn btn-success btn-bold" style="padding-bottom: 3%;padding-top: 3%;" id="submitDisposisi">
+                                                            <i class="flaticon2-mail-1" style="font-size: 14pt;padding-top: 3%;"></i><label style="margin-bottom: 0;font-size: 1.2rem;">&nbsp;@(en !=null ? "Process" : "Proses")</label>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/assets/tinymcepack/tinymce.js?v=7.3.0" type="text/javascript"></script>
+<link href="~/assets/demo/demo2/new_theme/css/dropzone.css" rel="stylesheet" type="text/css" />
+<script src="~/assets/demo/demo2/new_theme/js/dropzone.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var orderKepada = 0;
+    var orderTembusan = 0;
+    var orderDisposisi = 0;
+    $(document).ready(function () {
+        var ordersKepada = @orderkepada+1;
+        var ordersTembusan = @ordertembusan+1;
+        var ordersDisposisi = @orderdisposisi+1;
+        orderKepada = ordersKepada;
+        orderTembusan = ordersTembusan;
+        orderDisposisi = ordersDisposisi;
+        
+    });
+    @*$(document).ready(function() {*@
+        @*var max_fields      = 10; //maximum input boxes allowed
+        var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+        var add_button      = $(".add_field_button"); //Add button ID
+    
+        var x = 1; //initlal text box count
+        var availableAttributes = [
+	      "account_address",
+	      "account_address_city",
+	      "account_address_country",
+	      "account_address_state",
+	      "account_address_street1",
+	      "account_address_street2",
+	      "account_address_zip",
+	      "account_email",
+	      "account_login",
+	      "account_name",
+	      "account_number",
+	      "account_telephone"
+        ];
+    
+    
+    
+        $(add_button).click(function(e){ //on add input button click
+            e.preventDefault();
+            if(x < max_fields){ //max input box allowed
+                x++; //text box increment
+                $(wrapper).append('<div><input type="text" name="mytext[]"/><a href="#" class="remove_field">Remove</a></div>'); 
+            
+                $(wrapper).find('input[type=text]:last').autocomplete({
+                    source: availableAttributes
+                });	
+                //add input box
+            }
+        });
+    
+        $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+            e.preventDefault(); $(this).parent('div').remove(); x--;
+        })
+    
+        $("input[name^='mytext']").autocomplete({
+		    source: availableAttributes
+	    });	*@
+    
+    @*});*@
+
+// autocomplete enablement
+    
+	
+ 
+    $("#receiver_0").autocomplete({
+        minLength: 3,
+        source: function (req, res) {
+            console.log(req, res);
+            $.ajax({
+                url: "@Url.Action("GetUserReceiver","Document")",
+                method: "POST",
+                data: { keyword: req.term },
+                success: function (msg) {
+                    var data = JSON.parse(msg);
+                    var d = $.map(data, function (row) {
+                        return {
+                            label: row.userName +" - "+ row.positionName,
+                            value: row.idUser
+                        }
+                    });
+                    res(d);
+                }
+            });
+        },
+        focus: function (event, ui) {
+            $("#receiver_0").val(ui.item.label);
+            $("#idUserReceiver_0").val(ui.item.value);
+
+            return false;
+        },
+        select: function (event, ui) {
+            // prevent autocomplete from updating the textbox
+            //console.log('select', ui);
+            //event.preventDefault();
+            $("#receiver_0").val(ui.item.label);
+            $("#idUserReceiver_0").val(ui.item.value);
+
+            return false;
+        }
+
+    });
+    $("#copy_0").autocomplete({
+        minLength: 3,
+        source: function (req, res) {
+            $.ajax({
+                url: "@Url.Action("GetUserCopy","Document")",
+                method: "POST",
+                data: { keyword: req.term },
+                success: function (msg) {
+                    var data = JSON.parse(msg);
+                    var d = $.map(data, function (row) {
+                        return {
+                            label: row.userName + " - " + row.positionName,
+                            value: row.idUser
+                        }
+                    });
+                    res(d);
+                }
+            });
+        },
+        focus: function (event, ui) {
+            $("#copy_0").val(ui.item.label);
+            $("#idUserCopy_0").val(ui.item.value);
+
+            return false;
+        },
+        select: function (event, ui) {
+            // prevent autocomplete from updating the textbox
+            //console.log('select', ui);
+            //event.preventDefault();
+            $("#copy_0").val(ui.item.label);
+            $("#idUserCopy_0").val(ui.item.value);
+
+            return false;
+        }
+
+    });
+
+    function AddTextBoxPenerima() {
+        //var div = GetDynamicTextBoxPenerima(orderKepada);
+        var html = "<div class='form-group row' id='divpenerimabaru" + orderKepada + "'> <div class='col-8 col-md-6 col-sm-10'> <input type='text' placeholder='Kepada' id='receiver_" + orderKepada + "' name='receiver' class='form-control ui-autocomplete-input receiverText' autocomplete='off' role='textbox' aria-autocomplete='list' aria-haspopup='true'> <input type='hidden' class='form-control' id='idUserReceiver_" + orderKepada + "' name='idUserReceiver'> </div> <div class='col-4 col-md-6 col-sm-2'> <input type='button' value='-' id='btnRemovePenerima' onclick='RemoveTextBoxPenerima(" + orderKepada + ")' class='btn btn-danger' style='display:block'> </div> </div>";
+        $('#TextBoxContainerKepada').append($(html));
+        //initiateAutocompleteReceiver(orderKepada);
+
+        orderKepada++;
+    }
+
+    function AddTextBoxDisposisi() {
+        var html = "<div id='divDispo" + orderDisposisi + "' class='form-group row' style='margin-left:0.8%;margin-right:0.8%;'> <div class='col-md-3'> <label>Diteruskan Kepada</label> <input type='text' class='form-control' id='idUserText_" + orderDisposisi + "' name='idUserText_" + orderDisposisi + "' placeholder='' autocomplete='off' required='' onkeyup='load_data(this.value,"+orderDisposisi+")'><span id='search_result_"+orderDisposisi+"'></span> <input type='hidden' class='form-control idUserDispo' id='idUser_" + orderDisposisi + "' name='idUser'> <input type='hidden' class='form-control idPositionDispo' id='idPosition_" + orderDisposisi + "' name='idPosition'> </div> <div class='col-md-3'> <label>Catatan</label> <textarea name='notes' id='notes_0' cols='40' class='form-control' style='resize: none;'></textarea> </div> <div class='col-md-3'> <label>&nbsp;</label> <input type='button' value='-' id='btnRemoveDisposisi' onclick='RemoveTextBoxDisposisi(" + orderDisposisi + ")' class='btn btn-warning' style='display:block'> </div> </div>";
+        $('#divDisposisi').append(html);
+
+        orderDisposisi++;
+    }
+    function GetDynamicTextBoxPenerima(value) {
+        var html = "<div class='form-group row' id='divpenerimabaru" + value + "'> <div class='col-8 col-md-6 col-sm-10'> <input type='text' placeholder='Kepada' id='receiver_" + value + "' name='receiver' class='form-control ui-autocomplete-input' autocomplete='off' role='textbox' aria-autocomplete='list' aria-haspopup='true'> <input type='hidden' class='form-control' id='idUserReceiver_" + value + "' name='idUserReceiver'> </div> <div class='col-4 col-md-6 col-sm-2'> <input type='button' value='-' id='btnRemovePenerima' onclick='RemoveTextBoxPenerima(" + value + ")' class='btn btn-danger' style='display:block'> </div> </div>";
+        var textBox = $(html);
+        textBox.val(value);
+
+        return textBox;
+    }
+    function AddTextBoxTembusan() {
+        var div = GetDynamicTextBoxTembusan(orderTembusan);
+        $("#TextBoxContainerTembusan").append(div);
+        orderTembusan++;
+    }
+    function GetDynamicTextBoxTembusan(value) {
+        var html = "<div class='form-group row' id='divtembusanbaru" + value + "'>  <div class='col-8 col-md-6 col-sm-10'> <input type='text' class='form-control' placeholder='Tembusan' id='copy_" + value + "' name='copy'> <input type='hidden' class='form-control' id='idUserCopy_" + value + "' name='idUserCopy'> </div> <div class='col-4 col-md-6 col-sm-2'> <input type='button' value='-' id='btnRemoveTembusan' onclick='RemoveTextBoxTembusan(" + value + ")' class='btn btn-danger' style='display:block'> </div> </div>";
+        var textBox = $(html);
+        textBox.val(value);
+
+        $("#copy_" + value).autocomplete({
+            minLength: 3,
+            source: function (req, res) {
+                console.log(req, res);
+                //$.post('Url.Action("GetUserReceiver","Document")', { keyword: $("#receiver_0").val() }, response, 'json');
+                //$.getJSON("Url.Action("GetUserReceiver","Document")", { keyword: $("#receiver_0").val() }, response);
+                $.ajax({
+                    url: "@Url.Action("GetUserCopy","Document")",
+                    method: "POST",
+                    data: { keyword: req.term },
+                    success: function (msg) {
+                        var data = JSON.parse(msg);
+                        var d = $.map(data, function (row) {
+                            return {
+                                label: row.userName,
+                                value: row.idUser
+                            }
+                        });
+                        res(d);
+                    }
+                });
+            },
+            focus: function (event, ui) {
+                $("#receiver_0").val(ui.item.label);
+
+                return false;
+            },
+            select: function (event, ui) {
+                // prevent autocomplete from updating the textbox
+                console.log('select', ui);
+                //event.preventDefault();
+                $("#receiver_0").val(ui.item.label);
+                $("#idUserReceiver_0").val(ui.item.value);
+
+                return false;
+            }
+
+        });
+
+        return textBox;
+    }
+    function RemoveTextBoxPenerima(idDiv) {
+        $("#divpenerimabaru" + idDiv).remove();
+    }
+    function RemoveTextBoxTembusan(idDiv) {
+        $("#divtembusanbaru" + idDiv).remove();
+    }
+    function RemoveTextBoxDisposisi(idDiv){
+        $("#divDispo" + idDiv).remove();
+    }
+    function disposisi(){
+        var divDisposisi = document.getElementById("disposisi");
+        divDisposisi.style.display = "block";
+    }
+    function getListUserDispo(keyword){
+        $.ajax({
+            url: "@Url.Action("GetUserCopy","Document")",
+            method: "POST",
+            data: { keyword: keyword },
+            success: function (msg) {
+                var data = JSON.parse(msg);
+                var html = "<datalist id='languageList'>";
+                for(var i=0;i<data.length;i++)
+                {
+                    html+="<option value='"+data[i].idUser + " - " + data[i].idPosition+"'>"+data[i].userName + " - " + data[i].positionName+"</option>"
+                }
+                html +="</datalist>";
+                $("#dataListUserDispo").html("");
+                $("#dataListUserDispo").html(html);
+
+            }
+        });
+    }
+    function initiateAutocompleteReceiver(number) {
+        var element = document.getElementById('receiver_' + number);
+        if (typeof (element) != 'undefined' && element != null) {
+            console.log(element);
+            $("#receiver_1").autocomplete({
+                minLength: 3,
+                source: function (req, res) {
+                    console.log(req, res);
+                    $.ajax({
+                        url: "@Url.Action("GetUserReceiver","Document")",
+                        method: "POST",
+                        data: { keyword: req.term },
+                        success: function (msg) {
+                            var data = JSON.parse(msg);
+                            var d = $.map(data, function (row) {
+                                return {
+                                    label: row.userName,
+                                    value: row.idUser
+                                }
+                            });
+                            res(d);
+                        }
+                    });
+                }
+            });
+        } else {
+            initiateAutocompleteReceiver(number);
+        }
+
+    }
+    tinymce.init({
+        selector: 'textarea#isiSurat',
+        height: 500,
+        plugins: [
+            'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+            'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+            'insertdatetime', 'media', 'table', 'help', 'wordcount'
+        ],
+        toolbar: 'undo redo | blocks | ' +
+            'bold italic backcolor | alignleft aligncenter ' +
+            'alignright alignjustify | bullist numlist outdent indent | ' +
+            'removeformat | help',
+        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }'
+    });
+
+</script>
+<script>
+    Dropzone.autoDiscover = false;
+    var idresponse = 0;
+    var files = 0;
+    var idsrtfile = document.getElementById('idresponsesurat').value;
+    var param = files + '~' + idsrtfile;
+
+    var myDropzone = new Dropzone("div#dropss", {
+        url: "@Url.Action("SaveAttachment","Letter")?param=" + param,
+        // acceptedMimeTypes:'image/JPEG,image/jpeg,image/jpg,image/JPG,application/pdf,/application/PDF,application/doc,application/docx,application/xls,application/xlsx,application/DOC,application/DOCX,application/XLS,application/XLSX',
+        autoProcessQueue: false,
+        parallelUploads: 1, // Number of files process at a time (default 2)
+        addRemoveLinks: true,
+        maxFiles: 10,
+        maxFilesize: 75,
+        timeout: 30000,
+        init: function () {
+            this.on("addedfile", function () {
+                // creates an array of the files that are in queue
+                var arr = myDropzone.files.length;
+                //alert(arr); // displays object and not the file name.
+                document.getElementById("attachmentCount").value = arr;
+
+            });
+            this.on("removedfile", function () {
+                // creates an array of the files that are in queue
+                var arr = myDropzone.files.length;
+                //alert(arr); // displays object and not the file name.
+                document.getElementById("attachmentCount").value = arr;
+
+            });
+            this.on("success", function (file, response) {
+                //alert(response);
+                var res = JSON.parse(response);
+                console.log(res);
+                idresponse = res.idLetter;
+                idsrtfile = res.idLetter;
+                //alert('sukses');
+                $(".dz-success-mark svg").css("background", "green");
+                $(".dz-error-mark").css("display", "none");
+                files += 1;
+                param = files + '~' + idsrtfile;
+                this.options.url = "@Url.Action("SaveAttachment","Letter")?param=" + param;
+                myDropzone.processQueue();
+            });
+            this.on("complete", function (file) {
+                //alert(response);
+                if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
+                    $('#idresponsesurat').val(idresponse);
+                    //var tipes = document.getElementById('tipe').value
+                    console.log(idresponse)
+                    document.forms['formSurat'].submit();
+                }
+
+            });
+            this.on("error", function (file, error, xhr) {
+                alert(error);
+                var ficheiro = { name: file.name, status: xhr.status, statusText: xhr.statusText, erro: error.message };
+                console.log(ficheiro);
+            });
+        }
+
+    });
+</script>
+<script>
+    function saveSurat(flag) {
+        var docType = document.getElementById("documentType").value;
+        var about = document.getElementById("about").value;
+        var senderName = document.getElementById("senderName").value;
+        var senderAddress = document.getElementById("senderAddress").value;
+        var m_datepicker_1 = document.getElementById("m_datepicker_1").value;
+        var senderLetterNumber = document.getElementById("senderLetterNumber").value;
+        var comment = document.getElementById("comment").value;
+        var receiverAwal = document.getElementById("receiver_0").value;
+        var suratAsliExist = @suratAsli;
+        if (docType == "") {
+            callAlert("Jenis surat tidak boleh kosong!");
+            return false;
+        }
+        if (about == "") {
+            callAlert("Perihal surat tidak boleh kosong!");
+            return false;
+        }
+        if (senderName == "" || senderAddress == "" || m_datepicker_1 == "" || senderLetterNumber == "") {
+            callAlert("Informasi pengirim surat tidak boleh kosong!");
+            return false;
+        }
+        if (comment == "" && flag == 4) {
+            callAlert("Komentar surat tidak boleh kosong!");
+            return false;
+        }
+        if (receiverAwal == "") {
+            callAlert("Penerima surat tidak boleh kosong!");
+            return false;
+        }
+        if (document.getElementById("kt_uppy_5_input_control").files.length == 0 && suratAsliExist == 0) {
+            callAlert("File surat asli harus di upload!");
+            return false;
+        }
+        var message = "Anda yakin ingin mengirim surat ini?";
+        if (flag == 1) {
+            message = "Anda yakin ingin menyimpan surat ini?";
+        }
+        var conf = confirm(message);
+        tinyMCE.triggerSave();
+        if (conf == true) {
+            $('#saveType').val(flag);
+            if (myDropzone.files.length == 0) {
+                document.forms['formSurat'].submit();
+            }
+            else {
+                myDropzone.processQueue();
+            }
+            //document.forms['eval-form'].submit();
+        }
+    }
+    function deletefile(idFile){
+        if(confirm("Apakah anda yakin ingin menghapus lampiran ini?"))
+        {
+            $.ajax({
+                url: "@Url.Action("DeleteAttachment","Letter")",
+                method: "POST",
+                data: { idFile: idFile },
+                success: function (msg) {
+                    var data = JSON.parse(msg);
+                    console.log(data);
+                    window.location.reload();
+                }
+            });
+        }
+    }
+    function callAlert(message) {
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Validasi',
+            text: message,
+            showConfirmButton: true,
+            //timer: 1500,
+            onBeforeOpen: () => {
+                timerInterval = setInterval(() => {
+                    const content = Swal.getContent()
+                    if (content) {
+                        const b = content.querySelector('b')
+                        if (b) {
+                            b.textContent = Swal.getTimerLeft()
+                        }
+                    }
+                }, 100)
+            },
+            onClose: () => {
+                clearInterval(timerInterval)
+            }
+        }).then((result) => {
+            /* Read more about handling dismissals below */
+        })
+    }
+    $('#submitDisposisi').click(function (e) {
+            e.preventDefault();
+            var btn = $(this);
+            var form = $(this).closest('form');
+
+            console.log(form);
+
+            form.submit();
+        });
+</script>
+<script>
+    function get_text(text,number,value) {
+        console.log('value : ',text);
+        var splitValue = value.split(" - ");
+        document.getElementById('idUserText_'+number).value = text;
+        document.getElementById('idUser_'+number).value = splitValue[0];
+        document.getElementById('idPosition_'+number).value = splitValue[1];
+        document.getElementById('search_result_'+number).innerHTML = '';
+    }
+
+    function load_data(keyword,number) {
+        if (keyword.length >= 3) {
+            $.ajax({
+                url: "@Url.Action("GetUserCopy","Document")",
+                method: "POST",
+                data: { keyword: keyword },
+                success: function (msg) {
+                    var data = JSON.parse(msg);
+                    var html = '<div class="list-group">';
+                    for (var i = 0; i < data.length; i++) {
+                        var value = data[i].idUser + " - " + data[i].idPosition;
+                        var text = data[i].userName + " - " + data[i].positionName;
+                        html += '<div class="list-group-item list-group-item-action" onclick="get_text(\''+text+'\','+number+',\''+value+'\')">' + text + '</div>';
+                    }
+                    html += '</div>';
+                    document.getElementById('search_result_'+number).innerHTML = html;
+                }
+            });
+        }
+        else {
+            document.getElementById('search_result_'+number).innerHTML = '';
+        }
+    }
+</script>

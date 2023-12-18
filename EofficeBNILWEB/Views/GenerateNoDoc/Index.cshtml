@@ -1,0 +1,280 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localiza
+@model EofficeBNILWEB.Models.ParamInsertGenerateNoDoc
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@{
+    var sessidUser = Accessor.HttpContext.Session.GetString("idUser");
+    var sessidUnit = Accessor.HttpContext.Session.GetString("idUnit");
+	var en = Accessor.HttpContext.Session.GetString("en");
+    var ina = Accessor.HttpContext.Session.GetString("ina");
+}
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!-- begin::Body -->
+<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
+    <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver    m-container m-container--responsive m-container--xxl m-page__container">
+        <div class="m-grid__item m-grid__item--fluid m-wrapper">
+            <!-- BEGIN: Subheader -->
+            <div class="m-subheader ">
+                <div class="d-flex align-items-center">
+                    <div class="mr-auto" style="color: white;">
+                        <h3 class="m-subheader__title m-subheader__title--separator" style="color: white;">
+                            @(en !=null ? "Barcode" : "Barkode")
+                        </h3>
+                        <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                            <li class="m-nav__item m-nav__item--home">
+                                <a href="#" class="m-nav__link m-nav__link--icon">
+                                    <i class="m-nav__link-icon la la-home" style="color: white;"></i>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                       Mailing Room
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+										@(en !=null ? "Document" : "Dokumen")
+                                    </span>
+                                </a>
+                            </li>
+							<li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+							<li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+										@(en !=null ? "Barcode" : "Barkode")
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Subheader -->
+            <div class="m-content">
+				<!--Begin::Main Portlet-->
+				<div class="kt-container  kt-grid__item kt-grid__item--fluid">
+					<!--Begin::Inbox-->
+					<div class="kt-grid kt-grid--desktop kt-grid--ver-desktop  kt-inbox" id="kt_inbox">
+						<!--Begin::Aside Mobile Toggle-->
+						<button class="kt-inbox__aside-close" id="kt_inbox_aside_close">
+						  <i class="la la-close"></i>
+						</button>
+						<!--Begin:: Inbox View-->
+						<div class="kt-grid__item kt-grid__item--fluid    kt-portlet    kt-inbox__view kt-inbox__view--shown-" id="kt_inbox_view" style="display: flex;">
+							
+								<fieldset style="width:99%;">
+										<div style="float:left;padding-left:30px">
+												<br>
+												<form asp-action="Index">
+													<fieldset><legend style="font-size: 10pt"><b>Input Data</b></legend>
+														<table class="head_table" width="620" border="0">
+															<tbody>
+																<tr style=" font-size:10pt">
+																	<td><label asp-for="type" class="col-sm-2 col-form-label">@(en !=null ? "Type" : "Tipe")</label> </td>
+																	<td> : </td>
+																	<td width="457">
+																	<select class="form-control select2-selection__rendered" id="tipe" onchange="formupdate();" name="type" required>
+																			<option value="">--@(en !=null ? "Select Document Type" : "Pilih Tipe Dokumen")--</option>
+																			<option value="1">@(en !=null ? "Receipt" : "Resi")</option>
+																			<option value="2">Return</option>
+																		</select>
+																		<!--<input type="text" class="form-control" name="type" placeholder="Kode User"> -->
+																	</td>
+																</tr>
+																<tr style=" font-size:10pt" hidden>
+																	<td><label asp-for="userCode" class="col-sm-2 col-form-label">Kode User</label></td>
+																	<td> : </td>
+																	<td>
+																		<div style="position: relative; width: 500px; z-index: 1;">
+																			<input type="text" class="form-control" name="userCode" value="01" placeholder="Kode User" autocomplete="off">
+																			<!-- 
+																			<input asp-for="userCode" class="form-control" />
+																			<span asp-validation-for="userCode" class="text-danger"></span>
+																			-->
+																		</div>
+																	</td>
+																</tr>
+																<tr style=" font-size:10pt">
+																	<td><label asp-for="barcode" class="col-sm-2 col-form-label">@(en !=null ? "Barcode Number" : "Nomor Barcode")</label></td>
+																	<td> : </td>
+																	<td>
+																		<div  style="position: relative; width: 500px; z-index: 1;">
+																			<input type="text" class="form-control" value="@ViewBag.barcode" id="nmrbrcd" name="barcode" placeholder="@(en !=null ? "Barcode" : "Kode barcode")" readonly>
+																			<!-- 
+																			<input asp-for="barcode" class="form-control" />
+																			-->															
+																		</div>
+																	</td>
+																</tr>
+
+													<tr style=" font-size:10pt">
+														<td><label asp-for="reprintbarcode" class="col-sm-2 col-form-label">Re-print</label></td>
+														<td> : </td>
+														<td>
+															<div style="position: relative; width: 500px; z-index: 1;">
+																<input type="text" class="form-control" name="reprintbarcode" placeholder="">
+																<!--
+																<input asp-for="barcode" class="form-control" />
+																-->
+															</div>
+														</td>
+													</tr>
+															</tbody>
+														</table>
+														
+													</fieldset>
+													<div class="kt-inbox__reply kt-inbox__reply--on" style="padding-top: 20px;">
+														<div class="kt-inbox__body">
+															<div class="kt-inbox__primary" id="alltemplate" align="Center" style="display: marker;">
+																<br>
+																<div class="btn-group col-sm-2" hidden>
+																</div>
+																<div class="btn-group col-sm-2" hidden>
+																</div>
+																<div class="btn-group col-sm-2" hidden>
+																</div>
+																<div class="btn-group col-sm-2">
+																	<button type="submit" style="background-color: #0C479D;" class="btn  btn-bold btnsimp">
+																		<i class="flaticon-download-1"style="color: white;">&nbsp;Generate Barcode</i>
+																	</button>
+																</div>
+																<div class="btn-group col-sm-2">
+																</div>
+															</div>
+															<br>
+														</div>
+														<br>
+														<br>
+													</div>
+												</form>
+											<fieldset id="pengirim_field"><legend style="font-size: 10pt"><b></b></legend>
+										
+											</fieldset>
+										</div>
+										<br>
+										<div style="float:right;padding-right:16px;display:block;" id="vbrcd">
+											<fieldset id="penerima_field"><legend style="font-size: 10pt"><b>@(en !=null ? "Barcode" : "Barkode")</b></legend>
+
+										<form asp-action="Detailbarcode">
+												<style>table.penerima , table.penerima td {border:1px solid grey; border-collapse:collapse;}</style>
+													<table id="elses_table" width="480" border="0" style="display: marker;"> 
+														 <tbody>
+															@if (@ViewBag.barcode != null)
+															{
+																<input type="text" class="form-control" value="@ViewBag.barcode" hidden name="barcode" placeholder="">
+																<input type="text" class="form-control" value="@ViewBag.tipe" hidden name="type" placeholder="">
+																<tr>
+																	<td rowspan="1" width="150px" style="vertical-align:top;">@(en !=null ? "Barcode:" : "Barkode:")</td>
+																	<td></td>
+																	<td col-sm-2 col-form-label>
+																		<div class="form-row">
+																			<div class="col-sm-10">
+																				<svg id="barcode" width="20px" height="20px "></svg>
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+																<tr style=" font-size:10pt">
+																	<td rowspan="1" width="150px" style="vertical-align:top;">@(en !=null ? "Date:" : "Tanggal:")</td>
+																	<td></td>
+																	<td>
+																		<div class="form-row">
+																			<div class="col-sm-10">
+																				<input type="text" class="form-control" value="@ViewBag.tipeDate" readonly>
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+															}
+														</tbody>
+													</table>
+														<br>
+														<br>
+														<div class="kt-inbox__reply kt-inbox__reply--on" style="padding-top: 30px;">
+															<div class="kt-inbox__body">
+																<div class="kt-inbox__primary" id="alltemplate" align="Center" style="display: marker;">
+																	<br>
+																	<div class="btn-group col-sm-2">
+																		@if (@ViewBag.barcode != null)
+																		{
+																		<button type="submit" style="background-color: #0C479D;" class="btn btn-bold btnsimp">
+																			<i class="flaticon-download-1" style="color: white;">&nbsp;Cetak Barcode</i>
+																					</button>
+																		}
+																	</div>
+																	<div class="btn-group col-sm-2" hidden>
+																	</div>
+																	<div class="btn-group col-sm-2" hidden>
+																	</div>
+																	<div class="btn-group col-sm-2">
+																		
+																	</div>
+																	<br>
+																	<br>
+																	<br>
+																	<div class="btn-group col-sm-2">
+																		
+																	</div>
+																</div>
+																<br>
+															</div>
+															<br>
+															<br>
+														</div>
+												</form>
+											</fieldset>
+											<fieldset id="pemeriksa_field"> <legend style="font-size: 10pt"><b></b></legend>
+													<table width="480" border="0">
+													</table>
+											</fieldset>
+										</div>
+								</fieldset>
+						</div>
+					</div>
+				</div>
+			</div>
+        </div>
+    </div>
+</div>
+<!-- END: Body -->
+
+<script src="~/js/JsBarcode.all.min.js"></script>
+<script>
+
+	JsBarcode("#barcode", "@ViewBag.barcode", {
+		width: 2,
+		height: 50,
+		fontSize: 50,
+		displayValue: false
+
+	});
+
+	function formupdate() {
+		var selectedPackage = document.getElementById("tipe").value;
+		document.getElementById('vbrcd').style.display = "none";
+	}
+
+	$("#tipe").change(function() {
+		$("#nmrbrcd").val("");
+        });
+
+	//window.print();
+
+	//window.open('', '_parent', '');
+
+		//window.close();
+</script>

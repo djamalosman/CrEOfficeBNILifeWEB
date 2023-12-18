@@ -1,0 +1,362 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localiza
+@using Microsoft.AspNetCore.Http
+@model EofficeBNILWEB.Models.DeliveryDetailOutput
+@inject IHttpContextAccessor Accessor
+@{
+    var sessidUser = Accessor.HttpContext.Session.GetString("idUser");
+    var sessidUnit = Accessor.HttpContext.Session.GetString("idUnit");
+    var en = Accessor.HttpContext.Session.GetString("en");
+    var ina = Accessor.HttpContext.Session.GetString("ina");
+    int no = 1;
+}
+<style>
+    .hide {
+        display: none;
+    }
+</style>
+<!-- begin::Body -->
+<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
+    <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver    m-container m-container--responsive m-container--xxl m-page__container">
+        <div class="m-grid__item m-grid__item--fluid m-wrapper">
+            <!-- BEGIN: Subheader -->
+            <div class="m-subheader ">
+                <div class="d-flex align-items-center">
+                    <div class="mr-auto" style="color: white;">
+                        <h3 class="m-subheader__title m-subheader__title--separator" style="color: white;">
+                            @(en != null ? "EOFFICE LETTER DELIVERY DETAIL" : "DETAIL PENGIRIMAN SURAT EOFFICE")
+                        </h3>
+                        <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                            <li class="m-nav__item m-nav__item--home">
+                                <a href="#" class="m-nav__link m-nav__link--icon">
+                                    <i class="m-nav__link-icon la la-home" style="color: white;"></i>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        MAILING ROOM
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        @(en != null ? "EOFFICE LETTER DELIVERY DETAIL" : "DETAIL PENGIRIMAN SURAT EOFFICE")
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Subheader -->
+            <div class="m-content" style="padding: 30px 30px !important;">
+                <!--Begin::Main Portlet-->
+                <div class="m-portlet m-portlet--full-height ">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link @ViewBag.UlTabActiveHome" id="home-tab" data-toggle="tab" href="#home">
+                                <span class="nav-icon">
+                                    <i class="flaticon2-file-1"></i>
+                                </span>
+                                <span class="nav-text">Manual</span>
+                            </a>
+                        </li>
+                        @*<li class="nav-item">
+                        <a class="nav-link @ViewBag.UlTabActiveUpload" id="profile-tab" data-toggle="tab" href="#profile" aria-controls="profile">
+                        <span class="nav-icon">
+                        <i class="flaticon-upload"></i>
+                        </span>
+                        <span class="nav-text">Insert Data With Excel Document</span>
+                        </a>
+                        </li>*@
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+
+                        @*Insert Manual*@
+                        <div class="tab-pane fade @ViewBag.DivTabActiveHome" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="m-portlet__body">
+                                <div>
+                                    <h4>Daftar Surat Belum Dikirim</h4>
+                                </div>
+                                <div class="table-responsive">
+                                    <table id="myTablee" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "No" : "No")</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Letter Number" : "Nomor Surat")</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Receipt Date" : "Tanggal")</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Sender" : "Pengirim")</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Division" : "Divisi")</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Destination Name" : "Nama Tujuan")</th>
+                                                @*<th>@(en != null ? "Status" : "Status")</th>*@
+                                                @*<th>@(en != null ? "Action" : "Aksi")</th>*@
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.letter)
+                                            {
+                                                <tr>
+                                                    <td style="word-wrap: break-word;">@no</td>
+                                                    <td style="word-wrap: break-word;">@item.letterNumber</td>
+                                                    <td style="word-wrap: break-word;">
+                                                        @if (item.receiveDate != null)
+                                                        {
+                                                            @Convert.ToDateTime(item.receiveDate).ToString("dd-MM-yyyy")
+                                                        }
+                                                    </td>
+                                                    <td style="word-wrap: break-word;">@item.sender</td>
+                                                    <td style="word-wrap: break-word;">@item.senderDivision</td>
+                                                    <td style="word-wrap: break-word;">
+                                                        @{
+                                                            var destination = item.destination_receiver_name == null ? item.receiver : item.destination_receiver_name;
+                                                        }
+                                                        @destination
+                                                    </td>
+                                                    @*<td style="word-wrap: break-word;">@item.status</td>*@
+                                                    @*<td>
+                                                        @if (item.statusCode < 3)
+                                                        {
+                                                            <a class="btn btn-warning" href="@Url.Action("DetailSKDelivery","Letter")" onclick="return confirm('Apakah anda yakin ingin mengeluarkan surat ini dari pengiriman?')" style="line-height: 5px; color:white;">Keluarkan</a>
+                                                        }
+                                                    </td>*@
+                                                </tr>
+                                                no++;
+                                            }
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <hr />
+                                <br />
+                                <form method="post" asp-action="UpdateSKDelivery" asp-controller="Letter">
+                                    <div>
+                                        <h4>Detail Pengiriman</h4>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-2 col-form-label">&nbsp; @(en != null ? "Shipping Type" : "Tipe Pengiriman")</label>
+                                        <div class="col-sm-4">
+                                            <select class="form-control select2-selection__rendered" id="shippingType" name="shippingType" required onchange="changeShippingType(this.value)">
+                                                <option value="">--@(en != null ? "Shipping Type" : "Tipe Pengiriman")--</option>
+                                                @foreach (var item in ViewBag.ShippingTypeList)
+                                                {
+                                                    @if(item.attributeValue == Model.shippingTypeCode){
+                                                        <option value="@item.attributeValue" selected="selected">@item.value</option>
+                                                    }else{
+                                                        <option value="@item.attributeValue">@item.value</option>
+                                                    }
+                                                    
+                                                }
+                                            </select>
+                                            <input type="hidden" name="idLetter" id="idLetter"/>
+                                            <input type="hidden" name="idDelivery" id="idDelivery" value="@Model.idDelivery" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row" id="divDelivType">
+                                        <label for="inputEmail3" class="col-sm-2 col-form-label">&nbsp; @(en != null ? "Delivery Type" : "Tipe Pengiriman")</label>
+                                        <div class="col-sm-4">
+                                            <select class="form-control select2-selection__rendered" id="deliveryType" name="deliveryType">
+                                                <option value="">--@(en != null ? "Select Delivery Type" : "Pilih Tipe Pengiriman")--</option>
+                                                @foreach (var item in ViewBag.DeliveryTypeList)
+                                                {
+                                                    @if(item.attributeValue == Model.deliveryTypeCode)
+                                                    {
+                                                        <option value="@item.attributeValue" selected="selected">@item.value</option>
+                                                    }else{
+                                                        <option value="@item.attributeValue">@item.value</option>
+                                                    }
+                                                    
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputtext3" class="col-sm-2 col-form-label">&nbsp; @(en != null ? "Receipt Date" : "Tanggal Diterima")</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" id="fillingDate" name="fillingDate" value="@Convert.ToDateTime(Model.createdOn).ToString("dd-MM-yyyy")" readonly="readonly" style="background-color: #e6e9ec;">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row" id="divEkspedisi">
+                                        <label for="inputpassword3" class="col-sm-2 col-form-label">&nbsp; @(en != null ? "Expedition Name" : "Nama Ekspedisi")</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" id="expedition" name="expedition" class="form-control ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" value="@Model.expedition">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row" id="divRefrenceNo">
+                                        <label for="inputpassword3" class="col-sm-2 col-form-label">&nbsp; @(en != null ? "Reference Number" : "Nomor Referensi")</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" autocomplete="off" class="form-control" id="referenceNumber" name="referenceNumber" value="@Model.referenceNumber">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row" id="divAwbNo">
+                                        <label for="inputpassword3" class="col-sm-2 col-form-label">&nbsp; @(en != null ? "No AWB / No Delivery" : "No AWB / No Pengiriman")</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" autocomplete="off" class="form-control" id="receiptNumber" name="receiptNumber" value="@Model.receiptNumber">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputpassword3" class="col-sm-2 col-form-label">&nbsp; @(en != null ? "Destination Name" : "Nama Tujuan")</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" autocomplete="off" class="form-control" id="destination_receiver_name" name="destination_receiver_name" value="@Model.destination_receiver_name"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputpassword3" class="col-sm-2 col-form-label">&nbsp; @(en != null ? "Destination Phone Number" : "Nomor HP Tujuan")</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" autocomplete="off" class="form-control" id="receiverPhone" name="receiverPhone" value="@Model.receiverPhone" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputpassword3" class="col-sm-2 col-form-label">&nbsp; @(en != null ? "Address" : "Alamat")</label>
+                                        <div class="col-sm-4">
+                                            <textarea id="address" name="address" rows="4" cols="50" value="@Model.address">@Model.address</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputpassword3" class="col-sm-2 col-form-label">&nbsp; @(en != null ? "Receiver" : "Penerima")</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" autocomplete="off" class="form-control" id="receiverName" name="receiverName" value="@Model.receiverName" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputtext3" class="col-sm-2 col-form-label">&nbsp; @(en != null ? "Receipt Date" : "Tanggal Penerimaan")</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" autocomplete="off" class="form-control" id="m_datepicker_1" name="receiveDate" value="@Model.receiveDate">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-2 col-form-label">&nbsp; @(en != null ? "Status" : "Status")</label>
+                                        <div class="col-sm-4">
+                                            <select class="form-control select2-selection__rendered" id="status" name="status">
+                                                <option value="">--@(en != null ? "Select Status" : "Pilih Status")--</option>
+                                                @foreach (var item in ViewBag.StatusCodeList)
+                                                {
+                                                    @if(item.attributeValue == Model.statusCode)
+                                                    {
+                                                        <option value="@item.attributeValue" selected="selected">@item.value</option>
+                                                    }else{
+                                                        <option value="@item.attributeValue">@item.value</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="tab-content">
+                                        <button class="btn btn-success" type="submit">Submit</button>
+                                        <br>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--End::Main Portlet-->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: Body -->
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#myTablee').DataTable({
+            scrollY: true,
+            scrollX: true,
+            //order: [[ 12, "desc" ]]
+        });
+        $(document).on("click", ".passingID", function () {
+            var ids = $(this).attr('data-id');
+            $.ajax({
+                url: "@Url.Action("GetDetailEkspedisiNon","GenerateNoDoc")",
+                method: "POST",
+                data: { ids: ids },
+                success: function (data) {
+                    $('#employee_detail').html(data);
+                    $(".modal-body #letter_number").val(ids);
+                }
+            });
+
+        });
+    
+        var dataLetter = @Html.Raw(@ViewBag.DetailDeliveryJSON);
+        const letterLenth = dataLetter.letter.length;
+        for(var i = 0;i<letterLenth;i++)
+        {
+            fillidLetter(dataLetter.letter[i].idLetter);
+        }
+        changeShippingType(dataLetter.shippingTypeCode);
+    });
+    
+
+    $("#expedition").autocomplete({
+        minLength: 3,
+        source: function (req, res) {
+            $.ajax({
+                url: "@Url.Action("GetEkspediCopy","GenerateNoDoc")",
+                method: "POST",
+                data: { keyword: req.term },
+                success: function (msg) {
+                    var data = JSON.parse(msg);
+
+                    var d = $.map(data, function (row) {
+                        return {
+                            label: row.expedition_name,
+                            value: row.expedition_name
+                        }
+                    });
+                    res(d);
+                }
+            });
+        },
+        focus: function (event, ui) {
+            $("#expedition").val(ui.item.label);
+
+            return false;
+        }
+
+
+    });
+    function fillidLetter(value) {
+        var intt = 0;
+        document.getElementById("idLetter").value = '';
+        if (intt == 0) {
+            document.getElementById("idLetter").value = value;
+            intt++;
+        } else {
+            document.getElementById("idLetter").value += ',' + value;
+        }
+    }
+    function changeShippingType(shippingType)
+    {
+        //var en = '@en';
+        if(shippingType == 1)
+        {
+            document.getElementById('divEkspedisi').style.display = "flex";
+            document.getElementById('divDelivType').style.display = "none";
+            document.getElementById('divRefrenceNo').style.display = "flex";
+            document.getElementById('divAwbNo').style.display = "flex";
+        } else if (shippingType == 2) {
+            document.getElementById('divEkspedisi').style.display = "none";
+            document.getElementById('divDelivType').style.display = "flex";
+            document.getElementById('divRefrenceNo').style.display = "none";
+            document.getElementById('divAwbNo').style.display = "none"
+        }
+
+    }
+    $(document).on("click", ".qrcodes", function () {
+        var ids = $(this).attr('data-id');
+        var delivNumber = $(this).attr('data-number');
+        var delivType = $(this).attr('data-type');
+        $(".modal-body #idDeliv").val(ids);
+        $(".modal-body #delivNumber").val(delivNumber);
+        $(".modal-body #delivType").val(delivType);
+    });
+
+</script>

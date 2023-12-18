@@ -1,0 +1,371 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localiza
+@model EofficeBNILWEB.Models.DocumentOutput
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@{
+    var sessidUser = Accessor.HttpContext.Session.GetString("idUser");
+    var sessidUnit = Accessor.HttpContext.Session.GetString("idUnit");
+    var order = 0;
+    var numButton = 1;
+    //DateTime dtReceive = DateTime.ParseExact(Model.receivedDate, "yyyy-MM-ddTHH:mm:ss", null);
+    string dateReceiver = Convert.ToDateTime(Model.receivedDate).ToString("yyyy-MM-dd");
+    var docReceiverCount = Model.documentReceiver.Count();
+    var en = Accessor.HttpContext.Session.GetString("en");
+    var ina = Accessor.HttpContext.Session.GetString("ina");
+}
+<!-- begin::Body -->
+<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
+    <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver    m-container m-container--responsive m-container--xxl m-page__container">
+        <div class="m-grid__item m-grid__item--fluid m-wrapper">
+            <!-- BEGIN: Subheader -->
+            <div class="m-subheader ">
+                <div class="d-flex align-items-center">
+                    <div class="mr-auto" style="color: white;">
+                        <h3 class="m-subheader__title m-subheader__title--separator" style="color: white;">
+                            @(en != null ? "Register Incoming Document" : "Dokumen Masuk")
+                        </h3>
+                        <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                            <li class="m-nav__item m-nav__item--home">
+                                <a href="#" class="m-nav__link m-nav__link--icon">
+                                    <i class="m-nav__link-icon la la-home" style="color: white;"></i>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        Mailing Room
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        @(en != null ? "Document" : "Dokumen")
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        @(en != null ? "Register Incoming Document" : "Dokumen Masuk")
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        @(en != null ? "Details Document" : "Detail Dokumen")
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Subheader -->
+            <div class="m-content" style="padding: 30px 30px !important;">
+                <!--Begin::Main Portlet-->
+                <div class="m-portlet m-portlet--full-height ">
+                    <div class="m-portlet__body">
+                        <form method="post" id="formDocument">
+                            <input type="hidden" class="form-control" id="idDocument" name="idDocument" value="@Model.idDocument">
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">&nbsp; @(en != null ? "Document type" : "Jenis Dokumen")</label>
+                                <div class="col-sm-4">
+                                    <select (@Model.statusCodeValue == 6 ? "disable" : "") class=" form-control @ViewBag.EditableDropdown"   id="documentType" name="documentType" required @ViewBag.EditableText>
+                                        <option value="">--Pilih Tipe Dokumen--</option>
+                                        @foreach (var item in ViewBag.DocumentType)
+                                        {
+                                            if (item.attributeValue == Model.documentType)
+                                            {
+                                                <option value="@item.attributeValue" selected="selected">@item.value</option>
+                                            }
+                                            else{
+                                                <option value="@item.attributeValue">@item.value</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputtext3" class="col-sm-2 col-form-label">&nbsp;  @(en != null ? "Receipt Number / AWB" : "Nomor Resi / AWB")</label>
+                                <div class="col-sm-4">
+                                    @*<div class="radio-inline">
+                                        <label class="radio">
+                                            <input type="radio" checked="checked" name="resiType" value="1" onclick="checkRadioButtonResi(this.value)">
+                                            <span></span>Manual
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" name="resiType" value="2" onclick="checkRadioButtonResi(this.value)">
+                                            <span></span>Otomatis
+                                        </label>
+                                    </div>*@
+                                    <input type="text" class="form-control" id="trackingNumber" autocomplete="off" name="trackingNumber" placeholder="Nomor Resi / AWB" onkeyup="checkNumber(this.value)" value="@Model.trackingNumber" required readonly="1" style="background-color:#e6e9ec">
+                                    <div class="fv-plugins-message-container">
+                                        <div id="messageTrackingNumber">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputtext3" class="col-sm-2 col-form-label">&nbsp; @(en != null ? "Date Received" : "Tanggal Diterima")</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="@ViewBag.IdDate" autocomplete="off" name="receivedDate" value="@dateReceiver" required readonly="readonly" style="background-color: #e6e9ec;" @ViewBag.EditableText>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputpassword3" class="col-sm-2 col-form-label">&nbsp; @(en != null ? "Sender" : "Pengirim")</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="senderName" autocomplete="off" name="senderName" value="@Model.senderName" @ViewBag.EditableText>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputpassword3" class="col-sm-2 col-form-label">&nbsp;@(en != null ? "Letter receiver" : "Penerima Surat")</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="docReceiver" autocomplete="off" name="docReceiver" value="@Model.docReceiver" @ViewBag.EditableText>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputpassword3" class="col-sm-2 col-form-label">&nbsp; @(en != null ? "Total Documents" : "Total Dokumen")</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="qtyTotal" autocomplete="off" name="qtyTotal" value="@Model.qtyTotal" readonly="1" style="background-color: #e6e9ec;" @ViewBag.EditableTextTotal>
+                                </div>
+                            </div>
+                            @foreach(var dtReceiver in Model.documentReceiver)
+                            {
+                                var idDiv = "divbaru"+order;
+                                <div class="form-group row" id="@idDiv">
+                                    <div class="col-md-3">
+                                        <label>@(en != null ? "Receiving Division" : "Divisi Penerima")</label>
+                                        <select class="form-control @(dtReceiver.statusCode == 1 ? ViewBag.EditableDropdown : "")" id="idUnitSelect_@order" name="idUnitSelect" required onchange="changeReceiver(this.value,@order)" @(dtReceiver.statusCode != 1 ? "readonly=1 style=background-color:#e6e9ec !important" : "")>
+                                            @if (dtReceiver.statusCode == 1)
+                                            {
+                                                <option value="">--Pilih Divisi--</option>
+                                            }
+                                            
+                                            @foreach (var item in ViewBag.Divison)
+                                            {
+                                                if (dtReceiver.statusCode != 1)
+                                                {
+                                                    if (dtReceiver.idUnit == item.idUnit)
+                                                    {
+                                                        <option value="@item.idUnit _ @item.idUser _ @item.userName" selected="selected">@item.unitName</option>
+                                                    }
+                                                }else{
+                                                    if (dtReceiver.idUnit == item.idUnit)
+                                                    {
+                                                        <option value="@item.idUnit _ @item.idUser _ @item.userName" selected="selected">@item.unitName</option>
+                                                    }
+                                                    else{
+                                                        <option value="@item.idUnit _ @item.idUser _ @item.userName">@item.unitName</option>
+                                                    }
+                                                }
+                                            }
+                                        </select>
+                                        <input type="hidden" class="form-control" id="idUnit_@order" value="@dtReceiver.idUnit" name="idUnit">
+                                        <input type="hidden" class="form-control" id="idDocReceiver_@order" value="@dtReceiver.idDocumentReceiver" name="idDocumentReceiver">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>@(en != null ? "Recipient User" : "User Penerima")</label>
+                                        <input type="text" class="form-control" id="receiverName_@order" autocomplete="off" name="receiverName" value="@dtReceiver.tuName" readonly="readonly" style="background-color: #e6e9ec;">
+                                        <input type="hidden" class="form-control" id="idUserTu_@order" name="idUserTu" value="@dtReceiver.idUserTu">
+                                    </div>
+                                    <div class="col-md-3" style="@(dtReceiver.returnNumber != null && dtReceiver.returnNumber != "" ? "" : "display:none")">
+                                        <label>@(en != null ? "Return Number" : "Nomor Return") </label>
+                                        <input type="text" class="form-control" id="returnNumber_@order" autocomplete="off" name="returnNumber" value="@dtReceiver.returnNumber" readonly="readonly" style="background-color: #e6e9ec;">
+                                    </div>
+                                      
+                                    <div class="col-md-2">
+                                        <label>&nbsp;</label>
+                                        @if (sessidUnit == "D0D02AA8-7A27-ED11-89B0-3CF011A1A981")
+                                        {
+                                            if ((dtReceiver.statusCode == 1 || (dtReceiver.statusCode == 3 && dtReceiver.receivedDate != null) || (dtReceiver.statusCode == 4 && dtReceiver.receivedDate != null)) && Model.statusCode != 5 && Model.statusCode != 6)
+                                            {
+                                                if (docReceiverCount == numButton)
+                                                {
+                                                    <input type="button" value="+" id="btnAddPenerima" onclick="AddTextBox()" class="btn btn-success" style="display:block">
+                                                }
+                                                numButton++;
+                                                @*if (numButton == 0)
+                                                {
+                                                    <input type="button" value="+" id="btnAddPenerima" onclick="AddTextBox()" class="btn btn-success" style="display:block">
+                                                    numButton++;
+                                                }
+                                                else
+                                                {
+                                                    <input type="button" value="-" id="btnRemovePenerima" onclick="RemoveTextBox(@order)" class="btn btn-danger" style="display:block">
+                                                }*@
+                                                
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-4">
+                                        <label>Received Document</label>
+                                        <input type="text" class="form-control" id="receivedDocument_@order" autocomplete="off" name="receivedDocument" value="@dtReceiver.receivedDocument" readonly="readonly" style="background-color: #e6e9ec;">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Returned Document</label>
+                                        <input type="text" class="form-control" id="returnedDocument_@order" autocomplete="off" name="returnedDocument" value="@dtReceiver.returnedDocument" readonly="readonly" style="background-color: #e6e9ec;">
+                                    </div>
+                                </div>
+                                order++;
+                            }
+                            <div id="TextBoxContainer">
+                                <!--Textboxes will be added here -->
+                            </div>
+                            <div class="kt-inbox__primary" style="padding-bottom: 5%;">
+                                <div class="col-6">
+                                    <h3>Log History</h3>
+                                    <div style="border:solid 1px lightgray;border-radius:10px;width:100%;max-height:142px;min-height:142px;overflow-y:scroll">
+                                        <ul>
+                                            @foreach (var dtLog in Model.documentLog)
+                                            {
+                                                var word = Convert.ToDateTime(dtLog.createdOn).ToString("dd-MM-yyyy HH:mm:ss") + " - " + dtLog.description;
+                                                <li>@word</li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="tab-content">
+                                @if (Model.statusCode != 5 && Model.statusCode != 6)
+                                {
+                                    <button class="btn btn-success" type="button" onclick="checkReceiverNew()">Submit</button>
+                                    <br>
+                                }
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!--End::Main Portlet-->
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var order = 0;
+    $(document).ready(function () {
+        var orders = @order;
+        order = orders;
+    });
+    function AddTextBox() {
+        var div = GetDynamicTextBox(order);
+        $("#TextBoxContainer").append(div);
+        $(".select2stylecss").select2({});
+        order++;
+    }
+    function GetDynamicTextBox(value) {
+        var html = "<div class='form-group row' id='divbaru" + value + "'> <div class='col-md-3'> <label>Divisi Penerima</label> <select class='form-control @ViewBag.EditableDropdown' id='idUnitSelect_" + value + "' name='idUnitSelect' required onchange='changeReceiver(this.value," + value + ")'> <option value=''>--Pilih Divisi--</option> @foreach (var item in ViewBag.Divison){<option value='@item.idUnit _ @item.idUser _ @item.userName'>@item.unitName</option>} </select> <input type='hidden' class='form-control' id='idUnit_" + value + "' name='idUnitNew'> </div> <div class='col-md-3'> <label>User Penerima </label> <input type='text' class='form-control' id='receiverName_" + value + "' name='receiverName' readonly='readonly' style='background-color: #e6e9ec;'> <input type='hidden' class='form-control' id='idUserTu_" + value + "' name='idUserTuNew'> </div>  <div class='col-md-3'> <label>Nomor Return </label> <input type='text' class='form-control' id='returnNumberNew_" + value + "' name='returnNumberNew' required> </div> <div class='col-md-2'> <label>&nbsp; </label> <input type='button' value='-' id='btnRemovePenerima' onclick='RemoveTextBox(" + value + ")' class='btn btn-danger' style='display:block'> </div> </div> ";
+        var textBox = $(html);
+        textBox.val(value);
+
+        return textBox;
+    }
+    function RemoveTextBox(id) {
+        //alert(id);
+        //console.log("divbaru"+id);
+        $("#divbaru"+id).remove();
+    }
+    function checkNumber(trackingNumber) {
+        $("#trackingNumber").removeClass("is-valid");
+        $("#trackingNumber").removeClass("is-invalid");
+        $('#messageTrackingNumber').html('');
+        $.ajax({
+            url: "@Url.Action("GetDocumentByTrackingNumber","Document")",
+            method: "POST",
+            data: { trackingNumber: trackingNumber },
+            success: function (msg) {
+                var data = JSON.parse(msg);
+                //console.log(data);
+                if (data.Status == "OK") {
+                    $("#trackingNumber").removeClass("is-invalid");
+                    $("#trackingNumber").addClass("is-valid");
+                    $('<label style="color:#1BC5BD">' + data.Message + '</label>').appendTo('#messageTrackingNumber');
+                }
+                else if (data.Status == "NG") {
+                    $("#trackingNumber").removeClass("is-valid");
+                    $("#trackingNumber").addClass("is-invalid");
+                    $('<label style="color:#F64E60">' + data.Message + '</label>').appendTo('#messageTrackingNumber');
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("ERROR!!!");
+            }
+        });
+    }
+    function changeReceiver(val,orders) {
+        var value = val.split(" _ ");
+        if (val != "") {
+            document.getElementById("idUnit_"+orders).value = value[0];
+            document.getElementById("receiverName_" + orders).value = value[2];
+            document.getElementById("idUserTu_" + orders).value = value[1];
+        }
+        else {
+            document.getElementById("receiverName_" + orders).value = "";
+            document.getElementById("idUserTu_" + orders).value = "";
+            document.getElementById("idUnit_"+orders).value = "";
+        }
+
+    }
+    function checkReceiverNew(){
+        var statusDoc = @Model.statusCode;
+        if(statusDoc != 1)
+        {
+            var element = document.getElementById("btnRemovePenerima");
+            console.log(element);
+            if(typeof(element) == 'undefined' || element == null){
+                callAlert("Divisi penerima harus tambahkan");
+                return false;
+            }else{
+                //callAlert("Dasdasdas");
+                document.forms['formDocument'].submit();
+                return true;
+            }
+        }else{
+            //callAlert("Dasdasdas");
+            document.forms['formDocument'].submit();
+            return true;
+        }
+    }
+    function callAlert(message) {
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Validasi',
+            text: message,
+            showConfirmButton: true,
+            //timer: 1500,
+            onBeforeOpen: () => {
+                timerInterval = setInterval(() => {
+                    const content = Swal.getContent()
+                    if (content) {
+                        const b = content.querySelector('b')
+                        if (b) {
+                            b.textContent = Swal.getTimerLeft()
+                        }
+                    }
+                }, 100)
+            },
+            onClose: () => {
+                clearInterval(timerInterval)
+            }
+        }).then((result) => {
+            /* Read more about handling dismissals below */
+        })
+    }
+</script>

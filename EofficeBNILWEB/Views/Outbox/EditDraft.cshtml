@@ -1,0 +1,679 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localiza
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@{
+    var sessidUser = Accessor.HttpContext.Session.GetString("idUser");
+    var sessidUnit = Accessor.HttpContext.Session.GetString("idUnit");
+} 
+
+<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
+    <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver  m-container m-container--responsive m-container--xxl m-page__container">
+     <div class="m-grid__item m-grid__item--fluid m-wrapper">
+		<!-- BEGIN: Subheader -->
+      <div class="m-subheader">
+       <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <h3 class="m-subheader__title m-subheader__title--separator" style="color: white;">
+                            Edit Surat
+                        </h3>
+          <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+            <li class="m-nav__item m-nav__item--home">
+             <a href="#" class="m-nav__link m-nav__link--icon">
+              <i class="m-nav__link-icon la la-home" style="color: white;"></i>
+            </a>
+          </li>
+          <li class="m-nav__separator">
+           -
+         </li>
+         <li class="m-nav__item">
+           <a href="" class="m-nav__link">
+            <span class="m-nav__link-text" style="color: white;">
+             E-OFFICE
+           </span>
+         </a>
+       </li>
+       <li class="m-nav__separator">
+         -
+       </li>
+         <li class="m-nav__item">
+             <a href="" class="m-nav__link">
+                <span class="m-nav__link-text" style="color: white;">
+                   Surat
+               </span>
+           </a>
+         </li>
+               </ul>
+
+             </div>
+             <div>
+
+             </div>
+           </div>
+         </div>
+         <!-- END: Subheader -->
+         <div class="m-content">
+
+          <!--Begin::Main Portlet-->
+          <div class="kt-container  kt-grid__item kt-grid__item--fluid">
+            <!--Begin::Inbox-->
+            <div class="kt-grid kt-grid--desktop kt-grid--ver-desktop  kt-inbox" id="kt_inbox">
+              <!--Begin::Aside Mobile Toggle-->
+              <button class="kt-inbox__aside-close" id="kt_inbox_aside_close">
+                <i class="la la-close"></i>
+              </button>
+              <!--Begin:: Inbox View-->
+              <div class="kt-grid__item kt-grid__item--fluid    kt-portlet    kt-inbox__view kt-inbox__view--shown-" id="kt_inbox_view" style="display: flex;">
+                <!-- <p>outbox/newmail/edit_surat</p> -->
+                <form id="eval-form" enctype="multipart/form-data" action="http://10.1.5.102/outbox/newmail/edit_surat" method="post">
+                 <fieldset style="width:99%;">
+                  <input type="hidden" id="daripreview" name="daripreview" value="0">
+                  <input type="hidden" id="tipe" name="tipe">
+                  <input type="hidden" id="idsurat" name="idsurat" value="NTA1MjYx">
+                  <div style="float:left;padding-left:30px">
+                              <br>
+                              <fieldset><legend style="font-size: 10pt"><b>Kepala Surat</b></legend>
+                                <table class="head_table" width="620" border="0">
+                                 <tbody>
+                                  <tr style="font-size:10pt"><td style="width: 120px">Jenis / No / Tgl </td><td> : </td>
+                                    <td width="500"> 
+                                      <div class="form-row">
+                                        <div class="col-5">
+                                                                                     <select id="jenis" name="jenis" class="select2-selection__rendered form-control select2-hidden-accessible" style="height: 30px !important;" tabindex="-1" aria-hidden="true">
+                                                                                                                                                                                                                          <option style="height: 30px;" value="nota_dinas">Nota Dinas</option>
+                                                                                                                          
+                                                                                                                                                                                                                                   
+                                                                                                                                                                                                                                     <option style="height: 30px;" value="memo">Memo</option>
+                                                                                                                          
+                                                                                                                                                                                                                                   
+                                                                                                                                                                                                                                     <option style="height: 30px;" value="nd_undangan">Pengajuan Undangan</option>
+                                                                                                                          
+                                                                                                                                                                                                                                     <option style="height: 30px;" value="surat_perintah" selected="selected">Surat Perintah</option>
+                                                                                                                          
+                                                                                                                                                                                                                                     <option style="height: 30px;" value="pengumuman">Pengumuman</option>
+                                                                                                                          
+                                                                                                                                                                                                                                     <option style="height: 30px;" value="pengajuan_proses_pengadaan">Pengajuan Proses Pengadaan</option>
+                                                                                                                          
+                                                                                                                                                                                                                                     <option style="height: 30px;" value="permintaan_penagihan">Permintaan Penagihan</option>
+                                                                                                                          
+                                                                                                                                                                                                                                     <option style="height: 30px;" value="permohonan_pembayaran">Permohonan Pembayaran</option>
+                                                                                                                          
+                                                                                                                </select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 202.5px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-jenis-container"><span class="select2-selection__rendered" id="select2-jenis-container" title="Surat Perintah"><span class="select2-selection__clear">×</span>Surat Perintah</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                                                                                        </div>
+
+                                                   <!-- Penomoran -->
+                                                   <div class="col-4">
+                                                                                                          <input type="text" class="form-control" name="nomer" id="nomer" readonly="" placeholder="auto" style="height: 30px; background-color: #e6e9ec;">
+                                                                                                      </div>
+                                                  <div class="col-3">
+                                                                                                          <input name="tanggal" class="form-control" type="text" id="tanggal" readonly="" placeholder="auto" style="height: 30px; background-color: #e6e9ec;">
+                                                                                                      </div>
+                                                  <!-- Penomoran -->
+                                                </div>
+                                              </td>
+                                            </tr>
+                                                                                                                          <tr id="agenda_f" style="display:marker">
+                                  </tr><tr style=" font-size:10pt;" id="agenda_f1">
+                                    <td width="91">Mulai </td><td colspan="4"> : 
+                                     <input type="text" id="tgl_mulaix" style="width:122px;margin-top: 1%;" name="tgl_mulai" value="21-09-2022" autocomplete="off" onchange="gantiisi()" class="hasDatepicker">
+                                     &nbsp; s/d &nbsp;
+                                     <input type="text" id="tgl_selesaix" style="width:122px;margin-top: 1%;" name="tgl_selesai" value="23-09-2022" autocomplete="off" onchange="gantiisi()" class="hasDatepicker">
+                                     &nbsp;
+                                   </td>
+                                 </tr>
+                                 <tr style="display:marker" id="agenda_f5">
+                                  <td width="91">Lokasi </td><td width="457" colspan="4"> :
+                                    <input type="text" id="lokasi_" style="width:380" name="lokasi_" value="" onchange="gantiisi()">
+                                  </td>
+                                </tr>
+                              
+                                                          
+
+                              <!-- Perihal dan Klasifikasi -->
+                              <tr style=" font-size:10pt"><td>Perihal </td><td> : </td>
+                                <td width="457">
+                                                                   <input class="form-control" value="tes untuk perikatan" name="perihal" type="text" id="perihal" style="background-color:#FFFFB3; height: 30px;">
+                                                              </td>
+                            </tr>
+                            <tr style=" font-size:10pt">
+                             <td>Klasifikasi Masalah</td><td> : </td><td>
+                                                              <div id="klasifikasidiv" style="position: relative; width: 500px; z-index: 1;">
+                                  <select id="klasifikasi" name="klasifikasi" class="select2-selection__rendered form-control select2-hidden-accessible" style="height: 30px;" tabindex="-1" aria-hidden="true"><option value="FP.017">FP.017-Pembinaan/pengaturan fasilitas penunjang</option><option value="FP.018">FP.018-Batas wilayah pelabuhan</option><option value="FP.019">FP.019-Penanggulangan bahaya kebakaran</option><option value="UT.02">UT.02-Usaha Terminal</option><option value="UT.020">UT.020-Klaim ganti rugi kerusakan fasilitas pelabuhan akibat ditabrak kapal</option><option value="UT.021">UT.021-Tolak ukur dan target</option><option value="UT.022">UT.022-Program kerja/ perencanaan</option><option value="UT.023">UT.023-Pengendalian pembinaan</option><option value="UT.024">UT.024-Tarip dan Klaim</option><option value="UT.025">UT.025-Analisa dan evaluasi</option><option value="UT.026">UT.026-Evaluasi kinerja operasional untuk kegiatan terminal non petikemas</option><option value="UT.027">UT.027-Sistem Prosedur Pengoperasian</option><option value="UT.028">UT.028-Pelaksanaan kegiatan penumpukan barang angkutan laut bandar</option><option value="UT.029">UT.029-Kegiatan pelabuhan/pemeliharaan alat-alat bongkar muat/mutasi alat-alat B/M dan Conveyor</option><option value="UC.03">UC.03-Jasa Container (Petikemas)</option><option value="UC.030">UC.030-Pergudangan/Penumpukan</option><option value="UC.031">UC.031-C.F.S</option><option value="UC.032">UC.032-C.Y</option><option value="UC.033">UC.033-Alat B/M Container</option><option value="UC.034">UC.034-Pembinaan operasional</option><option value="UC.035">UC.035-Perencanaan, Pembangunan dan pengawasan jasa terminal petikemas</option><option value="UC.036">UC.036-Stuffing dan Unstuffing</option><option value="UC.037">UC.037-Evaluasi kinerja operasional untuk kegiatan terminal petikemas</option><option value="PD.04">PD.04-Operasi Pemanduan/Docking</option><option value="PD.040">PD.040-Permasalahan yang menyangkut pegawai perusahaan</option><option value="PD.041">PD.041-Pelabuhan wajib pandu</option><option value="PD.042">PD.042-Penggunaan dan keadaan armada pemanduan dan stasiun pandu</option><option value="PD.043">PD.043-Penggandengan kapal</option><option value="PD.044">PD.044-Perbaikan/docking armada pemanduan</option><option value="PD.045">PD.045-Mutasi kapal-kapal kepanduan/ Alat Telekomunikasi</option><option value="PD.046">PD.046-Radio pantai/ kapal</option><option value="PD.047">PD.047-Pengembangan/pengaturan stasiun radio</option><option value="PD.048">PD.048-Perizinan telekomunikasi</option><option value="LO.05">LO.05-Laporan - laporan</option><option value="LO.050">LO.050-Laporan realisasi produksi pendapatan pelabuhan</option><option value="LO.051">LO.051-Laporan data kegiatan operasional pelabuhan/ B/M dan angkutan laut</option><option value="LO.052">LO.052-Laporan pemakaian tambatan</option><option value="LO.053">LO.053-Laporan pemakaian perairan/alat-alat apung</option><option value="LO.054">LO.054-Laporan bongkar muat</option><option value="LO.055">LO.055-Laporan pengadaan/pemeliharaan sarana bantu navigasi</option><option value="LO.056">LO.056-Laporan bulanan produksi/pendapatan kepanduan, kegiatan pemanduan dan stasiun pandu</option><option value="LO.057">LO.057-Laporan bulanan produksi/pendapatan usaha terminal, kegiatan usaha terminal</option><option value="LO.058">LO.058-Laporan simopel</option><option value="LO.059">LO.059-Laporan key performance indicator</option><option value="PR.06">PR.06-Penelitian/Survey</option><option value="PR.060">PR.060-Rencana penelitian</option><option value="PR.061">PR.061-Tanah/metereologi/klimatologi</option><option value="PR.062">PR.062-Hidrografi/topografi</option><option value="PR.063">PR.063-Lingkungan/bahan bangunan/jalan dan Jembatan</option><option value="PR.064">PR.064-Penyampaian data tekhnis permintaan data tentang studi</option><option value="PR.065">PR.065-Lalu-lintas angkutan laut/bongkar muat barang dan hewan di pelabuhan</option><option value="PR.066">PR.066-Situasi/kondisi fasilitas pelabuhan</option><option value="PR.067">PR.067-Perambuan dan telekomunikasi</option><option value="PR.068">PR.068-Kantor/tempat kerja dan Gudang rumah/tempat tinggal/asrama sekolah, rumah sakit</option><option value="PR.069">PR.069-Tempat olah raga/ibadah</option><option value="PR.07">PR.07-Proyek</option><option value="PR.070">PR.070-Surat perintah survey</option><option value="PR.071">PR.071-Laporan hasil survey</option><option value="PR.072">PR.072-Permintaan data/DIP/DUP</option><option value="PR.073">PR.073-Permintaan data revisi DIP</option><option value="PR.074">PR.074-Permintaan bantuan asing/loan</option><option value="PR.075">PR.075-Permintaan data tentang hasil proyek</option><option value="PR.076">PR.076-Pengangkatan Pempro, Bendpro/Team proyek</option><option value="PR.077">PR.077-Laporan proyek-proyek</option><option value="PR.078">PR.078-BA Serah terima hasil proyek</option><option value="PR.079">PR.079-Pelaksanaan survey lingkungan pelabuhan</option><option value="PR.08">PR.08-Perhitungan Design</option><option value="PR.080">PR.080-Rencana pembangunan fasilitas pelabuhan</option><option value="PR.081">PR.081-Jasa rencana perhitungan desain</option><option value="PR.083">PR.083-Keadaan dermaga, riol dan selokan jalan dan jembatan</option><option value="PR.082">PR.082-Keadaan kantor/tempat kerja/rumah dinas,asrama, rumah sakit.</option><option value="PR.084">PR.084-Keadaan tempat olahraga/tempat ibadah</option><option value="PR.085">PR.085-Keadaan lapangan penumpukan / gudang</option><option value="PR.086">PR.086-Keadaan kendaraan dinas</option><option value="PR.087">PR.087-Rencana pengadaan perbekalan/Investasi</option><option value="PR.088">PR.088-Rencana pemeliharaan fasilitas peralatan pelabuhan</option><option value="PR.089">PR.089-Permintaan dokumen pelelangan</option><option value="PR.09">PR.09-Pembiayaan Proyek/Teknik</option><option value="PR.090">PR.090-Perkenalan/rekanan Teknik</option><option value="PR.091">PR.091-Permintaan data harga satuan bahan/ barang</option><option value="PR.092">PR.092-Permintaan harga satuan upah</option><option value="PR.093">PR.093-Pengajuan TOR</option><option value="PR.094">PR.094-Pengumuman pelelangan /berita acara</option><option value="PR.095">PR.095-Aanwijzing</option><option value="PR.096">PR.096-Perhitungan volume</option><option value="PR.097">PR.097-Pembukaan penawaran</option><option value="PR.098">PR.098-Evaluasi hasil pelelangan</option><option value="PR.099">PR.099-Persetujuan pemenang pelelangan</option><option value="PR.10">PR.10-Pelaksanaan Pekerjaan Pemborongan / Asuransi</option><option value="PR.100">PR.100-Pengumuman pemenang pelelangan/ pelaksanaan pelelangan</option><option value="PR.101">PR.101-Penunjukan Pemborong</option><option value="PR.102" selected="selected">PR.102-Surat perintah kerja/surat perjanjian</option><option value="PR.103">PR.103-Jaminan penawaran pekerjaan/penagihan</option><option value="PR.104">PR.104-Pelimpahan pelaksanaan pekerjaan kepada cabang-cabang,/unit pelaksana</option><option value="PR.105">PR.105-Asuransi kebakaran (gedung/gudang)</option><option value="PR.106">PR.106-Claim asuransi gedung/barang/claim kapal /gedung</option><option value="PR.107">PR.107-Asuransi kendaraan bermotor</option><option value="PL.660">PL.660-Prosedur Penghapusan</option><option value="TS.11">TS.11-Pemeliharaan</option><option value="TS.110">TS.110-Pemeliharaan konstruksi, alur dan kolam</option><option value="TS.111">TS.111-Perbaikan dermaga, riol, selokan jalan dan jembatan</option><option value="TS.112">TS.112-Perbaikan gudang, lapangan penumpukan</option><option value="TS.113">TS.113-Perbaikan tempat olahraga/tempat ibadah</option><option value="TS.114">TS.114-Perbaikan penahan gelombang/talud, tanah</option><option value="TS.115">TS.115-Perbaikan gedung kantor/tempat kerja, rumah sakit, rumah dinas, asrama</option><option value="TS.12">TS.12-Pelaksanaan Pekerjaan Konstruksi</option><option value="TS.120">TS.120-Rencana pelaksanaan pekerjaan konstruksi</option><option value="TS.121">TS.121-Bangunan dermaga/Jalan jembatan Riol dan selokan</option><option value="TS.122">TS.122-Bangunan lapangan penumpukan gudang</option><option value="TS.123">TS.123-Bangunan kantor/Tempat kerja,Asrama, Rumah dinas, Rumah sakit</option><option value="TS.124">TS.124-Bangunan tempat olahraga/Tempat ibadah</option><option value="TS.125">TS.125-Bangunan talud/Penahan gelombang tanah</option><option value="TS.126">TS.126-Sistem dan prosedur pelaksanaan konstruksi sipil</option><option value="TS.127">TS.127-Analisa dan evaluasi kegiatan pelaksanaan konstruksi sipil</option><option value="TS.128">TS.128-Gambar bangunan/Pelabuhan, instalasi air, listrik, telepon</option><option value="TS.13">TS.13-Pemeliharaan Alur Kolam</option><option value="TS.130">TS.130-Rencana pemeliharaan alur dan kolam</option><option value="TS.131">TS.131-Analisa dan evaluasi kegiatan pemeliharaan alur dan kolam</option><option value="TS.132">TS.132-Pekerjaan bawah air</option><option value="TS.133">TS.133-Pengangkatan kerangka kapal</option><option value="TS.134">TS.134-Pengangkatan barang-barang meng- ganggu alur dan kolam</option><option value="TS.135">TS.135-Polusi di laut</option><option value="TS.136">TS.136-Pemberian kerja keruk</option><option value="TS.137">TS.137-Permintaan kerja keruk</option><option value="TS.138">TS.138-Pelaksanaan Predrege Sounding</option><option value="TS.139">TS.139-Penyelaman ilmiah dan peledakan</option><option value="OT.690">OT.690-Struktur Organisasi</option><option value="BL.680">BL.680-Pengembangan Pelabuhan</option><option value="PL.663">PL.663-Persetujuan</option><option value="PL.641">PL.641-Pemeriksaan Kondisi</option><option value="AL.700">AL.700-Ijin Usaha Pelayaran</option><option value="PL.665">PL.665-Pelelangan Kendaraan Dinas</option><option value="KL.848">KL.848-AMDAL / Limbah Kapal</option><option value="PL.640">PL.640-Permohonan Perbaikan</option><option value="PL.623">PL.623-Evaluasi Penawaran Harga</option><option value="PL.650">PL.650-Pengumpulan, pengolahan dan penyerahan data barang inventaris</option><option value="DL.534">DL.534-Reference Letter Untuk Sekolah Luar Negeri</option><option value="TS.14">TS.14-Pembersihan Alur dan Kolam</option><option value="TS.140">TS.140-Pekerjaan pemasangan jaringan kabel bawah air/Pemasangan pipa bawah air</option><option value="TS.141">TS.141-Penyimpanan sisa industri lepas pantai</option><option value="TS.142">TS.142-Menghilangkan gosong-gosong</option><option value="TS.143">TS.143-Penyelamatan kapal yang kandas</option><option value="TS.144">TS.144-Perintah kerja keruk</option><option value="TS.145">TS.145-Peta kedalaman alur dan kolam pelabuhan</option><option value="TS.146">TS.146-Pembersihan alur/ kolam pelabuhan</option><option value="TM.15">TM.15-Alat Bongkar Muat</option><option value="TM.150">TM.150-Rencanan pengadaan dan pengolahan alat bongkar muat dan peralatan lainnya</option><option value="TM.151">TM.151-Penyusunan rencana SISPRO pengadaan dan pengolahan tekhnis alat bongkar muat dan peralatan tekhnis lainnya</option><option value="TM.152">TM.152-Analisa dan evaluasi kegiatan</option><option value="TM.153">TM.153-Pengadaan dan pengolahan alat bongkar muat dan peralatan lainnya</option><option value="TM.154">TM.154-Pembinaan dan kegiatan pengadaan pengolahan tekhnis alat bongkar muat</option><option value="TM.155">TM.155-Persetujuan perbaikan kendaraan operasional/ kendaraan dinas</option><option value="TM.16">TM.16-Alat Peti Kemas</option><option value="TM.160">TM.160-Rencana pengadaan serta pengolahan tekhnis alat bongkar muat petikemas</option><option value="TM.161">TM.161-Pembinaan dan kegiatan pengadaan serta pengolahan tekhnis alat bongkar petikemas</option><option value="TM.162">TM.162-Gantry Crane/ Container Crane</option><option value="TM.163">TM.163-Transtainer</option><option value="TM.164">TM.164-Top Loader</option><option value="TM.165">TM.165-Trailer/ Mobile Crane</option><option value="TM.166">TM.166-Head Truck/ Chassis</option><option value="TM.167">TM.167-Penyusunan rencana system dan prosedur pengadaan dan pengelolaan tekhnis alat petikemas</option><option value="TM.168">TM.168-Analisa dan evaluasi kegiatan pengadaan dan pengelolaan tekhnis alat petikemas</option><option value="TM.17">TM.17-Listrik dan Air</option><option value="TM.170">TM.170-Penyusunan rencana pengadaan instalasi listrik dan air</option><option value="TM.171">TM.171-Penyusunan sistem dan prosedur pengadaan dan pengelolaan teknis instalasi listrik dan air</option><option value="TM.172">TM.172-Analisa dan evaluasi kegiatan pengadaan dan pengelolaan teknis instalasi listrik dan air</option><option value="TM.173">TM.173-Pembinaan dan pengadaan dan pengelolaan teknis instalasi listrik dan air</option><option value="TM.174">TM.174-Permintaan jaring-jaring instalasi air</option><option value="TM.175">TM.175-Permintaan jaring-jaring instalasi listrik</option><option value="TM.176">TM.176-Konservasi energi</option><option value="TM.177">TM.177-Perbaikan instalasi listrik</option><option value="TM.178">TM.178-Perbaikan instalasi air</option><option value="TM.18">TM.18-Alat alat apung</option><option value="TM.180">TM.180-Penyusunan rencana pengadaan alat-alat apung.</option><option value="TM.181">TM.181-Sistem dan prosedur alat-alat apung</option><option value="TM.182">TM.182-Pengelolaan teknis alat-alat apung</option><option value="TM.183">TM.183-Analisa dan evaluasi kegiatan pengadaan dan pengelolaan teknis alat-alat apung</option><option value="TM.184">TM.184-Pemeliharaan dan perbaikan alat apung</option><option value="LT.19">LT.19-Laporan - laporan</option><option value="LT.190">LT.190-Penyusunan rencana pelaksanaan di lapangan</option><option value="LT.191">LT.191-Laporan pelaksanaan pekerjaan di lapangan</option><option value="LT.192">LT.192-Laporan harian</option><option value="LT.193">LT.193-Laporan mingguan</option><option value="LT.194">LT.194-Laporan bulanan</option><option value="LT.195">LT.195-Laporan pemakaian bahan</option><option value="LT.196">LT.196-Laporan survey</option><option value="KU.20">KU.20-Anggaran Belanja</option><option value="KU.200">KU.200-Evaluasi laporan realisasi RKAP</option><option value="KU.201">KU.201-Penyusunan RAB</option><option value="KU.202">KU.202-Anggaran belanja rutin untuk pegawai</option><option value="KU.203">KU.203-Gaji/upah, tunjangan jabatan, SKPP</option><option value="KU.204">KU.204-Anggaran belanja rutin untuk non pegawai</option><option value="KU.205">KU.205-Barang, pemeliharaan, perjalanan dinas</option><option value="KU.206">KU.206-Pengesahan APB</option><option value="KU.207">KU.207-Revisi APB</option><option value="KU.208">KU.208-Pelaksanaan APB</option><option value="KU.209">KU.209-Saham/Obligasi/Bursa efek/Valuta asing</option><option value="KU.21">KU.21-Anggaran Bangunan dan Investasi</option><option value="KU.210">KU.210-Rencana penggunaan anggaran pembangunan</option><option value="KU.211">KU.211-Pelita</option><option value="KU.212">KU.212-Non pelita</option><option value="KU.213">KU.213-Pendapatan pelabuhan / Anggaran pengerukan</option><option value="KU.214">KU.214-Relokasi sisa anggaran pembangunan</option><option value="KU.215">KU.215-Penggunaan sisa anggaran pembangunan</option><option value="KU.216">KU.216-Non DIP bantuan luar negeri</option><option value="KU.22">KU.22-Anggaran Pendapatan/Penerimaan Uang Negara</option><option value="KU.220">KU.220-Jasa air dan listrik</option><option value="KU.221">KU.221-Jasa pelabuhan</option><option value="KU.222">KU.222-Jasa telephone</option><option value="KU.223">KU.223-Sewa tanah/ PN Pelabuhan</option><option value="KU.224">KU.224-Sewa rumah dinas</option><option value="KU.225">KU.225-Sewa gedung kantor</option><option value="KU.23">KU.23-Anggaran Belanja Tambahan Rutin</option><option value="KU.230">KU.230-Usulan anggaran belanja tambahan rutin</option><option value="KU.231">KU.231-Anggaran belanja tambahan rutin untuk pegawai</option><option value="KU.232">KU.232-Anggaran belanja tambahan rutin untuk non pegawai</option><option value="KU.233">KU.233-Anggaran belanja untuk kemitraan bina lingkungan</option><option value="KU.24">KU.24-Anggaran Belanja Tambahan Rekening Menteri Perhubungan / Meneg BUMN</option><option value="KU.25">KU.25-Surat Pertanggung Jawaban Keuangan</option><option value="KU.250">KU.250-Pertanggung jawaban kas kecil</option><option value="KU.251">KU.251-Anggaran rutin (UUDP/SPJR/LKKR)/ Pertanggung jawaban uang muka</option><option value="KU.252">KU.252-Anggaran pembangunan (SPJP)</option><option value="KU.253">KU.253-Serah terima hasil proyek</option><option value="KU.254">KU.254-Serah terima hasil proyek</option><option value="KU.255">KU.255-Serah terima hasil proyek</option><option value="KU.26">KU.26-Hutang Piutang</option><option value="KU.260">KU.260-Piutang perusahaan</option><option value="KU.261">KU.261-Hutang perusahaan</option><option value="KU.262">KU.262-Transfer / pemindah bukuan / Dropping / Transaksi</option><option value="KU.263">KU.263-Pajak fiscal/Bea masuk/LC</option><option value="KU.264">KU.264-Posisi kas bank</option><option value="KU.265">KU.265-Jaminan bank/Bank asuransi/Asuransi</option><option value="KU.266">KU.266-Tunggakan listrik/Biaya kantor operasional</option><option value="KU.267">KU.267-Claim penyelesaian hutang piutang</option><option value="KU.268">KU.268-Pajak pribadi/MPO/MPS/LP2P</option><option value="KU.269">KU.269-Tagihan pelabuhan</option><option value="KU.27">KU.27-Uang Muka dan Biaya</option><option value="KU.270">KU.270-Uang muka permohonan kas kecil/ kebutuhan kantor/ pensiun/pindah/dana pensiun</option><option value="KU.271">KU.271-Biaya perjalanan dinas/Biaya perhitungan rampung</option><option value="KU.272">KU.272-Pemeliharaan gedung, Rumah</option><option value="KU.273">KU.273-Kendaraan</option><option value="KU.28">KU.28-Pemeriksaan Keuangan</option><option value="KU.280">KU.280-Pemeriksaan auditor</option><option value="KU.281">KU.281-Anggaran rutin/pembangunan</option><option value="KU.282">KU.282-Pemeriksaan kas oleh atasan langsung</option><option value="KU.283">KU.283-Kasus penyimpangan keuangan</option><option value="KU.284">KU.284-Pemeriksaan BEPEKA</option><option value="KU.285">KU.285-Pemeriksaan BPKP</option><option value="KU.286">KU.286-Pemeriksaan IRJEN</option><option value="KU.287">KU.287-Pemeriksaan SPI</option><option value="KU.288">KU.288-Tindak lanjut hasil pemeriksaan</option><option value="KU.29">KU.29-Tunjangan - Tunjangan</option><option value="KU.290">KU.290-Bonus</option><option value="KU.291">KU.291-Lauk pauk/pangan</option><option value="KU.292">KU.292-Tunjangan khusus/honorarium</option><option value="KU.293">KU.293-Tunjangan jabatan struktural/ fungsional</option><option value="KU.294">KU.294-Insentip/ uang premi</option><option value="KU.295">KU.295-Uang saku</option><option value="KU.296">KU.296-Uang lembur</option><option value="KU.297">KU.297-Dana-dana sosial dan upah buruh</option><option value="KU.298">KU.298-Tunjangan isteri/suami, anak, calon pegawai</option><option value="KU.30">KU.30-Peraturan Tarip OPP/OPT</option><option value="KU.300">KU.300-Jasa bongkar muat</option><option value="KU.301">KU.301-Jasa pelabuhan</option><option value="KU.302">KU.302-Uang labuh</option><option value="KU.303">KU.303-Uang tambat/dermaga</option><option value="KU.304">KU.304-Uang tunda/Kepil</option><option value="KU.305">KU.305-Uang pandu</option><option value="KU.306">KU.306-Angkutan laut/darat/udara</option><option value="KU.307">KU.307-Penyesuaian harga-harga satuan</option><option value="KU.308">KU.308-Sewa gudang/lapangan penumpukan/ tanah/bangunan</option><option value="KU.309">KU.309-Uang Air</option><option value="KU.31">KU.31-Laporan Keuangan</option><option value="KU.310">KU.310-SIM Keuangan</option><option value="KU.311">KU.311-Perusahaan</option><option value="KU.312">KU.312-R.A.A.B</option><option value="KU.314">KU.314-Cash flow</option><option value="KU.315">KU.315-Pembangunan</option><option value="KU.316">KU.316-DIP/ PO</option><option value="KU.317">KU.317-Laporan analisa</option><option value="KU.318">KU.318-Laporan pemeriksaan</option><option value="KU.32">KU.32-Pengangkatan Bendaharawan</option><option value="KU.320">KU.320-Juru Bayar/ Kasir</option><option value="KU.321">KU.321-Bendaharawan rutin</option><option value="KU.322">KU.322-Bendaharawan material</option><option value="KU.323">KU.323-Pembuat daftar gaji</option><option value="KU.324">KU.324-Pemegang buku kas umum</option><option value="UM.33">UM.33-Tata Usaha</option><option value="UM.330">UM.330-Surat menyurat/Adm. perkantoran</option><option value="UM.331">UM.331-Surat pengantar ucapan terima kasih</option><option value="UM.332">UM.332-Undangan</option><option value="UM.333">UM.333-Cap, stempel dinas, slide, foto, film/buku</option><option value="UM.334">UM.334-Pengetikan/Penggandaan, stensil, copy rekaman, cetakan, penjilidan/Daftar agen</option><option value="UM.335">UM.335-Hak menandatangani surat-surat, rapat-rapat/hasil rapat</option><option value="UM.336">UM.336-Pengarsipan</option><option value="UM.337">UM.337-Blanko, ralat, koreksi, pendataan</option><option value="UM.338">UM.338-Panitia/Tim</option><option value="PL.664">PL.664-Pelaksanaan pelelangan/pemusnahan</option><option value="PL.621">PL.621-Permintaan Penawaran Harga</option><option value="UM.34">UM.34-Perjalanan Dinas/Pindah</option><option value="UM.340">UM.340-Surat perintah jalan/ Pindah</option><option value="UM.341">UM.341-Tiket</option><option value="UM.342">UM.342-Paspor</option><option value="UM.343">UM.343-Exit permit</option><option value="UM.344">UM.344-Visa</option><option value="UM.35">UM.35-Perumahan / Rumah Tangga</option><option value="UM.350">UM.350-Surat izin penempatan</option><option value="UM.351">UM.351-Penggunaan ruangan/Halaman/Pekerjaan</option><option value="UM.352">UM.352-Penginapan</option><option value="UM.353">UM.353-Kebersihan/tanaman/ penataan</option><option value="UM.354">UM.354-Sambungan listrik, air minum, telepon</option><option value="UM.355">UM.355-Keamanan/ketertiban/protokol</option><option value="UM.356">UM.356-Ruang gudang/ perkantoran/ peralatannya</option><option value="UM.357">UM.357-Perumnas</option><option value="UM.36">UM.36-Penyelenggara Angkutan</option><option value="UM.360">UM.360-Kendaraan dinas jabatan</option><option value="UM.361">UM.361-Kendaraan dinas operasional</option><option value="UM.362">UM.362-Kendaraan pegawai</option><option value="UM.363">UM.363-Pembelian kendaraan dinas</option><option value="UM.364">UM.364-Angkutan umum/transportasi</option><option value="UM.365">UM.365-Laporan kerusakan kendaraan dinas</option><option value="UM.366">UM.366-Perbaikan/Pemeliharaan kendaraan dinas</option><option value="UM.367">UM.367-SIM/STNK/BPKB</option><option value="UM.368">UM.368-Peminjaman kendaraan dinas</option><option value="KJ.37">KJ.37-Kesejahteraan Umum</option><option value="KJ.370">KJ.370-Koperasi pegawai</option><option value="KJ.371">KJ.371-Sumbangan/donatur</option><option value="KJ.372">KJ.372-Kerohanian/bimbingan mental</option><option value="KJ.373">KJ.373-Pakaian dinas/atribut</option><option value="KJ.374">KJ.374-Rekreasi</option><option value="KJ.375">KJ.375-Dana kesejahteraan</option><option value="KJ.376">KJ.376-Sumbangan kematian/uang duka</option><option value="KJ.38">KJ.38-Olahraga</option><option value="KJ.380">KJ.380-Pembinaan</option><option value="KJ.381">KJ.381-Pertandingan/perlombaan</option><option value="KJ.382">KJ.382-Peralatan olahraga</option><option value="KJ.383">KJ.383-Piala</option><option value="SL.39">SL.39-Statistik dan Laporan / Data</option><option value="SL.390">SL.390-Laporan perkembangan usaha pelabuhan</option><option value="SL.391">SL.391-Laporan statistik/data pelabuhan</option><option value="SL.392">SL.392-Dokumentasi dan statistik</option><option value="KP.40">KP.40-Tata Usaha Kepegawaian (TUK)</option><option value="KP.400">KP.400-Lamaran/test penerimaan,test kerja/ koreksi perbaikan</option><option value="KP.401">KP.401-Penempatan sebagai calon pegawai</option><option value="KP.402">KP.402-Perubahan keluarga</option><option value="KP.403">KP.403-Cuti/dispensasi</option><option value="KP.404">KP.404-Absensi/jam kerja</option><option value="KP.405">KP.405-Penghasilan pegawai/ KGB</option><option value="KP.406">KP.406-File pribadi</option><option value="KP.407">KP.407-Koreksi/perbaikan SK</option><option value="KP.408">KP.408-Permintaan Karpeg/NIP/Karis/Karsu</option><option value="KP.409">KP.409-Surat keterangan</option><option value="KP.41">KP.41-Peningkatan dan Kepangkatan</option><option value="KP.410">KP.410-Pengangkatan menjadi calon pegawai/ pegawai penuh</option><option value="KP.411">KP.411-Kenaikan pangkat/kenaikan kelas jabatan</option><option value="KP.412">KP.412-Pengangkatan dalam jabatan/SPPT</option><option value="KP.413">KP.413-SK pernyataan menduduki jabatan</option><option value="KP.414">KP.414-Berita acara serah terima jabatan</option><option value="KP.415">KP.415-Penundaan/penurunan pangkat</option><option value="KP.42">KP.42-Pengembangan Pegawai</option><option value="KP.420">KP.420-Formasi dan Bezetting/Replacement SDM</option><option value="KP.421">KP.421-Nominatif dan data pegawai/tenaga pandu/simpers</option><option value="KP.422">KP.422-Daftar riwayat hidup</option><option value="KP.423">KP.423-Peninjauan masa kerja</option><option value="KP.424">KP.424-Ikatan dinas/ Pembibitan/ SDM pemikir</option><option value="KP.425">KP.425-Penilaian karya pegawai (PKP)</option><option value="KP.426">KP.426-Daftar nama pejabat/peta kepegawaian</option><option value="KP.427">KP.427-Impasssing</option><option value="KP.428">KP.428-Mutasi/penjenjangan</option><option value="KP.429">KP.429-Pengadaan pegawai</option><option value="KP.43">KP.43-Pembinaan / Pengaturan Pegawai</option><option value="KP.430">KP.430-JUKLAK pengadaan pegawai</option><option value="KP.431">KP.431-JUKLAK pengangkatan</option><option value="KP.432">KP.432-JUKLAK mutasi Pindah</option><option value="KP.433">KP.433-Pembinaan pegawai</option><option value="KP.434">KP.434-Pembinaan operasional tenaga pandu</option><option value="KP.44">KP.44-Pemberhentian / Pensiun Pegawai</option><option value="KP.440">KP.440-Pemberhentian atas permintaan sendiri</option><option value="KP.441">KP.441-Pemberhentian karena mencapai batas pensiun</option><option value="KP.442">KP.442-Pemberhentian karena adanya penyederhanaan organisasi</option><option value="KP.443">KP.443-Pemberhentian karena tidak cakap jasmani dan atau rohani</option><option value="KP.444">KP.444-Pemberhentian karena meninggalkan tugas</option><option value="KP.445">KP.445-Pemberhentian karena meninggal dunia</option><option value="KP.446">KP.446-Pemberhentian karena melakukan pelanggaran tindak pidana</option><option value="KP.45">KP.45-Penertiban Pegawai</option><option value="KP.450">KP.450-Pemberhentian untuk sementara (skorsing)</option><option value="KP.451">KP.451-Pemberhentian dengan uang tunggu</option><option value="KP.452">KP.452-Bebas tugas/MPP</option><option value="KP.453">KP.453-Pemberhentian tidak dengan hormat</option><option value="KP.454">KP.454-Pangggilan/teguran/peringatan</option><option value="KP.455">KP.455-Pemberhentian karena penyelewangan</option><option value="KP.456">KP.456-Hukuman terhadap pelanggaran diplin pegawai/ hukuman jabatan</option><option value="KP.457">KP.457-Pemberhentian dengan uang lepas</option><option value="KP.458">KP.458-Pemberhentian karena keputusan pengadilan</option><option value="KP.46">KP.46-Kasus Kepegawaian/GDN/WASKAT</option><option value="KP.460">KP.460-G.30.S/PKI</option><option value="KP.461">KP.461-Pelanggaran disiplin pegawai</option><option value="KP.462">KP.462-Pembocoran rahasia Negara</option><option value="KP.463">KP.463-Pungutan liar</option><option value="KP.464">KP.464-Perceraian</option><option value="KP.47">KP.47-Asuransi Kepegawaian</option><option value="KP.470">KP.470-TASPEN</option><option value="KP.471">KP.471-ASKES</option><option value="KP.472">KP.472-Asuransi kematian</option><option value="KP.473">KP.473-Klaim asuransi pegawai</option><option value="KP.474">KP.474-Tabungan hari tua (Multiguna dan Bank)</option><option value="KP.475">KP.475-JAMSOSTEK</option><option value="KP.48">KP.48-Tanda Penghargaan</option><option value="KP.480">KP.480-Satya Lencana Karya Satya</option><option value="KP.481">KP.481-Setya Lencana Peringatan Perjuangan Kemerdekaan</option><option value="KP.482">KP.482-Satya Lencana Pembangunan</option><option value="KP.483">KP.483-Satya Lencana Wira Karya</option><option value="KP.484">KP.484-Penghargaan kepada pegawai perusahaan/Pegawai negeri sipil yang telah melakukan kewajibannnya secara luar biasa</option><option value="KP.485">KP.485-Satya Lencana Pepera</option><option value="DL.49">DL.49-Pembinaan Pendidikan dan Latihan</option><option value="DL.490">DL.490-Persyaratan dan fasilitas pendidikan</option><option value="DL.491">DL.491-Kurikulum dan silabus</option><option value="DL.492">DL.492-Perguruan maritime swasta</option><option value="DL.493">DL.493-Penerimaan dan pendaftaran</option><option value="DL.494">DL.494-Surat ijin belajar</option><option value="DL.495">DL.495-JUKLAK pendidikan</option><option value="DL.496">DL.496-Staf pengajar</option><option value="DL.50">DL.50-Penyelenggara Pendidikan dan Latihan</option><option value="DL.500">DL.500-Kursus SESPA dan lain-lain</option><option value="DL.501">DL.501-Latihan penjenjangan</option><option value="DL.502">DL.502-SPM, P3B, LAN dan lain-lain</option><option value="DL.503">DL.503-Tugas/Ijin belajar dalam negeri Surat ijin belajar</option><option value="DL.504">DL.504-Proyek laut (PROLA) dan Proyek darat (PRODA)/Kuliah kerja/Praktek kerja lapangan</option><option value="DL.505">DL.505-Penataran up grading/Penyuluhan/ Lokakarya/Seminar/Workshop</option><option value="DL.506">DL.506-Orientasi</option><option value="DL.507">DL.507-Laporan hasil pendidikan</option><option value="DL.51">DL.51-Ujian Dinas dan Ujian Negara</option><option value="DL.510">DL.510-Penyelenggaraan ujian</option><option value="DL.511">DL.511-Ujian dinas/Penyesuaian ijazah/ Kualifikasi pendidikan</option><option value="DL.512">DL.512-Ujian ANT/ATT/ATTD</option><option value="DL.513">DL.513-Ujian negara</option><option value="DL.514">DL.514-Skripsi/Paper</option><option value="DL.52">DL.52-Ijazah dan Sertifikat</option><option value="DL.520">DL.520-Pengiriman laporan ijazah</option><option value="DL.521">DL.521-Pemalsuan ijazah/Ijazah palsu</option><option value="DL.522">DL.522-Pemeriksaan ijazah</option><option value="DL.523">DL.523-Ijazah-ijazah dinas</option><option value="DL.524">DL.524-STTB</option><option value="DL.525">DL.525-Laporan pendidikan</option><option value="DL.53">DL.53-Pendidikan di Luar Negeri</option><option value="DL.530">DL.530-Tugas belajar di luar negeri</option><option value="DL.531">DL.531-Pertukaran mahasiswa</option><option value="DL.532">DL.532-Beasiswa/bantuan pendidikan negara asing</option><option value="DL.533">DL.533-Kolombo Plan</option><option value="KS.540">KS.540-Opname kepegawaian</option><option value="KS.541">KS.541-Restitusi</option><option value="KS.542">KS.542-Buku berobat</option><option value="KS.543">KS.543-Surat keterangan dokter (S.K.D)</option><option value="KS.544">KS.544-Laporan kegiatan rumah sakit</option><option value="KS.545">KS.545-Keselamatan dan kesehatan kerja (K3)</option><option value="HK.55">HK.55-Penelaahan Hukum</option><option value="HK.550">HK.550-Pertimbangan pelaksanaan hukum</option><option value="HK.551">HK.551-Perselisihan/persengketaan</option><option value="HK.552">HK.552-Perlindungan hukum/Keadilan</option><option value="HK.553">HK.553-Barang tak bertuan</option><option value="HK.554">HK.554-Keputusan pengadilan negeri</option><option value="HK.555">HK.555-Surat kuasa</option><option value="HK.556">HK.556-Permintaan bantuan ahli hukum</option><option value="HK.56">HK.56-Perundang - Undangan / Peraturan</option><option value="HK.560">HK.560-Undang-undang</option><option value="HK.561">HK.561-KEPPRES</option><option value="HK.562">HK.562-PERPEM</option><option value="HK.563">HK.563-INPRES</option><option value="HK.564">HK.564-Hukum internasional</option><option value="HK.566">HK.566-Perizinan / Kontrak / Addendum</option><option value="HK.567">HK.567-Pengesahan badan hukum</option><option value="HK.568">HK.568-Obligasi/surat berharga/surat khusus perusahaan</option><option value="HK.569">HK.569-Go Public/ISO 9002/jaminan mutu</option><option value="HK.57">HK.57-Konvensi dan Peraturan Perundang - undangan Pelayaran</option><option value="HK.570">HK.570-I.M.D (IMDO)</option><option value="UM.339">UM.339-Berita acara</option><option value="KL.840">KL.840-Kecelakaan Pengamanan Kapal</option><option value="OT.696">OT.696-Penetapan Prosedur Kerja</option><option value="TES.00">TES.00-Tes Pengiriman Surat</option><option value="PL.65">PL.65-Inventarisasi Perlengkapan/Aktiva</option><option value="2">2-Sosial</option><option value="HM">HM-Hubungan Masyarakat</option><option value="UM.00">UM.00-99. Umum</option><option value="PL.620">PL.620-Permintaan Pengadaan Barang</option><option value="HM.60">HM.60-Media</option><option value="PL.66">PL.66-Penghapusan/Penyusutan</option><option value="PL.64">PL.64-Pemeliharaan</option><option value="HM.608">HM.608-Pengumuman/Pemberitahuan edaran</option><option value="PL.661">PL.661-Pengusulan</option><option value="PL.624">PL.624-Penunjukan Pelaksanaan Pekerjaan</option><option value="PL.62">PL.62-Pengadaan</option><option value="KS.54">KS.54-Pelayanan Kesehatan</option><option value="HM.609">HM.609-Kewartawanan</option><option value="HM.607">HM.607-Pengarahan, ceramah</option><option value="HM.606">HM.606-Perpustakaan</option><option value="HM.605">HM.605-Pelantikan/upacara/protokoler</option><option value="HM.604">HM.604-Hearing dengan DPR/delegasi DPR/MPR</option><option value="HM.603">HM.603-Audio, Visual, Siaran Radio/Televisi dan gambar/pameran</option><option value="HM.602">HM.602-Press Release, wawancara</option><option value="HM.601">HM.601-Iklan, poster</option><option value="HM.600">HM.600-Surat kabar, buletin, majalah, brosur/kliping</option><option value="HM.610">HM.610-Peninjauan/Kunjungan</option><option value="PL.642">PL.642-Pemakaian Bahan Bakar</option><option value="OT.69">OT.69-Organisasi/Tata laksana/Prosedur Kerja</option><option value="PL.653">PL.653-Komputer, EDI/Pengadaan/Pemeliharaan Perangkat Komputer</option><option value="FP.00">FP.00-Pelayanan Fasilitas Darat</option><option value="FP.001">FP.001-Pemakaian/persewaan fasilitas alat-alat bongkar/muat</option><option value="FP.002">FP.002-Pemakaian/persewaan fasilitas dermaga/ air minum/listrik/Dersus</option><option value="FP.003">FP.003-Pemakaian/ persewaan fasilitas pergudangan/ lapangan penumpukan</option><option value="FP.004">FP.004-Pembinaan operasional</option><option value="FP.005">FP.005-Pembinaan tarif pelabuhan</option><option value="FP.006">FP.006-Pas pelabuhan</option><option value="FP.007">FP.007-Izin masuk daerah kerja pelabuhan/ berusaha di pelabuhan</option><option value="FP.008">FP.008-Barang-barang berbahaya</option><option value="FP.009">FP.009-Status pelabuhan</option><option value="FP.01">FP.01-Pelayanan Fasilitas Perairan dan PEnunjang</option><option value="FP.010">FP.010-Permasalahan pelabuhan cabang</option><option value="FP.011">FP.011-Pemakaian/persewaan fasilitas-fasilitas tambatan/buoy/gudang/dermaga</option><option value="FP.012">FP.012-Batas perairan pelabuhan</option><option value="FP.013">FP.013-Pemakaian/Persewaan fasilitas alat-alat apung/alat-alat bongkar muat</option><option value="FP.014">FP.014-Perkembangan usaha fasilitas perairan</option><option value="FP.015">FP.015-Perijinan hak pakai tanah</option><option value="FP.016">FP.016-Perijinan hak pakai gudang, listrik, air, jalan, bangunan</option></select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 500px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-klasifikasi-container"><span class="select2-selection__rendered" id="select2-klasifikasi-container" title="PR.102-Surat perintah kerja/surat perjanjian"><span class="select2-selection__clear">×</span>PR.102-Surat perintah kerja/surat perjanjian</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>                                                                  </div>
+                                <label id="klasifikasiilang" style="display:none;"><b style="font-size: 25px; margin-left: 30%;"> - </b></label>
+                                                          </td>
+                          </tr>
+                                                    <!-- Perihal dan Klasifikasi --><!-- Lampiran dan Prioritas -->
+                          <tr style=" font-size:10pt"><td>Lampiran </td><td> : </td>
+                           <td>
+                            <div class="form-row">
+                                                           <div class="col-4">
+                                <label for="lampiran">&nbsp;</label>
+                                <input class="form-control" value="" style="height: 30px;" name="lampiran" type="text" id="lampiran">
+                              </div>
+                                                        <div class="col-4">
+                              <label for="prior">Prioritas :</label>                                                        
+                              <select class="select2-selection__rendered form-control select2-hidden-accessible" id="prior" name="prior" style="height: 30px;" tabindex="-1" aria-hidden="true">
+                                <option value="0" selected="">Normal</option>
+                                <option value="1">Penting</option>
+                                <option value="2">Mendesak</option>
+                              </select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 159.99px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-prior-container"><span class="select2-selection__rendered" id="select2-prior-container" title="Normal"><span class="select2-selection__clear">×</span>Normal</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                            </div>
+                            <div class="col-4">
+                              <label for="klasifi">Klasifikasi :</label>
+                              <select class="select2-selection__rendered form-control select2-hidden-accessible" id="klasifi" name="klasifi" style="height: 30px;" tabindex="-1" aria-hidden="true">
+                                <option value="0" selected="">Biasa</option>
+                                <option value="1">Rahasia</option>
+                              </select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 159.99px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-klasifi-container"><span class="select2-selection__rendered" id="select2-klasifi-container" title="Biasa"><span class="select2-selection__clear">×</span>Biasa</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <!-- Lampiran dan Prioritas -->
+                    </tbody></table>
+                  </fieldset>
+                  <fieldset id="pengirim_field"><legend style="font-size: 10pt"><b>Pengirim</b></legend>
+                   <table id="sm_peng"></table>
+                   <table id="elses_peng" width="620" border="0">
+                                        <tbody>
+                    <tr style=" font-size:10pt;"><!-- Pengirim -->
+                     <td style="width: 120px">Jabatan</td><td> : </td>
+                     <td>
+                                              <input class="form-control ui-autocomplete-input" value="Senior Manager Sistem Informasi" name="jabatan" type="text" id="jabatan" placeholder="autocomplete" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" style="height: 30px;">
+                        <input value="300047" name="jabatanid" type="hidden" id="jabatanid">
+                                          </td><!-- Pengirim --></tr>
+                    <tr style=" font-size:10pt"><td>NIPP / Nama </td><td> : </td>
+                     <td>
+                                             <div class="form-row">
+                        <div class="col-5">
+                          <input class="form-control" value="288057696" name="nipp" type="text" id="nipp" readonly="1" style="height: 30px; background-color: #e6e9ec;">
+                        </div>
+                        <div class="col-7">
+                          <input class="form-control" value="HUGO TONI SEPUTRO" name="nama" type="text" id="nama" readonly="1" style="height: 30px; background-color: #e6e9ec;">
+                        </div>
+                      </div>
+                                      </td>
+                </tr>
+                <tr style=" font-size:10pt"><td>Divisi </td><td> : </td>
+                 <td>
+                                       <input class="form-control" value="Direktorat Operasi &amp; Teknik ITPK" name="divisi" type="text" id="divisi" readonly="1" style="height: 30px; background-color: #e6e9ec;">
+                                  </td>
+              </tr>
+              <tr style=" font-size:10pt"><td>Cab / Dir </td><td> : </td>
+               <td>
+                                  <input class="form-control" value="Direktorat Utama ITPK" name="dept" type="text" id="dept" readonly="1" style="height: 30px; background-color: #e6e9ec;">
+                              </td>
+            </tr>
+          </tbody>
+                </table>
+      </fieldset></div>
+      <br>
+      <div style="float:right;padding-right:10px;">
+        <fieldset id="penerima_field"><legend style="font-size: 10pt"><b>Penerima</b></legend><style>table.penerima , table.penerima td {border:1px solid grey; border-collapse:collapse;}
+      </style>
+      <table id="elses_table" width="480"> 
+  <tbody>
+    <tr>
+            <td width="150px" style="vertical-align:top;">Kepada (Jabatan)</td><td style="vertical-align:top;"> : </td>
+          <td style="vertical-align: top;">
+          <div class="form-row" id="btnRemove0">
+   <input type="checkbox" style="display:none" id="cekpen0" name="pen[]" value="10001360" checked="checked">
+   &nbsp;
+   <div class="col-10">
+     <input type="text" id="pentampil0" style="height: 30px;background-color:#FFFFB3" value="Supervisor Lingkungan Pelindo EDI Pusat" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+   </div>
+   <input id="pen0" type="hidden" value="10001360">
+       <div class="col">
+      <input type="button" value="+" id="btnAdd" class="btn btn-success" style="padding: 0.2em 1em;">
+    </div>
+    </div>
+<div id="addkepada" style="padding-bottom: 5px;"></div>
+</td>
+</tr>
+<tr>
+    <td width="150px" style="vertical-align: top;">Tembusan (Jabatan) </td>
+   <td style="vertical-align:top;"> : </td>
+  <td>   <div class="form-row" id="btnRemoveTem0">
+   <input type="checkbox" id="cektem0" name="tem[]" style="display:none">
+   &nbsp;
+   <input id="tem0" type="hidden">
+   <div class="col-10">
+     <input type="text" id="temtampil0" style="height: 30px;background-color:#C6FFC6" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+   </div>
+   <div class="col">
+    <input type="button" value="+" id="btnAdd2" class="btn btn-success" style="padding: 0.2em 1em;">
+  </div>
+</div>
+<div id="addtembusan" style="padding-bottom: 5px;"></div>
+</td>
+</tr>
+<tr>
+      <td width="150px" style="vertical-align: top;">Kepada (Pekerja)</td>
+    <td style="vertical-align:top;"> : </td>
+    <td style="vertical-align: top;">     <div id="btnRemovePeg0" class="form-row">
+    <input type="checkbox" id="cekpenpeg0" name="penpeg[]" style="display:none">
+    &nbsp;
+    <div class="col-10">
+      <input type="text" id="penpegtampil0" style="height:30px;background-color:#FFFFB3" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+    </div>
+    <input type="hidden" id="penpeg0">
+    <div class="col">
+      <input type="button" value="+" id="btnAddpeg" class="btn btn-success" style="padding: 0.2em 1em;">
+    </div>
+  </div>
+  <div id="addkepadapeg" style="padding-bottom: 5px;"></div>
+  </td>
+</tr>
+<tr>
+    <td width="150px;" style="vertical-align: top;">Tembusan (Pekerja) </td>
+   <td style="vertical-align:top;"> : </td>
+  <td>   <div id="btnRemoveTemPeg0" class="form-row">
+   <input type="checkbox" id="cektempeg0" name="tempeg[]" style="display:none">
+   &nbsp;
+   <div class="col-10">
+     <input type="text" id="tempegtampil0" style="height:30px;background-color:#C6FFC6" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+   </div>
+   <input type="hidden" id="tempeg0">
+   <div class="col">
+     <input type="button" value="+" id="btnAdd2peg" class="btn btn-success" style="padding: 0.2em 1em;">
+   </div>
+ </div>
+ <div id="addtembusanpeg" style="padding-bottom: 5px;"></div>
+ </td>
+</tr>
+<tr>
+    <td width="150px" style="vertical-align: top;">Kepada (non-Pekerja)</td>
+   <td style="vertical-align: top;">:</td>
+  <td style="vertical-align: top;">   <div id="btnRemovePenNon0" class="form-row">
+   <input type="checkbox" id="cekpenn0" name="penn[]" style="display:none">
+   &nbsp;
+   <div class="col-10">
+     <input type="text" id="penn0" style="height:30px;background-color:#FFFFB3" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+   </div>
+   <div class="col">
+     <input type="button" value="+" id="btnAdd3" class="btn btn-success" style="padding: 0.2em 1em;">
+   </div>
+ </div>
+ <div id="addkepada2" style="padding-bottom: 5px;"></div>
+ </td>
+</tr>
+<tr>
+    <td width="150px" style="vertical-align: top;">Tembusan (non-Pekerja) </td>
+   <td style="vertical-align: top;"></td>
+  <td>   <div id="btnRemoveTemNon0" class="form-row">
+   <input type="checkbox" id="cektemn0" name="temn[]" style="display:none">
+   &nbsp;
+   <div class="col-10"> 
+     <input type="text" id="temn0" style="height:30px;background-color:#C6FFC6" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+   </div>
+   <div class="col">
+     <input type="button" value="+" id="btnAdd4" class="btn btn-success" style="padding: 0.2em 1em;">
+   </div>
+ </div>
+ <div id="addtembusan2" style="padding-bottom: 5px;"></div>
+ </td>
+</tr>
+</tbody>
+</table>
+<table id="elses_table_khusus" style="display:none">
+ <tbody>
+  <tr>
+            <td width="150px" style="vertical-align:top;">Kepada (Jabatan)</td><td style="vertical-align:top;"> : </td>
+            <td style="vertical-align: top;">                    <div class="form-row" id="btnRemove0">
+          <input type="checkbox" style="display:none" id="cekpenkhusus0" name="penkhusus[]" value="10001360" checked="checked">
+          &nbsp;
+          <div class="col-10">
+            <input type="text" id="pentampilkhusus0" style="height: 30px;background-color:#FFFFB3" value="Supervisor Lingkungan Pelindo EDI Pusat" readonly="readonly" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+          </div>
+          <input id="penkhusus0" type="hidden" value="10001360">
+                      <div class="col">
+              <!-- <input type="button" value="+" id="btnAdd" class="btn btn-success" style="padding: 0.2em 1em;"> -->
+            </div>
+                          </div>
+            <!-- <div id="addkepada" style="padding-bottom: 5px;"></div> -->
+   </td>
+</tr>
+</tbody>
+</table>
+</fieldset>
+<fieldset id="pemeriksa_field"> 
+  <legend style="font-size: 10pt"><b>Pemeriksa</b></legend>
+  <table width="480" border="0"><tbody>
+    <tr>
+     <td width="150px" style="vertical-align: top;">Pemeriksa </td>
+     <td style="vertical-align: top;"> : </td>
+          <td style="vertical-align: top;">         <div class="form-row" id="btnRemovePeri0">
+      <input type="checkbox" id="cekpem0" name="pem[]" style="display:none">
+      &nbsp;
+      <div class="col-10">
+        <input type="text" class="form-control ui-autocomplete-input" id="pemtampil0" style="height:30px;" autocomplete="off">
+      </div>
+      <input type="hidden" id="pem0">
+      <div class="col">
+        <input type="button" value="+" id="btnAdd5" class="btn btn-success" style="padding: 0.2em 1em;">
+      </div>
+
+    </div>
+    <div id="addpemeriksa"></div>
+    </td>
+</tr>
+</tbody></table></fieldset></div>
+</fieldset>
+<div class="kt-inbox__reply kt-inbox__reply--on" style="padding-top: 20px;">
+  <div class="kt-inbox__form" id="kt_inbox_reply_form">
+    <div class="kt-inbox__body">
+           <fieldset id="isi_sp" style="display:marker;width:99%">
+        <legend> ISI SURAT PERINTAH </legend>
+        <table border="0">
+          <tbody>
+            <tr>
+             <td width="50" valign="top">DASAR</td>
+             <td valign="top">:</td>
+             <td width="965" valign="top">
+              <div id="dasar_atas">
+                                  <div id="divdasar0"><div style="float:left"><textarea id="dasar0" name="dasar[]" style="width:900px;height:100px;">tes</textarea></div><div style="float:left"><input type="button" value="+" id="tmbhdsr" class="btn btn-success" style="padding: 0.2em 1em;margin-left: 20%;"></div></div>                              </div>
+            </td>
+          </tr>
+          <tr>
+            <td width="50" valign="top">ISI PERINTAH</td>
+            <td valign="top">:</td>
+            <td width="965" valign="top">
+              <div id="perintah_atas">
+                                  <div id="divperin0"><div style="float:left"><textarea id="perin0" name="perintah[]" style="width:900px;height:100px;">tes</textarea></div><div style="float:left"><input type="button" value="+" id="tmbhper" class="btn btn-success" style="padding: 0.2em 1em;margin-left: 20%;"></div></div>                              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+       <br>
+  
+
+<div style="padding-left: 2%;">
+  <fieldset id="penundangan_field" style="display:none">
+    <h2 id="jdul_penerima"><b>Penerima Undangan</b></h2>
+    <br>
+    <legend> &nbsp;</legend>
+    <table width="100%">
+      <tbody><tr>
+                        <td width="33%">&nbsp;&nbsp;Kepada (Jabatan) :</td>
+                <td width="33%">&nbsp;&nbsp;Kepada (Pekerja) :</td>
+                <td width="33%">&nbsp;&nbsp;Kepada (Non Pekerja) :</td>
+                          </tr>
+            <tr>
+              <td style="vertical-align:top">                      <div class="form-row" id="btnPenund">
+                        <input type="checkbox" style="display:none" id="cekpenund0" name="penund[]">
+                        &nbsp;
+                        <div class="col-10"> 
+                          <input type="text" id="penundtampil0" style="width:300px;height:30px;background-color:#FFFFB3" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+                        </div>
+                        <input id="penund0" type="hidden">
+                        <div class="col">
+                          <input type="button" value="+" id="btnAddund" class="btn btn-success" style="padding: 0.2em 1em;">
+                        </div>
+                      </div>
+                      <div id="addkepadaund"></div>
+                      </td>
+                      <td style="vertical-align:top">                              <div class="form-row" id="btnPenpegund">
+                                <input type="checkbox" style="display:none" id="cekpenpegund0" name="penpegund[]">
+                                &nbsp;
+                                <div class="col-10"> 
+                                  <input type="text" id="penpegundtampil0" style="width:300px;height:30px;background-color:#FFFFB3" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+                                </div>
+                                <input id="penpegund0" type="hidden">
+                                <div class="col">
+                                  <input type="button" value="+" id="btnAddpegund" class="btn btn-success" style="padding: 0.2em 1em;">
+                                </div>
+                              </div>
+                              <div id="addkepadapegund"></div>
+                              </td>
+                              <td style="vertical-align:top">                                      <div class="form-row" id="btnPennonund">
+                                        <input type="checkbox" style="display:none" id="cekpennonund0" name="pennonund[]">
+                                        &nbsp;
+                                        <div class="col-10"> 
+                                          <input type="text" id="pennonundtampil0" style="width:300px;height:30px;background-color:#FFFFB3" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+                                        </div>
+                                        <input id="pennonund0" type="hidden">
+                                        <div class="col">
+                                          <input type="button" value="+" id="btnAddnonund" class="btn btn-success" style="padding: 0.2em 1em;">
+                                        </div>
+                                      </div>
+                                      <div id="addkepadanonund"></div>
+                                      </td>
+                                    </tr>
+                                  </tbody></table>
+                                </fieldset>
+                              </div>
+                            </div>
+                            <div class="kt-inbox__foot">
+                                                      <div class="kt-inbox__primary">
+                              <div class="btn-group col-sm-2">
+                                <button type="button" id="tombolpreview" class="btn btn-warning btn-bold" onclick="cetak_direksi_jadi(505261)">
+                                  <i class="flaticon2-checking">&nbsp;Preview</i>  
+                                </button>
+                              </div>
+                            </div>
+                                                          <h2>Lampiran Surat</h2>
+                                                        <div class="form-group form-group-last row">
+                              <label class="col-lg-3 col-form-label">Upload File:</label>
+                              <div class="col-lg-12">
+                                <div class="kt-uppy" id="kt_uppy_5">
+                                  <div class="col-lg-12">
+                                     <div class="kt-uppy dropzone dz-clickable" id="dropss" width="100%" style="height: 100px;">
+                                     <div class="dz-default dz-message"><span>Drop files here to upload</span></div></div>
+                                    <span class="form-text text-muted">File type: JPG, PNG, DOC, DOCX, XLS, XLSX, PDF(Maksimal 15MB)</span>
+                                    </div>
+                                  <!-- <div class="kt-uppy__wrapper"><div class="uppy-Root uppy-FileInput-container">
+                                    <input type="hidden" name="DOC_NAME" value="" placeholder="File Name..."/>
+                                     <input type='file' name='files[]' multiple=""> -->
+                                    <!-- <input class="uppy-FileInput-input btn btn-label-brand btn-bold btn-font-sm" style="" type="file" name="files[]" multiple="" id="kt_uppy_5_input_control" accept="png|jpg|doc|docx|xls|xlsx|pdf"> -->
+                                    <!-- <label class="kt-uppy__input-label btn btn-label-brand btn-bold btn-font-sm" for="kt_uppy_5_input_control"><i class="flaticon-attachment">&nbsp;Attach files</i></label>
+                                  </div>
+                              </div> -->
+                              <!-- <span class="form-text text-muted">File type: JPG, PNG, DOC, DOCX, XLS, XLSX, PDF(Maksimal 15MB)</span> -->
+                                                        
+                                                              <div id="listfile">
+                                  <div id="list">
+                                    <i>----no attachment----</i><table width="300px">
+                                                                              
+                                                                          </table>
+                                  </div>
+                                </div>
+                                <div id="list_file_temp"></div>
+                                
+                              
+                            </div>
+
+                          </div>
+                        </div>
+                        <div class="kt-inbox__primary">
+                        <div class="col-6">
+                              <h3>Log History</h3>
+                              <textarea readonly="" style="width: 100% !important;" id="log_histori" name="log" cols="62" rows="6"></textarea>
+                        </div>
+                      </div>
+                        <div class="kt-inbox__foot">
+                          <div class="kt-inbox__primary">
+                           <div class="form-group form-group-last">
+                            <label for="exampleTextarea"><h4>Komentar</h4></label>
+                            <textarea class="form-control" id="komen" name="komen" cols="45" rows="3"></textarea>
+                          </div>
+                            <!-- <div class="form-group form-group-last">
+                            <label for="exampleTextarea"><h4>Log History</h4></label>
+                            <textarea class="form-control" id="exampleTextarea" cols="70" rows="6"></textarea>
+                          </div> -->
+                        </div>
+                      </div>
+                      <div class="kt-inbox__foot">
+                                               <div class="kt-inbox__primary">
+                          <div class="btn-group col-sm-2">
+                            <button type="button" class="btn btn-danger btn-bold" onclick="simpan()">
+                              <i class="flaticon-download-1">&nbsp;Simpan</i>  
+                            </button>
+                          </div>
+                          <div class="btn-group col-sm-2">
+                            <button type="button" class="btn btn-success btn-bold" onclick="kirim()">
+                              <i class="flaticon-paper-plane-1">&nbsp;Kirim</i>
+                            </button>
+                          </div>
+                        </div>
+                                                  <br>
+                          <br>
+                          
+                        </div>
+                      </div>
+                    </div>
+                  
+                  <!-- </div> -->
+                </div></form>
+                <!--End:: Inbox View-->
+              </div>
+              <!--End::Inbox-->
+
+              <!--Begin:: Inbox Compose-->
+            </div>
+            <!--End::Main Portlet-->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end::Body -->
+
+				<!-- Modal Log -->
+				<!-- Templete 1 -->
+				<div class="modal fade" id="template1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+				  <div class="modal-dialog" role="document">
+					<div class="modal-content">
+					  <div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel1">Template 1</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						  <span aria-hidden="true">×</span>
+						</button>
+					  </div>
+					  <div class="modal-body" style="text-align: center;">
+						<img src="http://10.1.5.102/assets/template/temp1.png">
+					  </div>
+					  <div class="modal-footer test">
+						<div style="float: left;">
+						  <button type="button" onclick="template(1)" class="btn btn-success flaticon-list">&nbsp;Pilih</button>
+						</div>
+						<div style="float: right;">
+						  <button type="button" class="btn btn-danger flaticon-close" data-dismiss="modal">&nbsp;Close</button>
+						</div>
+					  </div>
+					</div>
+				  </div>
+				</div>
+				<!-- Templete 2 -->
+				<div class="modal fade" id="template2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+				  <div class="modal-dialog" role="document">
+					<div class="modal-content">
+					  <div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel2">Template 2</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						  <span aria-hidden="true">×</span>
+						</button>
+					  </div>
+					  <div class="modal-body" style="text-align: center;">
+						<img src="http://10.1.5.102/assets/template/temp2.png">
+					  </div>
+					  <div class="modal-footer test">
+						<div style="float: left;">
+						  <button type="button" onclick="template(2)" class="btn btn-success flaticon-list">&nbsp;Pilih</button>
+						</div>
+						<div style="float: right;">
+						  <button type="button" class="btn btn-danger flaticon-close" data-dismiss="modal">&nbsp;Close</button>
+						</div>
+					  </div>
+					</div>
+				  </div>
+				</div>
+				<!-- Templete 3 -->
+				<div class="modal fade" id="template3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel3" aria-hidden="true">
+				  <div class="modal-dialog" role="document">
+					<div class="modal-content">
+					  <div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel3">Template 3</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						  <span aria-hidden="true">×</span>
+						</button>
+					  </div>
+					  <div class="modal-body" style="text-align: center;">
+						<img src="http://10.1.5.102/assets/template/temp3.png">
+					  </div>
+					  <div class="modal-footer test">
+						<div style="float: left;">
+						  <button type="button" onclick="template(3)" class="btn btn-success flaticon-list">&nbsp;Pilih</button>
+						</div>
+						<div style="float: right;">
+						  <button type="button" class="btn btn-danger flaticon-close" data-dismiss="modal">&nbsp;Close</button>
+						</div>
+					  </div>
+					</div>
+				  </div>
+				</div>
+				<!-- Templete 4 -->
+				<div class="modal fade" id="template4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel4" aria-hidden="true">
+				  <div class="modal-dialog" role="document">
+					<div class="modal-content">
+					  <div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel4">Template 4</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						  <span aria-hidden="true">×</span>
+						</button>
+					  </div>
+					  <div class="modal-body" style="text-align: center;">
+						<img src="http://10.1.5.102/assets/template/temp4.png">
+					  </div>
+					  <div class="modal-footer test">
+						<div style="float: left;">
+						  <button type="button" onclick="template(4)" class="btn btn-success flaticon-list">&nbsp;Pilih</button>
+						</div>
+						<div style="float: right;">
+						  <button type="button" class="btn btn-danger flaticon-close" data-dismiss="modal">&nbsp;Close</button>
+						</div>
+					  </div>
+					</div>
+				  </div>
+				</div>
+				<!-- Templete 5 -->
+				<div class="modal fade" id="template5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel5" aria-hidden="true">
+				  <div class="modal-dialog" role="document">
+					<div class="modal-content">
+					  <div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel5">Template 5</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						  <span aria-hidden="true">×</span>
+						</button>
+					  </div>
+					  <div class="modal-body" style="text-align: center;">
+						<img src="http://10.1.5.102/assets/template/temp5.png">
+					  </div>
+					  <div class="modal-footer test">
+						<div style="float: left;">
+						  <button type="button" onclick="template(5)" class="btn btn-success flaticon-list">&nbsp;Pilih</button>
+						</div>
+						<div style="float: right;">
+						  <button type="button" class="btn btn-danger flaticon-close" data-dismiss="modal">&nbsp;Close</button>
+						</div>
+					  </div>
+					</div>
+				  </div>
+				</div>
+				<!-- end Templete -->
+				<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				  <div class="modal-dialog modal-lg" role="document">
+					<div class="modal-content">
+					  <div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Log History</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						  <span aria-hidden="true">×</span>
+						</button>
+					  </div>
+					  <div class="modal-body">
+						<textarea readonly="" style="width: 100% !important;" id="log_histori" name="log" cols="62" rows="6"></textarea>
+					  </div>
+					  <div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					  </div>
+					</div>
+				  </div>
+				</div>
+</div>

@@ -1,0 +1,255 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localiza
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@{
+    var sessidUser = Accessor.HttpContext.Session.GetString("idUser");
+    var sessidUnit = Accessor.HttpContext.Session.GetString("idUnit");
+    var unitMailingRoom = "D0D02AA8-7A27-ED11-89B0-3CF011A1A981";
+    var actionLink = "@Url.ActionLink('DeleteSetLvlEmp','SettingUser')";
+    var en = Accessor.HttpContext.Session.GetString("en");
+    var ina = Accessor.HttpContext.Session.GetString("ina");
+}
+<!-- begin::Body -->
+<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
+    <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver    m-container m-container--responsive m-container--xxl m-page__container">
+        <div class="m-grid__item m-grid__item--fluid m-wrapper">
+            <!-- BEGIN: Subheader -->
+            <div class="m-subheader ">
+                <div class="d-flex align-items-center">
+                    <div class="mr-auto" style="color: white;">
+                        <h3 class="m-subheader__title m-subheader__title--separator" style="color: white;">
+                            @(en != null ? "Employee Position Setting" : "Setting Jabatan Pegawai")
+                        </h3>
+                        <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                            <li class="m-nav__item m-nav__item--home">
+                                <a href="#" class="m-nav__link m-nav__link--icon">
+                                    <i class="m-nav__link-icon la la-home" style="color: white;"></i>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        @(en != null ? "Other" : "Lainya")
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                         @(en != null ? "Employee Position Setting" : "Setting Jabatan Pegawai")
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Subheader -->
+            <div class="m-content" style="padding: 30px 30px !important;">
+                <!--Begin::Main Portlet-->
+                <div class="m-portlet m-portlet--full-height ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <h5> @(en != null ? "Employee Position Setting" : "Setting Jabatan Pegawai")</h5>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-1 col-form-label">&nbsp; @(en != null ? "Division" : "Divisi")</label>
+                            <div class="col-sm-4">
+                                @*<select class="form-control select2-selection__rendered" id="idUnit" name="idUnit" required onchange="getUserDivisi(this.value)">
+                                    <option value="">--@(en != null ? "Select Division" : "Pilih Divisi")--</option>
+                                    @foreach (var item in ViewBag.DivisionList)
+                                    {
+                                        <option value="@item.idUnit">@item.unitName</option>
+                                    }
+                                </select>*@
+                                <select class="form-control select2-divisi" id="idUnit" name="idUnit" required onchange="getUserDivisi(this.value)">
+                                    <option value="">--@(en != null ? "Select Division" : "Pilih Divisi")--</option>
+                                    @foreach (var item in ViewBag.DivisionList)
+                                    {
+                                        <option value="@item.idUnit">@item.unitName</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-1 col-form-label">&nbsp; Nama</label>
+                            <div class="col-sm-4">
+                                <select class="form-control select2-user" id="idUser" name="idUser" required>
+                                    <option value="">--@(en != null ? "Select User" : "Pilih User")--</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-1 col-form-label">&nbsp; @(en != null ? "Level" : "Level")</label>
+                            <div class="col-sm-4">
+                               @* <select class="form-control select2-selection__rendered" id="idLevel" name="idLevel" required>
+                                    
+                                </select>*@
+                                <select class="form-control select2-jabatan" id="idLevel" name="idLevel" required>
+                                   <option value="">--@(en != null ? "Select Level" : "Pilih Level")--</option>
+                                    @foreach (var item in ViewBag.LevelEmp)
+                                    {
+                                        <option value="@item.attributeValue">@item.value</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-form-label">&nbsp;</label>
+                            <div class="col-sm-2">
+                                <button class="btn btn-primary" id="btncari" onclick="SubmitData()">Submit</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--End::Main Portlet-->
+                <div class="m-portlet m-portlet--full-height ">
+                    <div class="m-portlet__body">
+                        <table id="tblUserAdmin" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Name" : "Nama")</th>
+                                    <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Division" : "Divisi")</th>
+                                    <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Level" : "Level")</th>
+                                    <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Action" : "Aksi")</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewBag.ViewSdata)
+                                {
+                                    <tr>
+                                        <td>@item.userName</td>
+                                        <td>@item.unitName</td>
+                                        <td>@item.levelName</td>
+                                        <td style="line-height: 5px; color:white;">
+                                            <style>
+                                                .btn-danger {
+                                                    line-height: 5px;
+                                                    color: white;
+                                                }
+                                            </style>
+                                            @Html.ActionLink("Delete","DeleteSetLvlEmp", "SettingUser",
+                                        new { idUser = @item.idUser, idemplevel = @item.idemplevel },new { @class="btn btn-danger"})
+                                        </td>
+
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*<script>
+    $(document).ready(function () {
+        $('.select2-divisi').select2();
+        $('.select2-user').select2();
+        $('.select2-jabatan').select2();
+    });
+</script>*@
+<script>
+    $(document).ready(function () {
+        $('#tblUserAdmin').DataTable({
+            scrollY: true,
+            scrollX: true,
+        });
+    });
+    function SubmitData() {
+        $.blockUI({
+            css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                baseZ: 2000,
+                color: '#fff'
+            }
+        });
+        var idUnit = document.getElementById("idUnit").value;
+        var idUser = document.getElementById("idUser").value;
+        var idLevel = document.getElementById("idLevel").value;
+        var param = {
+            idUnit: idUnit,
+            idUser: idUser,
+            idLevel: idLevel
+        };
+        if (idUnit == "" || idUser == "" ) {
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Validasi',
+                text: 'Divisi dan User harus diisi!',
+                showConfirmButton: false,
+                timer: 1500,
+                onBeforeOpen: () => {
+                    timerInterval = setInterval(() => {
+                        const content = Swal.getContent()
+                        if (content) {
+                            const b = content.querySelector('b')
+                            if (b) {
+                                b.textContent = Swal.getTimerLeft()
+                            }
+                        }
+                    }, 100)
+                },
+                onClose: () => {
+                    clearInterval(timerInterval)
+                }
+            }).then((result) => {
+                /* Read more about handling dismissals below */
+            })
+        }
+
+        $.post('@Url.Action("SettingLevelEmployee", "SettingUser")', param, function (result) {
+            var data = JSON.parse(result);
+            console.log(data);
+
+            $.unblockUI();
+            window.location.reload();
+
+        });
+
+    }
+
+    function getUserDivisi(idUnit) {
+        $('#idUser option:not(:first)').remove();
+        $.ajax({
+            
+             url: "@Url.Action("GetUserDivisiUsingLevelEmp","SettingUser")",
+            method: "POST",
+            data: { idUnit: idUnit },
+            success: function (msg) {
+                var data = JSON.parse(msg);
+                var result = data.Result;
+                console.log(data);
+                for (var i = 0; i < result.length; i++) {
+                    $("#idUser").append('<option value="' + result[i].idUser + '">' + result[i].userName + '</option>');
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("ERROR!!!");
+            }
+        });
+    }
+
+
+
+
+
+</script>

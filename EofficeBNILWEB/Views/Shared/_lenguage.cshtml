@@ -1,0 +1,15 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localiza
+@inject Microsoft.Extensions.Options.IOptions<Microsoft.AspNetCore.Builder.RequestLocalizationOptions> options_location
+@{
+    var lengueage= Context.Features.Get<Microsoft.AspNetCore.Localization.IRequestCultureFeature>();
+    var listLanguange=options_location.Value.SupportedUICultures.Select(x => new  SelectListItem{Value=x.Name,Text=x.Name }).ToList();
+    var urlrtn=string.IsNullOrWhiteSpace(Context.Request.Path)? "~/": $"~{Context.Request.Path.Value}{Context.Request.QueryString}";        
+} 
+
+<form asp-action="Translate"  method="post" asp-route-urlrtn="@urlrtn" style="border:0px;">
+    <select name="lengueage" asp-for="@lengueage.RequestCulture.UICulture.Name" asp-items="listLanguange"  class="kt-menu__link kt-menu__toggle" style="border:0px;" onchange="this.form.submit();"></select>
+</form>
+@*<span b-r779fdi45h="" class="kt-menu__link-text" style="color: #6a5844 !important;">HOME</span>*@
+                                      
+                                  
+    

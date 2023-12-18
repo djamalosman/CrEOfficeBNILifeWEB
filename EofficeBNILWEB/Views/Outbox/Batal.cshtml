@@ -1,0 +1,678 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localiza
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@{
+    var sessidUser = Accessor.HttpContext.Session.GetString("idUser");
+    var sessidUnit = Accessor.HttpContext.Session.GetString("idUnit");
+}
+
+<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
+    <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver    m-container m-container--responsive m-container--xxl m-page__container">
+        <div class="m-grid__item m-grid__item--fluid m-wrapper">
+            <!-- BEGIN: Subheader -->
+            <div class="m-subheader " style="padding: 10px 0 0 30px !important;">
+                <div class="d-flex align-items-center">
+                    <div class="mr-auto">
+                        <h3 class="m-subheader__title m-subheader__title--separator" style="color: white;">
+                            Batal
+                        </h3>
+                        <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                            <li class="m-nav__item m-nav__item--home">
+                                <a href="#" class="m-nav__link m-nav__link--icon">
+                                    <i class="m-nav__link-icon la la-home" style="color: white;"></i>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        E-OFFICE
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        Kotak Keluar
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        Batal
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Subheader -->
+            <div class="m-content" style="padding: 30px 30px !important;">
+                <div class="kt-grid kt-grid--desktop kt-grid--ver-desktop  kt-inbox" id="kt_inbox">
+                    <!--Begin::Aside Mobile Toggle-->
+                    <button class="kt-inbox__aside-close" id="kt_inbox_aside_close">
+                        <i class="la la-close"></i>
+                    </button>
+                    <!--End:: Aside Mobile Toggle-->
+                    <!--Begin:: Inbox Aside-->
+                    <div class="kt-grid__item   kt-portlet  kt-inbox__aside" id="kt_inbox_aside">
+                        <div class="kt-inbox__nav">
+                            <ul class="kt-nav">
+                                <li class="kt-nav__item">
+                                    <a href="@Url.Action("Send", "Outbox")" class="kt-nav__link" data-action="list" data-type="inbox">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-nav__link-icon">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24"></rect>
+                                                <path d="M6,2 L18,2 C18.5522847,2 19,2.44771525 19,3 L19,13 C19,13.5522847 18.5522847,14 18,14 L6,14 C5.44771525,14 5,13.5522847 5,13 L5,3 C5,2.44771525 5.44771525,2 6,2 Z M13.8,4 C13.1562,4 12.4033,4.72985286 12,5.2 C11.5967,4.72985286 10.8438,4 10.2,4 C9.0604,4 8.4,4.88887193 8.4,6.02016349 C8.4,7.27338783 9.6,8.6 12,10 C14.4,8.6 15.6,7.3 15.6,6.1 C15.6,4.96870845 14.9396,4 13.8,4 Z" fill="#000000" opacity="0.3"></path>
+                                                <path d="M3.79274528,6.57253826 L12,12.5 L20.2072547,6.57253826 C20.4311176,6.4108595 20.7436609,6.46126971 20.9053396,6.68513259 C20.9668779,6.77033951 21,6.87277228 21,6.97787787 L21,17 C21,18.1045695 20.1045695,19 19,19 L5,19 C3.8954305,19 3,18.1045695 3,17 L3,6.97787787 C3,6.70173549 3.22385763,6.47787787 3.5,6.47787787 C3.60510559,6.47787787 3.70753836,6.51099993 3.79274528,6.57253826 Z" fill="#000000"></path>
+                                            </g>
+                                        </svg>
+                                        <span class="kt-nav__link-text">Surat Keluar</span>
+                                        <span class="kt-nav__link-badge">
+                                            <span class="kt-badge kt-badge--unified-success kt-badge--md kt-badge--rounded kt-badge--boldest">1294</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="kt-nav__item">
+                                    <a href="@Url.Action("Draft", "Outbox")" class="kt-nav__link" data-action="list" data-type="marked">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-nav__link-icon">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24"></rect>
+                                                <path d="M6,2 L18,2 C18.5522847,2 19,2.44771525 19,3 L19,13 C19,13.5522847 18.5522847,14 18,14 L6,14 C5.44771525,14 5,13.5522847 5,13 L5,3 C5,2.44771525 5.44771525,2 6,2 Z M13.8,4 C13.1562,4 12.4033,4.72985286 12,5.2 C11.5967,4.72985286 10.8438,4 10.2,4 C9.0604,4 8.4,4.88887193 8.4,6.02016349 C8.4,7.27338783 9.6,8.6 12,10 C14.4,8.6 15.6,7.3 15.6,6.1 C15.6,4.96870845 14.9396,4 13.8,4 Z" fill="#000000" opacity="0.3"></path>
+                                                <path d="M3.79274528,6.57253826 L12,12.5 L20.2072547,6.57253826 C20.4311176,6.4108595 20.7436609,6.46126971 20.9053396,6.68513259 C20.9668779,6.77033951 21,6.87277228 21,6.97787787 L21,17 C21,18.1045695 20.1045695,19 19,19 L5,19 C3.8954305,19 3,18.1045695 3,17 L3,6.97787787 C3,6.70173549 3.22385763,6.47787787 3.5,6.47787787 C3.60510559,6.47787787 3.70753836,6.51099993 3.79274528,6.57253826 Z" fill="#000000"></path>
+                                            </g>
+                                        </svg>
+                                        <span class="kt-nav__link-text">Draft</span>
+                                        <span class="kt-nav__link-badge">
+                                            <span class="kt-badge kt-badge--unified-success kt-badge--md kt-badge--rounded kt-badge--boldest">19</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="kt-nav__item kt-nav__item--active">
+                                    <a href="@Url.Action("Batal", "Outbox")" class="kt-nav__link" data-action="list" data-type="marked">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-nav__link-icon">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24"></rect>
+                                                <path d="M6,2 L18,2 C18.5522847,2 19,2.44771525 19,3 L19,13 C19,13.5522847 18.5522847,14 18,14 L6,14 C5.44771525,14 5,13.5522847 5,13 L5,3 C5,2.44771525 5.44771525,2 6,2 Z M13.8,4 C13.1562,4 12.4033,4.72985286 12,5.2 C11.5967,4.72985286 10.8438,4 10.2,4 C9.0604,4 8.4,4.88887193 8.4,6.02016349 C8.4,7.27338783 9.6,8.6 12,10 C14.4,8.6 15.6,7.3 15.6,6.1 C15.6,4.96870845 14.9396,4 13.8,4 Z" fill="#000000" opacity="0.3"></path>
+                                                <path d="M3.79274528,6.57253826 L12,12.5 L20.2072547,6.57253826 C20.4311176,6.4108595 20.7436609,6.46126971 20.9053396,6.68513259 C20.9668779,6.77033951 21,6.87277228 21,6.97787787 L21,17 C21,18.1045695 20.1045695,19 19,19 L5,19 C3.8954305,19 3,18.1045695 3,17 L3,6.97787787 C3,6.70173549 3.22385763,6.47787787 3.5,6.47787787 C3.60510559,6.47787787 3.70753836,6.51099993 3.79274528,6.57253826 Z" fill="#000000"></path>
+                                            </g>
+                                        </svg>
+                                        <span class="kt-nav__link-text">Batal</span>
+                                        <span class="kt-nav__link-badge">
+                                            <span class="kt-badge kt-badge--unified-success kt-badge--md kt-badge--rounded kt-badge--boldest">2</span>
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--End::Aside-->
+                    <!--Begin:: Inbox List-->
+                    <div class="kt-grid__item kt-grid__item--fluid    kt-portlet    kt-inbox__list kt-inbox__list--shown" id="kt_inbox_list">
+                        <div class="kt-portlet__head">
+                            <div class="kt-inbox__toolbar kt-inbox__toolbar--extended">
+                                <div class="kt-inbox__actions kt-inbox__actions--expanded"></div>
+                                <div class="kt-inbox__search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Search" readonly="1" data-toggle="modal" data-target="#exampleModal" style="z-index: 0;">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <!--<i class="la la-group"></i>-->
+                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                        <rect x="0" y="0" width="24" height="24"></rect>
+                                                        <path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"></path>
+                                                        <path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z" fill="#000000" fill-rule="nonzero"></path>
+                                                    </g>
+                                                </svg>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="kt-inbox__controls">
+                                    <div class="kt-inbox__pages paginggall" id="pagination" data-toggle="kt-tooltip" title="Records per page">
+                                        <span class="kt-inbox__perpage" data-toggle="dropdown">1 - 20 dari 2</span>
+                                    </div>
+                                    <button class="kt-inbox__icon prevv" id="prev" data-toggle="kt-tooltip" title="Previose page">
+                                        <i class="flaticon2-left-arrow"></i>
+                                    </button>
+                                    <button class="kt-inbox__icon nextt" id="next" data-toggle="kt-tooltip" title="Next page">
+                                        <i class="flaticon2-right-arrow"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__body kt-portlet__body--fit-x" style="padding-bottom: 0px;margin-bottom: 0px;padding-top: 10px;">
+                            <div class="kt-inbox__items" data-type="inbox">
+                                <div class="kt-inbox__items" id="batal-list" data-type="inbox" style="margin-top: -0.8em;">
+                                    <div class="kt-inbox__item kt-inbox__item--unread" data-id="1" data-type="inbox">
+                                        <div class="kt-inbox__info">
+                                            <div class="kt-inbox__sender" data-toggle="view">
+                                                <a href="#" class="kt-inbox__author">
+                                                    Direktur Keuangan &amp; SDM,
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="kt-inbox__details" style="margin: 0px 0px 0px 0px; padding-right: 0px;" data-toggle="view">
+                                            <div class="kt-inbox__message" style="width: 600px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                <span class="kt-inbox__summary">SPPD JAKARTA - SEMARANG ANGKUTAN UDARA</span>
+                                            </div>
+                                            <div class="kt-inbox__labels">
+                                                <span class="kt-inbox__label kt-badge kt-badge--unified-brand kt-badge--bold kt-badge--inline">nd_sppd</span>
+                                            </div>
+                                        </div>
+                                        <div class="kt-inbox__datetime" data-toggle="view">
+                                            <div class="option-hover">
+                                                <div class="row" style="text-align: center;">
+                                                    <div class="col-sm-12 option-action" style="padding: 10px;" onclick="delete_batal('NTA1MjI0')">
+                                                        <i class="m-menu__link-icon flaticon2-trash"></i><br>delete
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            23 Aug
+                                        </div>
+                                    </div>  <hr style="margin-top:1px; margin-bottom: 1px">
+                                    <div class="kt-inbox__item kt-inbox__item--unread" data-id="1" data-type="inbox">
+                                        <div class="kt-inbox__info">
+                                            <div class="kt-inbox__sender" data-toggle="view">
+                                                <a href="#" class="kt-inbox__author">
+                                                    Direktur Keuangan &amp; SDM,
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="kt-inbox__details" style="margin: 0px 0px 0px 0px; padding-right: 0px;" data-toggle="view">
+                                            <div class="kt-inbox__message" style="width: 600px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                <span class="kt-inbox__summary">UAT TES</span>
+                                            </div>
+                                            <div class="kt-inbox__labels">
+                                                <span class="kt-inbox__label kt-badge kt-badge--unified-brand kt-badge--bold kt-badge--inline">nd_sppd</span>
+                                            </div>
+                                        </div>
+                                        <div class="kt-inbox__datetime" data-toggle="view">
+                                            <div class="option-hover">
+                                                <div class="row" style="text-align: center;">
+                                                    <div class="col-sm-12 option-action" style="padding: 10px;" onclick="delete_batal('NTA1MTE4')">
+                                                        <i class="m-menu__link-icon flaticon2-trash"></i><br>delete
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            25 May
+                                        </div>
+                                    </div>  <hr style="margin-top:1px; margin-bottom: 1px">
+                                </div>
+                                <!--End:: Inbox List-->
+                            </div>
+                        </div>
+                        <div class="kt-portlet__head" style="padding-top: 0px;margin-top: 0px;">
+                            <div class="kt-inbox__toolbar kt-inbox__toolbar--extended">
+                                <div class="kt-inbox__actions kt-inbox__actions--expanded"></div>
+                                <div class="kt-inbox__controls">
+                                    <div class="kt-inbox__pages paginggall" id="pagination" data-toggle="kt-tooltip" title="Records per page">
+                                        <span class="kt-inbox__perpage" data-toggle="dropdown">1 - 20 dari </span>
+                                    </div>
+                                    <button class="kt-inbox__icon prevv" id="prev" data-toggle="kt-tooltip" title="Previose page">
+                                        <i class="flaticon2-left-arrow"></i>
+                                    </button>
+                                    <button class="kt-inbox__icon nextt" id="next" data-toggle="kt-tooltip" title="Next page">
+                                        <i class="flaticon2-right-arrow"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end::Body -->
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Search</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="searchForm" name="searchForm" action="{$searchurl}" method="get">
+                                <table class="{$style.gridtable}" border="0" cellpadding="2" cellspacing="2" width="100%">
+                                    <tbody>
+                                        <tr>
+                                            <td>JENIS SURAT</td>
+                                            <td>
+                                                <select class="form-control" id="jn_surat">
+                                                    <option value="not-selected" selected="">---</option>
+                                                    <option value="pengajuan_proses_pengadaan">Pengajuan Proses Pengadaan</option>
+                                                    <option value="permintaan_penagihan">Permintaan Penagihan</option>
+                                                    <option value="permohonan_pembayaran">Permohonan Pembayaran</option>
+                                                    <option value="nd_sppd">Pengajuan SPPD</option>
+                                                    <option value="surat_perintah">Surat Perintah</option>
+                                                    <option value="pengumuman">Pengumuman</option>
+                                                    <option value="nd_undangan">Pengajuan Undangan</option>
+                                                    <option value="nota_dinas">Nota Dinas</option>
+                                                    <option value="undangan">Undangan</option>
+                                                    <option value="memo">Memo</option>
+                                                    <option value="surat_dinas">Surat Dinas</option>
+                                                    <option value="surat_masuk">Surat Masuk</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="form-field-caption" align="left">PERIHAL</td>
+                                            <td class="form-field-input">
+                                                <input type="text" id="perihal" name="PERIHAL" class="form-control" autocomplete="off">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="form-field-caption" align="left">TANGGAL</td>
+                                            <td class="form-field-input">
+                                                <div class="form-row">
+                                                    <div class="col" style="width: 40%">
+                                                        <input type="date" name="TANGGAL1" class="form-control" id="tanggal1">
+                                                    </div>S/D
+                                                    <div class="col" style="width: 40%">
+                                                        <input type="date" name="TANGGAL2" class="form-control" id="tanggal2">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" onclick="search_batal()">Cari</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="kt_scrolltop" class="kt-scrolltop">
+                <i class="kt-menu__ver-arrow la la-angle-up"></i>
+            </div>
+
+            <!-- begin:: Footer -->
+            <!-- end:: Footer -->
+        </div>
+        <!-- end:: Page -->
+        <!-- end::Body -->
+
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    var start = '1';
+    var limit = '20';
+    var batal_count = '2';
+    var perihal, jn_surat, tanggal1, tanggal2; // true parameter
+
+    function delete_batal(param) {
+        if (confirm('Hapus batal dari list?')) {
+            window.location = "http://10.1.5.102/outbox/batal/delete_batal/" + param;
+        } else {
+            return false;
+        }
+    }
+
+    function search_batal() {
+        var url = 'http://10.1.5.102/outbox/batal/search_batal';
+
+        perihal = $('#perihal').val();
+        jn_surat = $('#jn_surat').val();
+        tanggal1 = $('#tanggal1').val();
+        tanggal2 = $('#tanggal2').val();
+
+        $('#exampleModal').modal('toggle');
+        $.blockUI({
+            css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
+            }
+        });
+
+        $.ajax({
+            type: 'post',
+            url: url,
+            data: {
+                perihal: perihal,
+                jn_surat: jn_surat,
+                tanggal1: tanggal1,
+                tanggal2: tanggal2
+            },
+            success: function (data) {
+                var data = JSON.parse(data);
+                start = data['start'];
+                limit = data['limit'];
+                batal_count = data['batal_count'];
+
+                $(".kt-inbox__item").hover(function () {
+                    $(this).find(".option-hover").css("display", "block");
+                }, function () {
+                    $('.option-hover').css("display", "none");
+                });
+
+                $('.paginggall span').remove();
+                $('.paginggall').append('<span class="kt-inbox__perpage" data-toggle="dropdown">' + data.start + ' - ' + data.limit + ' dari ' + data.batal_count + '</span>');
+
+                $('#batal-list div').remove();
+                $('#batal-list hr').remove();
+
+                var strDate = new Date();
+                var shortYear = strDate.getFullYear();
+                var twoDigitYear = shortYear.toString().substr(-2);
+
+                for (var i = 0; i < data['batal_list'].length; i++) {
+                    var receiver = [];
+                    for (var ii = 0; ii < data['batal_list'][i][0].length; ii++) {
+                        receiver.push(data['batal_list'][i][0][ii]['NM_JABATAN']);
+                    }
+
+                    var tahundata = data['batal_list'][i]['TGL_SURAT'].substr(-2, 2);
+                    if (twoDigitYear == tahundata) {
+                        tempdate = data['batal_list'][i]['TGL_SURAT'].replace("-" + tahundata, "");
+                    } else {
+                        tempdate = data['batal_list'][i]['TGL_SURAT'];
+                    }
+                    if (tempdate.substr(0, 1) == '0') {
+                        newshowdate = tempdate.replace('0', '');
+                    } else {
+                        newshowdate = tempdate;
+                    }
+                    newshowdate = newshowdate.toLowerCase().replace(/\b[a-z]/g, function (letter) {
+                        return letter.toUpperCase();
+                    });
+                    newshowdate = newshowdate.split('-').join(' ');
+
+                    $('#batal-list').append(
+                        '<div class="kt-inbox__item kt-inbox__item--unread" data-id="1" data-type="inbox">' +
+                        '<div class="kt-inbox__info">' +
+                        '<div class="kt-inbox__sender" data-toggle="view">' +
+                        '<a href="#" class="kt-inbox__author">' +
+                        receiver +
+                        '</a>' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="kt-inbox__details" style="margin: 0px 0px 0px 0px; padding-right: 0px;" data-toggle="view">' +
+                        '<div class="kt-inbox__message" style="width: 600px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">' +
+                        '<span class="kt-inbox__summary">' + data['batal_list'][i]['PERIHAL'] + '</span>' +
+                        '</div>' +
+                        '<div class="kt-inbox__labels">' +
+                        '<span class="kt-inbox__label kt-badge kt-badge--unified-brand kt-badge--bold kt-badge--inline">' + data['batal_list'][i]['JN_SURAT'] + '</span>' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="kt-inbox__datetime" data-toggle="view">' +
+                        '<div class="option-hover">' +
+                        '<div class="row" style="text-align: center;">' +
+                        '<div class="col-sm-12 option-action" style="padding: 10px;" onclick="delete_batal(\'' + btoa(data['batal_list'][i]['ID_SURAT']) + '\')">' +
+                        '<i class="m-menu__link-icon flaticon2-trash"></i><br>delete' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        newshowdate +
+                        '</div>' +
+                        '</div>  <hr style="margin-top:1px; margin-bottom: 1px">'
+                    );
+                }
+
+                $(".kt-inbox__item").hover(function () {
+                    $(this).find(".option-hover").css("display", "block");
+                }, function () {
+                    $('.option-hover').css("display", "none");
+                });
+
+                $.unblockUI();
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        $(".kt-inbox__item").hover(function () {
+            $(this).find(".option-hover").css("display", "block");
+        }, function () {
+            $('.option-hover').css("display", "none");
+        });
+
+
+        var url = 'http://10.1.5.102/outbox/batal/prev_next_pagination';
+
+        // NEXT PAGE ARROW
+        $('.nextt').click(function () {
+            if (parseInt(limit) >= parseInt(batal_count)) return false;
+
+            $.blockUI({
+                css: {
+                    border: 'none',
+                    padding: '15px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .5,
+                    color: '#fff'
+                }
+            });
+
+            $.ajax({
+                type: 'post',
+                url: url,
+                data: {
+                    // FILTER
+                    perihal: perihal,
+                    jn_surat: jn_surat,
+                    tanggal1: tanggal1,
+                    tanggal2: tanggal2,
+                    // END FILTER
+                    start: start,
+                    limit: limit,
+                    marked: 'next'
+                },
+                success: function (data) {
+                    var data = JSON.parse(data);
+                    console.log(data['batal_list']);
+                    start = data['start'];
+                    limit = data['limit'];
+                    batal_count = data['batal_count'];
+
+                    $('.paginggall span').remove();
+                    $('.paginggall').append('<span class="kt-inbox__perpage" data-toggle="dropdown">' + data.start + ' - ' + data.limit + ' dari ' + data.batal_count + '</span>');
+
+                    $('#batal-list div').remove();
+                    $('#batal-list hr').remove();
+
+                    var strDate = new Date();
+                    var shortYear = strDate.getFullYear();
+                    var twoDigitYear = shortYear.toString().substr(-2);
+
+                    for (var i = 0; i < data['batal_list'].length; i++) {
+                        var receiver = [];
+                        for (var ii = 0; ii < data['batal_list'][i][0].length; ii++) {
+                            receiver.push(data['batal_list'][i][0][ii]['NM_JABATAN']);
+                        }
+                        var tahundata = data['batal_list'][i]['TGL_SURAT'].substr(-2, 2);
+                        if (twoDigitYear == tahundata) {
+                            tempdate = data['batal_list'][i]['TGL_SURAT'].replace("-" + tahundata, "");
+                        } else {
+                            tempdate = data['batal_list'][i]['TGL_SURAT'];
+                        }
+                        if (tempdate.substr(0, 1) == '0') {
+                            newshowdate = tempdate.replace('0', '');
+                        } else {
+                            newshowdate = tempdate;
+                        }
+                        newshowdate = newshowdate.toLowerCase().replace(/\b[a-z]/g, function (letter) {
+                            return letter.toUpperCase();
+                        });
+                        newshowdate = newshowdate.split('-').join(' ');
+
+                        $('#batal-list').append(
+                            '<div class="kt-inbox__item kt-inbox__item--unread" data-id="1" data-type="inbox">' +
+                            '<div class="kt-inbox__info">' +
+                            '<div class="kt-inbox__sender" data-toggle="view">' +
+                            '<a href="#" class="kt-inbox__author">' +
+                            receiver +
+                            '</a>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="kt-inbox__details" style="margin: 0px 0px 0px 0px; padding-right: 0px;" data-toggle="view">' +
+                            '<div class="kt-inbox__message" style="width: 600px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">' +
+                            '<span class="kt-inbox__summary">' + data['batal_list'][i]['PERIHAL'] + '</span>' +
+                            '</div>' +
+                            '<div class="kt-inbox__labels">' +
+                            '<span class="kt-inbox__label kt-badge kt-badge--unified-brand kt-badge--bold kt-badge--inline">' + data['batal_list'][i]['JN_SURAT'] + '</span>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="kt-inbox__datetime" data-toggle="view">' +
+                            '<div class="option-hover">' +
+                            '<div class="row" style="text-align: center;">' +
+                            '<div class="col-sm-12 option-action" style="padding: 10px;" onclick="delete_batal(\'' + btoa(data['batal_list'][i]['ID_SURAT']) + '\')">' +
+                            '<i class="m-menu__link-icon flaticon2-trash"></i><br>delete' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            newshowdate +
+                            '</div>' +
+                            '</div>  <hr style="margin-top:1px; margin-bottom: 1px">'
+                        );
+                    }
+
+                    $(".kt-inbox__item").hover(function () {
+                        $(this).find(".option-hover").css("display", "block");
+                    }, function () {
+                        $('.option-hover').css("display", "none");
+                    });
+
+                    $.unblockUI();
+                }
+            });
+        });
+
+        // PREV PAGE ARROW
+        $('.prevv').click(function () {
+            if (parseInt(start) <= 1) return false;
+
+            $.blockUI({
+                css: {
+                    border: 'none',
+                    padding: '15px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .5,
+                    color: '#fff'
+                }
+            });
+
+            $.ajax({
+                type: 'post',
+                url: url,
+                data: {
+                    // FILTER
+                    perihal: perihal,
+                    jn_surat: jn_surat,
+                    tanggal1: tanggal1,
+                    tanggal2: tanggal2,
+                    // END FILTER
+                    start: start,
+                    limit: limit,
+                    marked: 'prev'
+                },
+                success: function (data) {
+                    var data = JSON.parse(data);
+                    console.log(data['batal_list']);
+                    start = data['start'];
+                    limit = data['limit'];
+                    batal_count = data['batal_count'];
+
+                    $('.paginggall span').remove();
+                    $('.paginggall').append('<span class="kt-inbox__perpage" data-toggle="dropdown">' + data.start + ' - ' + data.limit + ' dari ' + data.batal_count + '</span>');
+
+                    $('#batal-list div').remove();
+                    $('#batal-list hr').remove();
+
+                    var strDate = new Date();
+                    var shortYear = strDate.getFullYear();
+                    var twoDigitYear = shortYear.toString().substr(-2);
+
+                    for (var i = 0; i < data['batal_list'].length; i++) {
+                        var receiver = [];
+                        for (var ii = 0; ii < data['batal_list'][i][0].length; ii++) {
+                            receiver.push(data['batal_list'][i][0][ii]['NM_JABATAN']);
+                        }
+
+                        var tahundata = data['batal_list'][i]['TGL_SURAT'].substr(-2, 2);
+                        if (twoDigitYear == tahundata) {
+                            tempdate = data['batal_list'][i]['TGL_SURAT'].replace("-" + tahundata, "");
+                        } else {
+                            tempdate = data['batal_list'][i]['TGL_SURAT'];
+                        }
+                        if (tempdate.substr(0, 1) == '0') {
+                            newshowdate = tempdate.replace('0', '');
+                        } else {
+                            newshowdate = tempdate;
+                        }
+                        newshowdate = newshowdate.toLowerCase().replace(/\b[a-z]/g, function (letter) {
+                            return letter.toUpperCase();
+                        });
+                        newshowdate = newshowdate.split('-').join(' ');
+
+                        $('#batal-list').append(
+                            '<div class="kt-inbox__item kt-inbox__item--unread" data-id="1" data-type="inbox">' +
+                            '<div class="kt-inbox__info">' +
+                            '<div class="kt-inbox__sender" data-toggle="view">' +
+                            '<a href="#" class="kt-inbox__author">' +
+                            receiver +
+                            '</a>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="kt-inbox__details" style="margin: 0px 0px 0px 0px; padding-right: 0px;" data-toggle="view">' +
+                            '<div class="kt-inbox__message" style="width: 600px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">' +
+                            '<span class="kt-inbox__summary">' + data['batal_list'][i]['PERIHAL'] + '</span>' +
+                            '</div>' +
+                            '<div class="kt-inbox__labels">' +
+                            '<span class="kt-inbox__label kt-badge kt-badge--unified-brand kt-badge--bold kt-badge--inline">' + data['batal_list'][i]['JN_SURAT'] + '</span>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="kt-inbox__datetime" data-toggle="view">' +
+                            '<div class="option-hover">' +
+                            '<div class="row" style="text-align: center;">' +
+                            '<div class="col-sm-12 option-action" style="padding: 10px;" onclick="delete_batal(\'' + btoa(data['batal_list'][i]['ID_SURAT']) + '\')">' +
+                            '<i class="m-menu__link-icon flaticon2-trash"></i><br>delete' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            newshowdate +
+                            '</div>' +
+                            '</div>  <hr style="margin-top:1px; margin-bottom: 1px">'
+                        );
+                    }
+
+                    $(".kt-inbox__item").hover(function () {
+                        $(this).find(".option-hover").css("display", "block");
+                    }, function () {
+                        $('.option-hover').css("display", "none");
+                    });
+
+                    $.unblockUI();
+                }
+            });
+        });
+
+    });
+
+</script>

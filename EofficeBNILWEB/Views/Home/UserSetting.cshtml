@@ -1,0 +1,246 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@{
+    var sessidUser = Accessor.HttpContext.Session.GetString("idUser");
+    var sessidUnit = Accessor.HttpContext.Session.GetString("idUnit");
+    var sessNip = Accessor.HttpContext.Session.GetString("nip");
+    var sessNama = Accessor.HttpContext.Session.GetString("fullname");
+    var sessPosition = Accessor.HttpContext.Session.GetString("positionName");
+    var sessEmail = Accessor.HttpContext.Session.GetString("email");
+    var sessPhone = Accessor.HttpContext.Session.GetString("phone");
+    var unitMailingRoom = "D0D02AA8-7A27-ED11-89B0-3CF011A1A981";
+}
+<!-- begin::Body -->
+<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
+    <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver    m-container m-container--responsive m-container--xxl m-page__container">
+        <div class="m-grid__item m-grid__item--fluid m-wrapper">
+            <!-- BEGIN: Subheader -->
+            <div class="m-subheader ">
+                <div class="d-flex align-items-center">
+                    <div class="mr-auto" style="color: white;">
+                        <h3 class="m-subheader__title m-subheader__title--separator" style="color: white;">
+                            Setting User
+                        </h3>
+                        <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                            <li class="m-nav__item m-nav__item--home">
+                                <a href="#" class="m-nav__link m-nav__link--icon">
+                                    <i class="m-nav__link-icon la la-home" style="color: white;"></i>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        Tools
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        Setting User
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Subheader -->
+            <div class="m-content" style="padding: 30px 30px !important;">
+                <!--Begin::Main Portlet-->
+                <div class="m-portlet m-portlet--full-height ">
+                    <div class="m-portlet__body">
+                        <form method="post" onsubmit="return validatePass()">
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">&nbsp; NIP</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="nip" name="nip" placeholder="NIP" value="@sessNip" readonly style="background-color: #e6e9ec;">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">&nbsp; Password Lama</label>
+                                <div class="input-group col-sm-4">
+                                    <input type="password" class="form-control" id="passLama" name="passLama" placeholder="Password Lama">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i class="far fa-eye" id="iconEyeOld" onclick="showPass(1)"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">&nbsp; Password Baru</label>
+                                <div class="input-group col-sm-4">
+                                    <input type="password" class="form-control" id="passBaru" name="newPassword" placeholder="Password Baru" onkeyup="validatePW()">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i class="far fa-eye" id="iconEyeBaru" onclick="showPass(2)"></i>
+                                        </span>
+                                    </div>
+                                    <div class="fv-plugins-message-container">
+                                        <div id="messagePassLama" style="padding-top: 16%;">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">&nbsp; Re-Type Password</label>
+                                <div class="input-group col-sm-4">
+                                    <input type="password" class="form-control" id="reTypePassBaru" name="reTypePassBaru" placeholder="Re-Type Password Baru" onkeyup="validatePW()">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i class="far fa-eye" id="iconEyeRetype" onclick="showPass(3)"></i>
+                                        </span>
+                                    </div>
+                                    <div class="fv-plugins-message-container">
+                                        <div id="messagePassRetype" style="padding-top: 16%;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">&nbsp; Fullname</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="fullname" name="fullname" value="@sessNama" placeholder="Fullname" readonly style="background-color: #e6e9ec;">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">&nbsp; Position</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="position" name="position" value="@sessPosition" placeholder="Fullname" readonly style="background-color: #e6e9ec;">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">&nbsp; Email</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="email" name="email" value="@sessEmail" placeholder="Email" readonly style="background-color: #e6e9ec;">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">&nbsp; Handphone</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="handphone" name="handphone" value="@sessPhone" placeholder="Handphone" readonly style="background-color: #e6e9ec;">
+                                </div>
+                            </div>
+                            <div class="tab-content">
+                                <button class="btn btn-success" type="submit">Submit</button>
+                                <br>
+                            </div>
+                        </form>                        
+                    </div>
+                </div>
+                <!--End::Main Portlet-->
+            </div>
+        </div>
+    </div>
+</div>
+@*<link href="~/assets/datatablenew/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+<script src="~/assets/demo/demo2/new_theme/js/jquery-3.1.1.min.js" type="text/javascript"></script>
+<script src="~/assets/datatablenew/jquery.dataTables.min.js" type="text/javascript"></script>*@
+<!-- END: Body -->
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var valid = false;
+
+    });
+    function showPass(val){
+        if(val == 1)
+        {
+            var textBox = document.getElementById("passLama");
+            if (textBox.type == 'text') {
+                $('#passLama').attr('type', 'password');
+                $("#iconEyeOld").removeClass("far fa-eye-slash").addClass("far fa-eye");
+            } 
+            else{ 
+                $('#passLama').attr('type', 'text');
+                $("#iconEyeOld").removeClass("far fa-eye").addClass("far fa-eye-slash");
+            }
+        }
+        if (val == 2) {
+            var textBox = document.getElementById("passBaru");
+            if (textBox.type == 'text') {
+                $('#passBaru').attr('type', 'password');
+                $("#iconEyeBaru").removeClass("far fa-eye-slash").addClass("far fa-eye");
+            }
+            else {
+                $('#passBaru').attr('type', 'text');
+                $("#iconEyeBaru").removeClass("far fa-eye").addClass("far fa-eye-slash");
+            }
+        }
+        if (val == 3) {
+            var textBox = document.getElementById("reTypePassBaru");
+            if (textBox.type == 'text') {
+                $('#reTypePassBaru').attr('type', 'password');
+                $("#iconEyeRetype").removeClass("far fa-eye-slash").addClass("far fa-eye");
+            }
+            else {
+                $('#reTypePassBaru').attr('type', 'text');
+                $("#iconEyeRetype").removeClass("far fa-eye").addClass("far fa-eye-slash");
+            }
+        }
+    }
+    function validatePW() {
+        var pw1 = document.getElementById("passBaru").value;
+        var pw2 = document.getElementById("reTypePassBaru").value;
+
+        if (pw1 != pw2) {
+            //console.log("Passwords did not match");
+            var element = document.getElementById("passBaru");
+            element.classList.add("is-invalid");
+            element.classList.remove("is-valid");
+            var elements = document.getElementById("reTypePassBaru");
+            elements.classList.add("is-invalid");
+            elements.classList.remove("is-valid");
+            valid = false;
+
+        } else {
+            //console.log("Password match");
+            var element = document.getElementById("passBaru");
+            element.classList.remove("is-invalid");
+            element.classList.add("is-valid");
+            var elements = document.getElementById("reTypePassBaru");
+            elements.classList.remove("is-invalid");
+            elements.classList.add("is-valid");
+            valid = true;
+        }
+    }
+    function validatePass(){
+        if(!valid)
+        {
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'ERROR',
+                text: 'Password tidak sama',
+                showConfirmButton: false,
+                timer: 1500,
+                onBeforeOpen: () => {
+                    timerInterval = setInterval(() => {
+                        const content = Swal.getContent()
+                        if (content) {
+                            const b = content.querySelector('b')
+                            if (b) {
+                                b.textContent = Swal.getTimerLeft()
+                            }
+                        }
+                    }, 100)
+                },
+                onClose: () => {
+                    clearInterval(timerInterval)
+                }
+            }).then((result) => {
+                /* Read more about handling dismissals below */
+            })
+        }
+        return valid;
+    }
+</script>

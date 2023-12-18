@@ -1,0 +1,116 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localiza
+@using EofficeBNILWEB;
+@model dynamic
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@{
+	var sessidUser = Accessor.HttpContext.Session.GetString("idUser");
+	var sessidUnit = Accessor.HttpContext.Session.GetString("idUnit");
+	var order = 0;
+	var numButton = 0;
+
+}
+<!-- begin::Body -->
+<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
+	<div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver    m-container m-container--responsive m-container--xxl m-page__container">
+		<div class="m-grid__item m-grid__item--fluid m-wrapper">
+			<!-- BEGIN: Subheader -->
+			<div class="m-subheader ">
+				<div class="d-flex align-items-center">
+					<div class="mr-auto" style="color: white;">
+						<h3 class="m-subheader__title m-subheader__title--separator" style="color: white;">
+							Register Barcode
+						</h3>
+						<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+							<li class="m-nav__item m-nav__item--home">
+								<a href="#" class="m-nav__link m-nav__link--icon">
+									<i class="m-nav__link-icon la la-home" style="color: white;"></i>
+								</a>
+							</li>
+							<li class="m-nav__separator" style="color: white;">
+								-
+							</li>
+							<li class="m-nav__item">
+								<a href="" class="m-nav__link">
+									<span class="m-nav__link-text" style="color: white;">
+										E-Office
+									</span>
+								</a>
+							</li>
+							<li class="m-nav__separator" style="color: white;">
+								-
+							</li>
+							<li class="m-nav__item">
+								<a href="" class="m-nav__link">
+									<span class="m-nav__link-text" style="color: white;">
+										Register Barcode
+									</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- END: Subheader -->
+			<div class="m-content" style="padding: 30px 30px !important;">
+                <!--Begin::Main Portlet-->
+                <div class="m-portlet m-portlet--full-height ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <h5>Setting Admin Divisi</h5>
+                        </div>
+                    </div>
+					<form asp-action="Update">
+						<div class="m-portlet__body">
+							<input type="text" class="form-control" value="@ViewBag.user" name="Iduser" hidden>
+							<div class="form-group row">
+								<label for="inputEmail3" class="col-sm-1 col-form-label">&nbsp; Nama</label>
+								<div class="col-sm-4">
+									<input type="text" value="@ViewBag.DataUser" class="form-control" readonly>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="inputEmail3" class="col-sm-1 col-form-label">&nbsp; Divisi</label>
+								<div class="col-sm-4">
+									<input type="text" value="@ViewBag.Pga" class="form-control" readonly>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="inputEmail3" class="col-sm-1 col-form-label">&nbsp; Grup</label>
+								<div class="col-sm-4">
+									
+										<select class="form-control select2-selection__rendered" id="positionid" name="IDgroup" required>
+											<option value="">--Pilih Grup--</option>
+											<option value="B">Admin Divisi</option>
+											<option value="M">Admin Mailingroom</option>
+											<option value="U">User</option>
+										</select>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="inputEmail3" class="col-form-label">&nbsp;</label>
+								<div class="col-sm-2">
+									<button class="btn btn-primary" >Update</button>
+								</div>
+								
+							</div>
+
+						</div>
+					</form>
+                </div>
+                <!--End::Main Portlet-->
+                
+            </div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(function () {
+		var selectedMonth = "@ViewBag.grup";
+		$("[id*=positionid] option").each(function () {
+			if ($(this).val() == selectedMonth) {
+				$(this).attr('selected', 'selected');
+			}
+		});
+	});
+</script>

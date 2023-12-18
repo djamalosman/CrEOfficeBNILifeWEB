@@ -1,0 +1,53 @@
+body {
+	background-color: #FFFFFF;
+	font-family: Times New Roman;
+	font-size: 11pt !important;
+	scrollbar-3dlight-color: #F0F0EE;
+	scrollbar-arrow-color: #676662;
+	scrollbar-base-color: #F0F0EE;
+	scrollbar-darkshadow-color: #DDDDDD;
+	scrollbar-face-color: #E0E0DD;
+	scrollbar-highlight-color: #F0F0EE;
+	scrollbar-shadow-color: #F0F0EE;
+	scrollbar-track-color: #F5F5F5;
+}
+
+p {margin:0; padding:0;}
+
+td {
+	font-family: Times New Roman;
+	font-size: 11pt !important;
+}
+
+pre {
+	font-family: Times New Roman;
+	font-size: 11pt !important;
+}
+
+.example1 {
+	font-weight: bold;
+	font-size: 11pt !important;
+}
+
+.example2 {
+	font-weight: bold;
+	font-size: 11pt !important;
+	color: #FF0000
+}
+
+.tablerow1 {
+	background-color: #BBBBBB;
+}
+
+thead {
+	background-color: #FFBBBB;
+}
+
+tfoot {
+	background-color: #BBBBFF;
+}
+
+th {
+	font-family: Times New Roman;
+	font-size: 11pt !important;
+}

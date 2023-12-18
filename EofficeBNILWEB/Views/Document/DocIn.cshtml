@@ -1,0 +1,433 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localiza
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@{
+    var sessidUser = Accessor.HttpContext.Session.GetString("idUser");
+    var sessidUnit = Accessor.HttpContext.Session.GetString("idUnit");
+    var unitMailingRoom = "D0D02AA8-7A27-ED11-89B0-3CF011A1A981";
+    var sessidGroup = Accessor.HttpContext.Session.GetString("idGroup");
+     var en = Accessor.HttpContext.Session.GetString("en");
+    var ina = Accessor.HttpContext.Session.GetString("ina");
+}
+<style>
+    .red {
+        background-color: #ec592d !important;
+        color:white !important;
+    }
+</style>
+<!-- begin::Body -->
+<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
+    <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver    m-container m-container--responsive m-container--xxl m-page__container">
+        <div class="m-grid__item m-grid__item--fluid m-wrapper">
+            <!-- BEGIN: Subheader -->
+            <div class="m-subheader ">
+                <div class="d-flex align-items-center">
+                    <div class="mr-auto" style="color: white;">
+                        <h3 class="m-subheader__title m-subheader__title--separator" style="color: white;">
+                            @(en !=null ? "Register Incoming Document" : "Dokumen Masuk")
+                        </h3>
+                        @if (sessidGroup == "M")
+                        {
+                         
+                            <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                                <li class="m-nav__item m-nav__item--home">
+                                    <a href="#" class="m-nav__link m-nav__link--icon">
+                                        <i class="m-nav__link-icon la la-home" style="color: white;"></i>
+                                    </a>
+                                </li>
+                                <li class="m-nav__separator" style="color: white;">
+                                    -
+                                </li>
+                                <li class="m-nav__item">
+                                    <a href="" class="m-nav__link">
+                                        <span class="m-nav__link-text" style="color: white;">
+                                            Mailing Room
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="m-nav__separator" style="color: white;">
+                                    -
+                                </li>
+                                <li class="m-nav__item">
+                                    <a href="" class="m-nav__link">
+                                        <span class="m-nav__link-text" style="color: white;">
+                                              @(en !=null ? "Document" : "Dokumen")
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="m-nav__separator" style="color: white;">
+                                    -
+                                </li>
+                                <li class="m-nav__item">
+                                    <a href="" class="m-nav__link">
+                                        <span class="m-nav__link-text" style="color: white;">
+                                            @(en !=null ? "Register Incoming Document" : "Dokumen Masuk")
+                                        </span>
+                                    </a>
+                                </li>
+                        </ul>   
+                        }else if(sessidGroup == "B")
+                        {
+
+                            <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                                <li class="m-nav__item m-nav__item--home">
+                                    <a href="#" class="m-nav__link m-nav__link--icon">
+                                        <i class="m-nav__link-icon la la-home" style="color: white;"></i>
+                                    </a>
+                                </li>
+                                <li class="m-nav__separator" style="color: white;">
+                                    -
+                                </li>
+                                <li class="m-nav__item">
+                                    <a href="" class="m-nav__link">
+                                        <span class="m-nav__link-text" style="color: white;">
+                                            @(en !=null ? "Division Admin" : "Admin Divisi")
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="m-nav__separator" style="color: white;">
+                                    -
+                                </li>
+                                <li class="m-nav__item">
+                                    <a href="" class="m-nav__link">
+                                        <span class="m-nav__link-text" style="color: white;">
+                                              @(en !=null ? "Register Incoming Document" : "Dokumen Masuk")
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        }
+                    </div>
+                </div>
+            </div>
+            <!-- END: Subheader -->
+            <div class="m-content" style="padding: 30px 30px !important;">
+                <!--Begin::Main Portlet-->
+                <div class="m-portlet m-portlet--full-height ">
+                    <div class="m-portlet__body">
+                        <input type="hidden" id="idDocChecked" name="idDocChecked" />
+                        @if (sessidGroup == "M")
+                        {
+                            <div style="width:100%">
+                                <a href="@Url.ActionLink("Create","Document")" class="btn btn-primary">
+                                    NEW
+                                </a>
+                            </div>
+                            
+                            <br>
+                            <br>
+                        }else{
+                            <div style="width:100%">
+                                <a href="#" onclick="receiveAll()" class="btn btn-primary">
+                                    @(en !=null ? "Receive Documents" : "Terima Dokumen")
+                                </a>
+                            </div>
+                            <br>
+                            <br>
+                        }
+                        <div class="table-responsive">
+                            <table id="myTable" class="table table-bordered table-striped" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>NO</th>
+                                        <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Type" : "Jenis")</th>
+                                        <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en !=null ? "Receipt Number/AWB" : "Nomor Resi/AWB")</th>
+                                        <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en !=null ? "Return Number" : "Nomor Return")</th>
+                                        <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en !=null ? "Name Of Sender" : "Nama Pengirim")</th>
+                                        <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en !=null ? "Receiver Division" : "Divisi Penerima")</th>
+                                        <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en !=null ? "Document Status" : "Status Dokumen")</th>
+                                        <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en !=null ? "Date IN" : "Tanggal Masuk")</th>
+                                        <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">
+                                            @(en !=null ? "Receipt" : "Terima") 
+                                            @if (sessidGroup == "B") 
+                                            {
+                                                <input type="checkbox" name="checkAll" id="checkAll" onclick="checkAll(this)">
+                                            }
+                                        </th>
+                                        <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Created By" : "Dibuat Oleh")</th>
+                                        <th style="padding-top: 10px;padding-bottom: 10px;padding-right: 18px;padding-left: 9px;">@(en != null ? "Action" : "Aksi")</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!--End::Main Portlet-->
+            </div>
+        </div>
+    </div>
+</div>
+<link href="~/assets/datatablenew/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+<script src="~/assets/demo/demo2/new_theme/js/jquery-3.1.1.min.js" type="text/javascript"></script>
+<script src="~/assets/datatablenew/jquery.dataTables.min.js" type="text/javascript"></script>
+<!-- END: Body -->
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var unit = "@sessidUnit";
+        var unitMailing = "@unitMailingRoom";
+        var idGroup = "@sessidGroup";
+        var actionLink = '@Url.ActionLink("Detail","Document")';
+        if (unit != unitMailing || idGroup == "B") {
+            actionLink = '@Url.ActionLink("ReceiveDocIn","Document")';
+        }
+        $('#myTable').DataTable(
+            {
+                ajax: {
+                    url: "GetDocumentList",
+                    type: "POST",
+                },
+                processing: true,
+                serverSide: true,
+                filter: true,
+                createdRow: function (row, data, dataIndex) {
+                    if (data.statusCodeValue == "Rejected") {
+                        $(row).addClass('red');
+                        $(row).find('td').css('color','white');
+                    }
+                },
+                columns: [
+                    {
+                        data: null,
+                        sortable:false,
+                        name: "TrackingNumber",
+                        render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    { data: "documentTypeValue", name: "DocumentTypeValue" },
+                    { data: "trackingNumber", name: "TrackingNumber" },
+                    { data: "returnNumber", name: "ReturnNumber" },
+                    { data: "senderName", name: "SenderName" },
+                    { data: "receiverDivisionName", name: "ReceiverDivisionName" },
+                    { data: "statusCodeValue", name: "StatusCodeValue" },
+                    { data: "receivedDateString", name: "ReceivedDate" },
+                    {
+                        data: null,
+                        sortable: false,
+                        name: "TrackingNumber",
+                        render: function (data, type, row, meta) {
+                            var html = '';
+                            if(idGroup != "B" && idGroup != "S")
+                            {
+                                html = '<input type="checkbox" name="DisabledCheckboxes1" disabled="disabled" value="">'
+                            }
+                            else if (row.statusCode == 1) 
+                            {
+                                html = '<input type="checkbox" name="Checkboxes1" value="' + row.idDocument + '">'
+                            }else{
+                                html = '';
+                                //html = '<input type="checkbox" name="CheckedCheckboxes1" value="" checked="checked" disabled="disabled">'
+                            }
+                            if(idGroup == "M")
+                            {
+                                html = '';
+                            }
+                            
+                            return html;
+                        }
+                    },
+                    { data: "createdByName", name: "CreatedByName" },
+                    {
+                        data: null,
+                        sortable: false,
+                        name: "TrackingNumber",
+                        render: function (data, type, row, meta) {
+                            var html = '<a class="btn btn-warning" href="' + actionLink + '/' + row.idDocument + '" style="line-height: 5px; color:white;">Detail</a>'
+                            if(row.statusCode == 6 || row.statusCode == 3)
+                            {
+                                html = '<a class="btn btn-success" href="' + actionLink + '/' + row.idDocument + '" style="line-height: 5px; color:white; bacground-color:#016076 !important;">Arsipkan</a>'
+                            }
+                            if(row.statusCode == 4)
+                            {
+                                html = '<a class="btn btn-success" href="' + actionLink + '/' + row.idDocument + '" style="line-height: 5px; color:white; bacground-color:#ed582e !important;">Ditolak</a>'
+                            }
+                            if(row.statusCode == 5)
+                            {
+                                html = '<a class="btn btn-success" href="' + actionLink + '/' + row.idDocument + '" style="line-height: 5px; color:white; bacground-color:#d3e192 !important;">Buka</a>'
+                            }
+                            if(idGroup == "M")
+                            {
+                                if(row.statusCode == 6)
+                                {
+                                    html = '<a class="btn btn-success" href="' + actionLink + '/' + row.idDocument + '" style="line-height: 5px; color:white; bacground-color:#016076 !important;">Selesai</a>'
+                                }
+                                if(row.statusCode == 3)
+                                {
+                                    html = '<a class="btn btn-danger" href="' + actionLink + '/' + row.idDocument + '" style="line-height: 5px; color:white; background-color:#ee752e !important">Dikembalikan</a>'
+                                }
+                                if(row.statusCode == 1)
+                                {
+                                    html = '<a class="btn btn-danger" href="' + actionLink + '/' + row.idDocument + '" style="line-height: 5px; color:white; background-color:#225999 !important">Diproses</a>'
+                                }
+                                if(row.statusCode == 4)
+                                {
+                                    html = '<a class="btn btn-success" href="' + actionLink + '/' + row.idDocument + '" style="line-height: 5px; color:white; bacground-color:#ed582e !important;">Ditolak</a>'
+                                }
+                                if(row.statusCode == 5)
+                                {
+                                    html = '<a class="btn btn-success" href="' + actionLink + '/' + row.idDocument + '" style="line-height: 5px; color:white; bacground-color:#d3e192 !important;">Diterima</a>'
+                                }
+
+                                if (row.statusCode == 3 && ((row.statusCodeDocument == 3 && row.editableData == 0) || row.statusCodeDocument != 3)) {
+                                    html = '<a class="btn btn-success" href="' + actionLink + '/' + row.idDocument + '" style="line-height: 5px; color:white;">Selesai</a>'
+                                }
+                                if (row.statusCode == 4 && ((row.statusCodeDocument == 4 && row.editableData == 0) || row.statusCodeDocument != 4)) {
+                                    html = '<a class="btn btn-success" href="' + actionLink + '/' + row.idDocument + '" style="line-height: 5px; color:white;">Selesai</a>'
+                                }
+
+                            }
+                            
+                            return html;
+                        }
+                    },
+                ]
+            });
+    });
+    function receiveAll(){
+        var checkedCheckbox = 0;
+        var intt = 0;
+        let receiveCheck = document.getElementsByName("Checkboxes1");
+        for (let i = 0; i < receiveCheck.length; i++) {
+            if (receiveCheck[i].checked) {
+                checkedCheckbox++;
+                if(intt == 0)
+                {
+                    document.getElementById("idDocChecked").value = receiveCheck[i].value;
+                }else{
+                    document.getElementById("idDocChecked").value += ','+receiveCheck[i].value;
+                }
+                intt++;
+            }
+        }
+        if(checkedCheckbox > 0)
+        { 
+            if(confirm("Apakah anda yakin ingin menerima dokumen-dokumen ini?"))
+            {   
+                $.blockUI({
+                    css: {
+                        border: 'none',
+                        padding: '15px',
+                        backgroundColor: '#000',
+                        '-webkit-border-radius': '10px',
+                        '-moz-border-radius': '10px',
+                        opacity: .5,
+                        baseZ: 2000,
+                        color: '#fff'
+                    }
+                });
+                var idDoc = document.getElementById("idDocChecked").value;
+                $.ajax({
+                    url: "@Url.Action("ReceiveCheckedDoc","Document")",
+                    method: "POST",
+                    data: { listIdDoc: idDoc },
+                    success: function (msg) {
+                        $.unblockUI();
+                        var data = JSON.parse(msg);
+                        console.log(data);
+                        if (data.Status == "OK") {
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                title: 'Sukses',
+                                text: data.Message,
+                                showConfirmButton: true,
+                                //timer: 1500,
+                                onBeforeOpen: () => {
+                                    timerInterval = setInterval(() => {
+                                        const content = Swal.getContent()
+                                        if (content) {
+                                            const b = content.querySelector('b')
+                                            if (b) {
+                                                b.textContent = Swal.getTimerLeft()
+                                            }
+                                        }
+                                    }, 100)
+                                },
+                                onClose: () => {
+                                    clearInterval(timerInterval)
+                                }
+                            }).then((result) => {
+                                /* Read more about handling dismissals below */
+                                window.location.reload();
+                            })
+                        }
+                        else {
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'error',
+                                title: 'Error',
+                                text: data.Message,
+                                showConfirmButton: true,
+                                //timer: 1500,
+                                onBeforeOpen: () => {
+                                    timerInterval = setInterval(() => {
+                                        const content = Swal.getContent()
+                                        if (content) {
+                                            const b = content.querySelector('b')
+                                            if (b) {
+                                                b.textContent = Swal.getTimerLeft()
+                                            }
+                                        }
+                                    }, 100)
+                                },
+                                onClose: () => {
+                                    clearInterval(timerInterval)
+                                }
+                            }).then((result) => {
+                                /* Read more about handling dismissals below */
+                                window.location.reload();
+                            })
+                        }
+
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert("ERROR!!!");
+                    }
+                });
+            }
+        }
+        else{
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Validasi',
+                text: 'Mohon checklist salah satu checkbox',
+                showConfirmButton: true,
+                //timer: 1500,
+                onBeforeOpen: () => {
+                    timerInterval = setInterval(() => {
+                        const content = Swal.getContent()
+                        if (content) {
+                            const b = content.querySelector('b')
+                            if (b) {
+                                b.textContent = Swal.getTimerLeft()
+                            }
+                        }
+                    }, 100)
+                },
+                onClose: () => {
+                    clearInterval(timerInterval)
+                }
+            }).then((result) => {
+                /* Read more about handling dismissals below */
+            })
+        }
+    }
+    function checkAll(ele) {
+        var checkboxes = document.getElementsByName('Checkboxes1');
+        if (ele.checked) {
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].type == 'checkbox') {
+                    checkboxes[i].checked = true;
+                }
+            }
+        } else {
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].type == 'checkbox') {
+                    checkboxes[i].checked = false;
+                }
+            }
+        }
+    }
+</script>

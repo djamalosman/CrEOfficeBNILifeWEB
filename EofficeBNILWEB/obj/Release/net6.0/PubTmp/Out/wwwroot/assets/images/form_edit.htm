@@ -1,0 +1,739 @@
+<style>
+fieldset { -moz-border-radius: 8px; border-radius: px; margin:10px }
+legend { margin-left:10px; color:#666; font-weight:bold }
+input { font-size:12px;color:#000000;}
+.tdblue12 { font-size:12px;font-family:Arial, Helvetica, sans-serif;}
+.trwhite{color:#FFF;font-weight:bold}
+.noedit{-moz-border-radius: 0px;border-radius: px;background:#FFFFCC;border-color:#FF9900}	
+.trflat{
+	-moz-border-radius: 0px;
+	border-radius: px;
+	font-size:16px;
+	font-family:Arial, Helvetica, sans-serif;
+	color:red;
+	background-color:#FFFFCC;
+}
+
+.butsave{
+	-moz-border-radius: 0px;
+	border-radius: px;
+	font-size:20px;
+	background: #cccccc;
+	width:98%;
+	heigth:60px;
+	border-top: 2px solid #cccccc;
+	border-bottom: 2px solid black;
+	border-left: 2px solid #cccccc;
+	border-right: 2px solid black;
+	padding:4px 10px 3px 7px; /* IE7 */
+	font-family:Arial, Helvetica, sans-serif;
+}
+.trhead{font-size:12px;font-weight:bold;}
+.trheadnew{font-size:10px;font-weight:bold;color:#E0FFFF;font-family:verdana;}
+
+input.listNota{
+	-moz-border-radius: 0px;
+	border-radius: px;
+	font-size:12px;
+	border:1px solid #FF9900;
+	font-family:Arial, Helvetica, sans-serif;
+	background-color:#FFFF99;
+	margin-right:2px;
+}
+select.listNota{
+	-moz-border-radius: 0px;
+	border-radius: px;
+	font-size:12px;
+	border:1px solid #FF9900;
+	font-family:Arial, Helvetica, sans-serif;
+	background-color:#FFFF99;
+	margin-right:2px;
+}
+.imid{
+	vertical-align:middle;
+}
+.find{
+	vertical-align:middle;
+	margin-bottom:2px;
+	margin-left:2px;
+}
+</style>
+<style media="screen" type="text/css">
+    .defaultTextActive { color: #a1a1a1; font-style: italic; }
+</style>
+
+<script type="text/javascript" src="{$HOME}js/dateui_js.js"></script> 
+<link href="{$HOME}css/dateui_js.css" rel="stylesheet" type="text/css" media="all" />
+<script type="text/javascript" src="{$HOME}lib/jquery.bgiframe.min.js"></script>
+<script type="text/javascript" src="{$HOME}lib/jquery.autocomplete.js"></script>
+<script type="text/javascript" src="{$HOME}lib/localdata.js"></script>
+<script type="text/javascript" src="{$HOME}lib/jquery.listen.js"></script>
+<link rel="stylesheet" type="text/css" href="{$HOME}lib/jquery.autocomplete.css" />
+<script type="text/javascript">
+	function _hand(obj){
+		obj.style.cursor='pointer' ;
+	}
+
+	$().ready(function() {
+		
+		$('#id_NO_CONTAINER').focus();
+		//no container
+		$(".suggestuwriter").focus(function(srcc)
+			{
+				if ($(this).val() == $(this)[0].title)
+				{
+					$(this).removeClass("defaultTextActive");
+					$(this).val("");
+				}
+			});
+			
+			$(".suggestuwriter").blur(function()
+			{
+				if ($(this).val() == "")
+				{
+					$(this).addClass("defaultTextActive");
+					$(this).val($(this)[0].title);
+				}
+			});
+			
+			$(".suggestuwriter").blur();
+	
+	
+	
+		//====================
+		//nomor container
+		//====================
+		$(".no_reqsf").autocomplete("{$HOME}<?=APPID?>/noreqsf/", {
+			minChars: 2,
+			width: 510,
+			mustMatch :false,
+			autoFill: false ,
+			formatItem: function(row, i, max) {
+			//alert(row[0]);
+				return  "<p align='left'>"+ row[0] + " - " + row[4] + " - " + row[3] +" </p>";
+			},
+			formatMatch: function(row, i, max) {
+
+				return row[0] + " " + row[1];
+			},
+			formatResult: function(row) {
+				return row[0];
+			}
+			
+		});
+		
+		$(".no_reqsf").result(function(event, data, formatted) {
+			if (data){
+			
+			
+				$("#id_NO_REQSF").val(data[0]);
+				$("#id_NO_REQSF_V").val(data[0]);
+				$("#id_EXNM_KAPAL").val(data[1]);
+				$("#id_EXVOYAGE").val(data[2]);	
+				$("#id_NM_AGEN").val(data[3]);
+				$("#id_NM_PELANGGAN").val(data[4]);		
+				$("#id_KD_PELANGGAN").val(data[5]);		
+				$("#id_TGL_AWAL").val(data[6]);
+				$("#id_TGL_AKHIR").val(data[7]);
+				$("#id_NO_DO").val(data[8]);
+				$("#id_NO_UKK_BARU").val(data[10]);
+				
+				$.post("{$HOME}<?=APPID?>/nmpbm_req/",{ "NO_UKK_BARU":data[10] }, function(data){ 
+						$datax = data.split(",");
+						$('#id_NM_KAPAL_BARU').val($datax[0]); 
+						$('#id_VOYAGE_BARU').val($datax[1]); 
+						$('#id_NO_BOOKING').val($datax[2]); 
+						$('#id_NM_AGEN').val($datax[3]); 
+						
+				});
+				$("#id_PEB").focus();
+
+				
+			}
+		});
+		
+		
+		$(".pod").autocomplete("{$HOME}<?=APPID?>/pod/", {
+			minChars: 2,
+			width: 310,
+			mustMatch :false,
+			autoFill: false ,
+			formatItem: function(row, i, max) {
+				return  "<p align='left'>" + row[1] + " " + row[0] + "</p>";
+			},
+			formatMatch: function(row, i, max) {
+
+				return row[0] + " " + row[1];
+			},
+			formatResult: function(row) {
+				return row[0];
+			}
+			
+		});
+		
+		$(".pod").result(function(event, data, formatted) {
+				if (data){
+						$("#id_KD_POD").val(data[0]);
+						$("#id_NM_POD").val(data[1]);
+						$("#id_NM_FDSICH").focus();
+				}
+		});
+	
+				/* ****** pod2  ****** */
+		$(".pod2").autocomplete("{$HOME}<?=APPID?>/pod/", {
+			minChars: 2,
+			width: 310,
+			mustMatch :false,
+			autoFill: false ,
+			formatItem: function(row, i, max) {
+				return  "<p align='left'>" + row[1] + " " + row[0] + "</p>";
+			},
+			formatMatch: function(row, i, max) {
+
+				return row[0] + " " + row[1];
+			},
+			formatResult: function(row) {
+				return row[0];
+			}
+			
+		});
+		
+		$(".pod2").result(function(event, data, formatted) {
+				if (data){
+						$("#id_KD_FDISCH").val(data[0]);
+						$("#id_NM_FDSICH").val(data[1]);
+						$("#id_NM_KAPAL").focus();
+				}
+		});
+		
+		$("#id_PBS_NOCONT").autocomplete("{$HOME}<?=APPID?>/view_container/",{ 
+				minChars: 2,
+				width: 320,
+				matchContains: true, 
+				autoFill: false,
+				extraParams: {
+					NO_REQSF: function() {return $('#id_NO_REQSF').val()}				
+				},
+				formatItem: function(row, i, max) {
+				//alert(row[0]);
+
+					return  row[0] + " [" + row[1] + "] - " + row[3] + " ["+row[2]+"]";
+				},
+				formatMatch: function(row, i, max) {
+
+					return row[0] + " " + row[1];
+				},
+				formatResult: function(row) {
+					return row[0];
+				}
+			});
+	
+	
+		$("#id_PBS_NOCONT").result(function(event, data, formatted) {
+					$("#id_PBS_NOCONT_V").val(data[1]);
+					$("#id_PBS_NOCONT").val(data[1]);
+					$("#id_D_NOID").val(data[0]);
+					$("#id_NM_COMMODITY").val(data[2]);
+					$("#id_KD_COMMODITY").val(data[3]);
+					$("#id_NM_SIZE").val(data[7]);
+					$("#id_KD_SIZE").val(data[8]);					
+		});
+
+		
+		
+		
+		
+	});
+	
+	
+	
+	
+	$(document).ready(function(){
+		$(':input').keypress(function(event) {
+			if (event.keyCode == '113') {
+				submitManual();
+			}
+		});
+	});
+    
+
+	function checkIt(evt) {
+		evt = (evt) ? evt : window.event
+		var charCode = (evt.which) ? evt.which : evt.keyCode
+		if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+			$.blockUI({ message: '<h1>Not Number Entered!!</h1>' ,css: { 'color':'red' , 'height': '50px', 'margin-top': '100px', 'padding-top': '20px' } });
+			$('.blockOverlay').attr('title','Klik untuk menutup').click($.unblockUI); 
+			setTimeout($.unblockUI, 1000); 
+			return false
+		}
+		return true
+	}
+	function nextTab(_id, nel ,ln){
+		
+		if( $('#'+_id).val().length >= ln ){
+			$('#'+nel).focus();
+		}
+	}
+	
+	function submitManual(){
+		if ($('#id_NO_CONTAINER').val()==''){
+				$.blockUI({ message: '<h1>Nomor Container Tidak Boleh kosong !!!</h1>' ,css: { 'color':'red' , 'height': '80px', 'margin-top': '100px', 'padding-top': '20px' } });
+				$('.blockOverlay').attr('title','Klik untuk menutup').click($.unblockUI); 
+				setTimeout($.unblockUI, 2000); 
+				$('#id_NO_CONTAINER').focus();
+				return false;	
+		} else if ($('#id_NM_POD').val()=='' || $('#id_KD_POD').val()==''){
+				$.blockUI({ message: '<h1>POD Tidak Boleh kosong !!!</h1>' ,css: { 'color':'red' , 'height': '80px', 'margin-top': '100px', 'padding-top': '20px' } });
+				$('.blockOverlay').attr('title','Klik untuk menutup').click($.unblockUI); 
+				setTimeout($.unblockUI, 2000); 
+				$('#id_NM_POD').focus();
+				return false;	
+		
+		} else if ($('#id_NM_FDSICH').val()=='' || $('#id_KD_FDISCH').val()==''){
+				$.blockUI({ message: '<h1>F.Disch Tidak Boleh kosong !!!</h1>' ,css: { 'color':'red' , 'height': '80px', 'margin-top': '100px', 'padding-top': '20px' } });
+				$('.blockOverlay').attr('title','Klik untuk menutup').click($.unblockUI); 
+				setTimeout($.unblockUI, 2000); 
+				$('#id_NM_FDSICH').focus();
+				return false;	
+		} else {
+			$('#dataForm').submit();
+		}
+	}
+	
+	var cont = Array();
+	var xcont = Array();
+
+
+	function addNewRow() {
+		if($('#id_PBS_NOCONT').val()==''){
+				
+			$.blockUI({ message: '<h2>No Petikemas Tidak Boleh Kosong!</h2>' ,css: {'color':'red', 'height': '40px', 'margin-top': '100px', 'padding-top': '20px' }});
+			$('.blockOverlay').attr('title','Klik untuk menutup').click($.unblockUI); 
+			setTimeout($.unblockUI, 1000);
+			$('#id_PBS_NOCONT').focus();				
+		
+		}if($('#id_NM_COMMODITY').val()==''){
+			$.blockUI({ message: '<h2>Nama Barang Tidak Boleh Kosong!</h2>' ,css: {'color':'red', 'height': '40px', 'margin-top': '100px', 'padding-top': '20px' }});
+			$('.blockOverlay').attr('title','Klik untuk menutup').click($.unblockUI); 
+			setTimeout($.unblockUI, 1000);
+			
+			$('#id_PBS_NOCONT').val("");
+			$('#id_KD_SIZE').val("");
+			$('#id_KD_POSISI').val("");
+			$('#id_NM_COMMODITY').val("");
+			$('#id_KD_COMMODITY').val("");	
+			$('#id_tgl_jam_tiba').val("");
+			$('#id_tgl_jam_berangkat').val("");	
+			$('#id_KD_POSISI').val('');									
+			$("#popString_KD_PBM_BARU").val('');	
+			$("#id_NM_PBM_BARU").val('');	
+				
+			
+			$('#id_PBS_NOCONT').focus();				
+		
+		}if($('#id_KD_SIZE').val()==''){	
+			$.blockUI({ message: '<h2>Size Petikemas Tidak Ada!</h2>' ,css: {'color':'red', 'height': '40px', 'margin-top': '100px', 'padding-top': '20px' }});
+			$('.blockOverlay').attr('title','Klik untuk menutup').click($.unblockUI); 
+			setTimeout($.unblockUI, 1000);
+			
+			$('#id_PBS_NOCONT').val("");
+			$('#id_KD_SIZE').val("");
+			$('#id_KD_POSISI').val("");
+			$('#id_NM_COMMODITY').val("");
+			$('#id_KD_COMMODITY').val("");	
+			$('#id_tgl_jam_tiba').val("");
+			$('#id_tgl_jam_berangkat').val("");	
+			$('#id_KD_POSISI').val('');									
+			$("#popString_KD_PBM_BARU").val('');	
+			$("#id_NM_PBM_BARU").val('');	
+				
+			
+			$('#id_PBS_NOCONT').focus();
+		
+		}else{
+			var $nocont = $('#id_PBS_NOCONT').val();
+				$.blockUI({ message: '<div id=\"divmsg\"><img src=\"images/cont_loading.gif\" /> <h2>Please wait..</h2></div>' ,css: {'color':'blue', 'height': '90px', 'margin-top': '100px', 'padding-top': '0px' }});
+
+								var ni = document.getElementById('contdiv');
+								var numi = document.getElementById('tvalue');
+								var num = (document.getElementById('tvalue').value -1)+ 2;
+
+								var PBS_NOCONT   = $('#id_PBS_NOCONT_V').val();
+								var KD_SIZE   = $('#id_KD_SIZE').val();
+								var NM_SIZE   = $('#id_NM_SIZE').val();
+								var NM_BARANG   = $('#id_NM_COMMODITY').val();
+								var KD_BARANG	=$('#id_KD_COMMODITY').val();										
+								var SEAL = $("#id_SEAL").val();	
+								var BERAT = $("#id_GROSS").val();	
+								var KET = $("#id_KET").val();	
+								var NO_REQSFD = $("#id_D_NOID").val();	
+								
+								var VIANYA     = $('#id_KD_VIA option:selected').text();;
+								var V_VIANYA   = $('#id_KD_VIA').val();
+								
+								var HZ     = $('#id_HZ option:selected').text();;
+								var V_HZ   = $('#id_HZ').val();
+								
+								var TYPENYA     = $('#id_TYPE option:selected').text();;
+								var V_TYPENYA   = $('#id_TYPE').val();
+								
+								
+								
+																
+								var validcont=0;
+								xcont[num] = PBS_NOCONT;
+								for(i=1;i<num;i++){
+									if(xcont[i] == xcont[num]){
+										validcont = 1;
+									} 
+								}
+										
+								if(validcont==1){
+									$.blockUI({ message: '<h2>No Petikemas Sudah Ada!</h2>' ,css: {'color':'red', 'height': '40px', 'margin-top': '100px', 'padding-top': '20px' }});
+									$('.blockOverlay').attr('title','Klik untuk menutup').click($.unblockUI); 
+									setTimeout($.unblockUI, 1000);
+									//alert('No Petikemas sudah ada!'); 
+									return false;
+								}else{
+									
+										numi.value = num;
+										var newdiv = document.createElement('div');
+										var divIdName = 'rec'+num+'div';
+										newdiv.setAttribute("id",divIdName);
+										
+										txhtml = "<td align=left><input type=\'text\' class=\'listNota\' value=\'"+num+"\' style=\'width:18px\' readonly/></td>";
+										txhtml += "<td align=left><input type=\'hidden\'  name=\'G_NO_REQSFD[]\' value=\'"+NO_REQSFD+"\'  /><input type=\'text\' readonly class=\'listNota\' id=\'PBS_NOCONT["+num+"]\' name=\'G_PBS_NOCONT[]\' value=\'"+PBS_NOCONT+"\' style=\'width:123px\' /></td>";
+										txhtml += "<td align=left><input type=\'hidden\'  name='G_JENIS_COMMODITY[]' value=\'"+KD_BARANG+"\' /><input type=\'text\' class=\'listNota\' value=\'"+NM_BARANG+"\' style=\'width:79px\' readonly/></td>";
+										txhtml += "<td align=left><input type=\'hidden\'  name='G_KD_SIZE[]' value=\'"+KD_SIZE+"\' /><input type=\'text\' class=\'listNota\' id=\'SIZE["+num+"]\' name='NM_SIZE[]' value=\'"+NM_SIZE+"\' style=\'width:78px\' readonly/></td>";
+										txhtml += "<td align=left><input type=\'hidden\'  name='G_KD_TYPE[]' value=\'"+V_TYPENYA+"\' /><input type=\'text\' class=\'listNota\' id=\'TYPE["+num+"]\' name='NM_TYPE[]' value=\'"+TYPENYA+"\' style=\'width:78px\' readonly/></td>";
+										txhtml += "<td align=left><input type=\'text\' class=\'listNota\' id=\'HZ["+num+"]\' name='G_HZ[]' value=\'"+HZ+"\' style=\'width:77px\' readonly/></td>";
+										txhtml += "<td align=left><input type=\'text\' class=\'listNota\' id=\'SEAL["+num+"]\' name='G_SEAL[]' value=\'"+SEAL+"\' style=\'width:77px\' readonly/></td>";
+										txhtml += "<td align=left><input type=\'hidden\'  name='G_JENIS_VIA[]' value=\'"+V_VIANYA+"\' /><input type=\'text\' class=\'listNota\' value=\'"+VIANYA+"\' style=\'width:79px\' readonly/></td>";
+										txhtml += "<td align=left><input type=\'text\' class=\'listNota\' id=\'BERAT["+num+"]\' name='G_BERAT[]' value=\'"+BERAT+"\' style=\'width:77px\' readonly/></td>";
+										txhtml += "<td align=left><input type=\'text\' class=\'listNota\' id=\'KET["+num+"]\' name='G_KET[]' value=\'"+KET+"\' style=\'width:77px\' readonly/></td>";
+										txhtml += "<td style=\'width:30px;text-align:right;\'> <img src=\"images/cont_del.gif\" onmouseover=\"_hand(this)\" onclick=\"removeRow(\'"+ divIdName +"\',\'"+num+"\')\" border=\"0\" title=\"Hapus\" class=\"imid\" /></td>";
+										newdiv.innerHTML = txhtml;
+										ni.appendChild(newdiv);
+
+										$('#id_PBS_NOCONT').val("");
+										$('#id_KD_SIZE').val("");
+										$('#id_KD_POSISI').val("");
+										$('#id_NM_COMMODITY').val("");
+										$('#id_KD_COMMODITY').val("");	
+										$('#id_tgl_jam_tiba').val("");
+										$('#id_tgl_jam_berangkat').val("");	
+										$('#id_KD_POSISI').val('');									
+										$("#popString_KD_PBM_BARU").val('');	
+										$("#id_NM_PBM_BARU").val('');		
+										$('#id_PBS_NOCONT').focus();									
+										$("#boxcmd").removeAttr('disabled');
+										$("#boxcmd").css({"background-color":"#FFFFFF"});
+										$.unblockUI();
+								}
+						
+		}
+		
+	}
+
+	function _hand(obj){
+		obj.style.cursor='pointer' ;
+	}
+	
+	function close(){
+	$.unblockUI();
+	}	
+
+	
+	
+	function removeRowEdit(_obj,_idx,_kdpmbdtl){
+		
+				var i=_obj.parentNode.parentNode.rowIndex;
+				document.getElementById('tablepeb').deleteRow(i);
+		
+	}
+	
+</script>	
+<?
+			$db = getDB("ora");
+
+			$sql =  "SELECT * FROM MST_JENIS_PEMILIK WHERE KD_JENIS_PEMILIK IN ('1','3') ORDER BY KD_JENIS_PEMILIK ASC";
+			$rs  = $db->query($sql);
+			$contjenis=$rs->getAll();
+
+			$sql =  "SELECT * FROM MST_TYPE_CONT ORDER BY STY_NAME ASC";
+			$rs = $db->query($sql);
+			$conttpy=$rs->getAll();
+			
+			$hz = array( array ('KD_HZ'=>'T'), array('KD_HZ'=>'Y'));
+			$conthz = $hz; 
+			
+			$sql =  "SELECT * FROM MST_VIA ORDER BY KD_VIA ASC";
+			$rs = $db->query($sql);
+			$contvia=$rs->getAll();
+
+?>
+
+<div id="showdiv"></div>
+<block name='form'>
+<span class="graybrown"><img src='images/control_room.png' border='0' class="icon"/>{$formtitle}</span><br/><br/>
+<form id="dataForm" action="{$formurl}" method="post" class="form-input">
+<input type="hidden" name="__pbkey" value="" />
+	<table class="form-input" cellspacing='2' cellpadding='2' border='0' width="100%" style="margin-top:10px;"> <block visible="error">
+		<tr><td colspan="2">Invalid Form Entry</td></tr></block> 
+		<tr>
+			<td class="form-field-caption" valign="middle"  width="125">No.Permintaan</td>
+			<td width="1262" valign="top" class="form-field-input">:
+				<input  style="height:25px;width:150px;font-size:15px;text-transform:uppercase"   id="id_NO_REQSF_V"  size="12"  class="no_reqsf"  type="text"  maxlength="11"   />
+				<input  id="id_NO_REQSF"  name="NO_REQSF" size="12"   type="hidden"  />
+		  </td>
+		</tr>
+		<!--
+		<tr>
+			<td class="form-field-caption" valign="middle"  width="125">STATUS</td>
+			<td width="1262" valign="top" class="form-field-input">:
+				<select name="__JENIS" style="width:115px;font-size:12px;color:#000000;" id="id_JENIS_PEMILIK" list="contjenis" key="KD_JENIS_PEMILIK" label="NM_JENIS_PEMILIK" ></select>						  
+		  </td>
+		</tr>
+		-->
+		<tr>
+			<td colspan="2">
+				<table >
+								<tr>
+									<td class="form-field-caption" valign="top"  width="140">C.T.S.P / P.E.B</td><td valign="top" class="form-field-input">: 
+										<input style="font-size:12px; " id="id_PEB" name="NO_PEB" type="text"  size="15"  />
+										<input  name="TGL_MUAT" type="hidden"  value="{$tglmuat}" />
+										<input  name="TGL_STACK" type="hidden" value="{$tglskr}" />
+									</td>
+									<td  class="form-field-caption" valign="top" >No. N.P.E</td><td valign="top" class="form-field-input">: 
+										<input style="font-size:12px; " id="id_NO_NPE" name="NO_NPE" type="text" size="15"    />
+									</td>
+								</tr>
+
+								<tr>
+									<td  class="form-field-caption" valign="top" >P.O.D</td><td valign="top" class="form-field-input">: 
+										<input id="id_KD_POD"  name="KD_POD" type="hidden"  />
+										<input style="font-size:12px; " id="id_NM_POD" class="pod" title='autocomplete' name="NM_POD" type="text"  size="15"    />
+									</td>
+									
+									
+									
+									<td  class="form-field-caption" valign="top" >BAYAR REEFER</td><td valign="top" class="form-field-input">: 
+										<input style="font-size:12px; " id="id_REEFER" name="REEFER" type="text" value='2' size="3"    />
+									</td>
+								</tr>
+								<tr>
+								
+									<td class="form-field-caption" valign="top"  width="140">F.Disch</td><td valign="top" class="form-field-input">: 
+										<input id="id_KD_FDISCH" name="KD_FDISCH" type="hidden" />
+										<input style="font-size:12px; " id="id_NM_FDSICH" class="pod2" title='autocomplete' name="NM_FDISCH" type="text" size="15"   />
+									</td>
+									<td class="form-field-caption" valign="top" >No.Do</td><td valign="top" class="form-field-input">: 
+										<input id="id_NO_DO"  type="text"   size="18" readonly /> 
+									</td>
+									
+									
+								</tr>
+								<tr>
+							
+								<td  valign="top" class="form-field-caption" class="form-field-caption">Kapal / Voyage Tujuan</td><td valign="top" class="form-field-input">: 
+									<input id="id_NM_KAPAL_BARU" name="NM_KAPAL" type="text" style="font-size:12px;"  size="30" readonly />
+									/ <input id="id_VOYAGE_BARU" name="NM_VOYAGE" type="text" value="{$row.NM_VOYAGE}" size="9"  readonly />
+									<input id="id_NO_UKK_BARU" name="NO_UKK_BARU" type="hidden" />
+								</td>
+								<td  valign="top" class="form-field-caption" class="form-field-caption">No.Booking</td><td valign="top" class="form-field-input">: 
+										<input  type="text"  id="id_NO_BOOKING" name="NO_BOOKING" size="18"   readonly />
+										<block visible="error.PEB_DEST"><span class="form-field-error">{$error.PEB_DEST}</span></block>
+								</td>
+								
+								
+							</tr>
+								<tr>
+									<td  valign="top" class="form-field-caption">Ex-Nama Kapal / Voyage</td><td valign="top" class="form-field-input">: 
+										<input id="id_EXNM_KAPAL" name="NM_KAPAL" type="text"  size="30"   readonly />
+										/ <input id="id_EXVOYAGE" name="NM_VOYAGE" type="text"  size="9"  readonly />
+									</td>
+									<td valign="top" class="form-field-caption"  width="140">Tanggal Bayar</td><td valign="top" class="form-field-input">: 
+										<input id="id_TGL_AWAL" type="text" size="10"  readonly />&nbsp;&nbsp;&nbsp;S/D&nbsp;&nbsp;&nbsp;<input id="id_TGL_AKHIR" type="text" size="10"  readonly />
+									</td>
+									
+
+								</tr>
+								<tr>
+									<td valign="top" class="form-field-caption"  width="140">E.M.K.L</td><td valign="top" class="form-field-input">: 
+										<input id="id_NM_PELANGGAN" name="NM_PELANGGAN" type="text" value="{$row.NM_PELANGGAN}" size="45" maxlength="100"   readonly />
+										<input id="id_KD_PELANGGAN" name="KD_PELANGGAN" type="hidden"  />
+										<block visible="error.PEMILIK"><span class="form-field-error">{$error.PEMILIK}</span></block>
+									</td>
+									
+								
+							
+									<td  valign="top" class="form-field-caption" >Nama Agen Kapal Tujuan</td><td valign="top" class="form-field-input">: 
+										<input id="id_NM_AGEN" name="NM_AGEN" type="text" value="{$row.NM_AGEN}" size="50" readonly /><block visible="error.NO_UKK"><span class="form-field-error">{$error.NM_AGEN}</span></block>
+									</td>
+									<td  valign="top" ></td><td valign="top" class="form-field-input">
+										
+									</td>
+
+								</tr>
+								
+								
+				</table>
+			</td>
+		</tr>
+		
+				<tr>
+			<td colspan="4" class="form-field-caption" valign="top" align="center">
+				<div id="tableinput">
+					<fieldset class="form-fieldset" style="width : 850px ">
+					<legend style="font-family:Verdana;font-size:12px;color:#000000">Daftar Petikemas</legend>
+					<table border="0" cellpadding="0" cellspacing="2">
+						<tr>
+							<td>
+							<table width="788">
+								<tr>
+								  <td width="196" align="left" class="form-field-caption"><p align="left">&nbsp;No. Petikemas</p></td>
+									<td class="tdblue12"  colspan='2'> 
+											<input type="hidden" id="id_PBS_NOCONT_V" />
+										:&nbsp;<input type="text" maxlength="11" size="13" value="" id="id_PBS_NOCONT" name="XPBS_NOCONT"  class="c_no_petikemas"  style="height:25px;width:150px;font-size:15px;text-transform:uppercase"  />
+										 &nbsp;<input type="button" name="addContainer" id="boxcmd" value="Tambah"  onclick="addNewRow();" class="trflat" /><input type="hidden" name="tvalue" id="tvalue" value="0"  />	
+										<input type="hidden"  id="id_D_NOID" />																			
+									</td>
+								</tr>
+								
+								<tr>
+									<td class="form-field-caption" ><p align="left">&nbsp;Jenis Barang</p></td>
+									<td width="194" class="tdblue12">: 
+										  <input type="text"  id="id_NM_COMMODITY" size="23" readonly/>
+										  <input type="hidden" id="id_KD_COMMODITY" name="KD_COMMODITY"  />								  
+									</td>
+									
+								<td class="form-field-caption"><p align="left">&nbsp;Size</p></td>
+									<td class="tdblue12">
+										:&nbsp;<input type="text"  id="id_NM_SIZE" style="width:80px"  readonly/>									
+										<input type="hidden"  id="id_KD_SIZE" readonly/>
+									</td>
+								
+							    </tr>
+
+								<tr>			
+									<td width="157" valign="top"  class="form-field-caption" >No.Seal</td>
+									<td width="197" valign="top" class="form-field-input">: 
+										<input type="text" id="id_SEAL" name="__SEAL"  size="23" />
+									</td>	
+							  
+						
+									<td width="193" valign="top" class="form-field-caption" >Via / Lewat</td>
+									<td width="256" valign="top" class="form-field-input">: 
+										<select name="__VIA" id="id_KD_VIA" style="width:112px;font-size:12px; color:#000000" list="contvia" key="KD_VIA" label="NM_VIA" ></select>
+									</td>
+								</tr>		
+								<tr>
+									<td width="193" valign="top" class="form-field-caption" >HZ</td>
+									<td width="256" valign="top" class="form-field-input">: 
+										<select name="__HZ" id="id_HZ" style="width:55px;font-size:12px; color:#000000" list="conthz" key="KD_HZ" label="KD_HZ" ></select>
+									<td width="193" valign="top" class="form-field-caption" >Type</td>
+									<td width="256" valign="top" class="form-field-input">: 
+										<select name="__TYPE" id="id_TYPE" style="width:112px;font-size:12px;color:#000000" list="conttpy" key="STY_CODE" label="STY_NAME" ></select>
+									</td>
+							  
+								</tr>	
+									<tr>						
+									<td width="157" valign="top"  class="form-field-caption" >Berat</td>
+									<td width="197" valign="top" class="form-field-input">: 
+										<input type="text" id="id_GROSS" style="font-size:12px; "  value='0' size="5"/>
+
+									</td>
+
+							  		
+	
+							  
+									<td width="157" valign="top"  class="form-field-caption" >Keterangan</td>
+									<td width="197" valign="top" class="form-field-input">: 
+										<input type="text" id="id_KET" name="__KET"  style="font-size:12px; " />
+									</td>
+							  
+						  </tr>
+						  
+								
+								<tr >
+									<td class="form-field-caption" align="left"></td>
+									<td class="tdblue12"></td>
+										<td class="form-field-caption"></td>
+									<td class="tdblue12"></td>
+									
+								</tr>
+								
+							</table>
+							</td>
+						</tr>
+								<tr id="{$rowx.PBS_NOCONT}">
+									<td align="center"></td>
+								</tr>
+								<tr>
+									<td colspan="12" align="left" >
+									<table border="0" cellpadding="0" cellspacing="2" >
+									<tr height="20" bgcolor="#999999" style="border:1px solid #999999;right-padding:2px;">
+										<td class="trhead" width="12" align="center">No</td>
+										<td class="trhead" width="120" align="center">&nbsp;No. Petikemas</td>
+										<td class="trhead" width="100" align="center">&nbsp;Jenis Barang</td>										
+										<td class="trhead" width="75" align="center">&nbsp;Size</td>
+										<td class="trhead" width="75" align="center">&nbsp;Type</td>										
+										<td class="trhead" width="75" align="center">&nbsp;HZ</td>
+										<td class="trhead" width="75" align="center">&nbsp;No.Seal</td>
+										<td class="trhead" width="75" align="center">&nbsp;Via / Lewat</td>
+										<td class="trhead" width="75" align="center">&nbsp;Berat</td>
+										<td class="trhead" width="133" align="center">&nbsp;Keterangan</td>
+										<td class="trhead" width="10" align="center">&nbsp;</td>
+										<td></td>
+										<td></td>
+									</tr>
+									
+									</table>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="12" align="left">
+										<div id="contdiv"></div>
+									</td>
+								</tr>
+							<tr>
+									<td colspan="12">
+										<div id="loadcontdiv"></div>
+									</td>
+							</tr>
+					</table>
+					</fieldset>
+				</div>
+				</td>
+			</tr>
+
+		
+		
+		
+		<tr>
+		<td colspan='3'>
+		<fieldset class="form-fieldset" style="width:500px;heigth:20px;margin-left:10px;">
+		<legend>Keterangan :</legend>
+		<table>
+		<tr>
+			<td style="font-family:verdana;">Untuk melakukan penyimpanan ketik tombol <b>F2</b>.<br />atau klik <b>tombol simpan</b> dibawah</td> 
+					
+		</tr>
+		</table>
+		</fieldset>
+		</td>
+		</tr>
+		
+				<tr>
+			<td colspan="2" align="left">
+				&nbsp;&nbsp;
+				<input type="button"  style="color:#000000;font-family:verdana;" value="SIMPAN" onclick="submitManual()" class="link-button"/>&nbsp;&nbsp; 
+			</td></tr>
+
+		
+		
+	</table>
+
+</form> 
+</block>
+<block name='nodata'><div class='form-nodata'>No Data Match</div></block>

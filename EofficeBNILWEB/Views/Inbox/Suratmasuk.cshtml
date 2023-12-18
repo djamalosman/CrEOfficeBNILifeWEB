@@ -1,0 +1,570 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localiza
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@{
+    var sessidUser = Accessor.HttpContext.Session.GetString("idUser");
+    var sessidUnit = Accessor.HttpContext.Session.GetString("idUnit");
+}
+
+@{
+    var data = 1;
+
+}
+
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <!-- BEGIN: Subheader -->
+    <div class="m-subheader " style="padding: 10px 0 0 30px !important;">
+        <div class="d-flex align-items-center">
+            <div class="mr-auto">
+                <h3 class="m-subheader__title m-subheader__title--separator" style="color: white;">
+                    Surat Masuk
+                </h3>
+                <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                    <li class="m-nav__item m-nav__item--home">
+                        <a href="#" class="m-nav__link m-nav__link--icon">
+                            <i class="m-nav__link-icon la la-home" style="color: white;"></i>
+                        </a>
+                    </li>
+                    <li class="m-nav__separator" style="color: white;">
+                        -
+                    </li>
+                    <li class="m-nav__item">
+                        <a href="" class="m-nav__link">
+                            <span class="m-nav__link-text" style="color: white;">
+                                E-OFFICE
+                            </span>
+                        </a>
+                    </li>
+                    <li class="m-nav__separator" style="color: white;">
+                        -
+                    </li>
+                    <li class="m-nav__item">
+                        <a href="" class="m-nav__link">
+                            <span class="m-nav__link-text" style="color: white;">
+                                Kotak Masuk
+                            </span>
+                        </a>
+                    </li>
+                    <li class="m-nav__separator" style="color: white;">
+                        -
+                    </li>
+                    <li class="m-nav__item">
+                        <a href="" class="m-nav__link">
+                            <span class="m-nav__link-text" style="color: white;">
+                                Surat Masuk
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- END: Subheader -->
+
+    <div class="m-content" style="padding: 30px 30px !important;">
+        <!--Begin::Main Portlet-->
+        <div class="kt-grid kt-grid--desktop kt-grid--ver-desktop  kt-inbox" id="kt_inbox">
+            <!--Begin::Aside Mobile Toggle-->
+            <button class="kt-inbox__aside-close" id="kt_inbox_aside_close">
+                <i class="la la-close"></i>
+            </button>
+            <!--End:: Aside Mobile Toggle-->
+            <!--Begin:: Inbox Aside-->
+            <div class="kt-grid__item   kt-portlet  kt-inbox__aside" id="kt_inbox_aside">
+                <!-- <a class="btn btn-danger" href="buat_surat.html" style="background-color: #EF144A; border: none;" role="button">Buat Surat</a> -->
+                <div class="kt-inbox__nav">
+                    <ul class="kt-nav">
+                        <li class="kt-nav__item kt-nav__item--active">
+                            <a href="http://10.1.5.102/inbox/masuk" class="kt-nav__link" data-action="list" data-type="inbox">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-nav__link-icon">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect x="0" y="0" width="24" height="24"></rect>
+                                        <path d="M6,2 L18,2 C18.5522847,2 19,2.44771525 19,3 L19,13 C19,13.5522847 18.5522847,14 18,14 L6,14 C5.44771525,14 5,13.5522847 5,13 L5,3 C5,2.44771525 5.44771525,2 6,2 Z M13.8,4 C13.1562,4 12.4033,4.72985286 12,5.2 C11.5967,4.72985286 10.8438,4 10.2,4 C9.0604,4 8.4,4.88887193 8.4,6.02016349 C8.4,7.27338783 9.6,8.6 12,10 C14.4,8.6 15.6,7.3 15.6,6.1 C15.6,4.96870845 14.9396,4 13.8,4 Z" fill="#000000" opacity="0.3"></path>
+                                        <path d="M3.79274528,6.57253826 L12,12.5 L20.2072547,6.57253826 C20.4311176,6.4108595 20.7436609,6.46126971 20.9053396,6.68513259 C20.9668779,6.77033951 21,6.87277228 21,6.97787787 L21,17 C21,18.1045695 20.1045695,19 19,19 L5,19 C3.8954305,19 3,18.1045695 3,17 L3,6.97787787 C3,6.70173549 3.22385763,6.47787787 3.5,6.47787787 C3.60510559,6.47787787 3.70753836,6.51099993 3.79274528,6.57253826 Z" fill="#000000"></path>
+                                    </g>
+                                </svg>
+                                <span class="kt-nav__link-text">Surat Masuk</span>
+                                <span class="kt-nav__link-badge">
+                                    <span class="kt-badge kt-badge--unified-success kt-badge--md kt-badge--rounded kt-badge--boldest"></span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="kt-nav__item">
+                            <a href="@Url.Action("Arsip", "Inbox")" class="kt-nav__link" data-action="list" data-type="marked">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-nav__link-icon">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <polygon points="0 0 24 0 24 24 0 24"></polygon>
+                                        <path d="M12,4.25932872 C12.1488635,4.25921584 12.3000368,4.29247316 12.4425657,4.36281539 C12.6397783,4.46014562 12.7994058,4.61977315 12.8967361,4.81698575 L14.9389263,8.95491503 L19.5054023,9.61846284 C20.0519472,9.69788046 20.4306287,10.2053233 20.351211,10.7518682 C20.3195865,10.9695052 20.2170993,11.1706476 20.0596157,11.3241562 L16.7552826,14.545085 L17.5353298,19.0931094 C17.6286908,19.6374458 17.263103,20.1544017 16.7187666,20.2477627 C16.5020089,20.2849396 16.2790408,20.2496249 16.0843804,20.1472858 L12,18 L12,4.25932872 Z" fill="#000000" opacity="0.3"></path>
+                                        <path d="M12,4.25932872 L12,18 L7.91561963,20.1472858 C7.42677504,20.4042866 6.82214789,20.2163401 6.56514708,19.7274955 C6.46280801,19.5328351 6.42749334,19.309867 6.46467018,19.0931094 L7.24471742,14.545085 L3.94038429,11.3241562 C3.54490071,10.938655 3.5368084,10.3055417 3.92230962,9.91005817 C4.07581822,9.75257453 4.27696063,9.65008735 4.49459766,9.61846284 L9.06107374,8.95491503 L11.1032639,4.81698575 C11.277344,4.464261 11.6315987,4.25960807 12,4.25932872 Z" fill="#000000"></path>
+                                    </g>
+                                </svg>
+                                <span class="kt-nav__link-text">Arsip Personal</span>
+                                <span class="kt-nav__link-badge">
+                                    <span class="kt-badge kt-badge--unified-success kt-badge--md kt-badge--rounded kt-badge--boldest"></span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="kt-nav__item">
+                            <a href="@Url.Action("SuratMasukSeketaris", "Inbox")" class="kt-nav__link" data-action="list" data-type="marked">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-nav__link-icon">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <polygon points="0 0 24 0 24 24 0 24"></polygon>
+                                        <path d="M12,4.25932872 C12.1488635,4.25921584 12.3000368,4.29247316 12.4425657,4.36281539 C12.6397783,4.46014562 12.7994058,4.61977315 12.8967361,4.81698575 L14.9389263,8.95491503 L19.5054023,9.61846284 C20.0519472,9.69788046 20.4306287,10.2053233 20.351211,10.7518682 C20.3195865,10.9695052 20.2170993,11.1706476 20.0596157,11.3241562 L16.7552826,14.545085 L17.5353298,19.0931094 C17.6286908,19.6374458 17.263103,20.1544017 16.7187666,20.2477627 C16.5020089,20.2849396 16.2790408,20.2496249 16.0843804,20.1472858 L12,18 L12,4.25932872 Z" fill="#000000" opacity="0.3"></path>
+                                        <path d="M12,4.25932872 L12,18 L7.91561963,20.1472858 C7.42677504,20.4042866 6.82214789,20.2163401 6.56514708,19.7274955 C6.46280801,19.5328351 6.42749334,19.309867 6.46467018,19.0931094 L7.24471742,14.545085 L3.94038429,11.3241562 C3.54490071,10.938655 3.5368084,10.3055417 3.92230962,9.91005817 C4.07581822,9.75257453 4.27696063,9.65008735 4.49459766,9.61846284 L9.06107374,8.95491503 L11.1032639,4.81698575 C11.277344,4.464261 11.6315987,4.25960807 12,4.25932872 Z" fill="#000000"></path>
+                                    </g>
+                                </svg>
+                                <span class="kt-nav__link-text">Surat Masuk Sekretaris</span>
+                                <span class="kt-nav__link-badge">
+                                    <span class="kt-badge kt-badge--unified-success kt-badge--md kt-badge--rounded kt-badge--boldest"></span>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!--End::Aside-->
+            <!--Begin:: Inbox List-->
+            <div class="kt-grid__item kt-grid__item--fluid    kt-portlet    kt-inbox__list kt-inbox__list--shown" id="kt_inbox_list">
+                <div class="kt-portlet__head">
+                    <div class="kt-inbox__toolbar kt-inbox__toolbar--extended">
+                        <div class="d-flex align-items-center mr-1 my-2">
+                            <span class="btn btn-default btn-icon btn-sm mr-2" onclick="backtoAll()" title="All" data-original-title="All">
+                                <i class="flaticon2-files-and-folders"></i>
+                            </span>
+                            <span class="btn btn-default btn-icon btn-sm mr-2" onclick="shortcut('disposisi'); sendparam('disposisi');" title="Disposisi" data-original-title="Disposisi">
+                                <i class="flaticon2-mail-1"></i>
+                            </span>
+                            <span class="btn btn-default btn-icon btn-sm mr-2" onclick="shortcut('approval'); sendparam('approval');" title="Approval" data-original-title="Approval">
+                                <i class="flaticon2-correct"></i>
+                            </span>
+                            <span class="btn btn-default btn-icon btn-sm mr-2" onclick="shortcut('eksternal'); sendparam('eksternal');" title="Eksternal" data-original-title="Eksternal">
+                                <i class="flaticon-envelope"></i>
+                            </span>
+                            <span class="btn btn-default btn-icon btn-sm mr-2" onclick="shortcut('internal'); sendparam('internal');" title="Internal" data-original-title="Internal">
+                                <i class="flaticon-multimedia"></i>
+                            </span>
+                            <div class="kt-inbox__search" style="margin-left: 50px">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search" readonly="1" data-toggle="modal" data-target="#exampleModal" style="z-index: 0;">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <!--<i class="la la-group"></i>-->
+                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <rect x="0" y="0" width="24" height="24"></rect>
+                                                    <path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"></path>
+                                                    <path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z" fill="#000000" fill-rule="nonzero"></path>
+                                                </g>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kt-inbox__actions kt-inbox__actions--expanded"></div>
+
+                        <div class="kt-inbox__controls">
+                            <div class="kt-inbox__pages paginggall" id="pagination" data-toggle="kt-tooltip" title="Records per page">
+                                <span class="kt-inbox__perpage" data-toggle="dropdown">1</span>
+                            </div>
+                            <button class="kt-inbox__icon prevv" id="prev" data-toggle="kt-tooltip" title="Previose page">
+                                <i class="flaticon2-left-arrow"></i>
+                            </button>
+                            <button class="kt-inbox__icon nextt" id="next" data-toggle="kt-tooltip" title="Next page">
+                                <i class="flaticon2-right-arrow"></i>
+                            </button>
+                            <div class="jumpjump">
+                                <span>
+                                    <select name="jump" class="kt-inbox__icon form-control jumpto" onchange="jump()" style="width: 70px;">
+                                        <option value="1">1</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="kt-portlet__body kt-portlet__body--fit-x" style="margin-bottom: 0px;padding-bottom: 0px; padding-top: 10px">
+                    <div class="kt-inbox__items" id="inbox-list" data-type="inbox" style="margin-top: -0.8rem;">
+                        <div class="kt-inbox__item kt-inbox__item--unread" style="background-color: #d9f7ff" data-id="1" data-type="inbox" onclick="view_detail_sppd(@data)">
+                            <div class="kt-inbox__info">
+                                <div class="kt-inbox__actions" onclick="view_detail_sppd_new_tab('NTA1MTUwfk5PX1NVUkFUflBFUklLU0F+bmRfc3BwZH5Kfjk5fk5VTEw=','PERIKSA (1/1)','NTA1MTUw')" style="background-color: #edf2fa">
+                                    <span data-toggle="kt-tooltip" data-placement="right" title="Open New Tab" class="kt-inbox__label kt-badge kt-badge--unified-success kt-badge--bold kt-badge--inline">
+                                        <i style="/! width: 23px; *//! margin: 10px auto; */font-size: 12px;" class="flaticon2-fast-next"></i>
+                                    </span>
+                                </div>
+                                <div class="kt-inbox__sender" style="margin: 0px 20px 0px 0px; width: 200px;" data-toggle="view">
+                                    <a href="#" class="kt-inbox__author" style="font-weight: bold; color: black;">
+                                        Senior Manager Sistem Informasi
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="kt-inbox__details" style="margin: 0px 0px 0px 0px; padding-right: 0px;" data-toggle="view">
+                                <div class="kt-inbox__message" style="width: 620px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                    <span class="kt-inbox__summary" style="font-weight: bold; color: black;">TESTING DIKLAT ALL FLOW 31</span>
+                                </div>
+                                <div class="kt-inbox__labels">
+                                    <span class="kt-inbox__label kt-badge kt-badge--unified-brand kt-badge--bold kt-badge--inline">
+                                        <b>nd_sppd</b>
+                                    </span>
+                                    <span class="kt-inbox__label kt-badge kt-badge--unified-dark kt-badge--bold kt-badge--inline">
+                                        <b>NO_SURAT</b>
+                                    </span>
+                                    <span class="kt-inbox__label kt-badge kt-badge--unified-danger kt-badge--bold kt-badge--inline"><b>PERIKSA (1/1)</b></span>
+                                </div>
+                            </div>
+                            <div class="kt-inbox__datetime" style="margin: 10px 0px 0px 0px; width: 50px; text-align: center;">
+                                <span style="font-weight: bold; color: black;">
+                                    2 Jun
+                                </span>
+                            </div>
+                        </div>
+                        <hr style="margin-top:1px; margin-bottom: 1px">
+                        <div class="kt-inbox__item kt-inbox__item--unread" style="background-color: #d9f7ff" data-id="1" data-type="inbox" onclick="view_detail_undangan(@data)">
+                            <div class="kt-inbox__info">
+
+                                <div class="kt-inbox__actions" onclick="view_detail_undangan(@data)" style="background-color: #edf2fa">
+                                    <span data-toggle="kt-tooltip" data-placement="right" title="Open New Tab" class="kt-inbox__label kt-badge kt-badge--unified-success kt-badge--bold kt-badge--inline">
+                                        <i style="/! width: 23px; *//! margin: 10px auto; */font-size: 12px;" class="flaticon2-fast-next"></i>
+                                    </span>
+                                </div>
+                                <div class="kt-inbox__sender" style="margin: 0px 20px 0px 0px; width: 200px;" data-toggle="view">
+                                    <a href="#" class="kt-inbox__author" style="font-weight: bold; color: black;">
+                                        Senior Manager SDM &amp; Umum
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="kt-inbox__details" style="margin: 0px 0px 0px 0px; padding-right: 0px;" data-toggle="view">
+                                <div class="kt-inbox__message" style="width: 620px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                    <span class="kt-inbox__summary" style="font-weight: bold; color: black;">Permohonan Penyediaan Ruangan dan Konsumsi Kegiatan Survey Kepuasan dan Engagement pekerja tahun 2019</span>
+                                </div>
+                                <div class="kt-inbox__labels">
+                                    <span class="kt-inbox__label kt-badge kt-badge--unified-brand kt-badge--bold kt-badge--inline">
+                                        <b>undangan</b>
+                                    </span>
+                                    <span class="kt-inbox__label kt-badge kt-badge--unified-dark kt-badge--bold kt-badge--inline">
+                                        <b>UM.332/9/12/4/IPCTPK-19</b>
+                                    </span>
+                                    <span class="kt-inbox__label kt-badge kt-badge--unified-success kt-badge--bold kt-badge--inline"><b>KIRIM</b></span>
+                                </div>
+
+                            </div>
+                            <div class="kt-inbox__datetime" style="margin: 10px 0px 0px 0px; width: 50px; text-align: center;">
+                                <span style="font-weight: bold; color: black;">
+                                    9 Dec 19
+                                </span>
+                            </div>
+                        </div>
+                        <hr style="margin-top:1px; margin-bottom: 1px">
+                        <div class="kt-inbox__item kt-inbox__item--unread" style="background-color: #d9f7ff" data-id="1" data-type="inbox" onclick="view_detail_surat_perintah(@data)">
+                            <div class="kt-inbox__info">
+
+                                <div class="kt-inbox__actions" onclick="view_detail_surat_perintah(@data)" style="background-color: #edf2fa">
+                                    <span data-toggle="kt-tooltip" data-placement="right" title="Open New Tab" class="kt-inbox__label kt-badge kt-badge--unified-success kt-badge--bold kt-badge--inline">
+                                        <i style="/! width: 23px; *//! margin: 10px auto; */font-size: 12px;" class="flaticon2-fast-next"></i>
+                                    </span>
+                                </div>
+                                <div class="kt-inbox__sender" style="margin: 0px 20px 0px 0px; width: 200px;" data-toggle="view">
+                                    <a href="#" class="kt-inbox__author" style="font-weight: bold; color: black;">
+                                        Direktur Keuangan & SDM
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="kt-inbox__details" style="margin: 0px 0px 0px 0px; padding-right: 0px;" data-toggle="view">
+                                <div class="kt-inbox__message" style="width: 620px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                    <span class="kt-inbox__summary" style="font-weight: bold; color: black;">Upacara Hari Kemerdekaan RI Tahun 2022</span>
+                                </div>
+                                <div class="kt-inbox__labels">
+                                    <span class="kt-inbox__label kt-badge kt-badge--unified-brand kt-badge--bold kt-badge--inline">
+                                        <b>surat_perintah</b>
+                                    </span>
+                                    <span class="kt-inbox__label kt-badge kt-badge--unified-dark kt-badge--bold kt-badge--inline">
+                                        <b>KP.412/15/9/1/IPCTPK-17</b>
+                                    </span>
+                                    <span class="kt-inbox__label kt-badge kt-badge--unified-success kt-badge--bold kt-badge--inline"><b>KIRIM</b></span>
+                                </div>
+
+                            </div>
+                            <div class="kt-inbox__datetime" style="margin: 10px 0px 0px 0px; width: 50px; text-align: center;">
+                                <span style="font-weight: bold; color: black;">
+                                    15 Agust 22
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="kt-portlet__head" style="padding-top: 0px;margin-top: 0px;">
+                    <div class="kt-inbox__toolbar kt-inbox__toolbar--extended">
+                        <div class="kt-inbox__actions kt-inbox__actions--expanded">
+                        </div>
+                        <div class="kt-inbox__controls">
+                            <div class="kt-inbox__pages paginggall" id="pagination" data-toggle="kt-tooltip" title="Records per page">
+                                <span class="kt-inbox__perpage" data-toggle="dropdown">1</span>
+                            </div>
+                            <button class="kt-inbox__icon prevv" id="prev" data-toggle="kt-tooltip" title="Previose page">
+                                <i class="flaticon2-left-arrow"></i>
+                            </button>
+                            <button class="kt-inbox__icon nextt" id="next" data-toggle="kt-tooltip" title="Next page">
+                                <i class="flaticon2-right-arrow"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!--End:: Inbox List-->
+                <!--Begin:: Inbox View-->
+                <div class="kt-grid__item kt-grid__item--fluid    kt-portlet    kt-inbox__view kt-inbox__view--shown-" id="kt_inbox_view">
+                    <div class="kt-portlet__head">
+                        <div class="kt-inbox__toolbar">
+                            <div class="kt-inbox__actions">
+                                <a href="#" class="kt-inbox__icon kt-inbox__icon--back">
+                                    <i class="flaticon2-left-arrow-1"></i>
+                                </a>
+                            </div>
+                            <div class="kt-inbox__controls">
+                                <span class="kt-inbox__pages" data-toggle="kt-tooltip" title="Records per page">
+                                    <span class="kt-inbox__perpage" data-toggle="dropdown">3 of 230 pages</span>
+                                </span>
+                                <button class="kt-inbox__icon" data-toggle="kt-tooltip" title="Previose message">
+                                    <i class="flaticon2-left-arrow"></i>
+                                </button>
+                                <button class="kt-inbox__icon" data-toggle="kt-tooltip" title="Next message">
+                                    <i class="flaticon2-right-arrow"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kt-portlet__body kt-portlet__body--fit-x">
+                        <div class="kt-inbox__subject">
+                            <div class="kt-inbox__title">
+                                <h3 class="kt-inbox__text">Perihal Surat</h3>
+                                <span class="kt-inbox__label kt-badge kt-badge--unified-brand kt-badge--bold kt-badge--inline">
+                                    nota dinas
+                                </span>
+                            </div>
+                            <div class="kt-inbox__actions">
+                                <a href="#" class="kt-inbox__icon" data-toggle="kt-tooltip" title="Disposisi">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <rect x="0" y="0" width="24" height="24"></rect>
+                                            <path d="M6,2 L18,2 C18.5522847,2 19,2.44771525 19,3 L19,12 C19,12.5522847 18.5522847,13 18,13 L6,13 C5.44771525,13 5,12.5522847 5,12 L5,3 C5,2.44771525 5.44771525,2 6,2 Z M7.5,5 C7.22385763,5 7,5.22385763 7,5.5 C7,5.77614237 7.22385763,6 7.5,6 L13.5,6 C13.7761424,6 14,5.77614237 14,5.5 C14,5.22385763 13.7761424,5 13.5,5 L7.5,5 Z M7.5,7 C7.22385763,7 7,7.22385763 7,7.5 C7,7.77614237 7.22385763,8 7.5,8 L10.5,8 C10.7761424,8 11,7.77614237 11,7.5 C11,7.22385763 10.7761424,7 10.5,7 L7.5,7 Z" fill="#000000" opacity="0.3"></path>
+                                            <path d="M3.79274528,6.57253826 L12,12.5 L20.2072547,6.57253826 C20.4311176,6.4108595 20.7436609,6.46126971 20.9053396,6.68513259 C20.9668779,6.77033951 21,6.87277228 21,6.97787787 L21,17 C21,18.1045695 20.1045695,19 19,19 L5,19 C3.8954305,19 3,18.1045695 3,17 L3,6.97787787 C3,6.70173549 3.22385763,6.47787787 3.5,6.47787787 C3.60510559,6.47787787 3.70753836,6.51099993 3.79274528,6.57253826 Z" fill="#000000"></path>
+                                        </g>
+                                    </svg>
+                                </a>
+                                <a href="#" class="kt-inbox__icon" data-toggle="kt-tooltip" title="Create Ulang PDF">
+                                    <i class="flaticon2-fax"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="kt-inbox__messages">
+                            <div class="kt-inbox__message kt-inbox__message--expanded">
+                                <div class="kt-inbox__head">
+                                    <span class="kt-media" data-toggle="expand" style="background-image: url('')">
+                                        <span>POTO</span>
+                                    </span>
+                                    <div class="kt-inbox__info">
+                                        <div class="kt-inbox__author" data-toggle="expand">
+                                            <a href="#" class="kt-inbox__name">Pengirim</a>
+                                        </div>
+                                        <div class="kt-inbox__details">
+                                            <div class="kt-inbox__tome">
+                                                <span class="kt-inbox__label" data-toggle="dropdown">
+                                                    penerima
+                                                    <i class="flaticon2-down"></i>
+                                                </span>
+                                                <div class="dropdown-menu dropdown-menu-fit dropdown-menu-md dropdown-menu-left">
+                                                    <table class="kt-inbox__details">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>detail</td>
+                                                                <td>detail</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>detail</td>
+                                                                <td>detail</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>detail</td>
+                                                                <td>detail</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>detail</td>
+                                                                <td>detail</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>detail</td>
+                                                                <td>detail</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="kt-inbox__desc" data-toggle="expand">
+                                                Sehubungan dengan akan dilaksanakan rapat dalam rangka Sosialisasi Gerakan Indonesia Bersih, yang akan dilaksanakan pada...
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="kt-inbox__actions">
+                                        <div class="kt-inbox__datetime" data-toggle="expand">
+                                            29/12/2019
+                                        </div>
+                                        <div class="kt-inbox__group">
+
+                                            <span class="kt-inbox__icon kt-inbox__icon--label kt-inbox__icon--light" data-toggle="kt-tooltip" data-placement="top" title="">
+                                                <i class="flaticon-add-label-button"></i>
+                                            </span>
+                                            <span class="kt-inbox__icon kt-inbox__icon--light" data-toggle="kt-tooltip" data-placement="top" title="Settings">
+                                                <i class="flaticon-more"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="kt-inbox__body">
+                                    <div class="kt-inbox__text">
+                                        <p> 1. Sehubungan dengan akan dilaksanakan rapat dalam rangka Sosialisasi Gerakan Indonesia Bersih, yang akan dilaksanakan pada :</p>
+                                        <p class="kt-margin-t-25">
+                                            Hari/Tanggal : Selasa, 09 April 2019
+                                        </p>
+                                        <p class="kt-margin-t-25">
+                                            2. Demikian atas bantuan dan kerjasamanya diucapkan terima kasih.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h2>log surat</h2>
+                    </div>
+                </div>
+                <!--End:: Inbox View-->
+            </div>
+            <!--End::Main Portlet-->
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Search</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="searchForm">
+                    <table border="0" cellpadding="2" cellspacing="2" width="100%">
+                        <tr>
+                            <td width="15%" align="left" class="form-field-caption">DARI</td>
+                            <td width="35%" class="form-field-input">
+                                <input type="text" id="from" name="FROM" class="form-control" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="15%" align="left" class="form-field-caption">NO SURAT</td>
+                            <td width="35%" class="form-field-input">
+                                <input type="text" id="no_surat" name="NO_SURAT" class="form-control" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="form-field-caption" align="left">PERIHAL</td>
+                            <td class="form-field-input">
+                                <input type="text" id="perihal" name="PERIHAL" class="form-control" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>JENIS SURAT</td>
+                            <td>
+                                <select class="form-control" id="jn_surat">
+                                    <option value="" selected>---</option>
+
+                                    <option value="Jenis Surat">Jenis Surat</option>
+
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="form-field-caption" align="left">TANGGAL</td>
+                            <td class="form-field-input">
+                                <div class="form-row">
+                                    <div class="col" style="width: 40%">
+                                        <input type="date" name="TANGGAL1" class="form-control" id="tanggal1" />
+                                    </div>S/D
+                                    <div class="col" style="width: 40%">
+                                        <input type="date" name="TANGGAL2" class="form-control" id="tanggal2" />
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="form-field-caption" align="left">BULAN</td>
+                            <td class="form-field-input">
+                                <select id="bulan" class="form-control">
+                                    <option value="" selected="">---</option>
+                                    <option value="01">Januari</option>
+                                    <option value="02">Februari</option>
+                                    <option value="03">Maret</option>
+                                    <option value="04">April</option>
+                                    <option value="05">Mei</option>
+                                    <option value="06">Juni</option>
+                                    <option value="07">Juli</option>
+                                    <option value="08">Agustus</option>
+                                    <option value="09">September</option>
+                                    <option value="10">Oktober</option>
+                                    <option value="11">November</option>
+                                    <option value="12">Desember</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="form-field-caption" align="left">TAHUN</td>
+                            <td class="form-field-input">
+                                <select id="tahun" class="form-control">
+                                    <option value="" selected="">---</option>
+                                    <?php for ($i=2012; $i <= date("Y"); $i++) { ?>
+                                    <option value="<?php echo $i ?>"><?php echo $i ?></option>
+                                    <?php } ?>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="form-field-caption" align="left">STATUS BACA</td>
+                            <td class="form-field-input">
+                                <select id="st_baca" class="form-control" onchange="search_inbox()">
+                                    <option value="All">All</option>
+                                    <option value="1">Read</option>
+                                    <option value="2">Unread</option>
+                                    <option value="3">Disposisi</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="search_inbox()">Cari</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    function view_detail_sppd(param) {
+        if (param != "") {
+            location.href = '@Url.Content("~/Inbox/SuratSppd")';
+        }
+    }
+
+    function view_detail_undangan(param) {
+        if (param != "") {
+            location.href = '@Url.Content("~/Inbox/SuratUndangan")';
+        }
+    }
+
+    function view_detail_surat_perintah(param) {
+        if (param != "") {
+            location.href = '@Url.Content("~/Inbox/SuratPerintah")';
+        }
+    }
+</script>

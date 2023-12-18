@@ -1,0 +1,36 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@inject IHttpContextAccessor Accessor
+@using Microsoft.AspNetCore.Http
+@model List<EofficeBNILWEB.Models.MenuOutput>
+@{
+    var en = Accessor.HttpContext.Session.GetString("en");
+}
+@foreach(var headerMenu in Model)
+{
+    <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"  data-ktmenu-submenu-toggle="click" aria-haspopup="true">
+        <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
+            <span class="kt-menu__link-text">@headerMenu.menu</span>
+            <i class="kt-menu__ver-arrow la la-angle-right"></i>
+            
+        </a>
+        <div class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--left">
+            <ul class="kt-menu__subnav">
+                @foreach (var subMenu in headerMenu.childMenu)
+                {
+                    <li class="kt-menu__item  kt-menu__item--submenu"  data-ktmenu-submenu-toggle="hover" aria-haspopup="true">
+                        <a href="@subMenu.link" class="kt-menu__link">
+                            <span class="kt-menu__link-icon">
+                                <img src="@subMenu.icon" style="width: 20px; height: auto;">
+                            </span>
+                            <span class="kt-menu__link-text">@subMenu.menu</span>
+                        </a>
+                    </li>
+                }
+                
+            </ul>
+        </div>
+    </li>
+}

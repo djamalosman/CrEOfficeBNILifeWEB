@@ -1,0 +1,1453 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localiza
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@{
+    var sessidUser = Accessor.HttpContext.Session.GetString("idUser");
+    var sessidUnit = Accessor.HttpContext.Session.GetString("idUnit");
+}  
+ <div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
+   <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver  m-container m-container--responsive m-container--xxl m-page__container">
+     <div class="m-grid__item m-grid__item--fluid m-wrapper">
+           <!-- BEGIN: Subheader -->
+            <div class="m-subheader ">
+              <div class="d-flex align-items-center">
+                <div class="mr-auto">
+                  <h3 class="m-subheader__title m-subheader__title--separator" style="color: white;">
+                    Inbox | Periksa Pengajuan SPPD
+                  </h3>
+                  <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                    <li class="m-nav__item m-nav__item--home">
+                      <a href="#" class="m-nav__link m-nav__link--icon">
+                        <i class="m-nav__link-icon la la-home" style="color: white;"></i>
+                      </a>
+                    </li>
+                    <li class="m-nav__separator" style="color: white;">
+                      -
+                    </li>
+                    <li class="m-nav__item">
+                      <a href="" class="m-nav__link">
+                        <span class="m-nav__link-text" style="color: white;">
+                          E-OFFICE
+                        </span>
+                      </a>
+                    </li>
+                    <li class="m-nav__separator" style="color: white;">
+                      -
+                    </li>
+                    <li class="m-nav__item">
+                      <a href="" class="m-nav__link">
+                        <span class="m-nav__link-text" style="color: white;">
+                          -
+                        </span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!-- END: Subheader -->
+      <div class="m-content">
+              <!--Begin::Main Portlet-->
+                <div class="kt-container  kt-grid__item kt-grid__item--fluid">
+                  <div class="kt-grid kt-grid--desktop kt-grid--ver-desktop  kt-inbox" id="kt_inbox">
+
+                          <button class="kt-inbox__aside-close" id="kt_inbox_aside_close">
+                            <i class="la la-close"></i>
+                          </button>
+
+                    <div class="kt-grid__item kt-grid__item--fluid    kt-portlet    kt-inbox__view kt-inbox__view--shown-" id="kt_inbox_view" style="display: flex;">
+                            <a class="btn btn-success backtomasuk" style="color: white;"><i class="flaticon2-left-arrow-1"> Back</i></a>
+                                 <fieldset style="width:99%;">
+                                                  <input type="hidden" id="daripreview" name="daripreview" value="0">
+                                                  <input type="hidden" id="idresponsesurat" name="idsuratss" value="0">
+                                              <div  class="viewForm" id="formdetail" style="display: none;">
+                                                 <div class="viewFormList" id="autoformdetail"> </div>
+                                              </div>
+                                                    <input type="hidden" id="tipe" name="tipe">
+                                                <div style="float:left;padding-left:30px">
+                                                  <br>
+                                                     <fieldset><legend style="font-size: 10pt"><b>Kepala Surat</b></legend>
+                                                        <table class="head_table" width="620" border="0">
+                                                            <tbody>
+                                                                    <tr style="font-size:10pt"><td style="width: 120px">Jenis / No / Tgl </td><td> : </td>
+                                                                        <td width="500"> 
+                                                                          <div class="form-row" style="margin-left: 5px;">
+                                                                                 <div class="col-3">
+                                                                                   <input type="hidden" name="jenis" id="jenis" value="nd_sppd">
+                                                                                   <b>Permohonan SPPD</b><b style="text-align: center;margin-left: 60px;">/</b>
+                                                                                 </div>
+                                                                                 <div class="col-5">
+                                                                                    <input type="text" class="form-control" name="nomer" id="nomer" readonly="" placeholder="auto" style="height: 30px; background-color: #e6e9ec;">
+                                                                                 </div>
+                                                                                 <div class="col-3">
+                                                                                    <input name="tanggal" class="form-control" type="text" id="tanggal" readonly="" placeholder="auto" style="height: 30px; background-color: #e6e9ec;">
+                                                                                  </div>
+                                                                          </div>
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr style="font-size:8pt"><td style="width: 120px">Kode SPPD</td><td> : </td>
+                                                                        <td width="500"> 
+                                                                               <div class="form-row">
+                                                                                  <div class="col-5">
+                                                                                    <div></div>
+                                                                                    <input class="form-control" name="kode_sppd" type="text" id="kode_sppd" style="background-color:#e6e9ec; height: 30px;" value="ITPK262013" readonly="1">
+                                                                                  </div>
+                                                                                  <div class="col-2">
+                                                                                           JKK <input type="checkbox" name="jkk" id="jkk" value="1" checked="">
+                                                                                  </div>
+                                                                                  <div class="col-5">
+                                                                                           Exclude Hari Libur <input type="checkbox" name="exclude_hari_libur" id="exclude_hari_libur" value="1">
+                                                                                  </div>
+                                                                               </div>
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr style=" font-size:8pt;" id="agenda_f1">
+                                                                        <td width="91">Mulai </td><td colspan="4"> : 
+                                                                              <input type="text" id="tgl_mulai" style="width:122px;margin-top: 1%;" name="tgl_mulai" value="02-06-2022" onchange="gantiisi()" class="hasDatepicker">
+                                                                              &nbsp; s/d &nbsp;
+                                                                              <input type="text" id="tgl_selesai" style="width:122px;margin-top: 1%;" name="tgl_selesai" value="03-06-2022" onchange="gantiisi()" class="hasDatepicker">
+                                                                              &nbsp;
+                                                                        </td>
+                                                                    </tr>
+
+                                                                          <tr id="agenda_f" style=" font-size:10pt; display: none;">
+                                                                          <tr style=" font-size:10pt; display: none;"  id="agenda_f1">
+                                                                            <td width="91">Mulai </td><td colspan="4"> : 
+                                                                              <input type="text" id="tgl_mulai" autocomplete="off" style="width:122px;margin-top: 1%;" name="tgl_mulai" onchange="gantiisi()" />
+
+                                                                              &nbsp; s/d &nbsp;
+                                                                              <input type="text" id="tgl_selesai" autocomplete="off" style="width:122px;margin-top: 1%;" name="tgl_selesai"  onchange="gantiisi()" />
+                                                                              &nbsp;
+
+                                                                            </td>
+                                                                          </tr>
+                                                                          <tr style=" font-size:8pt;" id="agenda_f5">
+                                                                                <td width="91">Tujuan </td><td> : </td>
+                                                                                <td>
+                                                                                  <input type="hidden" id="tingkatdaerah" name="tingkatdaerah" value="1">
+                                                                                    <select name="lokasi_" id="lokasi_" class="select2-selection__rendered form-control select2-hidden-accessible" style="height: 30px !important;" onchange="gantiisi()" tabindex="-1" aria-hidden="true">
+                                                                                        <option style="height: 30px;" value=""></option>
+                                                                                        <option style="height: 30px;" value="2-TES">TES</option>
+                                                                                        <option style="height: 30px;" value="2-BOYOLALI">BOYOLALI</option>
+                                                                                        <option style="height: 30px;" value="2-LOMBOK">LOMBOK</option>
+                                                                                        <option style="height: 30px;" value="2-BAYAH">BAYAH</option>
+                                                                                    </select>
+	                                                                                <span class="select2 select2-container select2-container--default" dir="ltr" style="width: 493.802px;">
+		                                                                                <span class="selection">
+		                                                                                <span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-lokasi_-container">
+		                                                                                <span class="select2-selection__rendered" id="select2-lokasi_-container" title="PONTIANAK">
+		                                                                                <span class="select2-selection__clear">×</span>PONTIANAK</span>
+		                                                                                <span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span>
+		                                                                                </span>
+		                                                                                </span>
+		                                                                                <span class="dropdown-wrapper" aria-hidden="true"></span>
+	                                                                                </span>
+                                                                                </td>
+                                                                          </tr>
+                                                                      
+                                                                    </tr>
+
+                                                                    <!-- Perihal dan Klasifikasi -->
+                                                                    <tr style=" font-size:10pt"><td>Perihal </td><td> : </td>
+                                                                    <td width="457">
+                                                                            <input class="form-control" name="perihal" onchange="gantiisi()" value="TESTING DIKLAT ALL FLOW 31" type="text" id="perihal" style="background-color:#FFFFB3; height: 30px;">
+                                                                      </td>
+                                                                    </tr>
+                                                                    <tr style=" font-size:8pt"><td>Berangkat Dari </td><td> : </td>
+                                                                        <td width="457">
+			                                                                    <select id="berangkat_dari" name="berangkat_dari" class="select2-selection__rendered form-control select2-hidden-accessible" style="height: 30px !important;" tabindex="-1" aria-hidden="true">
+                                                                                    <option style="height: 30px;" value="TES">TES</option>
+                                                                                    <option style="height: 30px;" value="BOYOLALI">BOYOLALI</option>
+                                                                                    <option style="height: 30px;" value="LOMBOK">LOMBOK</option>
+                                                                                    <option style="height: 30px;" value="BAYAH">BAYAH</option>
+                                                                                    <option style="height: 30px;" value="CIATER">CIATER</option>
+                                                                                </select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 497.719px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-berangkat_dari-container"><span class="select2-selection__rendered" id="select2-berangkat_dari-container" title="JAKARTA"><span class="select2-selection__clear">×</span>JAKARTA</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr style=" font-size:8pt"><td>Mata Anggaran </td><td> : </td>
+                                                                        <td width="457">
+                                                                            <select id="kode_anggaran" name="kode_anggaran" class="select2-selection__rendered form-control select2-hidden-accessible" style="height: 30px !important;" onchange="getkonversirate()" tabindex="-1" aria-hidden="true">
+                                                                                <option selected="selected" style="height: 30px;" value="1">Perjalanan DN</option>
+                                                                                <option style="height: 30px;" value="2">Perjalanan LN</option>
+                                                                                <option style="height: 30px;" value="3">Diklat</option>
+                                                                                <option style="height: 30px;" value="4">Biaya Pindah</option>
+                                                                                <option style="height: 30px;" value="5">Pendidikan LN</option>
+                                                                                <option style="height: 30px;" value="6">Perjalanan Pulang Pergi Kurang Dari 6 Jam</option>
+                                                                                <option style="height: 30px;" value="7">Perjalanan LN Hotel Disediakan</option>
+                                                                            </select>
+			                                                                    <span class="select2 select2-container select2-container--default" dir="ltr" style="width: 497.99px;">
+				                                                                    <span class="selection">
+					                                                                    <span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-kode_anggaran-container">
+						                                                                    <span class="select2-selection__rendered" id="select2-kode_anggaran-container" title="Perjalanan DN">
+							                                                                    <span class="select2-selection__clear">×</span>Perjalanan DN
+						                                                                    </span>
+						                                                                    <span class="select2-selection__arrow" role="presentation">
+							                                                                    <b role="presentation"></b>
+						                                                                    </span>
+					                                                                    </span>
+				                                                                    </span>
+				                                                                    <span class="dropdown-wrapper" aria-hidden="true"></span>
+			                                                                    </span>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr style=" font-size:8pt">
+                                                                        <td>Mata Uang </td>
+                                                                        <td> : </td>
+                                                                        <td>
+                                                                            <div class="form-row">
+                                                                                <div class="col-4">
+                                                                                    <label for="lampiran">&nbsp;</label>
+                                                                                    <select id="mata_uang" name="mata_uang" class="select2-selection__rendered form-control select2-hidden-accessible" style="height: 30px !important;" onchange="getkonversirate()" tabindex="-1" aria-hidden="true">
+                                                                                        <option style="height: 30px;" value="IDP">IDP</option>
+                                                                                        <option style="height: 30px;" value="AUD">AUD</option>
+                                                                                        <option style="height: 30px;" value="CHF">CHF</option>
+                                                                                        <option style="height: 30px;" value="CNY">CNY</option>
+                                                                                        <option style="height: 30px;" value="EUR">EUR</option>
+                                                                                        <option selected="selected" style="height: 30px;" value="IDR">IDR</option>
+                                                                                        <option style="height: 30px;" value="SGD">SGD</option>
+                                                                                        <option style="height: 30px;" value="USD">USD</option>
+                                                                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 159.323px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-mata_uang-container"><span class="select2-selection__rendered" id="select2-mata_uang-container" title="IDR"><span class="select2-selection__clear">×</span>IDR</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                                                                </div>
+                                                                                <div class="col-4">
+                                                                                    <label for="prior">Konversi :</label>
+                                                                                    <select id="konversi" name="konversi" class="select2-selection__rendered form-control select2-hidden-accessible" style="height: 30px !important;" onchange="getkonversirate()" tabindex="-1" aria-hidden="true">
+                                                                                        <option selected="selected" style="height: 30px;" value="Corporate">Corporate</option>
+                                                                                        <option style="height: 30px;" value="Spot">Spot</option>
+                                                                                        <option style="height: 30px;" value="User">User</option>
+                                                                                        <option style="height: 30px;" value="EMU Fixed">EMU Fixed</option>
+                                                                                        <option style="height: 30px;" value="PI2 Rate Revaluation">PI2 Rate Revaluation</option>
+                                                                                        <option style="height: 30px;" value="Pajak">Pajak</option>
+                                                                                        <option style="height: 30px;" value="Revaluation">Revaluation</option>
+                                                                                        <option style="height: 30px;" value="PPI">PPI</option>
+                                                                                        <option style="height: 30px;" value="PPI Average">PPI Average</option>
+                                                                                        <option style="height: 30px;" value="PPI KURS PAJAK">PPI KURS PAJAK</option>
+                                                                                        <option style="height: 30px;" value="PPI Corporate">PPI Corporate</option>
+                                                                                        <option style="height: 30px;" value="BI_BUY">BI_BUY</option>
+                                                                                        <option style="height: 30px;" value="BI_SELL">BI_SELL</option>
+                                                                                        <option style="height: 30px;" value="PI2 Jisdor">PI2 Jisdor</option>
+                                                                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 159.323px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-konversi-container"><span class="select2-selection__rendered" id="select2-konversi-container" title="Corporate"><span class="select2-selection__clear">×</span>Corporate</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                                                                </div>
+                                                                                <div class="col-4">
+                                                                                    <label for="klasifi">Rate :</label>
+                                                                                    <input class="form-control" name="rate" value="" type="text" id="rate" style="background-color:#e6e9ec; height: 30px;" readonly="1">
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr style="font-size:8pt"><td style="width: 120px">Beban Biaya</td><td> : </td>
+                                                                        <td width="500"> 
+                                                                            <div class="form-row">
+                                                                                <div class="col-2">
+                                                                                  <div></div>
+                                                                                  <input class="form-control" name="kode_beban_biaya" value="1" type="text" id="kode_beban_biaya" style="background-color:#FFFFB3; height: 30px;">
+                                                                                </div>
+                                                                                <div class="col-10">
+                                                                                  <input class="form-control" name="label_beban_biaya" value="" type="text" id="label_beban_biaya" style="background-color:#e6e9ec; height: 30px;" readonly="1">
+                                                                                </div>                         
+		                                                                    </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr style="font-size:8pt;">
+                                                                        <td>RK Biaya </td>
+                                                                        <td> : </td>
+                                                                        <td width="457">
+                                                                            <input class="form-control" name="rk_biaya" value="PT. IPC TERMINAL PETIKEMAS" type="text" id="rk_biaya" style="height: 30px;">    
+                                                                        </td>                
+                                                                    </tr>
+                                                                    <tr style=" font-size:8pt">
+                                                                        <td>Klasifikasi Masalah</td><td> : </td><td>
+                                                                            <input type="hidden" value="UM.340" id="klasifikasi" name="klasifikasi" style="display:marker">
+                                                                            <b>UM.340-Surat perintah jalan/ Pindah</b>
+                                                                        </td>
+                                                                    </tr>
+
+                                                                        <!-- Perihal dan Klasifikasi --><!-- Lampiran dan Prioritas -->
+                                                                    <tr style=" font-size:8pt"><td>Lampiran </td><td> : </td>
+                                                                        <td>
+                                                                            <div class="form-row">
+                                                                                <div class="col-4" width="145px">
+				                                                                    <label for="lampiran">&nbsp;</label>
+				                                                                    <input class="form-control" value="" style="height: 30px;" name="lampiran" type="text" id="lampiran">
+			                                                                    </div>
+                                                                                <div class="col-4" width="145px">
+				                                                                    <label for="prior">Prioritas :</label>
+				                                                                    <input type="hidden" name="prior" value="0">
+                                                                                    <b style="margin-left: 10px;">Normal</b>                  
+                                                                                </div>
+			                                                                    <div class="col-4" width="145px">
+				                                                                    <label for="klasifi">Klasifikasi :</label>
+				                                                                    <input type="hidden" name="klasifi" value="0">
+				                                                                    <b style="margin-left: 10px;">Biasa</b>                  
+			                                                                    </div>
+		                                                                    </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                <!-- Lampiran dan Prioritas -->
+                                                              </tbody>
+                                                        </table>
+                                                      </fieldset>
+                                                      <fieldset id="pengirim_field"><legend style="font-size: 8pt"><b>Pengirim</b></legend>
+                                                            <table id="sm_peng"></table>
+                                                            <table id="elses_peng" width="620" border="0">
+                                                              <tbody>
+                                                                    <tr style=" font-size:8pt;"><!-- Pengirim -->
+                                                                        <td style="width: 120px">Jabatan</td><td> : </td>
+                                                                        <td>
+                                                                            <input class="form-control ui-autocomplete-input" value="Senior Manager Sistem Informasi" name="jabatan" type="text" id="jabatan" placeholder="autocomplete" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" style="height: 30px;">
+                                                                            <input value="300047" name="jabatanid" type="hidden" id="jabatanid">
+                                                                         </td>
+                                                                    </tr>
+                                                                    <tr style=" font-size:8pt"><td>NIPP / Nama </td><td> : </td>
+                                                                         <td>
+                                                                                <div class="form-row">
+                                                                                    <div class="col-5">
+                                                                                      <input class="form-control" value="288057696" name="nipp" type="text" id="nipp" readonly="1" style="height: 30px; background-color: #e6e9ec;">
+                                                                                    </div>
+                                                                                    <div class="col-7">
+                                                                                      <input class="form-control" value="HUGO TONI SEPUTRO" name="nama" type="text" id="nama" readonly="1" style="height: 30px; background-color: #e6e9ec;">
+                                                                                    </div>
+                                                                                </div>
+                                                                         </td>
+                                                                    </tr>
+                                                                    <tr style=" font-size:8pt"><td>Divisi </td><td> : </td>
+                                                                         <td>
+                                                                            <input class="form-control" value="Direktorat Operasi &amp; Teknik ITPK" name="divisi" type="text" id="divisi" readonly="1" style="height: 30px; background-color: #e6e9ec;">
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr style=" font-size:8pt"><td>Cab / Dir </td><td> : </td>
+                                                                        <td>
+                                                                            <input class="form-control" value="Direktorat Utama ITPK" name="dept" type="text" id="dept" readonly="1" style="height: 30px; background-color: #e6e9ec;">
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                       </fieldset>
+                                                </div>
+                                                <br>
+                                                <div style="float:right;padding-right:10px;">
+                                                        <fieldset id="penerima_field">
+                                                            <legend style="font-size: 8pt"><b>Penerima</b></legend>
+                                                            <style>
+                                                                table.penerima, table.penerima td {
+                                                                    border: 1px solid grey;
+                                                                    border-collapse: collapse;
+                                                                }
+                                                            </style>
+                                                            <table id="elses_table" style="font-size: 8pt" width="480">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td width="150px" style="vertical-align:top;">Kepada (Jabatan)</td>
+                                                                        <td style="vertical-align:top;"> : </td>
+                                                                        <td style="vertical-align: top;">
+                                                                            <div class="form-row" id="btnRemove0">
+                                                                                <input type="checkbox" style="display:none" id="cekpen0" name="pen[]" value="300010" checked="checked">
+                                                                                &nbsp;
+                                                                                <div class="col-10">
+                                                                                    <input type="text" id="pentampil0" style="height: 30px;background-color:#FFFFB3" value="Direktur Keuangan &amp; SDM Pelindo EDI Pusat" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+                                                                                </div>
+                                                                                <input id="pen0" type="hidden" value="300010">
+                                                                                <div class="col">
+                                                                                    <input type="button" value="+" id="btnAdd" class="btn btn-success" style="padding: 0.2em 1em;">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div id="addkepada" style="padding-bottom: 5px;"></div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td width="150px" style="vertical-align: top;">Tembusan (Jabatan) </td>
+                                                                        <td style="vertical-align:top;"> : </td>
+                                                                        <td>
+                                                                            <div class="form-row" id="btnRemoveTem0">
+                                                                                <input type="checkbox" id="cektem0" name="tem[]" style="display:none">
+                                                                                &nbsp;
+                                                                                <input id="tem0" type="hidden">
+                                                                                <div class="col-10">
+                                                                                    <input type="text" id="temtampil0" style="height: 30px;background-color:#C6FFC6" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+                                                                                </div>
+                                                                                <div class="col">
+                                                                                    <input type="button" value="+" id="btnAdd2" class="btn btn-success" style="padding: 0.2em 1em;">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div id="addtembusan" style="padding-bottom: 5px;"></div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td width="150px" style="vertical-align: top;">Kepada (Pekerja)</td>
+                                                                        <td style="vertical-align:top;"> : </td>
+                                                                        <td style="vertical-align: top;">
+                                                                            <div id="btnRemovePeg0" class="form-row">
+                                                                                <input type="checkbox" id="cekpenpeg0" name="penpeg[]" style="display:none">
+                                                                                &nbsp;
+                                                                                <div class="col-10">
+                                                                                    <input type="text" id="penpegtampil0" style="height:30px;background-color:#FFFFB3" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+                                                                                </div>
+                                                                                <input type="hidden" id="penpeg0">
+                                                                                <div class="col">
+                                                                                    <input type="button" value="+" id="btnAddpeg" class="btn btn-success" style="padding: 0.2em 1em;">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div id="addkepadapeg" style="padding-bottom: 5px;"></div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td width="150px;" style="vertical-align: top;">Tembusan (Pekerja) </td>
+                                                                        <td style="vertical-align:top;"> : </td>
+                                                                        <td>
+                                                                            <div id="btnRemoveTemPeg0" class="form-row">
+                                                                                <input type="checkbox" id="cektempeg0" name="tempeg[]" style="display:none">
+                                                                                &nbsp;
+                                                                                <div class="col-10">
+                                                                                    <input type="text" id="tempegtampil0" style="height:30px;background-color:#C6FFC6" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+                                                                                </div>
+                                                                                <input type="hidden" id="tempeg0">
+                                                                                <div class="col">
+                                                                                    <input type="button" value="+" id="btnAdd2peg" class="btn btn-success" style="padding: 0.2em 1em;">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div id="addtembusanpeg" style="padding-bottom: 5px;"></div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td width="150px" style="vertical-align: top;">Kepada (non-Pekerja)</td>
+                                                                        <td style="vertical-align: top;">:</td>
+                                                                        <td style="vertical-align: top;">
+                                                                            <div id="btnRemovePenNon0" class="form-row">
+                                                                                <input type="checkbox" id="cekpenn0" name="penn[]" style="display:none">
+                                                                                &nbsp;
+                                                                                <div class="col-10">
+                                                                                    <input type="text" id="penn0" style="height:30px;background-color:#FFFFB3" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+                                                                                </div>
+                                                                                <div class="col">
+                                                                                    <input type="button" value="+" id="btnAdd3" class="btn btn-success" style="padding: 0.2em 1em;">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div id="addkepada2" style="padding-bottom: 5px;"></div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td width="150px" style="vertical-align: top;">Tembusan (non-Pekerja) </td>
+                                                                        <td style="vertical-align: top;"></td>
+                                                                        <td>
+                                                                            <div id="btnRemoveTemNon0" class="form-row">
+                                                                                <input type="checkbox" id="cektemn0" name="temn[]" style="display:none">
+                                                                                &nbsp;
+                                                                                <div class="col-10">
+                                                                                    <input type="text" id="temn0" style="height:30px;background-color:#C6FFC6" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+                                                                                </div>
+                                                                                <div class="col">
+                                                                                    <input type="button" value="+" id="btnAdd4" class="btn btn-success" style="padding: 0.2em 1em;">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div id="addtembusan2" style="padding-bottom: 5px;"></div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <table id="elses_table_khusus" style="display:none">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td width="150px" style="vertical-align:top;">Kepada (Jabatan)</td>
+                                                                        <td style="vertical-align:top;"> : </td>
+                                                                        <td style="vertical-align: top;">
+                                                                            <div class="form-row" id="btnRemove0">
+                                                                                <input type="checkbox" style="display:none" id="cekpenkhusus0" name="penkhusus[]" value="300010" checked="checked">
+                                                                                &nbsp;
+                                                                                <div class="col-10">
+                                                                                    <input type="text" id="pentampilkhusus0" style="height: 30px;background-color:#FFFFB3" value="Direktur Keuangan &amp; SDM Pelindo EDI Pusat" readonly="readonly" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+                                                                                </div>
+                                                                                <input id="penkhusus0" type="hidden" value="300010">
+                                                                                <div class="col"></div>
+                                                                            </div>
+
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </fieldset>
+                                                </div>
+                                 </fieldset>
+                                 <div class="kt-inbox__reply kt-inbox__reply--on" style="padding-top: 20px;">
+                                          <div class="kt-inbox__form" id="kt_inbox_reply_form">
+                                            <div class="kt-inbox__body">
+                                              <br>
+                                              <textarea id="elm1" name="elm1" rows="15" cols="80" style="width: 90% !important; margin-left: 5% !important; margin-right: 5% !important;">
+                                                <p>&nbsp;</p>
+                                                <table border="0" cellspacing="0" cellpadding="0" class="mceItemTable">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td valign="top" width="26" height="20">
+                                                                <p>1.</p>
+                                                            </td>
+                                                            <td colspan="2" valign="top" width="590">
+                                                                <p>Menunjuk...</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td valign="top" width="26" height="20">
+                                                                <p>2.</p></td>
+                                                            <td colspan="2" valign="top" width="590">
+                                                                <p>Tersebut butir satu diatas, dengan ini dapat kami sampaikan hal-hal berikut :</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td valign="top" width="26" height="20">&nbsp;</td>
+                                                            <td valign="top" width="28"><p>a.</p></td>
+                                                            <td valign="top" width="562"><p>Maksud dan tujuan perjalanan dinas adalah</p></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td valign="top" width="26" height="20"><p>&nbsp;</p></td>
+                                                            <td valign="top" width="28"><p>b.</p></td>
+                                                            <td valign="top" width="562"><p>Tempat pelaksanaan PONTIANAK</p></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td valign="top" width="26" height="20"><p>&nbsp;</p></td>
+                                                            <td valign="top" width="28"><p>c.</p></td>
+                                                            <td valign="top" width="562"><p>Waktu pelaksanaan Kamis , 02 Juni 2022 s/d Jumat , 03 Juni 2022</p></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td valign="top" width="26" height="20"><p>&nbsp;</p></td>
+                                                            <td valign="top" width="28"><p>d.</p></td>
+                                                            <td valign="top" width="562">
+                                                                <p>Adapun pihak-pihak yang ditunjuk untuk mengikuti acara dimaksud adalah sebagaimana terlampir.</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td valign="top" width="26" height="20"><p>&nbsp;</p></td>
+                                                            <td valign="top" width="28"><p>e.</p></td>
+                                                            <td valign="top" width="562">
+                                                                <p>Laporan hasil pelaksanaan akan disampaikan selambat-lambatnya 7 hari setelah tanggal pelaksanaan acara dimaksud.</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td valign="top" width="26" height="20"><p>&nbsp;</p></td>
+                                                            <td valign="top" width="28"><p>f.</p></td>
+                                                            <td valign="top" width="562">
+                                                                <p>Biaya yang timbul menjadi beban pusat pelayanan / mata anggaran Direktorat Operasi &amp; Teknik ITPK</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td valign="top" width="26" height="20"><p>3.</p></td>
+                                                            <td colspan="2" valign="top" width="590">
+                                                                <p>Demikian kami sampaikan, atas perhatian dan kerja samanya kami ucapkan terima kasih.</p>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                              </textarea>
+                                              <div style="padding-left: 2%;">
+                                                <fieldset id="isi_sp" style="display:none;width:99%">
+                                                  <legend> ISI SURAT PERINTAH </legend>
+                                                  <table border="0">
+                                                    <tbody>
+                                                      <tr>
+
+                                                        <td width="50" valign="top">DASAR</td>
+                                                        <td valign="top">:</td>
+                                                        <td width="965" valign="top">
+                                                            <input type="hidden" name="dasarfix" id="dasarfix">
+                                                            <input type="hidden" name="perintahfix" id="perintahfix">
+                                                            <div id="dasar_atas">
+                                                              <div id="divdasar0">
+                                                                <div style="float:left">
+                                                                  <textarea id="dasar0" name="dasar[]" class="dassar" style="width:900px;height:100px;"></textarea>
+                                                                </div>
+                                                                <div style="float:left">
+                                                                  <input type="button" value="+" id="tmbhdsr" class="btn btn-success" style="padding: 0.2em 1em;margin-left: 20%;">
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                        </td>
+
+                                                      </tr>
+                                                      <tr>
+
+                                                        <td width="50" valign="top">ISI PERINTAH</td>
+                                                        <td valign="top">:</td>
+                                                        <td width="965" valign="top">
+                                                          <div id="perintah_atas">
+                                                            <div id="divperin0">
+                                                              <div style="float:left">
+                                                                <textarea id="perin0" name="perintah[]" class="perrintah" style="width:900px;height:100px;"></textarea>
+                                                              </div>
+                                                              <div style="float:left">
+                                                                <input type="button" value="+" id="tmbhper" class="btn btn-success" style="padding: 0.2em 1em;margin-left: 20%;">
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                        </td>
+
+                                                      </tr>
+                                                    </tbody>
+                                                  </table>
+                                                </fieldset>
+                                              </div>
+                                            </div>
+                                            <div style="padding-left: 2%;">
+                                              <fieldset id="penundangan_field" style="display:none;">
+                                                <h3 id="jdul_penerima">Penerima Undangan</h3>
+                                                <br><legend> &nbsp;</legend>
+                                                <table width="100%">
+                                                  <tbody>
+                                                    <tr>
+                                                      <td width="33%">&nbsp;&nbsp;Kepada (Jabatan) :</td>
+                                                      <td width="33%">&nbsp;&nbsp;Kepada (Pekerja) :</td>
+                                                      <td width="33%">&nbsp;&nbsp;Kepada (Non Pekerja) :</td>
+                                                    </tr>
+                                                    <tr>
+                                                          <td style="vertical-align:top">
+
+                                                            <div  id="btnPenund" class="form-row">
+                                                              <input type="checkbox" style="display:none" id="cekpenund0" name="penund[]">
+                                                              <input type="hidden" name="penunds2" id="penunds2">
+                                                              &nbsp;
+                                                              <div class="col-10"> 
+                                                              <input type="text" id="penundtampil0" style="width:300px;height:30px;background-color:#FFFFB3" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+                                                            </div>
+                                                            <input id="penund0" type="hidden">
+                                                            <div class="col">
+                                                              <input type="button" value="+" id="btnAddund" class="btn btn-success" style="padding: 0.2em 1em;">
+                                                            </div>
+                                                            </div>
+
+                                                            <div id="addkepadaund" style="padding-bottom: 5px;"></div>
+                                                          </td>
+                                                          <td style="vertical-align:top">
+
+                                                              <div id="btnPenpegund" class="form-row">
+                                                                <input type="checkbox" style="display:none" id="cekpenpegund0" name="penpegund[]">
+                                                                <input type="hidden" name="penpegunds2" id="penpegunds2">
+                                                                &nbsp;
+                                                                <div class="col-10"> 
+                                                                <input type="text" id="penpegundtampil0" style="width:300px;height:30px;background-color:#FFFFB3" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+                                                              </div>
+                                                              <input id="penpegund0" type="hidden">
+                                                              <div class="col">
+                                                                <input type="button" value="+" id="btnAddpegund" class="btn btn-success" style="padding: 0.2em 1em;">
+                                                              </div>
+                                                            </div>
+
+                                                            <div id="addkepadapegund" style="padding-bottom: 5px;"></div>
+                                                          </td>
+                                                          <td style="vertical-align:top">
+
+                                                            <div id="btnPennonund" class="form-row">
+                                                              <input type="checkbox" style="display:none" id="cekpennonund0" name="pennonund[]">
+                                                              <input type="hidden" name="pennonunds2" id="pennonunds2">
+                                                              &nbsp;
+                                                              <div class="col-10"> 
+                                                                <input type="text" id="pennonundtampil0" style="width:300px;height:30px;background-color:#FFFFB3" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+                                                              </div>
+                                                              <input id="pennonund0" type="hidden">
+                                                              <div class="col">
+                                                                <input type="button" value="+" id="btnAddnonund" class="btn btn-success" style="padding: 0.2em 1em;">
+                                                              </div>
+                                                            </div>
+                                                            <?php $i_undnon++; ?>
+                                                            <div id="addkepadanonund" style="padding-bottom: 5px;"></div>
+                                                          </td>
+                                                      </tr>
+                                                  </tbody>
+                                                </table>
+                                              </fieldset>
+                                            </div>
+                                            <br>
+                                            <br>
+                                            
+                                            <br>
+                                      <div class="kt-inbox__foot">
+                                                    <div class="kt-inbox__primary" style="width: 100%">
+                                                      <div class="col-sm-12">
+                                                        <h6 style="font-size: 8pt">Log History</h6>
+                                                        <textarea readonly="" style="width: 100% !important;font-size: 8pt" id="log_histori" name="log" cols="62" rows="6"></textarea>
+                                                       </div>
+                                                    </div>
+
+                                                      <div class="kt-inbox__primary">
+                                                        <div class="btn-group col-sm-2">
+                                                          <button type="button" id="tombolpreview" class="btn btn-warning btn-bold" onclick="cetak_direksi_periksa(505150)">
+                                                            <i class="flaticon2-checking">&nbsp;Preview</i>  
+                                                          </button>
+                                                        </div>
+                                                      </div>
+                                                        <h2>Lampiran Surat</h2>
+                                              <div class="form-group form-group-last row">
+                                                        <label class="col-lg-3 col-form-label">Upload File:</label>
+                                                <div class="col-lg-6">
+                                                        <div class="kt-uppy" id="kt_uppy_5">
+                                                            <div class="kt-uppy__wrapper">
+                                                                <div class="uppy-Root uppy-FileInput-container">
+                                                                  <input type="hidden" name="DOC_NAME" value="" placeholder="File Name...">
+                                                                  <!-- <input type='file' name='files[]' multiple=""> -->
+                                                                  <input class="uppy-FileInput-input btn btn-label-brand btn-bold btn-font-sm" style="" type="file" name="files[]" multiple="" id="kt_uppy_5_input_control" accept="png|jpg|doc|docx|xls|xlsx|pdf">
+                                                                  <!-- <label class="kt-uppy__input-label btn btn-label-brand btn-bold btn-font-sm" for="kt_uppy_5_input_control"><i class="flaticon-attachment">&nbsp;Attach files</i></label> -->
+                                                                </div>
+                                                            </div>
+                                                            <span class="form-text text-muted">File type: JPG, PNG, DOC, DOCX, XLS, XLSX, PDF(Maksimal 15MB)</span>
+
+                                                            <div id="listfile">
+                                                              <div id="list">
+                                                                <table width="300px">
+                                                                  <tbody><tr><td style="font-size: 8pt !important"><h6 style="font-size: 8pt">Lampiran Surat</h6><h6></h6></td>
+                                                                        <td> : </td>
+
+                                                                        <td style="font-size: 8pt !important"><i>----no attachment----</i></td>
+                                                                                                      </tr></tbody></table>
+                                                              </div>
+                                                            </div>
+                                                            <div id="list_file_temp"></div>
+                                                        </div>
+                                                </div>
+                                              </div>
+                                                <br>
+                                           <div style="padding-left: 2%;overflow-x: auto;white-space: nowrap;position">
+                                                <fieldset id="penundangan_field">
+                                                    <h3 id="jdul_penerima">Daftar Peserta</h3>
+                                                    <br><legend> &nbsp;</legend>
+                                                    <input type="hidden" name="penpegunds2" id="penpegunds2">
+                                                    <input type="hidden" name="pennonunds2" id="pennonunds2">
+                                                    <input type="hidden" name="uang_transports" id="uang_transports">
+                                                    <input type="hidden" name="uang_hotels" id="uang_hotels">
+
+                                                    <table id="tblpeserta" style="width:100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="classtdth">#</th>
+                                                                <th class="classtdth">NIPP</th>
+                                                                <th class="classtdth">Nama</th>
+                                                                <th class="classtdth">Jabatan</th>
+                                                                <th class="classtdth">Tingkat</th>
+                                                                <th class="classtdth">Cabang</th>
+                                                                <th class="classtdth">Lokasi</th>
+                                                                <th class="classtdth">Pusat Pelayanan</th>
+                                                                <th class="classtdth" style="display:none">Overcoat</th>
+                                                                <th class="classtdth" style="display:none;">Account</th>
+                                                                <th class="classtdth" style="display:none;">Interbranch</th>
+                                                                <th class="classtdth" style="display:none;">Bukti Cancel</th>
+                                                                <th class="classtdth" style="display:none;">Tujuan</th>
+                                                                <th class="classtdth" style="display:none;">Transit Via</th>
+                                                                <th class="classtdth">Jenis Transport</th>
+                                                                <th class="classtdth" style="display:none;">Oneway</th>
+                                                                <th class="classtdth">Rencana Berangkat</th>
+                                                                <th class="classtdth">Rencana Kembali</th>
+                                                                <th class="classtdth">Hari</th>
+                                                                <th class="classtdth" style="display:none;">Realisasi Berangkat</th>
+                                                                <th class="classtdth" style="display:none;">Realisasi Kembali</th>
+                                                                <th class="classtdth" style="display:none;">Hari</th>
+                                                                <th class="classtdth" style="display:none;">Uang Transport</th>
+                                                                <th class="classtdth" style="display:none;">Uang Hotel</th>
+                                                                <th class="classtdth" style="display:none;">Bantuan Transport</th>
+                                                                <th class="classtdth" style="display:none;">Uang Harian</th>
+                                                                <th class="classtdth" style="display:none;">Uang Saku</th>
+                                                                <th class="classtdth" style="display:none;">Ang. Setempat</th>
+                                                                <th class="classtdth" style="display:none;">Visa</th>
+                                                                <th class="classtdth" style="display:none;">Airport Tax</th>
+                                                                <th class="classtdth" style="display:none;">Tunj. Perjalanan Dinas</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="tbodypeserta">
+                                                              <tr>
+                                                                <td style="z-index:10 !important;" class="classtdth"></td>
+                                                                <td style="z-index:10 !important;" class="classtdth">
+                                                                    <input type="text" id="penpegundtampil0" value="286107295" style="width:150px;height:30px;" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" readonly="1">
+                                                                    <input id="penpegund0" type="hidden" value="286107295">
+                                                                    <input id="orgiduser0" type="hidden" name="orgiduser[]" value="">
+                                                                    <input id="personiduser0" type="hidden" name="personiduser[]" value="">
+                                                                    <input type="checkbox" style="display:none" id="cekpenpegund0" name="penpegund" value="286107295" checked="checked">
+                                                                </td>
+                                                                <td style="z-index:10 !important;" class="classtdth">
+                                                                    <input type="text" id="pennamapegundtampil0" value="ARIF BUDIANTO" name="pennamapegundtampil[]" style="width:200px;height:30px;" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" readonly="1">
+                                                                </td>
+                                                                <td style="z-index:10 !important;" class="classtdth">
+                                                                    <input type="text" style="width:200px;height:30px;" value="ASM Pengoperasian &amp; Pemeliharaan SI|EDI" name="jabatan_peserta[]" id="jabatan_peserta0" class="form-control" readonly="1">
+                                                                </td>
+                                                                <td class="classtdth">
+                                                                    <input type="text" style="width:50px;height:30px;" name="tingkat[]" value="B" id="tingkat0" class="form-control" autocomplete="off" role="textbox" onkeyup="gantitingkat(this.value,'#biayauang_harian0','#biayauang_saku0','#biayatunj_perjalanan_dinas0','#uangRepresentasiInap0','#uangRepresentasiNonInap0','#orgiduser0','#biayavisa0','#biayaairport_tax0','#biayaovercoat0')" readonly="1">
+                                                                    <input type="hidden" name="id_tingkat[]" id="id_tingkat0" value="9">
+                                                                </td>
+                                                                <td class="classtdth">
+                                                                    <div style="display:flex">
+                                                                        <label>000</label>&nbsp;&nbsp;<label style="width:100px">Kantor Pusat</label>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="classtdth">
+                                                                    <div style="display:flex">
+                                                                        <input type="text" style="width:50px;height:30px;" id="kode_lokasi_peserta0" value="000" name="kode_lokasi_peserta[]" class="form-control" autocomplete="off" role="textbox" readonly="1">
+                                                                        &nbsp;&nbsp;<input type="text" style="width:100px;height:30px;background-color: #e6e9ec;" id="deskripsi_lokasi_peserta0" name="deskripsi_lokasi_peserta[]" value="" class="form-control" autocomplete="off" role="textbox" readonly="1">
+                                                                    </div>
+                                                                </td>
+                                                                <td class="classtdth">
+                                                                    <div style="display:flex">
+
+                                                                    </div>
+                                                                </td>
+                                                                <td class="classtdth" style="display:none">
+                                                                    <input type="checkbox" name="overcoat" id="overcoat" value="1">
+                                                                    <input type="text" name="biayaovercoat[]" id="biayaovercoat0" value="0">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                    <div style="display:flex">
+                                                                        <input type="text" style="width:200px;height:30px;" value="" id="account_peserta0" name="account_peserta[]" class="form-control" autocomplete="off" role="textbox">&nbsp;&nbsp;<label style="width:150px;">Perjalanan Dinas</label>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                    <div style="display:flex">
+                                                                        <input type="text" style="width:200px;height:30px;" value="999" name="interbranch_peserta[]" class="form-control" autocomplete="off" role="textbox">&nbsp;&nbsp;<label style="width:150px;">N/A</label>
+                                                                        <input type="text" style="width:200px;height:30px;" value="0000-Default" name="kode_pelayanan_peserta[]" class="form-control" autocomplete="off" role="textbox" readonly="1">
+                                                                        <input type="hidden" style="width:200px;height:30px;" value="" name="kode_pelayanan_peserta[]" class="form-control" autocomplete="off" role="textbox" readonly="1">
+                                                                        <input type="hidden" style="width:200px;height:30px;" value="" name="kode_pelayanan_peserta[]" class="form-control" autocomplete="off" role="textbox" readonly="1">
+                                                                    </div>
+                                                                </td>
+                                                                <td class="classtdth" style="display:none">
+                                                                    <input type="text" style="width:200px;height:30px;" value="" name="bukti_cancel_peserta[]" id="bukti_cancel_peserta0" class="form-control" autocomplete="off" role="textbox">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none">
+                                                                    <select name="tujuan_peserta[]" class="select2-selection__rendered form-control select2-hidden-accessible" style="height: 30px !important;width:200px !important;" tabindex="-1" aria-hidden="true">
+                                                                        <option style="height: 30px;" value=""></option>
+                                                                        <option style="height: 30px;" value="TES">TES</option>
+                                                                        <option style="height: 30px;" value="BOYOLALI">BOYOLALI</option>
+                                                                        <option style="height: 30px;" value="LOMBOK">LOMBOK</option>                                
+                                                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 200px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-tujuan_peserta-e2-container"><span class="select2-selection__rendered" id="select2-tujuan_peserta-e2-container" title="PONTIANAK"><span class="select2-selection__clear">×</span>PONTIANAK</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+
+                                                                </td>
+                                                                <td class="classtdth" style="display:none">
+                                                                    <input type="text" style="width:200px;height:30px;" value="" name="transit_peserta[]" class="form-control" autocomplete="off" role="textbox">
+                                                                </td>
+                                                                <td class="classtdth">
+                                                                    <select name="jenis_transport_peserta[]" id="jenis_transport_peserta0" onchange="gantijenistransport(0)" class="select2-selection__rendered form-control select2-hidden-accessible" style="height: 30px !important;width:200px !important;" tabindex="-1" aria-hidden="true">
+
+                                                                        <option style="height: 30px;" value=""></option>
+                                                                        <option style="height: 30px;" value="1">1 - Angkutan Udara Executive</option>
+                                                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 200px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-jenis_transport_peserta0-container"><span class="select2-selection__rendered" id="select2-jenis_transport_peserta0-container" title="3 - Darat"><span class="select2-selection__clear">×</span>3 - Darat</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                                                </td>
+                                                                <td class="classtdth" style="display:none">
+                                                                    <input type="checkbox" name="oneway" id="oneway" value="1">
+                                                                </td>
+                                                                <td class="classtdth">
+                                                                    <input type="text" style="width:200px;height:30px;" value="16-06-2022" name="rencana_berangkat_peserta[]" onchange="getharisppd(0)" class="form-control" autocomplete="off" role="textbox" readonly="1">
+                                                                </td>
+                                                                <td class="classtdth">
+                                                                    <input type="text" style="width:200px;height:30px;" value="18-06-2022" name="rencana_kembali_peserta[]" onchange="getharisppd(0)" class="form-control" autocomplete="off" role="textbox" readonly="1">
+                                                                </td>
+                                                                <td class="classtdth">
+                                                                    <input type="text" id="rencana_hari_peserta0" style="width:60px;height:30px;" value="2" name="rencana_hari_peserta[]" class="form-control" autocomplete="off" role="textbox" readonly="1">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none">
+                                                                    <input type="text" style="width:200px;height:30px;" value="" name="realisasi_berangkat_peserta[]" class="form-control" autocomplete="off" role="textbox">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none">
+                                                                    <input type="text" style="width:200px;height:30px;" value="" name="realisasi_kembali_peserta[]" class="form-control" autocomplete="off" role="textbox">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none">
+                                                                    <input type="text" style="width:60px;height:30px;" value="" name="realisasi_hari_peserta[]" class="form-control" autocomplete="off" role="textbox">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                    <input type="checkbox" name="uang_transport" onclick="checklistbawah('uang_transport',0)" id="uang_transport0" value="1">
+                                                                    <input type="hidden" name="biayauang_transport[]" id="biayauang_transport0" value="0">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                    <input type="checkbox" name="uang_hotel" onclick="checklistbawah('uang_hotel',0)" id="uang_hotel0" value="1">
+                                                                    <input type="hidden" name="biayauang_hotel[]" id="biayauang_hotel0" value="0">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                    <input type="checkbox" name="bantuan_transport" onclick="checklistbawah('bantuan_transport',0)" id="bantuan_transport0" value="1">
+                                                                    <input type="hidden" name="biayabantuan_transport[]" id="biayabantuan_transport0" value="0">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                    <input type="checkbox" name="uang_harian" onclick="checklistbawah('uang_harian',0)" id="uang_harian0" value="1">
+                                                                    <input type="hidden" name="biayauang_harian[]" id="biayauang_harian0" value="600000">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                    <input type="checkbox" name="uang_saku" onclick="checklistbawah('uang_saku',0)" id="uang_saku0" value="1">
+                                                                    <input type="hidden" name="biayauang_saku[]" id="biayauang_saku0" value="360000">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                    <input type="checkbox" name="ang_setempat" onclick="checklistbawah('ang_setempat',0)" id="ang_setempat0" value="1">
+                                                                    <input type="hidden" name="biayaang_setempat[]" id="biayaang_setempat0" value="240000">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                    <input type="checkbox" name="visa" onclick="checklistbawah('visa',0)" id="visa0" value="1">
+                                                                    <input type="hidden" name="biayavisa[]" id="biayavisa0" value="0">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                    <input type="checkbox" name="airport_tax" onclick="checklistbawah('airport_tax',0)" id="airport_tax0" value="1">
+                                                                    <input type="hidden" name="biayaairport_tax[]" id="biayaairport_tax0" value="0">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                    <input type="checkbox" name="tunj_perjalanan_dinas" onclick="checklistbawah('tunj_perjalanan_dinas',0)" id="tunj_perjalanan_dinas0" value="1">
+                                                                    <input type="hidden" name="biayatunj_perjalanan_dinas[]" id="biayatunj_perjalanan_dinas0" value="0">
+                                                                    <input type="hidden" name="uangRepresentasiInap[]" id="uangRepresentasiInap0" value="0">
+                                                                    <input type="hidden" name="uangRepresentasiNonInap[]" id="uangRepresentasiNonInap0" value="0">
+                                                                </td>
+                                                             </tr>
+
+                                                             <tr>
+                                                                <td style="z-index:10 !important;" class="classtdth"></td>
+                                                                <td style="z-index:10 !important;" class="classtdth">
+                                                                  <input type="text" id="penpegundtampil1" value="288108009" style="width:150px;height:30px;" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" readonly="1">
+                                                                  <input id="penpegund1" type="hidden" value="288108009">
+                                                                  <input id="orgiduser1" type="hidden" name="orgiduser[]" value="">
+                                                                  <input id="personiduser1" type="hidden" name="personiduser[]" value="">
+                                                                  <input type="checkbox" style="display:none" id="cekpenpegund1" name="penpegund" value="288108009" checked="checked">
+                                                                </td>
+                                                                <td style="z-index:10 !important;" class="classtdth">
+                                                                  <input type="text" id="pennamapegundtampil1" value="GILANG MAHA PUTERA" name="pennamapegundtampil[]" style="width:200px;height:30px;" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" readonly="1">
+                                                                </td>
+                                                                <td style="z-index:10 !important;" class="classtdth">
+                                                                  <input type="text" style="width:200px;height:30px;" value="Pelaksana Perencanaan &amp; Pengembangan SI Sr." name="jabatan_peserta[]" id="jabatan_peserta1" class="form-control" readonly="1">
+                                                                </td>
+                                                                <td class="classtdth">
+                                                                  <input type="text" style="width:50px;height:30px;" name="tingkat[]" value="C" id="tingkat1" class="form-control" autocomplete="off" role="textbox" onkeyup="gantitingkat(this.value,'#biayauang_harian1','#biayauang_saku1','#biayatunj_perjalanan_dinas1','#uangRepresentasiInap1','#uangRepresentasiNonInap1','#orgiduser1','#biayavisa1','#biayaairport_tax1','#biayaovercoat1')" readonly="1">
+                                                                  <input type="hidden" name="id_tingkat[]" id="id_tingkat1" value="12">
+                                                                </td>
+                                                                <td class="classtdth">
+                                                                  <div style="display:flex">
+                                                                    <label>000</label>&nbsp;&nbsp;<label style="width:100px">Kantor Pusat</label>
+                                                                  </div>
+                                                                </td>
+                                                                <td class="classtdth">
+                                                                  <div style="display:flex">
+                                                                    <input type="text" style="width:50px;height:30px;" id="kode_lokasi_peserta1" value="000" name="kode_lokasi_peserta[]" class="form-control" autocomplete="off" role="textbox" readonly="1">
+                                                                    &nbsp;&nbsp;<input type="text" style="width:100px;height:30px;background-color: #e6e9ec;" id="deskripsi_lokasi_peserta1" name="deskripsi_lokasi_peserta[]" value="" class="form-control" autocomplete="off" role="textbox" readonly="1">
+                                                                  </div>
+                                                                </td>
+                                                                <td class="classtdth">
+                                                                  <div style="display:flex">                           
+                                                                       <input type="text" style="width:200px;height:30px;" value="0000-Default" name="kode_pelayanan_peserta[]" class="form-control" autocomplete="off" role="textbox" readonly="1">
+                                                                       <input type="hidden" style="width:200px;height:30px;" value="" name="kode_pelayanan_peserta[]" class="form-control" autocomplete="off" role="textbox" readonly="1">
+                                                                       <input type="hidden" style="width:200px;height:30px;" value="" name="kode_pelayanan_peserta[]" class="form-control" autocomplete="off" role="textbox" readonly="1">  
+                                                                  </div>
+                                                                </td>
+                                                                <td class="classtdth" style="display:none">
+                                                                       <input type="checkbox" name="overcoat" id="overcoat" value="1">
+                                                                       <input type="text" name="biayaovercoat[]" id="biayaovercoat1" value="0">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                  <div style="display:flex">
+                                                                    <input type="text" style="width:200px;height:30px;" value="" id="account_peserta1" name="account_peserta[]" class="form-control" autocomplete="off" role="textbox">&nbsp;&nbsp;<label style="width:150px;">Perjalanan Dinas</label>
+                                                                  </div>
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                  <div style="display:flex">
+                                                                    <input type="text" style="width:200px;height:30px;" value="999" name="interbranch_peserta[]" class="form-control" autocomplete="off" role="textbox">&nbsp;&nbsp;<label style="width:150px;">N/A</label>
+
+                                                                  </div>
+                                                                </td>
+                                                                <td class="classtdth" style="display:none">
+                                                                  <input type="text" style="width:200px;height:30px;" value="" name="bukti_cancel_peserta[]" id="bukti_cancel_peserta1" class="form-control" autocomplete="off" role="textbox">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none">
+                                                                  <select name="tujuan_peserta[]" class="select2-selection__rendered form-control select2-hidden-accessible" style="height: 30px !important;width:200px !important;" tabindex="-1" aria-hidden="true">
+                                                                    <option style="height: 30px;" value=""></option>
+                                                                    <option style="height: 30px;" value="TES">TES</option>
+                                                                  </select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 200px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-tujuan_peserta-ww-container"><span class="select2-selection__rendered" id="select2-tujuan_peserta-ww-container" title="PONTIANAK"><span class="select2-selection__clear">×</span>PONTIANAK</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                                                </td>
+                                                                <td class="classtdth" style="display:none">
+                                                                  <input type="text" style="width:200px;height:30px;" value="" name="transit_peserta[]" class="form-control" autocomplete="off" role="textbox">
+                                                                </td>
+                                                                <td class="classtdth">
+                                                                  <select name="jenis_transport_peserta[]" id="jenis_transport_peserta1" onchange="gantijenistransport(1)" class="select2-selection__rendered form-control select2-hidden-accessible" style="height: 30px !important;width:200px !important;" tabindex="-1" aria-hidden="true">
+                                                                    <option style="height: 30px;" value=""></option>
+                                                                    <option style="height: 30px;" value="1">1 - Angkutan Udara Executive</option>
+                                                                  </select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 200px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-jenis_transport_peserta1-container"><span class="select2-selection__rendered" id="select2-jenis_transport_peserta1-container" title="3 - Darat"><span class="select2-selection__clear">×</span>3 - Darat</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                                                </td>
+                                                                <td class="classtdth" style="display:none">
+                                                                   <input type="checkbox" name="oneway" id="oneway" value="1">
+                                                                </td>
+                                                                <td class="classtdth">
+                                                                  <input type="text" style="width:200px;height:30px;" value="16-06-2022" name="rencana_berangkat_peserta[]" onchange="getharisppd(1)" class="form-control" autocomplete="off" role="textbox" readonly="1">
+                                                                </td>
+                                                                <td class="classtdth">
+                                                                  <input type="text" style="width:200px;height:30px;" value="18-06-2022" name="rencana_kembali_peserta[]" onchange="getharisppd(1)" class="form-control" autocomplete="off" role="textbox" readonly="1">
+                                                                </td>
+                                                                <td class="classtdth">
+                                                                  <input type="text" id="rencana_hari_peserta1" style="width:60px;height:30px;" value="2" name="rencana_hari_peserta[]" class="form-control" autocomplete="off" role="textbox" readonly="1">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none">
+                                                                  <input type="text" style="width:200px;height:30px;" value="" name="realisasi_berangkat_peserta[]" class="form-control" autocomplete="off" role="textbox">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none">
+                                                                  <input type="text" style="width:200px;height:30px;" value="" name="realisasi_kembali_peserta[]" class="form-control" autocomplete="off" role="textbox">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none">
+                                                                  <input type="text" style="width:60px;height:30px;" value="" name="realisasi_hari_peserta[]" class="form-control" autocomplete="off" role="textbox">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                   <input type="checkbox" name="uang_transport" id="uang_transport1" value="1">
+                                                                   <input type="hidden" name="biayauang_transport[]" id="biayauang_transport1" value="0">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                   <input type="checkbox" name="uang_hotel" onclick="checklistbawahnonfirst('uang_hotel',1)" id="uang_hotel1" value="1">
+                                                                   <input type="hidden" name="biayauang_hotel[]" id="biayauang_hotel1" value="0">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                    <input type="checkbox" name="bantuan_transport" id="bantuan_transport1" value="1">
+                                                                    <input type="hidden" name="biayabantuan_transport[]" id="biayabantuan_transport1" value="0">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                   <input type="checkbox" name="uang_harian" onclick="checklistbawahnonfirst('uang_harian',1)" id="uang_harian1" value="1">
+                                                                   <input type="hidden" name="biayauang_harian[]" id="biayauang_harian1" value="500000">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                   <input type="checkbox" name="uang_saku" id="uang_saku1" value="1">
+                                                                   <input type="hidden" name="biayauang_saku[]" id="biayauang_saku1" value="300000">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                     <input type="checkbox" name="ang_setempat" id="ang_setempat1" value="1">
+                                                                     <input type="hidden" name="biayaang_setempat[]" id="biayaang_setempat1" value="200000">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                    <input type="checkbox" name="visa" id="visa1" value="1">
+                                                                    <input type="hidden" name="biayavisa[]" id="biayavisa1" value="0">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                     <input type="checkbox" name="airport_tax" id="airport_tax1" value="1">
+                                                                     <input type="hidden" name="biayaairport_tax[]" id="biayaairport_tax1" value="0">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                      <input type="checkbox" name="tunj_perjalanan_dinas" id="tunj_perjalanan_dinas1" value="1">
+                                                                      <input type="hidden" name="biayatunj_perjalanan_dinas[]" id="biayatunj_perjalanan_dinas1" value="0">
+                                                                  <input type="hidden" name="uangRepresentasiInap[]" id="uangRepresentasiInap1" value="0">
+                                                                  <input type="hidden" name="uangRepresentasiNonInap[]" id="uangRepresentasiNonInap1" value="0">
+                                                                </td>
+                                                            </tr>
+
+                                                             <tr>
+                                                                <td style="z-index:10 !important;" class="classtdth"></td>
+                                                                <td style="z-index:10 !important;" class="classtdth">
+                                                                  <input type="text" id="penpegundtampil2" value="283127258" style="width:150px;height:30px;" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" readonly="1">
+                                                                  <input id="penpegund2" type="hidden" value="283127258">
+                                                                  <input id="orgiduser2" type="hidden" name="orgiduser[]" value="">
+                                                                  <input id="personiduser2" type="hidden" name="personiduser[]" value="">
+                                                                  <input type="checkbox" style="display:none" id="cekpenpegund2" name="penpegund" value="283127258" checked="checked">
+                                                                </td>
+                                                                <td style="z-index:10 !important;" class="classtdth">
+                                                                  <input type="text" id="pennamapegundtampil2" value="ENUNG NURAINI WINDIAWANTI" name="pennamapegundtampil[]" style="width:200px;height:30px;" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" readonly="1">
+                                                                </td>
+                                                                <td style="z-index:10 !important;" class="classtdth">
+                                                                  <input type="text" style="width:200px;height:30px;" value="ASM Layanan SDM, Kesra &amp; Hub. Industrial|EDI" name="jabatan_peserta[]" id="jabatan_peserta2" class="form-control" readonly="1">
+                                                                </td>
+                                                                <td class="classtdth">
+                                                                  <input type="text" style="width:50px;height:30px;" name="tingkat[]" value="B" id="tingkat2" class="form-control" autocomplete="off" role="textbox" onkeyup="gantitingkat(this.value,'#biayauang_harian2','#biayauang_saku2','#biayatunj_perjalanan_dinas2','#uangRepresentasiInap2','#uangRepresentasiNonInap2','#orgiduser2','#biayavisa2','#biayaairport_tax2','#biayaovercoat2')" readonly="1">
+                                                                  <input type="hidden" name="id_tingkat[]" id="id_tingkat2" value="8">
+                                                                </td>
+                                                                <td class="classtdth">
+                                                                  <div style="display:flex">
+                                                                    <label>000</label>&nbsp;&nbsp;<label style="width:100px">Kantor Pusat</label>
+                                                                  </div>
+                                                                </td>
+                                                                <td class="classtdth">
+                                                                  <div style="display:flex">
+                                                                    <input type="text" style="width:50px;height:30px;" id="kode_lokasi_peserta2" value="000" name="kode_lokasi_peserta[]" class="form-control" autocomplete="off" role="textbox" readonly="1">
+                                                                    &nbsp;&nbsp;<input type="text" style="width:100px;height:30px;background-color: #e6e9ec;" id="deskripsi_lokasi_peserta2" name="deskripsi_lokasi_peserta[]" value="" class="form-control" autocomplete="off" role="textbox" readonly="1">
+                                                                  </div>
+                                                                </td>
+                                                                <td class="classtdth">
+                                                                  <div style="display:flex">
+                                                                    <input type="text" style="width:200px;height:30px;" value="0000-Default" name="kode_pelayanan_peserta[]" class="form-control" autocomplete="off" role="textbox" readonly="1">
+                                                                    <input type="hidden" style="width:200px;height:30px;" value="" name="kode_pelayanan_peserta[]" class="form-control" autocomplete="off" role="textbox" readonly="1">
+                                                                    <input type="hidden" style="width:200px;height:30px;" value="" name="kode_pelayanan_peserta[]" class="form-control" autocomplete="off" role="textbox" readonly="1">
+                                                                  </div>
+                                                                </td>
+                                                                <td class="classtdth" style="display:none">
+                                                                  <input type="checkbox" name="overcoat" id="overcoat" value="1">
+                                                                  <input type="text" name="biayaovercoat[]" id="biayaovercoat2" value="0">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                  <div style="display:flex">
+                                                                    <input type="text" style="width:200px;height:30px;" value="" id="account_peserta2" name="account_peserta[]" class="form-control" autocomplete="off" role="textbox">&nbsp;&nbsp;<label style="width:150px;">Perjalanan Dinas</label>
+                                                                  </div>
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                  <div style="display:flex">
+                                                                    <input type="text" style="width:200px;height:30px;" value="999" name="interbranch_peserta[]" class="form-control" autocomplete="off" role="textbox">&nbsp;&nbsp;<label style="width:150px;">N/A</label>
+                                                                  </div>
+                                                                </td>
+                                                                <td class="classtdth" style="display:none">
+                                                                  <input type="text" style="width:200px;height:30px;" value="" name="bukti_cancel_peserta[]" id="bukti_cancel_peserta2" class="form-control" autocomplete="off" role="textbox">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none">
+                                                                  <select name="tujuan_peserta[]" class="select2-selection__rendered form-control select2-hidden-accessible" style="height: 30px !important;width:200px !important;" tabindex="-1" aria-hidden="true">
+                                                                    <option style="height: 30px;" value=""></option>
+                                                                    <option style="height: 30px;" value="TES">TES</option>
+                                                                    <option style="height: 30px;" value="BOYOLALI">BOYOLALI</option>
+                                                                    <option style="height: 30px;" value="LOMBOK">LOMBOK</option>
+                                                                    <option style="height: 30px;" value="BAYAH">BAYAH</option>
+                                                                  </select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 200px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-tujuan_peserta-4m-container"><span class="select2-selection__rendered" id="select2-tujuan_peserta-4m-container" title="PONTIANAK"><span class="select2-selection__clear">×</span>PONTIANAK</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                                                </td>
+                                                                <td class="classtdth" style="display:none">
+                                                                  <input type="text" style="width:200px;height:30px;" value="" name="transit_peserta[]" class="form-control" autocomplete="off" role="textbox">
+                                                                </td>
+                                                                <td class="classtdth">
+                                                                  <select name="jenis_transport_peserta[]" id="jenis_transport_peserta2" onchange="gantijenistransport(2)" class="select2-selection__rendered form-control select2-hidden-accessible" style="height: 30px !important;width:200px !important;" tabindex="-1" aria-hidden="true">
+                                                                      <option style="height: 30px;" value=""></option>
+                                                                      <option style="height: 30px;" value="1">1 - Angkutan Udara Executive</option>
+                                                                      <option style="height: 30px;" value="2">2 - Angkutan Udara Ekonomi</option>
+                                                                      <option style="height: 30px;" value="3" selected="selected">3 - Darat</option>
+                                                                      <option style="height: 30px;" value="4">4 - Laut</option>
+                                                                  </select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 200px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-jenis_transport_peserta2-container"><span class="select2-selection__rendered" id="select2-jenis_transport_peserta2-container" title="3 - Darat"><span class="select2-selection__clear">×</span>3 - Darat</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                                                </td>
+                                                                <td class="classtdth" style="display:none">
+                                                                   input type="checkbox" name="oneway" id="oneway" value="1">
+                                                                </td>
+                                                                <td class="classtdth">
+                                                                  <input type="text" style="width:200px;height:30px;" value="16-06-2022" name="rencana_berangkat_peserta[]" onchange="getharisppd(2)" class="form-control" autocomplete="off" role="textbox" readonly="1">
+                                                                </td>
+                                                                <td class="classtdth">
+                                                                  <input type="text" style="width:200px;height:30px;" value="18-06-2022" name="rencana_kembali_peserta[]" onchange="getharisppd(2)" class="form-control" autocomplete="off" role="textbox" readonly="1">
+                                                                </td>
+                                                                <td class="classtdth">
+                                                                  <input type="text" id="rencana_hari_peserta2" style="width:60px;height:30px;" value="2" name="rencana_hari_peserta[]" class="form-control" autocomplete="off" role="textbox" readonly="1">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none">
+                                                                  <input type="text" style="width:200px;height:30px;" value="" name="realisasi_berangkat_peserta[]" class="form-control" autocomplete="off" role="textbox">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none">
+                                                                  <input type="text" style="width:200px;height:30px;" value="" name="realisasi_kembali_peserta[]" class="form-control" autocomplete="off" role="textbox">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none">
+                                                                  <input type="text" style="width:60px;height:30px;" value="" name="realisasi_hari_peserta[]" class="form-control" autocomplete="off" role="textbox">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                   <input type="checkbox" name="uang_transport" id="uang_transport2" value="1">
+                                                                    <input type="hidden" name="biayauang_transport[]" id="biayauang_transport2" value="0">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                   <input type="checkbox" name="uang_hotel" onclick="checklistbawahnonfirst('uang_hotel',2)" id="uang_hotel2" value="1">
+                                                                   <input type="hidden" name="biayauang_hotel[]" id="biayauang_hotel2" value="0">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                  <input type="checkbox" name="bantuan_transport" id="bantuan_transport2" value="1">
+                                                                  <input type="hidden" name="biayabantuan_transport[]" id="biayabantuan_transport2" value="0">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                  <input type="checkbox" name="uang_harian" onclick="checklistbawahnonfirst('uang_harian',2)" id="uang_harian2" value="1">
+                                                                  <input type="hidden" name="biayauang_harian[]" id="biayauang_harian2" value="600000">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                  <input type="checkbox" name="uang_saku" id="uang_saku2" value="1">
+                                                                  <input type="hidden" name="biayauang_saku[]" id="biayauang_saku2" value="360000">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                   <input type="checkbox" name="ang_setempat" id="ang_setempat2" value="1">
+                                                                   <input type="hidden" name="biayaang_setempat[]" id="biayaang_setempat2" value="240000">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                    <input type="checkbox" name="visa" id="visa2" value="1">
+                                                                    <input type="hidden" name="biayavisa[]" id="biayavisa2" value="0">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                   <input type="checkbox" name="airport_tax" id="airport_tax2" value="1">
+                                                                   <input type="hidden" name="biayaairport_tax[]" id="biayaairport_tax2" value="0">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                  <input type="checkbox" name="tunj_perjalanan_dinas" id="tunj_perjalanan_dinas2" value="1">
+                                                                  <input type="hidden" name="biayatunj_perjalanan_dinas[]" id="biayatunj_perjalanan_dinas2" value="0">
+                                                                  <input type="hidden" name="uangRepresentasiInap[]" id="uangRepresentasiInap2" value="0">
+                                                                  <input type="hidden" name="uangRepresentasiNonInap[]" id="uangRepresentasiNonInap2" value="0">
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td style="z-index:10 !important;" class="classtdth"></td>
+                                                                <td style="z-index:10 !important;" class="classtdth">
+                                                                      <input type="text" id="penpegundtampil3" value="0" style="width:150px;height:30px;" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" readonly="1">
+                                                                      <input id="penpegund3" type="hidden" value="0">
+                                                                      <input id="orgiduser3" type="hidden" name="orgiduser[]" value="">
+                                                                      <input id="personiduser3" type="hidden" name="personiduser[]" value="">
+                                                                      <input type="checkbox" style="display:none" id="cekpenpegund3" name="penpegund" value="0">
+                                                                </td>
+                                                                <td style="z-index:10 !important;" class="classtdth">
+                                                                  <input type="text" id="pennamapegundtampil3" value="ARIF RAHMAN" name="pennamapegundtampil[]" style="width:200px;height:30px;" class="ui-autocomplete-input form-control" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" readonly="1">
+                                                                </td>
+                                                                <td style="z-index:10 !important;" class="classtdth">
+                                                                  <input type="text" style="width:200px;height:30px;" value="TNO" name="jabatan_peserta[]" id="jabatan_peserta3" class="form-control" readonly="1">
+                                                                </td>
+                                                                <td class="classtdth">
+                                                                  <input type="text" style="width:50px;height:30px;" name="tingkat[]" value="D" id="tingkat3" class="form-control" autocomplete="off" role="textbox" onkeyup="gantitingkat(this.value,'#biayauang_harian3','#biayauang_saku3','#biayatunj_perjalanan_dinas3','#uangRepresentasiInap3','#uangRepresentasiNonInap3','#orgiduser3','#biayavisa3','#biayaairport_tax3','#biayaovercoat3')" readonly="1">
+                                                                  <input type="hidden" name="id_tingkat[]" id="id_tingkat3" value="">
+                                                                </td>
+                                                                <td class="classtdth">
+                                                                  <div style="display:flex">
+                                                                    <label>000</label>&nbsp;&nbsp;<label style="width:100px">Kantor Pusat</label>
+                                                                  </div>
+                                                                </td>
+                                                                <td class="classtdth">
+                                                                  <div style="display:flex">
+                                                                    <input type="text" style="width:50px;height:30px;" id="kode_lokasi_peserta3" value="000" name="kode_lokasi_peserta[]" class="form-control" autocomplete="off" role="textbox" readonly="1">
+                                                                    &nbsp;&nbsp;<input type="text" style="width:100px;height:30px;background-color: #e6e9ec;" id="deskripsi_lokasi_peserta3" name="deskripsi_lokasi_peserta[]" value="" class="form-control" autocomplete="off" role="textbox" readonly="1">
+                                                                  </div>
+                                                                </td>
+                                                                <td class="classtdth">
+                                                                  <div style="display:flex">
+                                                                    <input type="text" style="width:200px;height:30px;" value="0000-Default" name="kode_pelayanan_peserta[]" class="form-control" autocomplete="off" role="textbox" readonly="1">
+                                                                    <input type="hidden" style="width:200px;height:30px;" value="" name="kode_pelayanan_peserta[]" class="form-control" autocomplete="off" role="textbox" readonly="1">
+                                                                    <input type="hidden" style="width:200px;height:30px;" value="" name="kode_pelayanan_peserta[]" class="form-control" autocomplete="off" role="textbox" readonly="1">
+                                                                    <input type="hidden" style="width:200px;height:30px;" value="" name="kode_pelayanan_peserta[]" class="form-control" autocomplete="off" role="textbox" readonly="1">
+                                                                  </div>
+                                                                </td>
+                                                                <td class="classtdth" style="display:none">
+                                                                  <input type="checkbox" name="overcoat" id="overcoat" value="1">
+                                                                  <input type="text" name="biayaovercoat[]" id="biayaovercoat3" value="0">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                  <div style="display:flex">
+                                                                    <input type="text" style="width:200px;height:30px;" value="" id="account_peserta3" name="account_peserta[]" class="form-control" autocomplete="off" role="textbox">&nbsp;&nbsp;<label style="width:150px;">Perjalanan Dinas</label>
+                                                                  </div>
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                  <div style="display:flex">
+                                                                    <input type="text" style="width:200px;height:30px;" value="999" name="interbranch_peserta[]" class="form-control" autocomplete="off" role="textbox">&nbsp;&nbsp;<label style="width:150px;">N/A</label>
+
+                                                                  </div>
+                                                                </td>
+                                                                <td class="classtdth" style="display:none">
+                                                                  <input type="text" style="width:200px;height:30px;" value="" name="bukti_cancel_peserta[]" id="bukti_cancel_peserta3" class="form-control" autocomplete="off" role="textbox">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none">
+                                                                  <select name="tujuan_peserta[]" class="select2-selection__rendered form-control select2-hidden-accessible" style="height: 30px !important;width:200px !important;" tabindex="-1" aria-hidden="true">
+                                                                    <option style="height: 30px;" value=""></option>
+                                                                       <option style="height: 30px;" value="TES">TES</option>
+                                                                       <option style="height: 30px;" value="BOYOLALI">BOYOLALI</option>
+                                                                       <option style="height: 30px;" value="LOMBOK">LOMBOK</option>
+                                                                       <option style="height: 30px;" value="BAYAH">BAYAH</option>
+                                                                  </select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 200px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-tujuan_peserta-bk-container"><span class="select2-selection__rendered" id="select2-tujuan_peserta-bk-container" title="PONTIANAK"><span class="select2-selection__clear">×</span>PONTIANAK</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                                                </td>
+                                                                <td class="classtdth" style="display:none">
+                                                                  <input type="text" style="width:200px;height:30px;" value="" name="transit_peserta[]" class="form-control" autocomplete="off" role="textbox">
+                                                                </td>
+                                                                <td class="classtdth">
+                                                                    <select name="jenis_transport_peserta[]" id="jenis_transport_peserta3" onchange="gantijenistransport(3)" class="select2-selection__rendered form-control select2-hidden-accessible" style="height: 30px !important;width:200px !important;" tabindex="-1" aria-hidden="true">
+
+                                                                        <option style="height: 30px;" value=""></option>
+                                                                        <option style="height: 30px;" value="1">1 - Angkutan Udara Executive</option>
+                                                                        <option style="height: 30px;" value="2">2 - Angkutan Udara Ekonomi</option>
+                                                                        <option style="height: 30px;" value="3" selected="selected">3 - Darat</option>
+                                                                        <option style="height: 30px;" value="4">4 - Laut</option>
+                                                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 200px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-jenis_transport_peserta3-container"><span class="select2-selection__rendered" id="select2-jenis_transport_peserta3-container" title="3 - Darat"><span class="select2-selection__clear">×</span>3 - Darat</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                                                </td>
+                                                                <td class="classtdth" style="display:none">
+                                                                   <input type="checkbox" name="oneway" id="oneway" value="1">
+                                                                </td>
+                                                                <td class="classtdth">
+                                                                  <input type="text" style="width:200px;height:30px;" value="16-06-2022" name="rencana_berangkat_peserta[]" onchange="getharisppd(3)" class="form-control" autocomplete="off" role="textbox" readonly="1">
+                                                                </td>
+                                                                <td class="classtdth">
+                                                                  <input type="text" style="width:200px;height:30px;" value="18-06-2022" name="rencana_kembali_peserta[]" onchange="getharisppd(3)" class="form-control" autocomplete="off" role="textbox" readonly="1">
+                                                                </td>
+                                                                <td class="classtdth">
+                                                                  <input type="text" id="rencana_hari_peserta3" style="width:60px;height:30px;" value="2" name="rencana_hari_peserta[]" class="form-control" autocomplete="off" role="textbox" readonly="1">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none">
+                                                                  <input type="text" style="width:200px;height:30px;" value="" name="realisasi_berangkat_peserta[]" class="form-control" autocomplete="off" role="textbox">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none">
+                                                                  <input type="text" style="width:200px;height:30px;" value="" name="realisasi_kembali_peserta[]" class="form-control" autocomplete="off" role="textbox">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none">
+                                                                  <input type="text" style="width:60px;height:30px;" value="" name="realisasi_hari_peserta[]" class="form-control" autocomplete="off" role="textbox">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                   <input type="checkbox" name="uang_transport" id="uang_transport3" value="1">
+                                                                   <input type="hidden" name="biayauang_transport[]" id="biayauang_transport3" value="0">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                   <input type="checkbox" name="uang_hotel" onclick="checklistbawahnonfirst('uang_hotel',3)" id="uang_hotel3" value="1">
+                                                                   <input type="hidden" name="biayauang_hotel[]" id="biayauang_hotel3" value="0">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                   <input type="checkbox" name="bantuan_transport" id="bantuan_transport3" value="1">
+                                                                   <input type="hidden" name="biayabantuan_transport[]" id="biayabantuan_transport3" value="0">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                  <input type="checkbox" name="uang_harian" onclick="checklistbawahnonfirst('uang_harian',3)" id="uang_harian3" value="1">
+                                                                  <input type="hidden" name="biayauang_harian[]" id="biayauang_harian3" value="400000">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                  <input type="checkbox" name="uang_saku" id="uang_saku3" value="1">
+                                                                  <input type="hidden" name="biayauang_saku[]" id="biayauang_saku3" value="240000">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                  <input type="checkbox" name="ang_setempat" id="ang_setempat3" value="1">
+                                                                  <input type="hidden" name="biayaang_setempat[]" id="biayaang_setempat3" value="160000">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                   <input type="checkbox" name="visa" id="visa3" value="1">
+                                                                   <input type="hidden" name="biayavisa[]" id="biayavisa3" value="0">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                  <input type="checkbox" name="airport_tax" id="airport_tax3" value="1">
+                                                                  <input type="hidden" name="biayaairport_tax[]" id="biayaairport_tax3" value="0">
+                                                                </td>
+                                                                <td class="classtdth" style="display:none;">
+                                                                  <input type="checkbox" name="tunj_perjalanan_dinas" id="tunj_perjalanan_dinas3" value="1">
+                                                                  <input type="hidden" name="biayatunj_perjalanan_dinas[]" id="biayatunj_perjalanan_dinas3" value="0">
+                                                                  <input type="hidden" name="uangRepresentasiInap[]" id="uangRepresentasiInap3" value="0">
+                                                                  <input type="hidden" name="uangRepresentasiNonInap[]" id="uangRepresentasiNonInap3" value="0">
+                                                                </td>
+                                                            </tr>
+
+
+                                                        </tbody>
+                                                    </table>
+                                                </fieldset>
+                                           </div>
+                                            <div id="disposisi"></div>
+
+                                              <div class="kt-inbox__foot">
+                                                  <div class="kt-inbox__primary">
+                                                    <div class="form-group form-group-last">
+                                                      <label for="exampleTextarea"><h4>Komentar</h4></label>
+                                                      <textarea class="form-control" id="komen" name="komen" cols="45" rows="3"></textarea>
+                                                    </div>
+                                                  </div>
+                                              </div>
+                                                <div class="kt-inbox__foot">
+                                                    <div class="kt-inbox__primary">
+                                                        <div class="btn-group col-sm-2">
+                                                          <button type="button" class="btn btn-success btn-bold" onclick="approve()">
+                                                            <i class="flaticon-paper-plane-1">&nbsp;Approve</i>  
+                                                          </button>
+                                                        </div>
+                                                        <div class="btn-group col-sm-2">
+                                                          <button type="button" class="btn btn-danger btn-bold" onclick="decline()">
+                                                            <i class="flaticon-paper-plane-1">&nbsp;Batal</i>
+                                                          </button>
+                                                        </div>
+                                                        <div class="btn-group col-sm-2">
+                                                          <button type="button" class="btn btn-warning btn-bold" onclick="koreksi()">
+                                                            <i class="flaticon-paper-plane-1">&nbsp;Kembalikan</i>
+                                                          </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="kt-inbox__foot">
+                                                  <br>
+                                                  <br>  
+                                                </div>
+                                       </div>
+                                    </div>
+                                  </div>
+                     </div>
+
+                  </div>
+
+                </div>
+      </div>
+     </div>
+   </div>
+</div>
+
+
+
+</div>
+</div>
+<script src="~/assets/vendors/base/vendors.bundle.js" type="text/javascript"></script>
+<script src="~/assets/demo/demo2/custom/components/forms/widgets/select2.js" type="text/javascript"></script>
+<script src="~/assets/demo/demo2/custom/tinymce/jscripts/tiny_mce/tiny_mce.js" type="text/javascript"></script>
+<script src="~/assets/demo/demo2/new_theme/js/multifile/jquery.MultiFile.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $('.backtomasuk').click(function() {
+        location.href = '@Url.Content("~/Inbox/SuratMasuk")';
+    });
+    $( "#tgl_mulai" ).datepicker({
+        changeMonth: true,
+        numberOfMonths: 1,
+        dateFormat:"dd-mm-yy",
+        onClose: function( selectedDate ) {
+          $( "#tgl_selesai" ).datepicker( "option", "minDate", selectedDate );
+          $("#tgl_mulai").datepicker( "option", "dateFormat", "dd-mm-yy" );
+        }
+    });
+
+    $( "#tgl_selesai").datepicker({
+        changeMonth: true,
+        numberOfMonths: 1,
+        dateFormat:"dd-mm-yy",
+        onClose: function( selectedDate ) {
+          $( "#tgl_mulai").datepicker( "option", "maxDate", selectedDate );
+          $("#tgl_selesai").datepicker( "option", "dateFormat", "dd-mm-yy" );
+        }
+    });
+
+      tinymce.activeEditor.execCommand("selectAll");
+      tinymce.activeEditor.execCommand('Delete', false, null);  
+      $("#elm1").attr("style", "display:none");
+      $("#elm1_parent").attr("style", "display:none"); 
+      
+
+
+</script>
+
+<script type="text/javascript">
+    tinyMCE.init({
+        // General options      
+        mode : "exact",
+        elements : "elm1",
+        width: "90%",
+        theme : "advanced",
+        plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist,autosave,visualblocks",
+
+        // Theme options
+        theme_advanced_buttons1 : "preview,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
+        theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,|,forecolor,backcolor",
+        theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap",
+        theme_advanced_toolbar_location : "top",
+        theme_advanced_toolbar_align : "left",
+        theme_advanced_statusbar_location : "bottom",
+        theme_advanced_resizing : true,
+        theme_advanced_fonts : "Times New Roman=times new roman,times;"+
+                /*"Andale Mono=andale mono,times;"+
+                "Arial=arial,helvetica,sans-serif;"+
+                "Arial Black=arial black,avant garde;"+
+                "Book Antiqua=book antiqua,palatino;"+*/
+                "Comic Sans MS=comic sans ms,sans-serif;"+
+                /*"Courier New=courier new,courier;"+
+                "Georgia=georgia,palatino;"+
+                "Helvetica=helvetica;"+
+                "Impact=impact,chicago;"+
+                "Symbol=symbol;"+
+                "Tahoma=tahoma,arial,helvetica,sans-serif;"+
+                "Terminal=terminal,monaco;"+*/            
+                "Gotham=gotham;"+
+                "Verdana=verdana,geneva;",
+                /*"Webdings=webdings;"+
+                "Wingdings=wingdings,zapf dingbats",*/
+                theme_advanced_font_sizes : "8pt,12pt,14pt",
+
+        // Example content CSS (should be your site CSS)
+        content_css : "~/assets/demo/demo2/custom/tinymceold/examples/css/content.css",
+
+        // Drop lists for link/image/media/template dialogs
+        template_external_list_url : "lists/template_list.js",
+        external_link_list_url : "lists/link_list.js",
+        external_image_list_url : "lists/image_list.js",
+        media_external_list_url : "lists/media_list.js",
+        
+
+        // Style formats
+        style_formats : [
+        {title : 'Bold text', inline : 'b'},
+        {title : 'Red text', inline : 'span', styles : {color : '#ff0000'}},
+        {title : 'Red header', block : 'h1', styles : {color : '#ff0000'}},
+        {title : 'Example 1', inline : 'span', classes : 'example1'},
+        {title : 'Example 2', inline : 'span', classes : 'example2'},
+        {title : 'Table styles'},
+        {title : 'Table row 1', selector : 'tr', classes : 'tablerow1'}
+        ],  
+
+        
+        // Replace values for the template plugin
+        template_replace_values : {
+          username : "Some User",
+          staffid : "991234"
+        }
+        
+    });
+</script>
+
+
+

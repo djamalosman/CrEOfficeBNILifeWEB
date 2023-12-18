@@ -1,0 +1,179 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localiza
+@model EofficeBNILWEB.Models.DeliveryDetailOutput
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@{
+    var sessidUser = Accessor.HttpContext.Session.GetString("idUser");
+    var sessidUnit = Accessor.HttpContext.Session.GetString("idUnit");
+	var en = Accessor.HttpContext.Session.GetString("en");
+    var ina = Accessor.HttpContext.Session.GetString("ina");
+}
+@{
+    ViewData["Title"] = "Index";
+}
+<style>
+	
+</style>
+<!-- begin::Body -->
+<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
+    <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver    m-container m-container--responsive m-container--xxl m-page__container">
+        <div class="m-grid__item m-grid__item--fluid m-wrapper">
+            <!-- BEGIN: Subheader -->
+            <div class="m-subheader ">
+                <div class="d-flex align-items-center">
+                    <div class="mr-auto" style="color: white;">
+                        
+                    </div>
+                </div>
+            </div>
+            <!-- END: Subheader -->
+            <div class="m-content">
+				<!--Begin::Main Portlet-->
+				<div class="kt-container  kt-grid__item kt-grid__item--fluid">
+					<!--Begin::Inbox-->
+					<div class="" id="kt_inbox">
+						<!--Begin::Aside Mobile Toggle-->
+						<button class="kt-inbox__aside-close" id="kt_inbox_aside_close">
+						  <i class="la la-close"></i>
+						</button>
+						<!--Begin:: Inbox View-->
+						<div class="kt-grid__item kt-grid__item--fluid    kt-portlet    kt-inbox__view kt-inbox__view--shown-" id="kt_inbox_view" style="display: flex;">
+							<div class="col text-center">
+
+								
+								<input type="button" class="btn btn-primary" value="Print atau dowload" onclick="this.style.display='none';window.print();" />
+							</div>
+							<br />
+								<div style="float:right;padding-right:350px">
+										<style>
+
+											table, th {
+												border-collapse: collapse;
+											}
+
+											.received {
+										padding: 7px;
+												text-align: left;
+											}
+
+											.barcode {
+												text-align: center;
+											}
+
+											.bni {
+											text-align: center;
+											object-position: right;
+											width: 100px;
+											height: 50px;
+											}
+
+											.tgl {
+												adding-left: 15px;
+												text-align: right;
+												margin-right: 20px;
+											}
+
+											.tipe {
+												text-align: left;
+											}
+
+										</style>
+										
+										<br>
+										<br>
+										<table style="width:60%;">
+											<tr>
+
+												
+												<th style="font-size: 0.535em;" class="received" style="" colspan="2">
+													PT BNI Life Insurance<br>Centennial Tower, 9th Floor<br> Jl. Gatot Subroto kav 24-25,Jakarta 12930<br>Phone : 021 - 2953 9999<br>
+													Fax : 021 - 2963 8998
+											
+												</th>
+												
+											<th><img src="~/assets/iconmenu/bank-bni-life.png" class="bni" alt="alternatetext"></th>
+											</tr>
+											<tr>
+
+												<th style="font-size: 0.535em;" class="received">
+													Nama Tujuan : @Model.letter[0].destination_receiver_name<br>Alamat : @Model.address<br> Telp : @Model.receiverPhone<br>
+													<hr>Nama Pengirim : @Model.letter[0].sender<br> Divisi : @Model.letter[0].senderDivision
+												</th>
+												<th style="font-size: 0.535em;" class="received" colspan="1">
+
+												</th>
+												<th style="font-size: 0.535em;width:80px;text-align: center;" colspan="1">
+													<img src="@ViewBag.QRCode" class="barcode" alt="alternatetext" style="width:50px;text-align: center;">
+													<br /><b class="barcode" style="font-size: 0.65em;">@ViewBag.DataQrcode</b>
+											<hr><b class="barcode" style="font-size: 0.65em;">@Convert.ToDateTime(Model.createdOn).ToString("yyyy-MM-dd hh:mm")</b>
+												</th>
+
+											</tr>
+											<tr>
+												<th style="font-size: 0.535em;" class="received"></th>
+												<th style="font-size: 0.535em;" class="received"><hr>Nama & Tanda Tangan Penerima</th>
+												<th style="font-size: 0.535em;" class="received"></th>
+											</tr>
+										</table>
+										<br>
+										<br>
+										<hr>
+										<table style="width:60%;">
+											<tr>
+
+												
+												<th style="font-size: 0.535em;" class="received" style="" colspan="2">
+													PT BNI Life Insurance<br>Centennial Tower, 9th Floor<br> Jl. Gatot Subroto kav 24-25,Jakarta 12930<br>Phone : 021 - 2953 9999<br>
+													Fax : 021 - 2963 8998
+											
+												</th>
+												
+											<th><img src="~/assets/iconmenu/bank-bni-life.png" class="bni" alt="alternatetext"></th>
+											</tr>
+											<tr>
+
+												<th style="font-size: 0.535em;" class="received">
+													Nama Penerima : @Model.receiverName<br>Alamat : @Model.address<br> Telp : @Model.receiverPhone<br>
+													<hr>Nama Pengirim : @Model.letter[0].sender<br> Divisi : @Model.letter[0].senderDivision
+												</th>
+												<th style="font-size: 0.535em;" class="received" colspan="1">
+
+												</th>
+												<th style="font-size: 0.535em;width:80px;text-align: center;" colspan="1">
+													<img src="@ViewBag.QRCode" class="barcode" alt="alternatetext" style="width:50px;text-align: center;">
+													<br /><b class="barcode" style="font-size: 0.65em;">@ViewBag.DataQrcode</b>
+											<hr><b class="barcode" style="font-size: 0.65em;">@Convert.ToDateTime(Model.createdOn).ToString("yyyy-MM-dd hh:mm")</b>
+												</th>
+
+											</tr>
+											<tr>
+												<th style="font-size: 0.535em;" class="received"></th>
+												<th style="font-size: 0.535em;" class="received"><hr>Nama & Tanda Tangan Penerima</th>
+												<th style="font-size: 0.535em;" class="received"></th>
+											</tr>
+										</table>
+								<br>
+								<br>
+								<br>
+								</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+        </div>
+    </div>
+</div>
+<!-- END: Body -->
+
+<script>
+
+//	$(document).ready(function () {
+
+//		//	.no - print { display: none; }
+//		//window.print();
+//		//window.open('', '_parent', '');
+//});
+	
+	//window.close();
+</script>

@@ -1,0 +1,94 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@{
+    var en = Accessor.HttpContext.Session.GetString("en");
+	var ina = Accessor.HttpContext.Session.GetString("ina");
+}
+
+@model IList<EofficeBNILWEB.Models.MenuOutput>
+@foreach (var headerMenuItem in Model)
+{
+    
+    <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click" aria-haspopup="true">
+        <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
+            <span class="kt-menu__link-text"style="color: #6a5844 !important;">
+                @if(en == "en")
+                {
+                    @headerMenuItem.menu_en
+                }
+                else
+                {
+                    @headerMenuItem.menu
+                }
+                
+            </span>
+            <i class="kt-menu__ver-arrow la la-angle-right"></i>
+        </a>
+        @if(headerMenuItem.hasChild == 'Y')
+        {
+            <div class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--left">
+                <ul class="kt-menu__subnav">
+                    @foreach (var subMenu in headerMenuItem.childMenu)
+                    {
+                        var link = subMenu.link.Split(',');
+                        var action = link[0];
+                        var controller = link[1];
+
+                        <li class="kt-menu__item  kt-menu__item--submenu" data-ktmenu-submenu-toggle="hover" aria-haspopup="true">
+                            <a asp-action="@action" asp-controller="@controller" class="kt-menu__link">
+                                <span class="kt-menu__link-icon">
+                                    <img src="~/assets/iconmenu/@subMenu.icon" style="width: 20px; height: auto;">
+                                </span>
+                                <span class="kt-menu__link-text" style="color: #6a5844 !important;">
+                                    @if (en == "en")
+                                    {
+                                        @subMenu.menu_en
+                                    }
+                                    else
+                                    {
+                                        @subMenu.menu
+                                    }
+                                </span>
+                            </a>
+                            @if (subMenu.hasChild == 'Y')
+                            {
+                                <div class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--right">
+                                    @foreach (var Item in subMenu.childMenu)
+                                    {
+                                        var linka = Item.link.Split(',');
+                                        var actiona = linka[0];
+                                        var controllera = linka[1];
+                                        <ul class="kt-menu__subnav">
+                                            <li class="kt-menu__item kt-menu__item--submenu" data-ktmenu-submenu-toggle="hover" aria-haspopup="true">
+                                                <a asp-action="@actiona" asp-controller="@controllera" class="kt-menu__link">
+                                                    <span class="kt-menu__link-icon">
+                                                        <img src="~/assets/iconmenu/@Item.icon" style="width: 20px; height: auto;">
+                                                    </span>
+                                                    <span class="kt-menu__link-text" style="color: #6a5844 !important;">
+                                                        @if (en == "en")
+                                                        {
+                                                            @Item.menu_en
+                                                        }
+                                                        else
+                                                        {
+                                                            @Item.menu
+                                                        }
+                                                    </span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    }
+                                </div>
+                            }
+                        </li>
+                    }
+
+                </ul>
+            </div>
+        }
+        
+    </li>
+}

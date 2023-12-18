@@ -1,0 +1,2479 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localiza
+@model EofficeBNILWEB.Models.OutputDetailMemoBackDate
+@using Microsoft.AspNetCore.Http
+@using System.Web
+@using Newtonsoft.Json
+@inject IHttpContextAccessor Accessor
+@{
+    var sessidUser = Accessor.HttpContext.Session.GetString("idUser");
+    Guid sessidUserGuid = new Guid(Accessor.HttpContext.Session.GetString("idUser"));
+    var sessidUnit = Accessor.HttpContext.Session.GetString("idUnit");
+    var sessidGroup = Accessor.HttpContext.Session.GetString("idGroup");
+    Guid sessBossIdUser = new Guid();
+    Guid guidEmpty = Guid.Empty;
+    if (Accessor.HttpContext.Session.GetString("parentIdUser") == guidEmpty.ToString().ToUpper())
+    {
+        sessBossIdUser = new Guid(Accessor.HttpContext.Session.GetString("parentIdUser"));
+    }
+    var orderkepada = 0;
+    var ordertembusan = 0;
+    var orderdisposisi = 0;
+    var orderpemeriksa = 0;
+    var orderapprover = 0;
+
+
+    var orderpenerima = 0;
+    var ordercarboncopy = 0;
+
+    var orderdelibretion = 0;
+
+    var cekApprover = 0;
+    var orderpemeriksalain = 0;
+
+
+    var numButton = 0;
+    var noTemplate = 1;
+    var idDivKepada = "divbarukepada" + orderkepada;
+    var idDivTembusan = "divbarutembusan" + ordertembusan;
+    string dateNow = DateTime.Now.ToString("yyyy-MM-dd");
+    string dateLetter = Convert.ToDateTime(Model.letter.letterDate).ToString("dd MMM yyyy");
+    var jsonTemplateData = JsonConvert.SerializeObject(ViewBag.TemplateData);
+
+    var currentChecker = Model.checker.Where(p => p.idUserChecker == sessidUserGuid && p.approvalStatus == 'Y').FirstOrDefault();
+    var currentApprover = Model.Approver.Where(p => p.idUserApprover == sessidUserGuid && p.approvalStatus == 'Y').FirstOrDefault();  
+    var currentSekreChecker = Model.checkerSekertaris.Where(p => p.idSekertaris == sessidUserGuid && p.approvalStatus == 'Y').FirstOrDefault();
+
+    var currentCheckerdelibration = Model.checker.Where(p => p.approvalStatus != 'Z').Count();
+    var currentdelibration = Model.delibration.Where(p => p.idUser == sessidUserGuid && p.statuscode == 2).FirstOrDefault();
+    var currentCheckerPengirim = Model.checkerPengirim.Where(p => p.idUserChecker == sessidUserGuid && p.approvalStatus == 'Y').FirstOrDefault();
+
+    
+    var currentCheckerlain = Model.checkerlain.Where(p => p.idUserChecker == sessidUserGuid && p.approvalStatus == 'Y').FirstOrDefault();
+    var currentpenerima = Model.checkerPenerima.Where(p => p.idUserChecker == sessidUserGuid && p.approvalStatus == 'Y').FirstOrDefault();
+
+    //delegasi
+
+    var currentCheckerPengirimDelegasi = Model.checkerPengirimDelg.Where(p => p.idUserChecker == sessidUserGuid && p.approvalStatus == 'Y').FirstOrDefault();
+    var currentpenerimaDelegasi = Model.checkerPenerimaDelg.Where(p => p.idUserChecker == sessidUserGuid && p.approvalStatus == 'Y').FirstOrDefault();
+    var currentCheckerDelegasi = Model.checkerDelg.Where(p => p.idUserChecker == sessidUserGuid && p.approvalStatus == 'Y').FirstOrDefault();
+    var currentCheckerlainDelegasi = Model.checkerlainDelg.Where(p => p.idUserChecker == sessidUserGuid && p.approvalStatus == 'Y').FirstOrDefault();
+    var currentApproverDelegasi = Model.ApproverDelg.Where(p => p.idUserApprover == sessidUserGuid && p.approvalStatus == 'Y').FirstOrDefault();
+    var currentdelibrationDelegasi = Model.delibrationdelegasi.Where(p => p.idUser == sessidUserGuid && p.statuscode == 2).FirstOrDefault();
+    var currentCheckerdelibrationDelegasi = Model.checker.Where(p => p.approvalStatus != 'Z').Count();
+    
+    //end
+    var actionForm = "SaveLetterMemo";
+    if (Model.letter.statusCode == 2)
+    {
+        actionForm = "ApprovalLetterMemo";
+    }
+    var suratAsli = 0;
+    if (Model.docLetter != null)
+    {
+        suratAsli = 1;
+    }
+    var en = Accessor.HttpContext.Session.GetString("en");
+    var ina = Accessor.HttpContext.Session.GetString("ina");
+}
+<style>
+    .tox-promotion {
+        display: none !important;
+    }
+</style>
+<!-- begin::Body -->
+<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
+    <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver    m-container m-container--responsive m-container--xxl m-page__container">
+        <div class="m-grid__item m-grid__item--fluid m-wrapper">
+            <!-- BEGIN: Subheader -->
+            <div class="m-subheader ">
+                <div class="d-flex align-items-center">
+                    <div class="mr-auto" style="color: white;">
+                        <h3 class="m-subheader__title m-subheader__title--separator" style="color: white;">
+
+                           @(en != null ? "Memo Other Details" : "Detail Memo Lainnya")
+                        </h3>
+                        <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                            <li class="m-nav__item m-nav__item--home">
+                                <a href="#" class="m-nav__link m-nav__link--icon">
+                                    <i class="m-nav__link-icon la la-home" style="color: white;"></i>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        @(en != null ? "Office" : "Office")
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__separator" style="color: white;">
+                                -
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="" class="m-nav__link">
+                                    <span class="m-nav__link-text" style="color: white;">
+                                        @(en != null ? "Memo Other Details" : "Detail Memo Lainnya")
+                                    </span>
+                                </a>
+                            </li>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Subheader -->
+            <div class="m-content">
+                <div class="kt-container  kt-grid__item kt-grid__item--fluid">
+                    <div class="kt-grid kt-grid--desktop kt-grid--ver-desktop  kt-inbox" id="kt_inbox">
+                        <div class="kt-grid__item kt-grid__item--fluid    kt-portlet    kt-inbox__view kt-inbox__view--shown-" id="kt_inbox_view" style="display:block">
+                            <form method="post" id="formSurat" asp-action="@actionForm" asp-controller="BackDate" enctype="multipart/form-data">
+                                <div style="margin-left: 10px;">
+                                    <br>
+                                    <fieldset style="width:99%;background-color:#B7B7FF;">
+                                        <div style="padding-left:10px">
+                                            @foreach (var item in Model.disposition)
+                                            {
+                                                    <fieldset>
+                                                        <legend>
+                                                            <b>&nbsp; @(en != null ? "Disposition" : "Disposisi")</b>
+                                                        </legend>
+                                                        <table>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td width="91">@(en != null ? "Disposition Date" : "Tgl Disposisi")</td>
+                                                                    <td>:</td>
+                                                                    <td>@Convert.ToDateTime(item.dispositionDate).ToString("dd MMM yyyy")</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td width="91">@(en != null ? "From" : "Dari")</td>
+                                                                    <td>:</td>
+                                                                    <td>@item.fullnameDispositionMaker / @item.positionDispositionMaker</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td width="91">@(en != null ? "To" : "Kepada")</td>
+                                                                    <td>:</td>
+                                                                    <td>@item.fullnameDispositionReceiver / @item.positionDispositionReceiver</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td width="91">@(en != null ? "Note" : "Catatan")</td>
+                                                                    <td>:</td>
+                                                                    <td>@item.notes</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </fieldset>
+                                            }
+                                        </div>
+                                    </fieldset>
+                                    <br>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12" style="padding-top: 1%;padding-left: 2%;">
+                                        <fieldset>
+                                            <legend style="font-size: 10pt"><b>@(en != null ? "Header" : "Kepala Surat")</b></legend>
+
+                                            <input type="hidden" class="form-control" id="saveType" name="saveType">
+                                            <input type="hidden" class="form-control" id="letterTypeCode" name="letterTypeCode" value="@Model.letter.letterTypeCode">
+                                            <input type="hidden" class="form-control" id="idresponsesurat" name="idresponsesurat" value="@Model.letter.idLetter">
+                                            @if ((Model.letter.statusCode == 1 || Model.letter.statusCode == 5) && Model.letter.createdBy.ToString().ToUpper() == sessidUser)
+                                            {
+                                                    <div class="form-group row">
+                                                        <div class="col-lg-6">
+                                                            <label>@(en != null ? "Document" : "Dokumen")<span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                                        <select class="form-control select2-search select2-search--dropdown" id="outboxType" name="outboxType" required onchange="getTipeMemo(this.value)">
+                                                                <option value="">--@(en != null ? "Select Document Memo" : "Pilih Dokumen Memo")--</option>
+                                                                    @foreach (var item in ViewBag.JenisMemo)
+                                                                    {
+                                                                        @if(item.attributeValue == Model.letter.outboxType){
+                                                                            <option value="@item.attributeValue" selected="selected">@item.value</option>
+                                                                        }else{
+                                                                            <option value="@item.attributeValue">@item.value</option>
+                                                                        }
+                                                                    }
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <label>@(en != null ? "Memo Type" : "Tipe Memo")<span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                                            <select class="form-control select2-search select2-search--dropdown" id="idMemoType" name="idMemoType" required">
+                                                            <option value="">--@(en != null ? "Select Memo Type" : "Pilih Tipe Memo")--</option>
+                                                                    @foreach (var item in ViewBag.TipeMemo)
+                                                                    {
+                                                                        @if(item.idmemotype == Model.letter.idmemoType){
+                                                                            <option value="@item.idmemotype" selected="selected">@item.memotypename</option>
+                                                                        }else{
+                                                                            <option value="@item.idmemotype">@item.memotypename</option>
+                                                                        }
+                                                                    }
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <label>@(en != null ? "Number of Memo:" : "Nomor Memo:")</label>
+                                                            <input type="text" class="form-control"  readonly="1" style="background-color:#e6e9ec !important">
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <label>@(en != null ? "Date:" : "Tanggal:")</label>
+                                                            <input type="text" class="form-control" placeholder="Tanggal" value="@dateLetter" id="letterDate" name="letterDate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="col-md-12">
+                                                            <label>@(en != null ? "Subject:" : "Perihal:") <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                                            <input type="text" class="form-control" id="about" name="about" value="@Model.letter.about" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="col-lg-4">
+                                                            <label>@(en != null ? "Result:" : "Perihal:") <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                                            <select class="form-control" id="resultType" name="resultType" required>
+                                                            <option value="">--@(en != null ? "Select Mail Results" : "Pilih hasil surat")--</option>
+                                                            @if (Model.letter.resultType == 1)
+                                                            {
+                                                                        <option value="1" selected="selected">Softcopy</option>
+                                                                        <option value="2">Hardcopy</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                        <option value="1">Softcopy</option>
+                                                                        <option value="2" selected="selected">Hardcopy</option>
+                                                            }
+
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                        <label>@(en != null ? "Signature" : "Tanda tangan") <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                                            <select class="form-control" id="signatureType" name="signatureType" required>
+                                                                <option value="">--Pilih Jenis Tanda Tangan--</option>
+                                                            @if (Model.letter.signatureType == 1)
+                                                            {
+                                                                        <option value="1" selected="selected">Tanda Tangan</option>
+                                                                        <option value="2">Barcode</option>
+                                                                        <option value="3">Tidak ada</option>
+                                                                        @*<option value="3">Tanda Tangan & Barcode</option>*@
+                                                            }
+                                                            else if (Model.letter.signatureType == 2)
+                                                            {
+                                                                        <option value="1">Tanda Tangan</option>
+                                                                        <option value="2" selected="selected">Barcode</option>
+                                                                        <option value="3">Tidak ada</option>
+                                                                        @*<option value="3">Tanda Tangan & Barcode</option>*@
+                                                            }
+                                                            else if (Model.letter.signatureType == 3)
+                                                            {
+                                                                <option value="1">Tanda tangan</option>
+                                                                <option value="2">Barcode</option>
+                                                                <option value="3" selected="selected">Tidak</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                        <option value="1">Tanda Tangan</option>
+                                                                        <option value="2">Barcode</option>
+                                                                <option value="3">Tidak ada</option>
+                                                                        @*<option value="3" selected="selected">Tanda Tangan & Barcode</option>*@
+                                                            }
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="col-lg-4">
+                                                            <label>@(en != null ? "Attachment:" : "Lampiran:")</label>
+                                                            <input type="text" class="form-control" id="attachmentCount" value="@Model.letter.attachmentDesc" name="attachmentCount" readonly="readonly" style="background-color:#e6e9ec !important">
+                                                        </div>
+                                                        <div class="col-lg-4" style="display:none">
+                                                            <label>@(en != null ? "Priority" : "Prioritas")</label>
+                                                            <input type="text" class="form-control" placeholder="Prioritas" name="priority" id="priority" value="@Model.letter.priority">
+                                                        </div>
+                                                    </div>
+                                            }
+                                            else
+                                            {
+                                                    <div class="form-group row" style="font-size:8pt;margin-bottom: 0%;">
+                                                        <label for="inputEmail3" style="font-size:8pt !important;" class="col-sm-3">&nbsp;@(en != null ? "Type/Number/Date of Mail:" : "Jenis/Tipe/Nomor/Tgl Surat:") </label>
+                                                        <div class="col-6">
+                                                            <b>@Model.letter.outboxTypeCodeValue / @Model.letter.memotypename / @Model.letter.letterNumber / @dateLetter</b>
+                                                            <input type="hidden" class="form-control" id="idresponsesurat" name="idresponsesurat" value="@Model.letter.idLetter">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row" style="font-size:8pt;margin-bottom: 0%;">
+                                                    <label for="inputEmail3" style="font-size:8pt !important;" class="col-sm-3">&nbsp;@(en != null ? "Subject:" : "Perihal:") </label>
+                                                        <div class="col-6">
+                                                            <b>@Model.letter.about</b>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row" style="font-size:8pt;margin-bottom: 0%;">
+                                                        <label for="inputEmail3" style="font-size:8pt !important;" class="col-sm-3">&nbsp;@(en != null ? "Result" : "Hasil"): </label>
+                                                        <div class="col-6">
+                                                            <b>@Model.letter.resultTypeCodeValue</b>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row" style="font-size:8pt;margin-bottom: 0%;">
+                                                        <label for="inputEmail3" style="font-size:8pt !important;" class="col-sm-3">&nbsp;@(en != null ? "Signature" : "Tanda tangan"): </label>
+                                                        <div class="col-6">
+                                                            <b>@Model.letter.signatureTypeCodeValue</b>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row" style="font-size:8pt;margin-bottom: 0%;">
+                                                        <div class="col-3 row">
+                                                            <label for="inputEmail3" style="font-size:8pt !important;" class="col-sm-8">&nbsp;@(en != null ? "Attachment:" : "Lampiran:") </label>
+                                                            <b>@Model.letter.attachmentDesc</b>
+                                                        </div>
+                                                        <div class="col-3 row" style="display:none">
+                                                            <label for="inputEmail3" style="font-size:8pt !important;" class="col-sm-8">&nbsp;@(en != null ? "Priority:" : "Prioritas:") </label>
+                                                            <b>@Model.letter.priority</b>
+                                                        </div>
+                                                    </div>
+                                            }
+                                            
+                                            <fieldset>
+                                                <legend style="font-size: 10pt"><b>@(en != null ? "Sender" : "Pengirim")</b></legend>
+                                                @if ((Model.letter.statusCode == 1 || Model.letter.statusCode == 5) && Model.letter.createdBy.ToString().ToUpper() == sessidUser)
+                                                {
+                                                    foreach (var item in Model.sender)
+                                                    {
+                                                                <div class="form-group row" style="margin-bottom: 0px !important;">
+                                                                    <div class="col-md-12">
+                                                                        <label>@(en != null ? "Name" : "Nama") <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                                                        <input type="text" autocomplete ="off" class="form-control" value="@item.fullname" id="bossName" name="bossName"  onkeyup="load_data_pemeriksa(this.value,1000)">
+                                                                        
+                                                                        <span id="search_result_sender"></span>
+                                                                        <input type="hidden" class="form-control" id="bossPositionId" name="bossPositionId" value="@item.idPositionSender">
+                                                                        <input type="hidden" class="form-control" id="bossUserId" name="bossUserId" value="@item.idUserSender">
+                                                                        <input type="hidden" class="form-control" id="bossUnitId" name="bossUnitId" value="@item.idUnitSender">
+                                                                        <input type="hidden" class="form-control" id="bossLevelId" value="@item.idLevelSender" name="bossLevelId">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row" style="margin-bottom: 0px !important;">
+                                                                    <div class="col-md-3">
+                                                                        <label>NPP <span aria-hidden="true" autocomplete ="off" class="required" style="color: red;">*</span></label>
+                                                                        <input type="text" class="form-control" value="@item.nip" id="nipBoss" name="nipBoss" required readonly="readonly" style="background-color:#e6e9ec !important">
+                                                                    </div>
+                                                                    <div class="col-md-9">
+                                                                        <label>@(en != null ? "Position" : "Jabatan") <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                                                        <input type="text" class="form-control" value="@item.positionName" id="bossPositionName" name="bossPositionName" required readonly="readonly" style="background-color:#e6e9ec !important">
+                                                                    </div>
+                                                                </div>
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    foreach (var item in Model.sender)
+                                                    {
+                                                                <div class="form-group row" style="margin-bottom: 0px !important;">
+                                                                    <div class="col-md-12">
+                                                                <label>@(en != null ? "Name" : "Nama") : </label>
+                                                                          <b>@item.fullname</b>
+                                                                 
+                                                                        <span id="search_result_sender"></span>
+                                                                        <input type="hidden" class="form-control" id="bossPositionId" name="bossPositionId" value="@item.idPositionSender">
+                                                                        <input type="hidden" class="form-control" id="bossUserId" name="bossUserId" value="@item.idUserSender">
+                                                                        <input type="hidden" class="form-control" id="bossUnitId" name="bossUnitId" value="@item.idUnitSender">
+                                                                        <input type="hidden" class="form-control" id="bossLevelId" value="@item.idLevelSender" name="bossLevelId">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row" style="margin-bottom: 0px !important;">
+                                                                    <div class="col-md-3">
+                                                                        <label>NPP : </label>
+                                                                        <b>@item.nip</b>
+                                                                    </div>
+                                                                    <div class="col-md-9">
+                                                                <label>@(en != null ? "Position" : "Jabatan") : </label>
+                                                                        <b>@item.positionName</b>
+                                                                    </div>
+                                                                </div>
+                                                    }
+                                                }
+                                            </fieldset>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12" style="padding-top: 1%;padding-left: 2%;">
+                                        
+                                        @*Penerima*@
+                                            <fieldset>
+                                                <legend style="font-size: 10pt"><b>@(en != null ? "To" : "Kepada")</b></legend>
+                                                @if ((Model.letter.statusCode == 1 || Model.letter.statusCode == 5) && Model.letter.createdBy.ToString().ToUpper() == sessidUser)
+                                                {
+                                                    @if (Model.receiver.Count == 0)
+                                                    {
+                                                                <div class="form-group row" style="margin-bottom: 0px;margin-top: 0px;">
+                                                                    <div class="col-8 col-md-6 col-sm-10">
+                                                                    <label>@(en != null ? "To" : "Kepada")<span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                                                    
+                                                                        <input type="text" autocomplete ="off" class="form-control" placeholder="" autocomplete="off" id="checkerPenerima_0" name="checkerPenerima_0" required="" onkeyup="load_data_penerima(this.value,0)">
+                                                                        <span id="search_resultPenerima_0"></span>
+                                                                        <input type="hidden" class="form-control" id="idUserCheckerPenerima_0" name="idUserCheckerPenerima">
+                                                                        <input type="hidden" class="form-control" id="idPositionCheckerPenerima_0" name="idPositionCheckerPenerima">
+                                                                        <input type="hidden" class="form-control" id="idLevelCheckerPenerima_0" name="idLevelCheckerPenerima">
+                                                                        <input type="hidden" class="form-control" id="idUnitCheckerPenerima_0" name="idUnitCheckerPenerima">
+                                                                    </div>
+                                                                    <div class="col-4 col-md-6 col-sm-2">
+                                                                        <label>&nbsp;</label>
+                                                                        <input type="button" value="+" id="btnAddPenerima" onclick="AddTextBoxCheckerPenerima()" class="btn btn-success" style="display:block">
+                                                                    </div>
+                                                                </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        @foreach (var item in Model.receiver)
+                                                        {
+                                                            var idDivCheckerPenerima = "divDispoPenerima" + orderpenerima;
+                                                                        <div class="form-group row" id="@idDivCheckerPenerima" style="margin-bottom: 0px;margin-top: 0px;">
+                                                                            <div class="col-8 col-md-6 col-sm-10">
+                                                                                <label>&nbsp;</label>
+                                                                                <input type="text" class="form-control" placeholder="To" autocomplete="off" value="@item.fullname - @item.positionName" id="checkerPenerima_@orderpenerima" name="checkerPenerima_0" required="" onkeyup="load_data_penerima(this.value,@orderpenerima)">
+                                                                                <span id="search_resultPenerima_@orderpenerima"></span>
+                                                                                <input type="hidden" class="form-control" id="idUserCheckerPenerima_@orderpenerima" value="@item.idUser" name="idUserCheckerPenerima">
+                                                                                <input type="hidden" class="form-control" id="idPositionCheckerPenerima_@orderpenerima" value="@item.idPosition" name="idPositionCheckerPenerima">
+                                                                                <input type="hidden" class="form-control" id="idLevelCheckerPenerima_@orderpenerima" value="8" name="idLevelCheckerPenerima">
+                                                                    <input type="hidden" class="form-control" id="idUnitCheckerPenerima_@orderpenerima" value="@item.idUnit" name="idUnitCheckerPenerima">
+                                                                            </div>
+                                                                            <div class="col-4 col-md-6 col-sm-2">
+                                                                                <label>&nbsp;</label>
+                                                                    @if (orderpenerima == 0)
+                                                                    {
+                                                                                        <input type="button" value="+" id="btnAddPenerima" onclick="AddTextBoxCheckerPenerima()" class="btn btn-success" style="display:block">
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                                        <input type="button" value="-" id="btnRemoveCheckerPenerima" onclick="RemoveTextBoxCheckerPenerima(@orderpenerima)" class="btn btn-warning" style="display:block">
+                                                                    }
+
+                                                                            </div>
+                                                                        </div>
+                                                            orderpenerima++;
+                                                        }
+                                                    }
+                                                        <div id="TextBoxContainerCheckerPenerima">
+                                                            <!--Textboxes will be added here -->
+                                                        </div>
+                                                }
+                                                else
+                                                {
+                                                        <ol>
+                                                        @foreach (var item in Model.receiver)
+                                                        {
+                                                                    <li>@item.fullname - @item.positionName</li>
+                                                        }
+                                                        </ol>
+                                                }
+
+
+                                            </fieldset>
+                                        @* end Penerima*@
+
+                                        @*Carbon Copy*@
+                                            <fieldset>
+                                                <legend style="font-size: 10pt"><b>@(en != null ? "Cc" : "Tembusan")</b></legend>
+                                                @if ((Model.letter.statusCode == 1 || Model.letter.statusCode == 5) && Model.letter.createdBy.ToString().ToUpper() == sessidUser)
+                                                {
+                                                    @if (Model.copy.Count == 0)
+                                                    {
+                                                                <div class="form-group row" style="margin-bottom: 0px;margin-top: 0px;">
+                                                                    <div class="col-8 col-md-6 col-sm-10">
+                                                                        <label>@(en != null ? "Cc" : "Tembusan")</label>
+                                                                    
+                                                                        <input type="text"  class="form-control" placeholder="To" id="checkerCarbonCopy_0" autocomplete="off" name="checkerCarbonCopy_0" required="" onkeyup="load_data_carboncopy(this.value,0)">
+                                                                        <span id="search_resultCarbonCopy_0"></span>
+                                                                        <input type="hidden" class="form-control" id="idUserCheckerCarbonCopy_0" name="idUserCheckerCarbonCopy">
+                                                                        <input type="hidden" class="form-control" id="idPositionCheckerCarbonCopy_0" name="idPositionCheckerCarbonCopy">
+                                                                        <input type="hidden" class="form-control" id="idLevelCheckerCarbonCopy_0" name="idLevelCheckerCarbonCopy">
+                                                                        <input type="hidden" class="form-control" id="idUnitCheckerCarbonCopy_0" name="idUnitCheckerCarbonCopy">
+                                                                    </div>
+                                                                    <div class="col-4 col-md-6 col-sm-2">
+                                                                        <label>&nbsp;</label>
+                                                                        <input type="button" value="+" id="btnAddCheckerCarbonCopy" onclick="AddTextBoxCheckerCarbonCopy()" class="btn btn-success" style="display:block">
+                                                                    </div>
+                                                                </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        @foreach (var item in Model.copy)
+                                                        {
+                                                        var divDispoCarbonCopy = "divDispoCarbonCopy" + ordercarboncopy;
+                                                                        <div class="form-group row" id="@divDispoCarbonCopy" style="margin-bottom: 0px;margin-top: 0px;">
+                                                                            <div class="col-8 col-md-6 col-sm-10">
+                                                                                <label>&nbsp;</label>
+                                                                <input type="text" class="form-control" autocomplete="off" placeholder="Cc" value="@item.fullname - @item.positionName" id="checkerCarbonCopy_@ordercarboncopy" name="checkerCarbonCopy_0" required="" onkeyup="load_data_carboncopy(this.value,@ordercarboncopy)">
+                                                                                <span id="search_resultCarbonCopy_@ordercarboncopy"></span>
+                                                                                <input type="hidden" class="form-control" id="idUserCheckerCarbonCopy_@ordercarboncopy" value="@item.idUser" name="idUserCheckerCarbonCopy">
+                                                                                <input type="hidden" class="form-control" id="idPositionCheckerCarbonCopy_@ordercarboncopy" value="@item.idPosition" name="idPositionCheckerCarbonCopy">
+                                                                                <input type="hidden" class="form-control" id="idLevelCheckerCarbonCopy_@ordercarboncopy" value="8" name="idLevelCheckerCarbonCopy">
+                                                                    <input type="hidden" class="form-control" id="idUnitCheckerCarbonCopy_@ordercarboncopy" value="@item.idUnit" name="idUnitCheckerCarbonCopy">
+                                                                            </div>
+                                                                            <div class="col-4 col-md-6 col-sm-2">
+                                                                                <label>&nbsp;</label>
+                                                                    @if (ordercarboncopy == 0)
+                                                                    {
+                                                                                        <input type="button" value="+" id="btnAddCheckerCarbonCopy" onclick="AddTextBoxCheckerCarbonCopy()" class="btn btn-success" style="display:block">
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                    <input type="button" value="-" id="btnRemoveCheckerCarbonCopy" onclick="RemoveTextBoxCheckerCarbonCopy(@ordercarboncopy)" class="btn btn-warning" style="display:block">
+                                                                    }
+
+                                                                            </div>
+                                                                        </div>
+                                                            ordercarboncopy++;
+                                                        }
+                                                    }
+                                                <div id="TextBoxContainerCheckerCarbonCopy">
+                                                            <!--Textboxes will be added here -->
+                                                        </div>
+                                                }
+                                                else
+                                                {
+                                                        <ol>
+                                                        @foreach (var item in Model.copy)
+                                                        {
+                                                                    <li>@item.fullname - @item.positionName</li>
+                                                        }
+                                                        </ol>
+                                                }
+
+
+                                            </fieldset>
+                                        @* end Carbon Copy*@
+
+                                           <fieldset>
+                                            <legend style="font-size: 10pt"><b>@(en != null ? "Approver" : "Persetujuan")</b></legend>
+                                            @if ((Model.letter.statusCode == 1 || Model.letter.statusCode == 5) && Model.letter.createdBy.ToString().ToUpper() == sessidUser)
+                                            {
+                                                @if (Model.Approver.Count == 0)
+                                                {
+                                                            <div class="form-group row" style="margin-bottom: 0px;margin-top: 0px;">
+                                                                <div class="col-8 col-md-6 col-sm-10">
+                                                                    <label>&nbsp;</label>
+                                                                    <input type = "text" autocomplete ="off" class="form-control" placeholder="" id="checkerApprover_0" name="checkerApprover_0" required="" onkeyup="load_data_Approver(this.value,0)">
+                                                                    <span id="search_resultApprover_0"></span>
+                                                            
+                                                                    < input type="hidden" class="form-control" id="idUserApprover_0" name="idUserApprover">
+                                                                    <input type = "hidden" class="form-control" id="idPositionApprover_0" name="idPositionApprover">
+                                                                    <input type = "hidden" class="form-control" id="idLevelApprover_0" name="idLevelApprover">
+                                                                    <input type = "hidden" class="form-control" id="idUnitApprover_0" name="idUnitApprover">
+                                                                </div>
+                                                                <div class="col-4 col-md-6 col-sm-2">
+                                                                    <label>&nbsp;</label>
+                                                                    <input type="button" value="+" id="btnAddApprover" onclick="AddTextBoxCheckerApprover()" class="btn btn-success" style="display:block">
+                                                                </div>
+                                                            </div>
+                                                }
+                                                else
+                                                {
+                                                    foreach (var item in Model.Approver)
+                                                    {
+                                                        var idDivChecker = "divDispo" + orderapprover;
+                                                                    <div class="form-group row" id="@idDivChecker" style="margin-bottom: 0px;margin-top: 0px;">
+                                                                        <div class="col-8 col-md-6 col-sm-10">
+                                                                            <label>&nbsp;</label>
+                                                                            <input type="text" autocomplete="off" class="form-control" placeholder="Persetujuan" value="@item.fullname - @item.positionName" id="checker_@orderapprover" name="checker_0" required="" onkeyup="load_data_Approver(this.value,@orderapprover)">
+                                                                            <span id="search_result_@orderapprover"></span>
+                                                                            <input type="hidden" class="form-control" id="idUserChecker_@orderapprover" value="@item.idUserApprover" name="idUserApprover">
+                                                                            <input type="hidden" class="form-control" id="idPositionChecker_@orderapprover" value="@item.idPositionApprover" name="idPositionApprover">
+                                                                            <input type="hidden" class="form-control" id="idLevelChecker_@orderapprover" value="@item.idLevelApprover" name="idLevelApprover">
+                                                                            <input type="hidden" class="form-control" id="idUnitChecker_@orderapprover" value="@item.idUnitApprover" name="idUnitApprover">
+                                                                        </div>
+                                                                        <div class="col-4 col-md-6 col-sm-2">
+                                                                            <label>&nbsp;</label>
+                                                                @if (orderapprover == 0)
+                                                                {
+                                                                                    <input type="button" value="+" id="btnAddApprover" onclick="AddTextBoxCheckerApprover()" class="btn btn-success" style="display:block">
+                                                                }
+                                                                else
+                                                                {
+                                                                                    <input type="button" value="-" id="btnRemoveApprover" onclick="RemoveTextBoxApprover(@orderapprover)" class="btn btn-warning" style="display:block">
+                                                                }
+
+                                                                        </div>
+                                                                    </div>
+                                                        orderapprover++;
+                                                    }
+                                                }
+                                                    <div id="TextBoxContainerCheckerApprover">
+                                                        <!--Textboxes will be added here -->
+                                                    </div>
+                                            }
+                                            else
+                                            {
+                                                    <ol>
+                                                    @foreach (var item in Model.Approver)
+                                                    {
+                                                       <li>@item.fullname - @item.positionName</li>
+                                                    }
+                                                    </ol>
+                                            }
+
+
+                                        <fieldset>
+                                            <legend style="font-size: 10pt"><b>@(en != null ? "Checker" : "Pemeriksa")</b></legend>
+                                            @if ((Model.letter.statusCode == 1 || Model.letter.statusCode == 5) && Model.letter.createdBy.ToString().ToUpper() == sessidUser)
+                                            {
+                                                @if (Model.checker.Count == 0)
+                                                {
+                                                            <div class="form-group row" style="margin-bottom: 0px;margin-top: 0px;">
+                                                                <div class="col-8 col-md-6 col-sm-10">
+                                                                    <label>&nbsp;</label>
+                                                                    <input type="text" autocomplete="off" class="form-control" placeholder="Pemeriksa" id="checker_0" name="checker_0" required="" onkeyup="load_data_pemeriksa(this.value,0)">
+                                                                    <span id="search_result_0"></span>
+                                                                    <input type="hidden" class="form-control" id="idUserChecker_0" name="idUserChecker">
+                                                                    <input type="hidden" class="form-control" id="idPositionChecker_0" name="idPositionChecker">
+                                                                    <input type="hidden" class="form-control" id="idLevelChecker_0" name="idLevelChecker">
+                                                                    <input type="hidden" class="form-control" id="idUnitChecker_0" name="idUnitChecker">
+                                                                </div>
+                                                                <div class="col-4 col-md-6 col-sm-2">
+                                                                    <label>&nbsp;</label>
+                                                                    <input type="button" value="+" id="btnAddChecker" onclick="AddTextBoxChecker()" class="btn btn-success" style="display:block">
+                                                                </div>
+                                                            </div>
+                                                }
+                                                else
+                                                {
+                                                    foreach (var item in Model.checker)
+                                                    {
+                                                        var idDivChecker = "divDispo" + orderpemeriksa;
+                                                                    <div class="form-group row" id="@idDivChecker" style="margin-bottom: 0px;margin-top: 0px;">
+                                                                        <div class="col-8 col-md-6 col-sm-10">
+                                                                            <label>&nbsp;</label>
+                                                                            <input type="text" autocomplete="off" class="form-control" placeholder="Pemeriksa" value="@item.fullname - @item.positionName" id="checker_@orderpemeriksa" name="checker_0" required="" onkeyup="load_data_pemeriksa(this.value,@orderpemeriksa)">
+                                                                            <span id="search_result_@orderpemeriksa"></span>
+                                                                            <input type="hidden" class="form-control" id="idUserChecker_@orderpemeriksa" value="@item.idUserChecker" name="idUserChecker">
+                                                                            <input type="hidden" class="form-control" id="idPositionChecker_@orderpemeriksa" value="@item.idPositionChecker" name="idPositionChecker">
+                                                                            <input type="hidden" class="form-control" id="idLevelChecker_@orderpemeriksa" value="@item.idLevelChecker" name="idLevelChecker">
+                                                                            <input type="hidden" class="form-control" id="idUnitChecker_@orderpemeriksa" value="@item.idUnitChecker" name="idUnitChecker">
+                                                                        </div>
+                                                                        <div class="col-4 col-md-6 col-sm-2">
+                                                                            <label>&nbsp;</label>
+                                                                @if (orderpemeriksa == 0)
+                                                                {
+                                                                                    <input type="button" value="+" id="btnAddChecker" onclick="AddTextBoxChecker()" class="btn btn-success" style="display:block">
+                                                                }
+                                                                else
+                                                                {
+                                                                                    <input type="button" value="-" id="btnRemoveChecker" onclick="RemoveTextBoxChecker(@orderpemeriksa)" class="btn btn-warning" style="display:block">
+                                                                }
+
+                                                                        </div>
+                                                                    </div>
+                                                        orderpemeriksa++;
+                                                    }
+                                                }
+                                                    <div id="TextBoxContainerChecker">
+                                                        <!--Textboxes will be added here -->
+                                                    </div>
+                                            }
+                                            else
+                                            {
+                                                    <ol>
+                                                    @foreach (var item in Model.checker)
+                                                    {
+                                                                <li>@item.fullname - @item.positionName</li>
+                                                    }
+                                                    </ol>
+                                            }
+
+
+                                        </fieldset>
+
+                                      
+                                            <fieldset>
+                                                <legend style="font-size: 10pt"><b>@(en != null ? "Checker Others" : "Pemeriksa Lainnya")</b></legend>
+                                                @if ((Model.letter.statusCode == 1 || Model.letter.statusCode == 5) && Model.letter.createdBy.ToString().ToUpper() == sessidUser)
+                                                {
+                                                    @if (Model.checkerlain.Count == 0)
+                                                    {
+                                                        <div class="form-group row" style="margin-bottom: 0px;margin-top: 0px;">
+                                                            <div class="col-8 col-md-6 col-sm-10">
+                                                                <label>&nbsp;</label>
+                                                                <input type="text" class="form-control" autocomplete="off" placeholder="Pemeriksa Lainnya" id="checkerlain_0" name="checkerlain_0" required="" onkeyup="load_data_pemeriksalain(this.value,0)">
+                                                                <span id="search_resultlain_0"></span>
+                                                                <input type="hidden" class="form-control" id="idUserCheckerlain_0" name="idUserCheckerlain">
+                                                                <input type="hidden" class="form-control" id="idPositionCheckerlain_0" name="idPositionCheckerlain">
+                                                                <input type="hidden" class="form-control" id="idLevelCheckerlain_0" name="idLevelCheckerlain">
+                                                                <input type="hidden" class="form-control" id="idUnitCheckerlain_0" name="idUnitCheckerlain">
+                                                            </div>
+                                                            <div class="col-4 col-md-6 col-sm-2">
+                                                                <label>&nbsp;</label>
+                                                                <input type="button" value="+" id="btnAddCheckerlain" onclick="AddTextBoxCheckerlain()" class="btn btn-success" style="display:block">
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+
+
+                                                        foreach (var item in Model.checkerlain)
+                                                        {
+                                                            var idDivChecker = "divDispo" + orderpemeriksalain;
+                                                            <div class="form-group row" id="@idDivChecker" style="margin-bottom: 0px;margin-top: 0px;">
+                                                                <div class="col-8 col-md-6 col-sm-10">
+                                                                    <label>&nbsp;</label>
+                                                                    <input type="text" autocomplete="off" class="form-control" placeholder="Pemeriksa" value="@item.fullname - @item.positionName" id="checkerlain_@orderpemeriksalain" name="checkerlain_0" required="" onkeyup="load_data_pemeriksalain(this.value,@orderpemeriksalain)">
+                                                                    <span id="search_result_@orderpemeriksalain"></span>
+                                                                    <input type="hidden" class="form-control" id="idUserCheckerlain_@orderpemeriksalain" value="@item.idUserChecker" name="idUserCheckerlain">
+                                                                    <input type="hidden" class="form-control" id="idPositionCheckerlain_@orderpemeriksalain" value="@item.idPositionChecker" name="idPositionCheckerlain">
+                                                                    <input type="hidden" class="form-control" id="idLevelCheckerlain_@orderpemeriksalain" value="@item.idLevelChecker" name="idLevelCheckerlain">
+                                                                    <input type="hidden" class="form-control" id="idUnitCheckerlain_@orderpemeriksalain" value="@item.idUnitChecker" name="idUnitCheckerlain">
+                                                                </div>
+                                                                <div class="col-4 col-md-6 col-sm-2">
+                                                                    <label>&nbsp;</label>
+                                                                    @if (orderpemeriksalain == 0)
+                                                                    {
+                                                                        <input type="button" value="+" id="btnAddCheckerlain" onclick="AddTextBoxCheckerlain()" class="btn btn-success" style="display:block">
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <input type="button" value="-" id="btnRemoveCheckerlain" onclick="RemoveTextBoxCheckerlain(@orderpemeriksalain)" class="btn btn-warning" style="display:block">
+                                                                    }
+
+                                                                </div>
+                                                            </div>
+                                                            orderpemeriksalain++;
+                                                        }
+                                                    }
+                                                    <div id="TextBoxContainerCheckerlain">
+                                                        <!--Textboxes will be added here -->
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <ol>
+                                                        @foreach (var item in Model.checkerlain)
+                                                        {
+                                                            <li>@item.fullname - @item.positionName</li>
+                                                        }
+                                                    </ol>
+                                                }
+
+
+                                            </fieldset>
+
+
+
+                                         @*Delibration*@
+                                            <fieldset>
+                                                <legend style="font-size: 10pt"><b>@(en != null ? "Deliberation" : "Deliberasi")</b></legend>
+                                                @if ((Model.letter.statusCode == 1 || Model.letter.statusCode == 5) && Model.letter.createdBy.ToString().ToUpper() == sessidUser)
+                                                {
+                                                    @if (Model.delibration.Count == 0 ||Model.delibration.Count == null )
+                                                    {
+                                                                <div class="form-group row" style="margin-bottom: 0px;margin-top: 0px;">
+                                                                    <div class="col-8 col-md-6 col-sm-10">
+                                                                        <label>To</label>
+                                                                    
+                                                                        <input type="text" autocomplete ="off" class="form-control" placeholder="" id="checkerDelibretion_0" name="checkerDelibretion_0" required="" onkeyup="load_data_Delibretion(this.value,0)">
+                                                                        <span id="search_resultDelibretion_0"></span>
+                                                                        <input type="hidden" class="form-control" id="idUserCheckerDelibretion_0" name="idUserCheckerDelibretion">
+                                                                        <input type="hidden" class="form-control" id="idPositionCheckerDelibretion_0" name="idPositionCheckerDelibretion">
+                                                                        <input type="hidden" class="form-control" id="idLevelCheckerDelibretion_0" name="idLevelCheckerDelibretion">
+                                                                        <input type="hidden" class="form-control" id="idUnitCheckerDelibretion_0" name="idUnitCheckerDelibretion">
+                                                                    </div>
+                                                                    <div class="col-4 col-md-6 col-sm-2">
+                                                                        <label>&nbsp;</label>
+                                                                        <input type="button" value="+" id="btnAddChecker" onclick="AddTextBoxCheckerDelibration()" class="btn btn-success" style="display:block">
+                                                                    </div>
+                                                                </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        @foreach (var item in Model.delibration)
+                                                        {
+                                                        var divDispoDelibretion = "divDispoDelibretion" + orderdelibretion;
+                                                                        <div class="form-group row" id="@divDispoDelibretion" style="margin-bottom: 0px;margin-top: 0px;">
+                                                                            <div class="col-8 col-md-6 col-sm-10">
+                                                                                <label>&nbsp;</label>
+                                                                <input type="text" class="form-control" autocomplete="off" placeholder="" value="@item.fullname - @item.positionName" id="checkerDelibretion_@orderdelibretion" name="checkerDelibretion_0" required="" onkeyup="load_data_Delibretion(this.value,@orderdelibretion)">
+                                                                                <span id="search_resultDelibretion_@orderdelibretion"></span>
+                                                                                <input type="hidden" class="form-control" id="idUserCheckerDelibretion_@orderdelibretion" value="@item.idUser" name="idUserCheckerDelibretion">
+                                                                                <input type="hidden" class="form-control" id="idPositionCheckerDelibretion_@orderdelibretion" value="@item.idPosition" name="idPositionCheckerDelibretion">
+                                                                                <input type="hidden" class="form-control" id="idLevelCheckerDelibretion_@orderdelibretion" value="8" name="idLevelCheckerDelibretion">
+                                                                    <input type="hidden" class="form-control" id="idUnitCheckerDelibretion_@orderdelibretion" value="@item.idUnit" name="idUnitCheckerDelibretion">
+                                                                            </div>
+                                                                            <div class="col-4 col-md-6 col-sm-2">
+                                                                                <label>&nbsp;</label>
+                                                                    @if (orderdelibretion == 0)
+                                                                    {
+                                                                                        <input type="button" value="+" id="btnAddChecker" onclick="AddTextBoxCheckerDelibration()" class="btn btn-success" style="display:block">
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                                        <input type="button" value="-" id="btnRemoveChecker" onclick="RemoveTextBoxCheckerDelibretion(@orderdelibretion)" class="btn btn-warning" style="display:block">
+                                                                    }
+
+                                                                            </div>
+                                                                        </div>
+                                                            orderdelibretion++;
+                                                        }
+                                                    }
+                                                        <div id="TextBoxContainerCheckerDelibretion">
+                                                            <!--Textboxes will be added here -->
+                                                        </div>
+                                                }
+                                                else
+                                                {
+                                                        <ol>
+                                                        @foreach (var item in Model.delibration)
+                                                        {
+                                                                    <li>@item.fullname - @item.positionName</li>
+                                                        }
+                                                        </ol>
+                                                }
+
+
+                                            </fieldset>
+                                        @* end Delibration*@
+
+
+                                        <fieldset>
+                                            <legend style="font-size: 10pt"><b>@(en != null ? "Attachment" : "Lampiran")</b></legend>
+                                            @if (Model.letter.statusCode == 1)
+                                            {
+                                                    <ol>
+                                                    @foreach (var item in Model.attachment)
+                                                    {
+                                                                <li>
+                                                                    <a href="@Url.Action("DownloadAttachment","Letter")?filename=@item.filename" target="_blank">@item.filename</a>
+                                                                    <a style="cursor:pointer;color: white;padding:1px;" class="btn btn-danger" onclick="deletefile('@item.idAttachment')"> Delete </a>
+                                                                </li>
+                                                    }
+
+                                                    </ol>
+                                            }
+                                            else
+                                            {
+                                                    <ol>
+                                                    @foreach (var item in Model.attachment)
+                                                    {
+                                                                <li><a href="@Url.Action("DownloadAttachment","Letter")?filename=@item.filename" target="_blank">@item.filename</a></li>
+                                                    }
+                                                    </ol>
+                                            }
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                @if ((Model.letter.statusCode == 1 || Model.letter.statusCode == 5) && Model.letter.createdBy.ToString().ToUpper() == sessidUser)
+                                {
+                                        <div class="kt-inbox__primary" id="alltemplate" align="Center" style="display: marker;overflow-x: auto;white-space: nowrap;max-width: 100%;margin-left: 1%;margin-right: 1%;">
+                                            <br>
+                                        @foreach (var item in ViewBag.TemplateData)
+                                        {
+                                                    <div class="btn-group">
+                                                        <button type="button" class="btn btn-success btn-bold" data-toggle="modal" data-target="#template_@noTemplate">
+                                                            <i class="flaticon2-checking">&nbsp;@item.templateName</i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal fade" id="template_@noTemplate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel2">@item.templateName</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body" style="text-align: center;">
+                                                                    <textarea class="data_template">@HttpUtility.HtmlDecode(item.templateContent)</textarea>
+                                                                </div>
+                                                                <div class="modal-footer test">
+                                                                    <div style='float: left;'>
+                                                                        <button type="button" onclick="ganti_template('@item.idContentTemplate',@noTemplate)" class="btn btn-success flaticon-list">&nbsp;Pilih</button>
+                                                                    </div>
+                                                                    <div style='float: right;'>
+                                                                        <button type="button" class="btn btn-danger flaticon-close" data-dismiss="modal">&nbsp;Close</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                            noTemplate++;
+                                        }
+
+                                        </div>
+                                }
+                                <div class="col-md-12" style="padding-top: 2%;">
+                                    <div class="tinymce">
+                                        <textarea id="isiSurat" name="isiSurat">
+                                            @Model.letterContent.letterContent
+                                        </textarea>
+                                    </div>
+                                </div>
+                                @if ((Model.letter.statusCode == 1 || Model.letter.statusCode == 5) && Model.letter.createdBy.ToString().ToUpper() == sessidUser)
+                                {
+                                        <div class="col-md-12">
+                                            <div class="form-group row" style="width: 100%">
+                                                <label class="col-lg-3 col-form-label">@(en != null ? "Upload Attachment Files:" : "Upload File Lampiran:")</label>
+                                                <div class="col-lg-12">
+                                                    <div class="kt-uppy dropzone" id="dropss" width="100%" style="height: 100px;">
+                                                    </div>
+                                                    <span class="form-text text-muted">File type: JPG, PNG, DOC, DOCX, XLS, XLSX, PDF(Maksimal 15MB)</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                }
+                                @if (Model.letter.statusCode == 1 || Model.letter.statusCode == 5)
+                                {
+                                    <br />
+                                        <div class="col-md-3">
+                                            <div class="form-group row" style="width: 100%">
+                                                <div class="btn-group col-sm-2">
+                                                    <button type="button" class="btn btn-warning btn-bold" id="btnPreview">
+                                                        <i class="flaticon2-checking">&nbsp;Preview</i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                }
+                                else
+                                {
+                                    <br />
+                                        <div class="col-md-3">
+                                            <div class="form-group row" style="width: 100%">
+                                                <div class="btn-group col-sm-2">
+                                                    <button type="button" class="btn btn-warning btn-bold" onclick="printSurat('@Model.letter.idLetter')">
+                                                        <i class="flaticon2-checking">&nbsp;Preview</i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                }
+
+                                @if (((Model.letter.statusCode == 1 || Model.letter.statusCode == 5) && Model.letter.createdBy.ToString().ToUpper() == sessidUser) || (Model.letter.statusCode == 2 && (currentChecker != null || currentSekreChecker != null || currentApprover != null || currentCheckerlain !=null || currentCheckerPengirim != null || currentpenerima != null  || currentCheckerPengirimDelegasi !=null || currentpenerimaDelegasi !=null || currentCheckerDelegasi !=null || currentCheckerlainDelegasi !=null || currentApproverDelegasi !=null)))
+
+                                {
+                                    
+                                    <div class="col-md-12">
+                                            <div class="form-group row" style="width: 100%">
+                                                <label class="col-lg-3 col-form-label">@(en != null ? "Summary:" : "Ringkasan:") <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                                <div class="col-lg-12">
+                                                    <textarea class="form-control" readonly="1" style="background-color:#e6e9ec !important" id="summary" name="summary" cols="45" rows="3" required>@Model.letterContent.summary</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group row" style="width: 100%">
+                                                <label class="col-lg-3 col-form-label">@(en != null ? "Comment:" : "Komentar:")  <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                                <div class="col-lg-12">
+                                                    <textarea class="form-control" id="comment" name="comment" cols="45" rows="3" required></textarea>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+
+                                        @foreach (var item in @Model.delibration)
+                                        {
+                                            if (item.statuscode == 2 && sessidUser == item.idUser.ToString().ToUpper() && item.idLetter == @Model.letter.idLetter)
+                                            {
+                                                <label class="col-lg-1 col-form-label">@(en != null ? "Deliberation Comments:" : "Komentar Deliberasi:")  <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                                <div class="col-lg-5">
+                                                    <textarea class="form-control" id="commentdlbrt" name="commentdlbrt" cols="45" rows="3"></textarea>
+                                                    <input hidden type="text" class="form-control" id="idUserDelibration" name="idUserDelibration" value="@item.idDeliberation.ToString().ToUpper()">
+                                                    <textarea hidden class="form-control" id="comment" name="comment" cols="45" rows="3" required> test</textarea>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                            
+                                            }
+                                        }
+
+
+                                       
+                                        <div class="col-md-12 col-sm-12" style="padding-top: 1%;padding-left: 2%;">
+                                            @*<div class="kt-inbox__primary" style="padding-bottom: 5%;">*@
+                                                <div class="form-group row">
+                                                    <div class="col-6">
+                                                        <h3>@(en != null ? "Log History" : "Log History")</h3>
+                                                        <div style="border:solid 1px lightgray;border-radius:10px;width:100%;max-height:142px;min-height:142px;overflow-y:scroll">
+                                                            <ul>
+                                                            @foreach (var dtLog in Model.log)
+                                                            {
+                                                                var word = Convert.ToDateTime(dtLog.createdOn).ToString("dd-MM-yyyy HH:mm:ss") + " - " + dtLog.description;
+                                                                        <li>@word</li>
+                                                            }
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <h3>@(en != null ? "Deliberation Comments:" : "Komentar Deliberasi:")</h3>
+                                                        <div style="border:solid 1px lightgray;border-radius:10px;width:100%;max-height:142px;min-height:142px;overflow-y:scroll">
+                                                            <ul>
+                                                                @foreach (var dblt in Model.delibration)
+                                                                {
+                                                                    @if (dblt.commentdlbrt != "")
+                                                                    {
+                                                                        
+                                                                        var word = dblt.fullname + "-" + dblt.positionName + " :";
+                                                                        <li><b>@word</b> <br /> @dblt.commentdlbrt</li>
+                                                                    }
+                                                                }
+
+
+
+
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @*</div>*@
+                                        </div>
+                                }
+                                
+                                else if ((Model.letter.statusCode == 2 && (currentdelibration!= null || currentdelibrationDelegasi !=null)))
+                                {
+                                    <div class="col-md-12">
+                                        <div class="form-group row" style="width: 100%">
+                                            <label class="col-lg-3 col-form-label">@(en != null ? "Summary:" : "Ringkasan:") <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                            <div class="col-lg-12">
+                                                <textarea class="form-control" readonly="1" style="background-color:#e6e9ec !important" id="summary" name="summary" cols="45" rows="3" required>@Model.letterContent.summary</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @foreach (var item in @Model.delibration)
+                                    {
+                                        if (item.statuscode == 2 && sessidUser == item.idUser.ToString().ToUpper() && item.idLetter == @Model.letter.idLetter)
+                                        {
+                                            <label class="col-lg-2 col-form-label">@(en != null ? "Deliberation Comments:" : "Komentar Deliberasi:")  <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                            <div class="col-lg-5">
+                                                <textarea class="form-control" id="commentdlbrt" name="commentdlbrt" cols="45" rows="3"></textarea>
+                                                <input hidden type="text" class="form-control" id="idUserDelibration" name="idUserDelibration" value="@item.idDeliberation.ToString().ToUpper()">
+                                                <textarea hidden class="form-control" id="comment" name="comment" cols="45" rows="3" required> test</textarea>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                        }
+                                    }
+
+                                    @foreach (var item in @Model.delibrationdelegasi)
+                                    {
+                                        if (item.statuscode == 2 && sessidUser == item.idUser.ToString().ToUpper() && item.idLetter == @Model.letter.idLetter)
+                                        {
+                                            <label class="col-lg-2 col-form-label">@(en != null ? "Deliberation Comments:" : "Komentar Deliberasi:")  <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                            <div class="col-lg-5">
+                                                <textarea class="form-control" id="commentdlbrt" name="commentdlbrt" cols="45" rows="3"></textarea>
+                                                <input hidden type="text" class="form-control" id="idUserDelibration" name="idUserDelibration" value="@item.idDeliberation.ToString().ToUpper()">
+                                                <textarea hidden class="form-control" id="comment" name="comment" cols="45" rows="3" required> test</textarea>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                        }
+                                    }
+
+                                    <div class="col-md-12 col-sm-12" style="padding-top: 1%;padding-left: 2%;">
+
+                                        <div class="form-group row">
+                                            <div class="col-6">
+                                                <h3>@(en != null ? "Log History" : "Log History")</h3>
+                                                <div style="border:solid 1px lightgray;border-radius:10px;width:100%;max-height:142px;min-height:142px;overflow-y:scroll">
+                                                    <ul>
+                                                        @foreach (var dtLog in Model.log)
+                                                        {
+                                                            var word = Convert.ToDateTime(dtLog.createdOn).ToString("dd-MM-yyyy HH:mm:ss") + " - " + dtLog.description;
+                                                            <li>@word</li>
+                                                        }
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <h3>@(en != null ? "Deliberation Comments:" : "Komentar Deliberasi:")</h3>
+                                                <div style="border:solid 1px lightgray;border-radius:10px;width:100%;max-height:142px;min-height:142px;overflow-y:scroll">
+                                                    <ul>
+                                                        @foreach (var dblt in Model.delibration)
+                                                        {
+                                                            @if (dblt.commentdlbrt != "")
+                                                            {
+
+                                                                var word = dblt.fullname + "-" + dblt.positionName + " :";
+                                                                <li><b>@word</b> <br /> @dblt.commentdlbrt</li>
+                                                            }
+                                                        }
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                }
+                                
+                                else
+                                {
+                                    <div class="col-md-12">
+                                            <div class="form-group row" style="width: 100%">
+                                                <label class="col-lg-3 col-form-label">@(en != null ? "Summary:" : "Ringkasan:") <span aria-hidden="true" class="required" style="color: red;">*</span></label>
+                                                <div class="col-lg-12">
+                                                    <textarea class="form-control" readonly="1" style="background-color:#e6e9ec !important" id="summary" name="summary" cols="45" rows="3" required>@Model.letterContent.summary</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                   
+                                        <div class="col-md-12 col-sm-12" style="padding-top: 1%;padding-left: 2%;">
+                                            @*<div class="kt-inbox__primary" style="padding-bottom: 5%;">*@
+                                                <div class="form-group row">
+                                                    <div class="col-6">
+                                                        <h3>@(en != null ? "Log History" : "Log History")</h3>
+                                                        <div style="border:solid 1px lightgray;border-radius:10px;width:100%;max-height:142px;min-height:142px;overflow-y:scroll">
+                                                            <ul>
+                                                            @foreach (var dtLog in Model.log)
+                                                            {
+                                                                var word = Convert.ToDateTime(dtLog.createdOn).ToString("dd-MM-yyyy HH:mm:ss") + " - " + dtLog.description;
+                                                                        <li>@word</li>
+                                                            }
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <h3>@(en != null ? "Deliberation Comments:" : "Komentar Deliberasi:")</h3>
+                                                        <div style="border:solid 1px lightgray;border-radius:10px;width:100%;max-height:142px;min-height:142px;overflow-y:scroll">
+                                                            <ul>
+                                                                @foreach (var dblt in Model.delibration)
+                                                                {
+
+                                                                    @if (dblt.commentdlbrt != "")
+                                                                    {
+                                                                        var word = dblt.fullname + "-" + dblt.positionName + " - " + dblt.commentdlbrt;
+                                                                        <li>@word</li>
+                                                                    }
+                                                                }
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @*</div>*@
+                                        </div>
+                                }
+                                @if ((Model.letter.statusCode == 1 || Model.letter.statusCode == 5) && Model.letter.createdBy.ToString().ToUpper() == sessidUser)
+                                {
+                                        <div class="kt-inbox__foot" style="padding-bottom: 2%;">
+                                            <div class="kt-inbox__primary">
+                                                <div class="btn-group col-sm-2">
+                                                    <button type="button" class="btn btn-success btn-bold" onclick="saveSurat(1)">
+                                                        <i class="flaticon-paper-plane-1">&nbsp;@(en != null ? "Save" : "Simpan")</i>
+                                                    </button>
+                                                </div>
+                                                <div class="btn-group col-sm-2">
+                                                    <button type="button" class="btn btn-warning btn-bold" style="color: white;" onclick="saveSurat(2)">
+                                                        <i class="flaticon-paper-plane-1">&nbsp;@(en != null ? "Send" : "Kirim")</i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                }
+                                else if (Model.letter.statusCode == 2 && currentChecker != null)
+                                {
+                                        <div class="kt-inbox__foot" style="padding-bottom: 2%;">
+                                            <div class="kt-inbox__primary">
+                                                <div class="btn-group col-sm-2">
+                                                    <button type="button" class="btn btn-success btn-bold" onclick="aksiAtasan(5)">
+                                                        <i class="flaticon-paper-plane-1">&nbsp;@(en != null ? "Reject" : "Tolak")</i>
+                                                    </button>
+                                                </div>
+                                                <div class="btn-group col-sm-2">
+                                                    <button type="button" class="btn btn-warning btn-bold" style="color: white;" onclick="aksiAtasan(4)">
+                                                        <i class="flaticon-paper-plane-1">&nbsp;@(en != null ? "Approve" : "Setuju")</i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                }
+                                else if (Model.letter.statusCode == 2 && currentCheckerDelegasi != null)
+                                {
+                                        <div class="kt-inbox__foot" style="padding-bottom: 2%;">
+                                            <div class="kt-inbox__primary">
+                                                <div class="btn-group col-sm-2">
+                                                    <button type="button" class="btn btn-success btn-bold" onclick="aksiAtasan(5)">
+                                                        <i class="flaticon-paper-plane-1">&nbsp;@(en != null ? "Reject" : "Tolak")</i>
+                                                    </button>
+                                                </div>
+                                                <div class="btn-group col-sm-2">
+                                                    <button type="button" class="btn btn-warning btn-bold" style="color: white;" onclick="aksiAtasan(4)">
+                                                        <i class="flaticon-paper-plane-1">&nbsp;@(en != null ? "Approve" : "Setuju")</i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                }
+                                
+                                else if (Model.letter.statusCode == 2 && currentCheckerPengirim != null)
+                                {
+                                        <div class="kt-inbox__foot" style="padding-bottom: 2%;">
+                                            <div class="kt-inbox__primary">
+                                                <div class="btn-group col-sm-2">
+                                                    <button type="button" class="btn btn-success btn-bold" onclick="aksiAtasan(5)">
+                                                        <i class="flaticon-paper-plane-1">&nbsp;@(en != null ? "Reject" : "Tolak")</i>
+                                                    </button>
+                                                </div>
+                                                <div class="btn-group col-sm-2">
+                                                    <button type="button" class="btn btn-warning btn-bold" style="color: white;" onclick="aksiAtasan(4)">
+                                                        <i class="flaticon-paper-plane-1">&nbsp;@(en != null ? "Approve" : "Setuju")</i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                }
+                                else if (Model.letter.statusCode == 2 && currentCheckerPengirimDelegasi != null)
+                                {
+                                        <div class="kt-inbox__foot" style="padding-bottom: 2%;">
+                                            <div class="kt-inbox__primary">
+                                                <div class="btn-group col-sm-2">
+                                                    <button type="button" class="btn btn-success btn-bold" onclick="aksiAtasan(5)">
+                                                        <i class="flaticon-paper-plane-1">&nbsp;@(en != null ? "Reject" : "Tolak")</i>
+                                                    </button>
+                                                </div>
+                                                <div class="btn-group col-sm-2">
+                                                    <button type="button" class="btn btn-warning btn-bold" style="color: white;" onclick="aksiAtasan(4)">
+                                                        <i class="flaticon-paper-plane-1">&nbsp;@(en != null ? "Approve" : "Setuju")</i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                }
+                                
+                                else if (Model.letter.statusCode == 2 && currentApprover != null)
+                                {
+                                        <div class="kt-inbox__foot" style="padding-bottom: 2%;">
+                                            <div class="kt-inbox__primary">
+                                                <div class="btn-group col-sm-2">
+                                                    <button type="button" class="btn btn-success btn-bold" onclick="aksiAtasan(5)">
+                                                        <i class="flaticon-paper-plane-1">&nbsp;@(en != null ? "Reject" : "Tolak")</i>
+                                                    </button>
+                                                </div>
+                                                <div class="btn-group col-sm-2">
+                                                    <button type="button" class="btn btn-warning btn-bold" style="color: white;" onclick="aksiAtasan(4)">
+                                                        <i class="flaticon-paper-plane-1">&nbsp;@(en != null ? "Approve" : "Setuju")</i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                }
+                                else if (Model.letter.statusCode == 2 && currentApproverDelegasi != null)
+                                {
+                                        <div class="kt-inbox__foot" style="padding-bottom: 2%;">
+                                            <div class="kt-inbox__primary">
+                                                <div class="btn-group col-sm-2">
+                                                    <button type="button" class="btn btn-success btn-bold" onclick="aksiAtasan(5)">
+                                                        <i class="flaticon-paper-plane-1">&nbsp;@(en != null ? "Reject" : "Tolak")</i>
+                                                    </button>
+                                                </div>
+                                                <div class="btn-group col-sm-2">
+                                                    <button type="button" class="btn btn-warning btn-bold" style="color: white;" onclick="aksiAtasan(4)">
+                                                        <i class="flaticon-paper-plane-1">&nbsp;@(en != null ? "Approve" : "Setuju")</i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                }
+                                
+                                else if (Model.letter.statusCode == 2 && currentCheckerlain != null)
+                                {
+                                        <div class="kt-inbox__foot" style="padding-bottom: 2%;">
+                                            <div class="kt-inbox__primary">
+                                                <div class="btn-group col-sm-2">
+                                                    <button type="button" class="btn btn-success btn-bold" onclick="aksiAtasan(5)">
+                                                        <i class="flaticon-paper-plane-1">&nbsp;@(en != null ? "Reject" : "Tolak")</i>
+                                                    </button>
+                                                </div>
+                                                <div class="btn-group col-sm-2">
+                                                    <button type="button" class="btn btn-warning btn-bold" style="color: white;" onclick="aksiAtasan(4)">
+                                                        <i class="flaticon-paper-plane-1">&nbsp;@(en != null ? "Approve" : "Setuju")</i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                }
+                                else if (Model.letter.statusCode == 2 && currentCheckerlainDelegasi != null)
+                                {
+                                        <div class="kt-inbox__foot" style="padding-bottom: 2%;">
+                                            <div class="kt-inbox__primary">
+                                                <div class="btn-group col-sm-2">
+                                                    <button type="button" class="btn btn-success btn-bold" onclick="aksiAtasan(5)">
+                                                        <i class="flaticon-paper-plane-1">&nbsp;@(en != null ? "Reject" : "Tolak")</i>
+                                                    </button>
+                                                </div>
+                                                <div class="btn-group col-sm-2">
+                                                    <button type="button" class="btn btn-warning btn-bold" style="color: white;" onclick="aksiAtasan(4)">
+                                                        <i class="flaticon-paper-plane-1">&nbsp;@(en != null ? "Approve" : "Setuju")</i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                }
+                                
+                                else if (Model.letter.statusCode == 2 && currentpenerima != null)
+                                {
+                                        <div class="kt-inbox__foot" style="padding-bottom: 2%;">
+                                            <div class="kt-inbox__primary">
+                                                <div class="btn-group col-sm-2">
+                                                    <button type="button" class="btn btn-success btn-bold" onclick="aksiAtasan(5)">
+                                                        <i class="flaticon-paper-plane-1">&nbsp;@(en != null ? "Reject" : "Tolak")</i>
+                                                    </button>
+                                                </div>
+                                                <div class="btn-group col-sm-2">
+                                                    <button type="button" class="btn btn-warning btn-bold" style="color: white;" onclick="aksiAtasan(4)">
+                                                        <i class="flaticon-paper-plane-1">&nbsp;@(en != null ? "Approve" : "Setuju")</i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                }
+                                else if (Model.letter.statusCode == 2 && currentpenerimaDelegasi != null)
+                                {
+                                        <div class="kt-inbox__foot" style="padding-bottom: 2%;">
+                                            <div class="kt-inbox__primary">
+                                                <div class="btn-group col-sm-2">
+                                                    <button type="button" class="btn btn-success btn-bold" onclick="aksiAtasan(5)">
+                                                        <i class="flaticon-paper-plane-1">&nbsp;@(en != null ? "Reject" : "Tolak")</i>
+                                                    </button>
+                                                </div>
+                                                <div class="btn-group col-sm-2">
+                                                    <button type="button" class="btn btn-warning btn-bold" style="color: white;" onclick="aksiAtasan(4)">
+                                                        <i class="flaticon-paper-plane-1">&nbsp;@(en != null ? "Approve" : "Setuju")</i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                }
+                                
+                                
+                                else if (Model.letter.statusCode == 2  && currentSekreChecker != null)
+                                {
+                                        <div class="kt-inbox__foot" style="padding-bottom: 2%;">
+                                            <div class="kt-inbox__primary">
+                                                <div class="btn-group col-sm-2">
+                                                    <button type="button" class="btn btn-success btn-bold" onclick="aksiAtasan(5)">
+                                                        <i class="flaticon-paper-plane-1">&nbsp;@(en != null ? "Reject" : "Tolak")</i>
+                                                    </button>
+                                                </div>
+                                                <div class="btn-group col-sm-2">
+                                                    <button type="button" class="btn btn-warning btn-bold" style="color: white;" onclick="aksiAtasan(4)">
+                                                        <i class="flaticon-paper-plane-1">&nbsp;@(en != null ? "Approve" : "Setuju")</i>
+                                                    </button>
+                                                </div>
+                                                <div class="btn-group col-sm-2">
+                                                    <button type="button" class="btn btn-primary btn-bold" style="color: white;" onclick="aksiNotif('@Model.letter.idLetter')">
+                                                        <i class="flaticon-bell-1">&nbsp;@(en != null ? "Notification" : "Notifikasi")</i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                }
+                                else if (Model.letter.statusCode == 2 && currentdelibration != null && currentCheckerdelibration == 0)
+                                {
+
+                                    <div class="kt-inbox__foot" style="padding-bottom: 2%;">
+                                            <div class="kt-inbox__primary">
+                                                <div class="btn-group col-sm-2">
+                                                    <button type="button" class="btn btn-warning btn-bold" style="color: white;" onclick="aksiAtasan(4)">
+                                                        <i class="flaticon-paper-plane-1">&nbsp;@(en != null ? "Submit" : "Submit")</i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                }
+                                else if (Model.letter.statusCode == 2 && currentdelibrationDelegasi != null && currentCheckerdelibrationDelegasi == 0)
+                                {
+
+                                    <div class="kt-inbox__foot" style="padding-bottom: 2%;">
+                                            <div class="kt-inbox__primary">
+                                                <div class="btn-group col-sm-2">
+                                                    <button type="button" class="btn btn-warning btn-bold" style="color: white;" onclick="aksiAtasan(4)">
+                                                        <i class="flaticon-paper-plane-1">&nbsp;@(en != null ? "Submit" : "Submit")</i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                }
+                                
+                            </form>
+                            @if (Model.letter.statusCode == 4)
+                            {
+                                    <div class="kt-inbox__foot" style="padding-bottom: 2%;">
+                                        <div class="kt-inbox__primary">
+                                            @*<div class="btn-group col-sm-2" style="">
+                                                <button type="button" class="btn btn-success btn-bold" onclick="disposisi()" style="padding-bottom: 3%;padding-top: 3%;">
+                                                    <i class="flaticon2-mail-1" style="font-size: 14pt;padding-top: 3%;"></i><label style="margin-bottom: 0;font-size: 1.2rem;">&nbsp;Disposisi</label>
+                                                </button>
+                                            </div>*@
+
+                                            <div id="disposisi" class="form-group" style="display:none;background-color:#afd1ea;margin-left: 0.8%;margin-right: 0.8%;margin-top: 1%;padding-bottom: 1%;padding-top: 1%;">
+                                                <form method="post" asp-action="PostLetterDisposition" asp-controller="Letter">
+                                                    <div id="divDispo" class="form-group row" style="margin-left:0.8%;margin-right:0.8%;">
+                                                        <input type="hidden" class="form-control" id="idLetter" name="idLetter" value="@Model.letter.idLetter">
+                                                        <div class="col-md-3">
+                                                            <label>@(en != null ? "Forwarded To" : "Diteruskan Kepada")</label>
+                                                            <input type="text" class="form-control" id="idUserText_0" name="idUserText_0" placeholder="autocomplete" required="" onkeyup="load_data(this.value,0)">
+                                                            <span id="search_result_0"></span>
+                                                            <input type="hidden" class="form-control" id="idUser_0" name="idUser">
+                                                            <input type="hidden" class="form-control" id="idPosition_0" name="idPosition">
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label>@(en != null ? "Notes" : "Catatan")</label>
+                                                            <textarea name="notes" id="notes_0" cols="40" class="form-control" style="resize: none;"></textarea>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label>&nbsp;</label>
+                                                            <input type="button" value="+" id="btnAddDisposisi" onclick="AddTextBoxDisposisi()" class="btn btn-success" style="display:block">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" id="divDisposisi">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="btn-group col-sm-2" style="">
+                                                            <button type="button" class="btn btn-success btn-bold" style="padding-bottom: 3%;padding-top: 3%;" id="submitDisposisi">
+                                                                <i class="flaticon2-mail-1" style="font-size: 14pt;padding-top: 3%;"></i><label style="margin-bottom: 0;font-size: 1.2rem;">&nbsp;@(en != null ? "Process" : "Proses")</label>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/assets/tinymcepack/tinymce.js?v=7.3.0" type="text/javascript"></script>
+<link href="~/assets/demo/demo2/new_theme/css/dropzone.css" rel="stylesheet" type="text/css" />
+<script src="~/assets/demo/demo2/new_theme/js/dropzone.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var orderKepada = 0;
+    var orderPemeriksa = 0;
+    var orderPenerima = 0;
+    var orderCarbonCopy = 0;
+    var orderDelibration = 0;
+    var orderPemeriksalain = 0;
+    $(document).ready(function () {
+        var ordersKepada = @orderkepada+1;
+        var ordersPemeriksa = @orderpemeriksa+1;
+        var ordersPenerima = @orderpenerima+1;
+        var ordersCarbonCopy = @ordercarboncopy+1;
+        var ordersDelibrations = @orderdelibretion+1;
+        var ordersPemeriksalain = @orderpemeriksalain+1;
+
+        orderKepada = ordersKepada;
+        orderPemeriksa = ordersPemeriksa;
+        orderPenerima = ordersPenerima;
+        orderCarbonCopy = ordersCarbonCopy;
+        orderDelibration = ordersDelibrations;
+        orderPemeriksalain = ordersPemeriksalain;
+    });
+
+    function AddTextBoxChecker() {
+        var html = "<div id='divDispo" + orderPemeriksa + "' class='form-group row' style='margin-bottom: 0px;margin-top: 0px;'> <div class='col-8 col-md-6 col-sm-10'> <label>&nbsp;</label> <input type='text' class='form-control' id='checker_" + orderPemeriksa + "' name='checker_" + orderPemeriksa + "' placeholder='' autocomplete='off' required='' onkeyup='load_data_pemeriksa(this.value," + orderPemeriksa + ")'><span id='search_result_" + orderPemeriksa + "'></span> <input type='hidden' class='form-control idUserChecker' id='idUserChecker_" + orderPemeriksa + "' name='idUserChecker'> <input type='hidden' class='form-control idPositionChecker' id='idPositionChecker_" + orderPemeriksa + "' name='idPositionChecker'><input type='hidden' class='form-control idPositionChecker' id='idLevelChecker_" + orderPemeriksa + "' name='idLevelChecker'><input type='hidden' class='form-control' id='idUnitChecker_" + orderPemeriksa + "' name='idUnitChecker'> </div>  <div class='col-4 col-md-6 col-sm-2'> <label>&nbsp;</label> <input type='button' value='-' id='btnRemoveChecker' onclick='RemoveTextBoxChecker(" + orderPemeriksa + ")' class='btn btn-warning' style='display:block'> </div> </div>";
+        $('#TextBoxContainerChecker').append(html);
+
+        orderPemeriksa++;
+    }
+
+    function AddTextBoxReceiver() {
+        var html = "<div id='divReceiver" + orderKepada + "' class='form-group row' style='margin-bottom: 0px;margin-top: 0px;'> <div class='col-8 col-md-6 col-sm-10'> <label>&nbsp;</label> <input type='text' class='form-control' id='senderName' name='senderName' placeholder='' autocomplete='off' required=''> </div>  <div class='col-4 col-md-6 col-sm-2'> <label>&nbsp;</label> <input type='button' value='-' id='btnRemoveReceiver' onclick='RemoveTextBoxReceiver(" + orderKepada + ")' class='btn btn-warning' style='display:block'> </div> </div>";
+        $('#TextBoxContainerReceiver').append(html);
+        orderKepada++;
+    }
+
+    function RemoveTextBoxChecker(idDiv) {
+        $("#divDispo" + idDiv).remove();
+    }
+
+    function AddTextBoxDisposisi() {
+        var html = "<div id='divDispo" + orderDisposisi + "' class='form-group row' style='margin-left:0.8%;margin-right:0.8%;'> <div class='col-md-3'> <label>Diteruskan Kepada</label> <input type='text' class='form-control' id='idUserText_" + orderDisposisi + "' name='idUserText_" + orderDisposisi + "' placeholder='' autocomplete='off' required='' onkeyup='load_data(this.value," + orderDisposisi + ")'><span id='search_result_" + orderDisposisi + "'></span> <input type='hidden' class='form-control idUserDispo' id='idUser_" + orderDisposisi + "' name='idUser'> <input type='hidden' class='form-control idPositionDispo' id='idPosition_" + orderDisposisi + "' name='idPosition'> </div> <div class='col-md-3'> <label>Catatan</label> <textarea name='notes' id='notes_0' cols='40' class='form-control' style='resize: none;'></textarea> </div> <div class='col-md-3'> <label>&nbsp;</label> <input type='button' value='-' id='btnRemoveDisposisi' onclick='RemoveTextBoxDisposisi(" + orderDisposisi + ")' class='btn btn-warning' style='display:block'> </div> </div>";
+        $('#divDisposisi').append(html);
+
+        orderDisposisi++;
+    }
+
+    function RemoveTextBoxPenerima(idDiv) {
+        $("#divpenerimabaru" + idDiv).remove();
+    }
+
+    function RemoveTextBoxReceiver(idDiv) {
+        $("#divReceiver" + idDiv).remove();
+    }
+
+
+    function AddTextBoxCheckerApprover() {
+        var html = "<div id='divDispoApprover" + orderApprover + "' class='form-group row' style='margin-bottom: 0px;margin-top: 0px;'> <div class='col-8 col-md-6 col-sm-10'> <label>&nbsp;</label> <input type='text' class='form-control' id='checkerApprover_" + orderApprover + "' name='checkerApprover_" + orderApprover + "' placeholder='' autocomplete='off' required='' onkeyup='load_data_Approver(this.value," + orderApprover + ")'><span id='search_resultApprover_" + orderApprover + "'></span> <input type='hidden' class='form-control idUserApprover' id='idUserApprover_" + orderApprover + "' name='idUserApprover'> <input type='hidden' class='form-control idPositionApprover' id='idPositionApprover_" + orderApprover + "' name='idPositionApprover'><input type='hidden' class='form-control idPositionChecker' id='idLevelApprover_" + orderApprover + "' name='idLevelApprover'><input type='hidden' class='form-control' id='idUnitApprover_" + orderApprover + "' name='idUnitApprover'> </div>  <div class='col-4 col-md-6 col-sm-2'> <label>&nbsp;</label> <input type='button' value='-' id='btnRemoveChecker' onclick='RemoveTextBoxCheckerApprover(" + orderApprover + ")' class='btn btn-warning' style='display:block'> </div> </div>";
+        $('#TextBoxContainerCheckerApprover').append(html);
+
+        orderApprover++;
+    }
+
+     function load_data_Approver(keyword, number) {
+        if (keyword.length >= 3) {
+            $.ajax({
+                url: "@Url.Action("GetUserCopy","BackDate")",
+                method: "POST",
+                data: { keyword: keyword },
+                success: function (msg) {
+                    var data = JSON.parse(msg);
+                    var html = '<div class="list-group">';
+                    for (var i = 0; i < data.length; i++) {
+                        var value = data[i].idUser + " - " + data[i].idPosition + " - " + data[i].idUnit;
+                        var text = data[i].userName + " - " + data[i].positionName;
+                        if (number == 1000) {
+                            text = data[i].nip + " - " + data[i].positionName + " - " + data[i].userName;
+                        }
+                        html += '<div class="list-group-item list-group-item-action" onclick="get_text_Approver(\'' + text + '\',' + number + ',\'' + value + '\',' + data[i].idLevel + ')">' + text + '</div>';
+                    }
+                    html += '</div>';
+                    if (number != 1000) {
+                        document.getElementById('search_resultApprover_' + number).innerHTML = html;
+                    } 
+                    else {
+                        document.getElementById('search_result_sender').innerHTML = html;
+                    }
+
+                }
+            });
+        }
+        else {
+            if (number != 1000) {
+                document.getElementById('search_resultApprover_' + number).innerHTML = '';
+            } else {
+                document.getElementById('search_result_sender').innerHTML = '';
+            }
+        }
+    }
+
+
+    
+     function get_text_Approver(text, number, value, level) {
+        console.log('value : ', text);
+        var splitValue = value.split(" - ");
+        var splitText = text.split(" - ");
+        if (number != 1000) {
+            document.getElementById('checkerApprover_' + number).value = text;
+            document.getElementById('idUserApprover_' + number).value = splitValue[0];
+            document.getElementById('idPositionApprover_' + number).value = splitValue[1];
+            document.getElementById('idUnitApprover_' + number).value = splitValue[2];
+            document.getElementById('idLevelApprover_' + number).value = level;
+            document.getElementById('search_resultApprover_' + number).innerHTML = '';
+        } 
+       
+
+    }
+
+    function RemoveTextBoxCheckerApprover(idDiv) {
+        $("#divDispoApprover" + idDiv).remove();
+    }
+    //Type Memo
+
+    function getTipeMemo(outboxType) {
+        $('#idMemoType option:not(:first)').remove();
+        //var JenissMemoValue = outboxType.split(",");
+        //console.log(JenissMemoValue[0]);
+        $.ajax({
+            url: "@Url.Action("GetTypeMemo","Memo")",
+            method: "POST",
+            //data: { JenissMemoValue: JenissMemoValue[0] },
+            data: { outboxType: outboxType },
+            success: function (msg) {
+                var data = JSON.parse(msg);
+                var result = data.Result;
+                console.log(data.Result);
+                for (var i = 0; i < result.length; i++) {
+                    $("#idMemoType").append('<option value="' + result[i].idmemotype + '">' + result[i].memotypename + '</option>');
+                    //$('#approvalP').val($('#approvalP').val() + result[i].idPengadaan);
+                }
+
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("ERROR!!!");
+            }
+        });
+    }
+
+    //end
+
+     @*to*@
+
+    function AddTextBoxCheckerPenerima() {
+        var html = "<div id='divDispoPenerima" + orderPenerima + "' class='form-group row' style='margin-bottom: 0px;margin-top: 0px;'> <div class='col-8 col-md-6 col-sm-10'> <label>&nbsp;</label> <input type='text' class='form-control' id='checkerPenerima_" + orderPenerima + "' name='checkerPenerima_" + orderPenerima + "' placeholder='' autocomplete='off' required='' onkeyup='load_data_penerima(this.value," + orderPenerima + ")'><span id='search_resultPenerima_" + orderPenerima + "'></span> <input type='hidden' class='form-control idUserCheckerPenerima' id='idUserCheckerPenerima_" + orderPenerima + "' name='idUserCheckerPenerima'> <input type='hidden' class='form-control idPositionCheckerPenerima' id='idPositionCheckerPenerima_" + orderPenerima + "' name='idPositionCheckerPenerima'><input type='hidden' class='form-control idPositionCheckerPenerima' id='idLevelCheckerPenerima_" + orderPenerima + "' name='idLevelCheckerPenerima'><input type='hidden' class='form-control' id='idUnitCheckerPenerima_" + orderPenerima + "' name='idUnitCheckerPenerima'> </div>  <div class='col-4 col-md-6 col-sm-2'> <label>&nbsp;</label> <input type='button' value='-' id='btnRemoveCheckerPenerima' onclick='RemoveTextBoxCheckerPenerima(" + orderPenerima + ")' class='btn btn-warning' style='display:block'> </div> </div>";
+        $('#TextBoxContainerCheckerPenerima').append(html);
+
+        orderPenerima++;
+    }
+
+
+    function RemoveTextBoxCheckerPenerima(idDiv) {
+        $("#divDispoPenerima" + idDiv).remove();
+    }
+
+    @* end to*@
+
+    @*cc*@
+
+    function AddTextBoxCheckerCarbonCopy() {
+            var html = "<div id='divDispoCarbonCopy" + orderCarbonCopy + "' class='form-group row' style='margin-bottom: 0px;margin-top: 0px;'> <div class='col-8 col-md-6 col-sm-10'> <label>&nbsp;</label> <input type='text' class='form-control' id='checkerCarbonCopy_" + orderCarbonCopy + "' name='checkerCarbonCopy_" + orderCarbonCopy + "' placeholder='' autocomplete='off' required='' onkeyup='load_data_carboncopy(this.value," + orderCarbonCopy + ")'><span id='search_resultCarbonCopy_" + orderCarbonCopy + "'></span> <input type='hidden' class='form-control idUserCheckerCarbonCopy' id='idUserCheckerCarbonCopy_" + orderCarbonCopy + "' name='idUserCheckerCarbonCopy'> <input type='hidden' class='form-control idPositionCheckerCarbonCopy' id='idPositionCheckerCarbonCopy_" + orderCarbonCopy + "' name='idPositionCheckerCarbonCopy'><input type='hidden' class='form-control idPositionCheckerCarbonCopy' id='idLevelCheckerCarbonCopy_" + orderCarbonCopy + "' name='idLevelCheckerCarbonCopy'><input type='hidden' class='form-control' id='idUnitCheckerCarbonCopy_" + orderCarbonCopy + "' name='idUnitCheckerCarbonCopy'> </div>  <div class='col-4 col-md-6 col-sm-2'> <label>&nbsp;</label> <input type='button' value='-' id='btnRemoveCheckerCarbonCopy' onclick='RemoveTextBoxCheckerCarbonCopy(" + orderCarbonCopy + ")' class='btn btn-warning' style='display:block'> </div> </div>";
+        $('#TextBoxContainerCheckerCarbonCopy').append(html);
+
+        orderCarbonCopy++;
+    }
+
+
+    function RemoveTextBoxCheckerCarbonCopy(idDiv) {
+        $("#divDispoCarbonCopy" + idDiv).remove();
+    }
+
+
+
+    @*end cc*@
+
+          // pemeriksalainya
+
+    function AddTextBoxCheckerlain() {
+        var html = "<div id='divDispolain" + orderPemeriksalain + "' class='form-group row' style='margin-bottom: 0px;margin-top: 0px;'> <div class='col-8 col-md-6 col-sm-10'> <label>&nbsp;</label> <input type='text' class='form-control' id='checkerlain_" + orderPemeriksalain + "' name='checkerlain_" + orderPemeriksalain + "' placeholder='' autocomplete='off' required='' onkeyup='load_data_pemeriksalain(this.value," + orderPemeriksalain + ")'><span id='search_resultlain_" + orderPemeriksalain + "'></span> <input type='hidden' class='form-control idUserCheckerlain' id='idUserCheckerlain_" + orderPemeriksalain + "' name='idUserCheckerlain'> <input type='hidden' class='form-control idPositionCheckerlain' id='idPositionCheckerlain_" + orderPemeriksalain + "' name='idPositionCheckerlain'><input type='hidden' class='form-control idPositionCheckerlain' id='idLevelCheckerlain_" + orderPemeriksalain + "' name='idLevelCheckerlain'><input type='hidden' class='form-control' id='idUnitCheckerlain_" + orderPemeriksalain + "' name='idUnitCheckerlain'> </div>  <div class='col-4 col-md-6 col-sm-2'> <label>&nbsp;</label> <input type='button' value='-' id='btnRemoveCheckerLain' onclick='RemoveTextBoxCheckerlain(" + orderPemeriksalain + ")' class='btn btn-warning' style='display:block'> </div> </div>";
+        $('#TextBoxContainerCheckerlain').append(html);
+
+        orderPemeriksalain++;
+    }
+
+    function RemoveTextBoxCheckerlain(idDiv) {
+        $("#divDispolain" + idDiv).remove();
+    }
+
+    function load_data_pemeriksalain(keyword, number) {
+        if (keyword.length >= 3) {
+            $.ajax({
+                url: "@Url.Action("GetDataPemeriksaDivLainya","Memo")",
+                method: "POST",
+                data: { keyword: keyword },
+                success: function (msg) {
+                    var data = JSON.parse(msg);
+                    var html = '<div class="list-group">';
+                    for (var i = 0; i < data.length; i++) {
+                        var value = data[i].idUser + " - " + data[i].idPosition + " - " + data[i].idUnit;
+                        var text = data[i].userName + " - " + data[i].positionName;
+                        if (number == 1000) {
+                            text = data[i].nip + " - " + data[i].positionName + " - " + data[i].userName;
+                        }
+                        html += '<div class="list-group-item list-group-item-action" onclick="get_textlain(\'' + text + '\',' + number + ',\'' + value + '\',' + data[i].idLevel + ')">' + text + '</div>';
+                    }
+                    html += '</div>';
+                    if (number != 1000) {
+                        document.getElementById('search_resultlain_' + number).innerHTML = html;
+                    } else {
+                        document.getElementById('search_result_sender').innerHTML = html;
+                    }
+
+                }
+            });
+        }
+        else {
+            if (number != 1000) {
+                document.getElementById('search_resultlain_' + number).innerHTML = '';
+            } else {
+                document.getElementById('search_result_sender').innerHTML = '';
+            }
+        }
+    }
+    
+    function get_textlain(text, number, value, level) {
+        console.log('value : ', text);
+        var splitValue = value.split(" - ");
+        var splitText = text.split(" - ");
+        if (number != 1000) {
+            document.getElementById('checkerlain_' + number).value = text;
+            document.getElementById('idUserCheckerlain_' + number).value = splitValue[0];
+            document.getElementById('idPositionCheckerlain_' + number).value = splitValue[1];
+            document.getElementById('idUnitCheckerlain_' + number).value = splitValue[2];
+            document.getElementById('idLevelCheckerlain_' + number).value = level;
+            document.getElementById('search_resultlain_' + number).innerHTML = '';
+        } 
+        //else {
+        //    document.getElementById('nipBoss').value = splitText[0];
+        //    document.getElementById('bossPositionName').value = splitText[1];
+        //    document.getElementById('bossName').value = splitText[2];
+        //    document.getElementById('bossUserId').value = splitValue[0];
+        //    document.getElementById('bossPositionId').value = splitValue[1];
+        //    document.getElementById('bossUnitId').value = splitValue[2];
+        //    document.getElementById('bossLevelId').value = level;
+        //    document.getElementById('search_result_sender').innerHTML = '';
+        //}
+
+    }
+
+    //end
+
+
+     @*delibration*@
+     
+    function AddTextBoxCheckerDelibration() {
+            var html = "<div id='divDispoDelibretion" + orderDelibretion + "' class='form-group row' style='margin-bottom: 0px;margin-top: 0px;'> <div class='col-8 col-md-6 col-sm-10'> <label>&nbsp;</label> <input type='text' class='form-control' id='checkerDelibretion_" + orderDelibretion + "' name='checkerDelibretion_" + orderDelibretion + "' placeholder='' autocomplete='off' required='' onkeyup='load_data_Delibretion(this.value," + orderDelibretion + ")'><span id='search_resultDelibretion_" + orderDelibretion + "'></span> <input type='hidden' class='form-control idUserCheckerDelibretion' id='idUserCheckerDelibretion_" + orderDelibretion + "' name='idUserCheckerDelibretion'> <input type='hidden' class='form-control idPositionCheckerDelibretion' id='idPositionCheckerDelibretion_" + orderDelibretion + "' name='idPositionCheckerDelibretion'><input type='hidden' class='form-control idPositionChecker' id='idLevelCheckerDelibretion_" + orderDelibretion + "' name='idLevelCheckerDelibretion'><input type='hidden' class='form-control' id='idUnitCheckerDelibretion_" + orderDelibretion + "' name='idUnitCheckerDelibretion'> </div>  <div class='col-4 col-md-6 col-sm-2'> <label>&nbsp;</label> <input type='button' value='-' id='btnRemoveChecker' onclick='RemoveTextBoxCheckerDelibretion(" + orderDelibretion + ")' class='btn btn-warning' style='display:block'> </div> </div>";
+        $('#TextBoxContainerCheckerDelibretion').append(html);
+
+        orderDelibretion++;
+    }
+
+
+    function RemoveTextBoxCheckerDelibretion(idDiv) {
+        $("#divDispoDelibretion" + idDiv).remove();
+    }
+
+    @*end delibration*@
+
+
+
+
+
+    function RemoveTextBoxTembusan(idDiv) {
+        $("#divtembusanbaru" + idDiv).remove();
+    }
+
+    function RemoveTextBoxDisposisi(idDiv) {
+        $("#divDispo" + idDiv).remove();
+    }
+
+    function disposisi() {
+        var divDisposisi = document.getElementById("disposisi");
+        divDisposisi.style.display = "block";
+    }
+
+    function getListUserDispo(keyword) {
+        $.ajax({
+            url: "@Url.Action("GetUserCopy","Memo")",
+            method: "POST",
+            data: { keyword: keyword },
+            success: function (msg) {
+                var data = JSON.parse(msg);
+                var html = "<datalist id='languageList'>";
+                for (var i = 0; i < data.length; i++) {
+                    html += "<option value='" + data[i].idUser + " - " + data[i].idPosition + "'>" + data[i].userName + " - " + data[i].positionName + "</option>"
+                }
+                html += "</datalist>";
+                $("#dataListUserDispo").html("");
+                $("#dataListUserDispo").html(html);
+
+            }
+        });
+    }
+    const letterStatus = @Model.letter.statusCode;
+    if (letterStatus == 1 || letterStatus == 5) {
+        tinymce.init({
+            selector: 'textarea#isiSurat',
+            height: 500,
+            plugins: [
+                'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                'insertdatetime', 'media', 'table', 'help', 'wordcount'
+            ],
+            toolbar: 'undo redo | blocks | ' +
+                'bold italic backcolor | alignleft aligncenter ' +
+                'alignright alignjustify | bullist numlist outdent indent | ' +
+                'removeformat | help',
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }'
+        });
+    } else {
+        tinymce.init({
+            selector: 'textarea#isiSurat',
+            height: 500,
+            readonly: true,
+            plugins: [
+                'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                'insertdatetime', 'media', 'table', 'help', 'wordcount'
+            ],
+            toolbar: 'undo redo | blocks | ' +
+                'bold italic backcolor | alignleft aligncenter ' +
+                'alignright alignjustify | bullist numlist outdent indent | ' +
+                'removeformat | help',
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }'
+        });
+    }
+    tinymce.init({
+        selector: 'textarea.data_template',
+        height: 500,
+        readonly: true,
+        // menubar: false,
+        plugins: [
+            'advlist autolink lists link image charmap print preview anchor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table paste code help wordcount'
+        ],
+        toolbar: 'undo redo | formatselect | ' +
+            'bold italic backcolor | alignleft aligncenter ' +
+            'alignright alignjustify | bullist numlist outdent indent | help',
+        // content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+    });
+
+    function ganti_template(idTemplate, number) {
+        if (confirm('Isi memo akan hilang apabila template dirubah, apakah ingin melanjutkan ?')) {
+            var datatemplates = @Html.Raw(jsonTemplateData);
+            var filter = "idContentTemplate";
+            var filteredData = datatemplates.filter(function (obj) {
+                return obj[filter] === idTemplate;
+            });
+            tinymce.get("isiSurat").setContent(filteredData[0].templateContent);
+            $('#template_' + number).modal('hide');
+            //console.log(filteredData);
+        } else {
+            return false;
+        }
+    }
+
+
+</script>
+<script>
+    Dropzone.autoDiscover = false;
+    var idresponse = 0;
+    var files = 0;
+    var idsrtfile = document.getElementById('idresponsesurat').value;
+    var param = files + '~' + idsrtfile;
+
+    var myDropzone = new Dropzone("div#dropss", {
+        url: "@Url.Action("SaveAttachment","Memo")?param=" + param,
+        // acceptedMimeTypes:'image/JPEG,image/jpeg,image/jpg,image/JPG,application/pdf,/application/PDF,application/doc,application/docx,application/xls,application/xlsx,application/DOC,application/DOCX,application/XLS,application/XLSX',
+        autoProcessQueue: false,
+        parallelUploads: 1, // Number of files process at a time (default 2)
+        addRemoveLinks: true,
+        maxFiles: 10,
+        maxFilesize: 75,
+        timeout: 30000,
+        init: function () {
+            this.on("addedfile", function () {
+                // creates an array of the files that are in queue
+                var arr = myDropzone.files.length;
+                //alert(arr); // displays object and not the file name.
+                document.getElementById("attachmentCount").value = arr;
+
+            });
+            this.on("removedfile", function () {
+                // creates an array of the files that are in queue
+                var arr = myDropzone.files.length;
+                //alert(arr); // displays object and not the file name.
+                document.getElementById("attachmentCount").value = arr;
+
+            });
+            this.on("success", function (file, response) {
+                //alert(response);
+                var res = JSON.parse(response);
+                console.log(res);
+                idresponse = res.idLetter;
+                idsrtfile = res.idLetter;
+                //alert('sukses');
+                $(".dz-success-mark svg").css("background", "green");
+                $(".dz-error-mark").css("display", "none");
+                files += 1;
+                param = files + '~' + idsrtfile;
+                this.options.url = "@Url.Action("SaveAttachment","Memo")?param=" + param;
+                myDropzone.processQueue();
+            });
+            this.on("complete", function (file) {
+                //alert(response);
+                if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
+                    $('#idresponsesurat').val(idresponse);
+                    //var tipes = document.getElementById('tipe').value
+                    console.log(idresponse)
+                    document.forms['formSurat'].submit();
+                }
+
+            });
+            this.on("error", function (file, error, xhr) {
+                alert(error);
+                var ficheiro = { name: file.name, status: xhr.status, statusText: xhr.statusText, erro: error.message };
+                console.log(ficheiro);
+            });
+        }
+
+    });
+</script>
+<script>
+    function saveSurat(flag) {
+        var outboxType = document.getElementById("outboxType").value;
+        var about = document.getElementById("about").value;
+        var resultType = document.getElementById("resultType").value;
+        var signatureType = document.getElementById("signatureType").value;
+        var bossPositionId = document.getElementById("bossPositionId").value;
+        var bossUserId = document.getElementById("bossUserId").value;
+        var nipBoss = document.getElementById("nipBoss").value;
+        var bossName = document.getElementById("bossName").value;
+    @*var senderName = document.getElementById("senderName").value;*@
+        var kepada = document.getElementById("checkerPenerima_0").value;
+        var comment = document.getElementById("comment").value;
+        if (outboxType == "") {
+            callAlert("Jenis dokumen tidak boleh kosong!");
+            return false;
+        }
+        if (about == "") {
+            callAlert("Perihal memo tidak boleh kosong!");
+            return false;
+        }
+        if (resultType == "") {
+            callAlert("Hasil memo tidak boleh kosong!");
+            return false;
+        }
+        if (signatureType == "") {
+            callAlert("Tanda tangan memo tidak boleh kosong!");
+            return false;
+        }
+        if (kepada == "") {
+            callAlert("Informasi penerima memo tidak boleh kosong!");
+            return false;
+        }
+        if (bossPositionName == "" || bossPositionId == "" || bossUserId == "" || nipBoss == "" || bossName == "") {
+            callAlert("Informasi pengirim memo tidak boleh kosong!");
+            return false;
+        }
+        if (comment == "") {
+            callAlert("Komentar memo tidak boleh kosong!");
+            return false;
+        }
+        var message = "Anda yakin ingin mengirim memo ini?";
+        if (flag == 1) {
+            message = "Anda yakin ingin menyimpan memo ini?";
+        }
+        var conf = confirm(message);
+        tinyMCE.triggerSave();
+        if (conf == true) {
+            $('#saveType').val(flag);
+            if (myDropzone.files.length == 0) {
+                document.forms['formSurat'].submit();
+            }
+            else {
+                myDropzone.processQueue();
+            }
+            //document.forms['eval-form'].submit();a
+        }
+    }
+    function aksiAtasan(flag) {
+        var comment = document.getElementById("comment").value;
+        if (comment == "") {
+            callAlert("Komentar memo tidak boleh kosong!");
+            return false;
+        }
+        var message = "Anda yakin ingin menyetujui memo ini?";
+        if (flag == 5) {
+            message = "Anda yakin ingin menolak memo ini?";
+        }
+        var conf = confirm(message);
+        tinyMCE.triggerSave();
+        if (conf == true) {
+            $('#saveType').val(flag);
+            document.forms['formSurat'].submit();
+    @*if (myDropzone.files.length == 0) {
+                document.forms['formSurat'].submit();
+                }
+                else {
+                myDropzone.processQueue();
+                }*@
+                                                //document.forms['eval-form'].submit();
+                                            }
+    }
+     $('#btnPreview').click(function (e) {
+        //e.preventDefault();
+        var message = "Anda yakin ingin preview surat ini?";
+        var conf = true;//confirm(message);
+        tinyMCE.triggerSave();
+        @*$('#formSurat').attr('asp-action', 'SavePrevMemoLetter');
+        $('#formSurat').attr('action', '/Memo/SavePrevMemoLetter');*@
+        if (conf == true) {
+            const idLetter = document.getElementById('idresponsesurat').value;
+            printSurat(idLetter);
+            @*$.blockUI({
+                css: {
+                    border: 'none',
+                    padding: '15px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .5,
+                    color: '#fff'
+                }
+            });
+            $('#saveType').val(3);
+            var form = $(this).closest('form');
+            form.ajaxSubmit({
+                success: function (response, status, xhr, $form) {
+                    console.log(response);
+                    var data = JSON.parse(response);
+                    $.unblockUI();
+                    if (data.Status == "OK") {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: data.Message,
+                            text: data.Message,
+                            showConfirmButton: true,
+                            //timer: 1500,
+                            onBeforeOpen: () => {
+                                timerInterval = setInterval(() => {
+                                    const content = Swal.getContent()
+                                    if (content) {
+                                        const b = content.querySelector('b')
+                                        if (b) {
+                                            b.textContent = Swal.getTimerLeft()
+                                        }
+                                    }
+                                }, 100)
+                            },
+                            onClose: () => {
+                                clearInterval(timerInterval)
+                            }
+                        }).then((result) => {
+                            /* Read more about handling dismissals below */
+                        })
+
+                        //alert(data.Result);
+                        //document.getElementById("btnPreview2").click = function () { window.open("Url.Action("PrintLetter","Letter")/" + data.Result) };
+                        printSurat(data.Result);
+                        setTimeout(function () {
+                            //your code to be executed after 1 second
+                            window.location = "@Url.Action("DraftMemo","Memo")";
+                        }, 3000);
+
+                    } else {
+                        callAlert(data.Message);
+                    }
+
+                }
+            });*@
+        }
+    });
+    function printSurat(idLetter) {
+        window.open("@Url.Action("PrintLetterMemo","Memo")/" + idLetter);
+    }
+    function aksiNotif(idLetter) {
+        if (confirm("Apakah anda yakin ingin mengirim notifikasi?")) {
+            $.blockUI({
+                css: {
+                    border: 'none',
+                    padding: '15px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .5,
+                    color: '#fff'
+                }
+            });
+            $.ajax({
+                url: "@Url.Action("LetterNotifSecretary","Memo")",
+                method: "POST",
+                data: { idLetter: idLetter },
+                success: function (msg) {
+                    var data = JSON.parse(msg);
+                    $.unblockUI();
+                    if (data.Status == "OK") {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: data.Message,
+                            text: data.Message,
+                            showConfirmButton: true,
+                            //timer: 1500,
+                            onBeforeOpen: () => {
+                                timerInterval = setInterval(() => {
+                                    const content = Swal.getContent()
+                                    if (content) {
+                                        const b = content.querySelector('b')
+                                        if (b) {
+                                            b.textContent = Swal.getTimerLeft()
+                                        }
+                                    }
+                                }, 100)
+                            },
+                            onClose: () => {
+                                clearInterval(timerInterval)
+                            }
+                        }).then((result) => {
+                            /* Read more about handling dismissals below */
+                        })
+
+                        window.location.reload();
+                    } else {
+                        callAlert("Gagal Mengirim Notifikasi!");
+                        window.location.reload();
+                    }
+                }
+            });
+        }
+    }
+    function deletefile(idFile) {
+        if (confirm("Apakah anda yakin ingin menghapus lampiran ini?")) {
+            $.ajax({
+                url: "@Url.Action("DeleteAttachment","Letter")",
+                method: "POST",
+                data: { idFile: idFile },
+                success: function (msg) {
+                    var data = JSON.parse(msg);
+                    console.log(data);
+                    window.location.reload();
+                }
+            });
+        }
+    }
+    function callAlert(message) {
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Validasi',
+            text: message,
+            showConfirmButton: true,
+            //timer: 1500,
+            onBeforeOpen: () => {
+                timerInterval = setInterval(() => {
+                    const content = Swal.getContent()
+                    if (content) {
+                        const b = content.querySelector('b')
+                        if (b) {
+                            b.textContent = Swal.getTimerLeft()
+                        }
+                    }
+                }, 100)
+            },
+            onClose: () => {
+                clearInterval(timerInterval)
+            }
+        }).then((result) => {
+            /* Read more about handling dismissals below */
+        })
+    }
+    $('#submitDisposisi').click(function (e) {
+        e.preventDefault();
+        var btn = $(this);
+        var form = $(this).closest('form');
+
+        console.log(form);
+
+        form.submit();
+    });
+</script>
+<script>
+    function get_text(text, number, value) {
+        console.log('value : ', text);
+        var splitValue = value.split(" - ");
+        document.getElementById('idUserText_' + number).value = text;
+        document.getElementById('idUser_' + number).value = splitValue[0];
+        document.getElementById('idPosition_' + number).value = splitValue[1];
+        document.getElementById('search_result_' + number).innerHTML = '';
+    }
+
+    function load_data(keyword, number) {
+        if (keyword.length >= 3) {
+            $.ajax({
+                url: "@Url.Action("GetUserReceiver","Memo")",
+                method: "POST",
+                data: { keyword: keyword },
+                success: function (msg) {
+                    var data = JSON.parse(msg);
+                    var html = '<div class="list-group">';
+                    for (var i = 0; i < data.length; i++) {
+                        var value = data[i].idUser + " - " + data[i].idPosition;
+                        var text = data[i].userName + " - " + data[i].positionName;
+                        html += '<div class="list-group-item list-group-item-action" onclick="get_text(\'' + text + '\',' + number + ',\'' + value + '\')">' + text + '</div>';
+                    }
+                    html += '</div>';
+                    document.getElementById('search_result_' + number).innerHTML = html;
+                }
+            });
+        }
+        else {
+            document.getElementById('search_result_' + number).innerHTML = '';
+        }
+    }
+    function load_data_pengirim(keyword, number) {
+        if (keyword.length >= 3) {
+            $.ajax({
+                url: "@Url.Action("GetUserReceiver","Memo")",
+                method: "POST",
+                data: { keyword: keyword },
+                success: function (msg) {
+                    var data = JSON.parse(msg);
+                    var html = '<div class="list-group">';
+                    for (var i = 0; i < data.length; i++) {
+                        var value = data[i].idUser + " - " + data[i].idPosition + " - " + data[i].idUnit;
+                        var text = data[i].userName + " - " + data[i].positionName;
+                        if (number == 1000) {
+                            text = data[i].nip + " - " + data[i].positionName + " - " + data[i].userName;
+                        }
+                        html += '<div class="list-group-item list-group-item-action" onclick="get_text_pemeriksa(\'' + text + '\',' + number + ',\'' + value + '\',' + data[i].idLevel + ')">' + text + '</div>';
+                    }
+                    html += '</div>';
+                    if (number != 1000) {
+                        document.getElementById('search_result_' + number).innerHTML = html;
+                    } else {
+                        document.getElementById('search_result_sender').innerHTML = html;
+                    }
+
+                }
+            });
+        }
+        else {
+            if (number != 1000) {
+                document.getElementById('search_result_' + number).innerHTML = '';
+            } else {
+                document.getElementById('search_result_sender').innerHTML = '';
+            }
+        }
+    }
+    function load_data_pemeriksa(keyword, number) {
+        if (keyword.length >= 3) {
+            $.ajax({
+                url: "@Url.Action("GetUserCopy","Memo")",
+                method: "POST",
+                data: { keyword: keyword },
+                success: function (msg) {
+                    var data = JSON.parse(msg);
+                    var html = '<div class="list-group">';
+                    for (var i = 0; i < data.length; i++) {
+                        var value = data[i].idUser + " - " + data[i].idPosition + " - " + data[i].idUnit;
+                        var text = data[i].userName + " - " + data[i].positionName;
+                        if (number == 1000) {
+                            text = data[i].nip + " - " + data[i].positionName + " - " + data[i].userName;
+                        }
+                        html += '<div class="list-group-item list-group-item-action" onclick="get_text_pemeriksa(\'' + text + '\',' + number + ',\'' + value + '\',' + data[i].idLevel + ')">' + text + '</div>';
+                    }
+                    html += '</div>';
+                    if (number != 1000) {
+                        document.getElementById('search_result_' + number).innerHTML = html;
+                    } else {
+                        document.getElementById('search_result_sender').innerHTML = html;
+                    }
+
+                }
+            });
+        }
+        else {
+            if (number != 1000) {
+                document.getElementById('search_result_' + number).innerHTML = '';
+            } else {
+                document.getElementById('search_result_sender').innerHTML = '';
+            }
+        }
+    }
+
+    function get_text_pemeriksa(text, number, value, level) {
+        console.log('value : ', text);
+        var splitValue = value.split(" - ");
+        var splitText = text.split(" - ");
+        if (number != 1000) {
+            document.getElementById('checker_' + number).value = text;
+            document.getElementById('idUserChecker_' + number).value = splitValue[0];
+            document.getElementById('idPositionChecker_' + number).value = splitValue[1];
+            document.getElementById('idUnitChecker_' + number).value = splitValue[2];
+            document.getElementById('idLevelChecker_' + number).value = level;
+            document.getElementById('search_result_' + number).innerHTML = '';
+        } else {
+            document.getElementById('nipBoss').value = splitText[0];
+            document.getElementById('bossPositionName').value = splitText[1];
+            document.getElementById('bossName').value = splitText[2];
+            document.getElementById('bossUserId').value = splitValue[0];
+            document.getElementById('bossPositionId').value = splitValue[1];
+            document.getElementById('bossUnitId').value = splitValue[2];
+            document.getElementById('bossLevelId').value = level;
+            document.getElementById('search_result_sender').innerHTML = '';
+        }
+
+    }
+
+
+    @*to*@
+
+    function load_data_penerima(keyword, number) {
+        if (keyword.length >= 3) {
+            $.ajax({
+                url: "@Url.Action("GetUserCopy","Memo")",
+                method: "POST",
+                data: { keyword: keyword },
+                success: function (msg) {
+                    var data = JSON.parse(msg);
+                    var html = '<div class="list-group">';
+                    for (var i = 0; i < data.length; i++) {
+                        var value = data[i].idUser + " - " + data[i].idPosition + " - " + data[i].idUnit;
+                        var text = data[i].userName + " - " + data[i].positionName;
+                        if (number == 1000) {
+                            text = data[i].nip + " - " + data[i].positionName + " - " + data[i].userName;
+                        }
+                        html += '<div class="list-group-item list-group-item-action" onclick="get_text_penerima(\'' + text + '\',' + number + ',\'' + value + '\',' + data[i].idLevel + ')">' + text + '</div>';
+                    }
+                    html += '</div>';
+                    if (number != 1000) {
+                            document.getElementById('search_resultPenerima_' + number).innerHTML = html;
+                    } else {
+                        document.getElementById('search_result_sender').innerHTML = html;
+                    }
+
+                }
+            });
+        }
+        else {
+            if (number != 1000) {
+                document.getElementById('search_resultPenerima_' + number).innerHTML = '';
+            } else {
+                document.getElementById('search_result_sender').innerHTML = '';
+            }
+        }
+    }
+
+    function get_text_penerima(text, number, value, level) {
+        console.log('value : ', text);
+        var splitValue = value.split(" - ");
+        var splitText = text.split(" - ");
+        if (number != 1000) {
+            document.getElementById('checkerPenerima_' + number).value = text;
+            document.getElementById('idUserCheckerPenerima_' + number).value = splitValue[0];
+            document.getElementById('idPositionCheckerPenerima_' + number).value = splitValue[1];
+            document.getElementById('idUnitCheckerPenerima_' + number).value = splitValue[2];
+            document.getElementById('idLevelCheckerPenerima_' + number).value = level;
+            document.getElementById('search_resultPenerima_' + number).innerHTML = '';
+
+
+
+        } @*else {
+            document.getElementById('nipBoss').value = splitText[0];
+            document.getElementById('bossPositionName').value = splitText[1];
+            document.getElementById('bossName').value = splitText[2];
+            document.getElementById('bossUserId').value = splitValue[0];
+            document.getElementById('bossPositionId').value = splitValue[1];
+            document.getElementById('bossUnitId').value = splitValue[2];
+            document.getElementById('bossLevelId').value = level;
+            document.getElementById('search_result_sender').innerHTML = '';
+        }*@
+
+    }
+
+    @* end to*@
+
+
+   @*cc*@
+
+    function load_data_carboncopy(keyword, number) {
+        if (keyword.length >= 3) {
+            $.ajax({
+                url: "@Url.Action("GetUserCopy","Memo")",
+                method: "POST",
+                data: { keyword: keyword },
+                success: function (msg) {
+                    var data = JSON.parse(msg);
+                    var html = '<div class="list-group">';
+                    for (var i = 0; i < data.length; i++) {
+                        var value = data[i].idUser + " - " + data[i].idPosition + " - " + data[i].idUnit;
+                        var text = data[i].userName + " - " + data[i].positionName;
+                        if (number == 1000) {
+                            text = data[i].nip + " - " + data[i].positionName + " - " + data[i].userName;
+                        }
+                        html += '<div class="list-group-item list-group-item-action" onclick="get_text_carboncopy(\'' + text + '\',' + number + ',\'' + value + '\',' + data[i].idLevel + ')">' + text + '</div>';
+                    }
+                    html += '</div>';
+                    if (number != 1000) {
+                            document.getElementById('search_resultCarbonCopy_' + number).innerHTML = html;
+                    } else {
+                        document.getElementById('search_result_sender').innerHTML = html;
+                    }
+
+                }
+            });
+        }
+        else {
+            if (number != 1000) {
+                document.getElementById('search_resultCarbonCopy_' + number).innerHTML = '';
+            } else {
+                document.getElementById('search_result_sender').innerHTML = '';
+            }
+        }
+    }
+
+    function get_text_carboncopy(text, number, value, level) {
+        console.log('value : ', text);
+        var splitValue = value.split(" - ");
+        var splitText = text.split(" - ");
+        if (number != 1000) {
+            document.getElementById('checkerCarbonCopy_' + number).value = text;
+            document.getElementById('idUserCheckerCarbonCopy_' + number).value = splitValue[0];
+            document.getElementById('idPositionCheckerCarbonCopy_' + number).value = splitValue[1];
+            document.getElementById('idUnitCheckerCarbonCopy_' + number).value = splitValue[2];
+            document.getElementById('idLevelCheckerCarbonCopy_' + number).value = level;
+            document.getElementById('search_resultCarbonCopy_' + number).innerHTML = '';
+        } @*else {
+            document.getElementById('nipBoss').value = splitText[0];
+            document.getElementById('bossPositionName').value = splitText[1];
+            document.getElementById('bossName').value = splitText[2];
+            document.getElementById('bossUserId').value = splitValue[0];
+            document.getElementById('bossPositionId').value = splitValue[1];
+            document.getElementById('bossUnitId').value = splitValue[2];
+            document.getElementById('bossLevelId').value = level;
+            document.getElementById('search_result_sender').innerHTML = '';
+        }*@
+
+    }
+
+   @*end cc*@
+
+
+
+   @*Delibration*@
+
+    function load_data_Delibretion(keyword, number) {
+        if (keyword.length >= 3) {
+            $.ajax({
+                url: "@Url.Action("GetUserCopy","Memo")",
+                method: "POST",
+                data: { keyword: keyword },
+                success: function (msg) {
+                    var data = JSON.parse(msg);
+                    var html = '<div class="list-group">';
+                    for (var i = 0; i < data.length; i++) {
+                        var value = data[i].idUser + " - " + data[i].idPosition + " - " + data[i].idUnit;
+                        var text = data[i].userName + " - " + data[i].positionName;
+                        if (number == 1000) {
+                            text = data[i].nip + " - " + data[i].positionName + " - " + data[i].userName;
+                        }
+                        html += '<div class="list-group-item list-group-item-action" onclick="get_text_Delibretion(\'' + text + '\',' + number + ',\'' + value + '\',' + data[i].idLevel + ')">' + text + '</div>';
+                    }
+                    html += '</div>';
+                    if (number != 1000) {
+                            document.getElementById('search_resultDelibretion_' + number).innerHTML = html;
+                    } else {
+                        document.getElementById('search_result_sender').innerHTML = html;
+                    }
+
+                }
+            });
+        }
+        else {
+            if (number != 1000) {
+                document.getElementById('search_resultDelibretion_' + number).innerHTML = '';
+            } else {
+                document.getElementById('search_result_sender').innerHTML = '';
+            }
+        }
+    }
+
+    function get_text_Delibretion(text, number, value, level) {
+        console.log('value : ', text);
+        var splitValue = value.split(" - ");
+        var splitText = text.split(" - ");
+        if (number != 1000) {
+            document.getElementById('checkerDelibretion_' + number).value = text;
+            document.getElementById('idUserCheckerDelibretion_' + number).value = splitValue[0];
+            document.getElementById('idPositionCheckerDelibretion_' + number).value = splitValue[1];
+            document.getElementById('idUnitCheckerDelibretion_' + number).value = splitValue[2];
+            document.getElementById('idLevelCheckerDelibretion_' + number).value = level;
+            document.getElementById('search_resultDelibretion_' + number).innerHTML = '';
+        } @*else {
+            document.getElementById('nipBoss').value = splitText[0];
+            document.getElementById('bossPositionName').value = splitText[1];
+            document.getElementById('bossName').value = splitText[2];
+            document.getElementById('bossUserId').value = splitValue[0];
+            document.getElementById('bossPositionId').value = splitValue[1];
+            document.getElementById('bossUnitId').value = splitValue[2];
+            document.getElementById('bossLevelId').value = level;
+            document.getElementById('search_result_sender').innerHTML = '';
+        }*@
+
+    }
+
+   @*end Delibration*@
+</script>
